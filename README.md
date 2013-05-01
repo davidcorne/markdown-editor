@@ -9,16 +9,18 @@ This is going to be a fully featured editor for markdown.
 - Save as/New/Open/Close
 - Multiple documents via tabbed bar
 - Menu bar for quick save/open/new/etc.
+- Configuration
+- Export html
+- Scroll sync with preview (by % not inspecting markdown)
 
 ## TODO ##
 
-- Scroll sync with preview
 - Improve menu bar
 - Search
+- Lots more configuration
 - Find and replace (including regex)
 - GitHub flavour markup
-- Configuration (lots of configuration)
-- Export html/pdf
+- Export pdf
 - Markdown syntax highlighting
 - Status bar
 - Update in time, so that it doesn't slow down on large documents.

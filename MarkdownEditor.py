@@ -140,9 +140,10 @@ class MarkdownEditor(QtGui.QMainWindow):
          
     def raise_configure_dialog(self):
         config_dialog = ConfigurationDialog(self, self.config)
+        self.editor.currentWidget().reload()
 
     def new_file(self):
-        document = Document(None, self.config)
+        document = Document(None, self.config, self.document_changed)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
@@ -163,9 +164,9 @@ class MarkdownEditor(QtGui.QMainWindow):
             # there is no tab, so close the program
             self.close()
         else:
-            if (not self.editor.currentWidget().saved):
-                # have a dialog here for saving current tab
-                pass
+            #if (not self.editor.currentWidget().saved):
+            #    # have a dialog here for saving current tab
+            #    pass
             self.editor.removeTab(self.editor.currentIndex())
          
     def save_file_as(self):
@@ -196,25 +197,29 @@ class MarkdownEditor(QtGui.QMainWindow):
             MARKDOWN_FILE_STRING
             )
         if (filename):
-            document = Document(None, self.config)
+            document = Document(None, self.config, self.document_changed)
             document.open_file(filename)
             self.editor.addTab(document, "")
             self.editor.setCurrentIndex(self.editor.count() - 1)
             self.set_tab_title()
 
     def set_tab_title(self):
-        filename = self.editor.currentWidget().filename
-        if (filename is not None):
-            self.editor.setTabText(
-                self.editor.currentIndex(),
-                os.path.basename(str(filename))
-                )
-            self.editor.setTabToolTip(
-                self.editor.currentIndex(),
-                filename
-                )
-        else:
-            self.editor.setTabText(self.editor.currentIndex(), "*")
+        if (self.editor.currentWidget() is not None):
+            filename = self.editor.currentWidget().filename
+            if (filename is not None):
+                self.editor.setTabText(
+                    self.editor.currentIndex(),
+                    os.path.basename(str(filename))
+                    )
+                self.editor.setTabToolTip(
+                    self.editor.currentIndex(),
+                    filename
+                    )
+            else:
+                self.editor.setTabText(self.editor.currentIndex(), "*")
+
+    def document_changed(self):
+        self.set_tab_title()
 
 #==============================================================================
 class ConfigurationDialog(QtGui.QDialog):
@@ -272,11 +277,12 @@ class ConfigurationDialog(QtGui.QDialog):
 #==============================================================================
 class Document(QtGui.QWidget):
     
-    def __init__(self, parent, config):
+    def __init__(self, parent, config, callback):
         super(Document, self).__init__(parent)
 
         self.text = QtGui.QTextEdit(self)
         self.text.textChanged.connect(self.on_text_changed)
+        self.text.verticalScrollBar().valueChanged.connect(self.text_scrolled)
 
         self.output = QtGui.QTextEdit(self)
         self.output.setReadOnly(True)
@@ -289,29 +295,39 @@ class Document(QtGui.QWidget):
         layout.addWidget(horizontal_splitter)
         
         self.config = config
+        self.callback = callback
 
         self.filename = None
-        self.saved = True
     
+    def text_scrolled(self, value):
+        max_text_scroll = self.text.verticalScrollBar().maximum()
+        percentage_scrolled = float(value) / max_text_scroll
+        
+        output_scroll = self.output.verticalScrollBar()
+        max_out_scroll = output_scroll.maximum()
+        output_scroll.setValue(int(max_out_scroll * percentage_scrolled))
+
     def on_text_changed(self):
         self.reload()
-        self.saved = False
+        self.callback()
 
     def reload(self):
-        markdown_string = self.text.toPlainText()
-        html = markdown.markdown(str(markdown_string))
+        html = self.convert_input()
         self.output.clear()
         if (self.config["Debug"]):
             self.output.insertPlainText(html)
         else:
             self.output.insertHtml(html)
-         
+
+    def convert_input(self):
+        markdown_string = self.text.toPlainText()
+        return markdown.markdown(str(markdown_string))
+        
     def save_file(self):
         assert self.filename is not None
         with open(self.filename, "w") as text_file:
             filedata = self.text.toPlainText()
             text_file.write(filedata)
-        self.saved = True
 
     def open_file(self, filename):
         with open(filename, "r") as read_file:
@@ -321,9 +337,9 @@ class Document(QtGui.QWidget):
 
     def export_html(self, filename):
         assert self.filename is not None
+        html = self.convert_input()
         with open(filename, "w") as html_file:
-            filedata = self.output.toHtml()
-            html_file.write(filedata)
+            html_file.write(html)
         
 def process_markdown(markdown_string):
     return markdown.markdown(markdown_string, ["extra"])
