@@ -23,7 +23,7 @@ This is going to be a fully featured editor for markdown.
 - Export pdf
 - Markdown syntax highlighting
 - Status bar
-- Update in time, so that it doesn't slow down on large documents.
+- Update in time, so that it doesn't slow down on large documents
 - Cool keyboard shortcuts
 - Rectangle editing (via draggable menu and keyboard shortcuts)
 - Delete line functionality (via C-x too)
