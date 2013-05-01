@@ -11,12 +11,16 @@ Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
 All Files (*)\
 """
 
+DEFAULT_CONFIG = {
+    "Debug": False,
+    }
 #==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
  
     def __init__(self):
         super(MarkdownEditor, self).__init__()
         self.initialise_UI()
+        self.config = DEFAULT_CONFIG
         self.editor = QtGui.QTabWidget(self)
         self.setCentralWidget(self.editor)
          
@@ -82,6 +86,19 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.addToolBar(standard_toolbar)
 
     def create_menu(self):
+        self.create_file_menu()
+        self.create_tools_menu()
+        
+    def create_tools_menu(self):
+        configure_action = QtGui.QAction("Configure", self)
+        configure_action.setStatusTip("Configure MarkdownEditor")
+        configure_action.triggered.connect(self.raise_configure_dialog)
+         
+        menu_bar = self.menuBar()
+        file_menu = menu_bar.addMenu("&Tools")
+        file_menu.addAction(configure_action)
+
+    def create_file_menu(self):
         new_action = QtGui.QAction("New", self)
         new_action.setShortcut("Ctrl+N")
         new_action.setStatusTip("Create new file")
@@ -115,8 +132,11 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_menu.addAction(save_action)
         file_menu.addAction(save_as_action)
          
+    def raise_configure_dialog(self):
+        config_dialog = ConfigurationDialog(self, self.config)
+
     def new_file(self):
-        document = Document(None)
+        document = Document(None, self.config)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
@@ -159,7 +179,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             MARKDOWN_FILE_STRING
             )
         if (filename):
-            document = Document(None)
+            document = Document(None, self.config)
             document.open_file(filename)
             self.editor.addTab(document, "")
             self.editor.setCurrentIndex(self.editor.count() - 1)
@@ -180,9 +200,42 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.editor.setTabText(self.editor.currentIndex(), "*")
 
 #==============================================================================
+class ConfigurationDialog(QtGui.QDialog):
+
+   def __init__(self, parent, configuration):
+       super(ConfigurationDialog, self).__init__(parent)
+
+       self.configuration = configuration
+
+       main_layout = QtGui.QVBoxLayout()
+       
+       for key in self.configuration:
+           layout = QtGui.QHBoxLayout()
+           main_layout.addLayout(layout)
+
+           value = self.configuration[key]
+           if (isinstance(value, bool)):
+               widget = QtGui.QCheckBox(key, self)
+               if (value):
+                   widget.setCheckState(QtCore.Qt.Checked)
+               else:
+                   widget.setCheckState(QtCore.Qt.Unchecked)
+               def change_function(name):
+                   return lambda state:  self.bool_changed(name, state)
+               widget.stateChanged.connect(change_function(key))
+           layout.addWidget(widget)
+       self.setLayout(main_layout)
+
+       self.setWindowTitle("Configuration")
+       self.exec_()
+
+   def bool_changed(self, key, state):
+       self.configuration[key] = bool(state)
+
+#==============================================================================
 class Document(QtGui.QWidget):
     
-    def __init__(self, parent):
+    def __init__(self, parent, config):
         super(Document, self).__init__(parent)
 
         self.text = QtGui.QTextEdit(self)
@@ -198,6 +251,8 @@ class Document(QtGui.QWidget):
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(horizontal_splitter)
         
+        self.config = config
+
         self.filename = None
         self.saved = True
     
@@ -205,7 +260,10 @@ class Document(QtGui.QWidget):
         markdown_string = self.text.toPlainText()
         html = markdown.markdown(str(markdown_string))
         self.output.clear()
-        self.output.insertHtml(html)
+        if (self.config["Debug"]):
+            self.output.insertPlainText(html)
+        else:
+            self.output.insertHtml(html)
         self.saved = False
          
     def save_file(self):
@@ -222,7 +280,7 @@ class Document(QtGui.QWidget):
         self.filename = filename
 
 def process_markdown(markdown_string):
-    return markdown.markdown(markdown_string)
+    return markdown.markdown(markdown_string, ["extra"])
 
 #==============================================================================
 def main():
