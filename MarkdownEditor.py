@@ -150,70 +150,95 @@ class MarkdownEditor(QtGui.QMainWindow):
          
     def export_html(self):
         if (self.editor.count() != 0):
-            filename = QtGui.QFileDialog.getSaveFileName(
+            file_path = QtGui.QFileDialog.getSaveFileName(
                 self,
                 "Export HTML",
                 ".",
                 "HTML (*.html)"
                 )
-            if (filename):
-                self.editor.currentWidget().export_html(filename)
+            if (file_path):
+                self.editor.currentWidget().export_html(file_path)
 
     def close_file(self):
         if (self.editor.count() == 0):
             # there is no tab, so close the program
             self.close()
         else:
-            #if (not self.editor.currentWidget().saved):
-            #    # have a dialog here for saving current tab
-            #    pass
+            if (not self.editor.currentWidget().saved):
+                # have a dialog here for saving current tab
+                # do you want to save the changes you've made to [file_path]
+                # yes/no/cancel
+                 confirm_dialog = QtGui.QMessageBox()
+                 message = "".join(
+                     [
+                       "You have made changes to ",
+                       os.path.basename(str(self.editor.currentWidget().file_path))
+                       ]
+                     )
+                 confirm_dialog.setText(message)
+                 confirm_dialog.setInformativeText(
+                     "Do you want to save your changes?"
+                     )
+                 confirm_dialog.setStandardButtons(
+                     QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
+                     )
+                 confirm_dialog.setDefaultButton(QtGui.QMessageBox.Save);
+                 ret_val = confirm_dialog.exec_();
+                 if (ret_val == QtGui.QMessageBox.Save):
+                     self.save_file()
+                 elif (ret_val == QtGui.QMessageBox.Cancel):
+                     return
             self.editor.removeTab(self.editor.currentIndex())
          
     def save_file_as(self):
         if (self.editor.count() != 0):
-            filename = QtGui.QFileDialog.getSaveFileName(
+            file_path = QtGui.QFileDialog.getSaveFileName(
                 self,
                 "Save File",
                 ".",
                 MARKDOWN_FILE_STRING
                 )
-            if (filename):
-                self.editor.currentWidget().filename = filename
+            if (file_path):
+                self.editor.currentWidget().file_path = file_path
                 self.editor.currentWidget().save_file()
                 self.set_tab_title()
 
     def save_file(self):
         if (self.editor.count() != 0):
-            if (self.editor.currentWidget().filename):
+            if (self.editor.currentWidget().file_path):
                 self.editor.currentWidget().save_file()
             else:
                 self.save_file_as()
+            self.set_tab_title()
          
     def open_file(self):
-        filename = QtGui.QFileDialog.getOpenFileName(
+        file_path = QtGui.QFileDialog.getOpenFileName(
             self,
             "Open File",
             ".",
             MARKDOWN_FILE_STRING
             )
-        if (filename):
+        if (file_path):
             document = Document(None, self.config, self.document_changed)
-            document.open_file(filename)
+            document.open_file(file_path)
             self.editor.addTab(document, "")
             self.editor.setCurrentIndex(self.editor.count() - 1)
             self.set_tab_title()
 
     def set_tab_title(self):
         if (self.editor.currentWidget() is not None):
-            filename = self.editor.currentWidget().filename
-            if (filename is not None):
+            file_path = self.editor.currentWidget().file_path
+            if (file_path is not None):
+                prefix = ""
+                if (not self.editor.currentWidget().saved):
+                    prefix = "* "
                 self.editor.setTabText(
                     self.editor.currentIndex(),
-                    os.path.basename(str(filename))
+                    prefix + os.path.basename(str(file_path))
                     )
                 self.editor.setTabToolTip(
                     self.editor.currentIndex(),
-                    filename
+                    file_path
                     )
             else:
                 self.editor.setTabText(self.editor.currentIndex(), "*")
@@ -280,6 +305,11 @@ class Document(QtGui.QWidget):
     def __init__(self, parent, config, callback):
         super(Document, self).__init__(parent)
 
+        self.file_path = None
+        self.saved = True
+        self.config = config
+        self.callback = callback
+
         self.text = QtGui.QTextEdit(self)
         self.text.textChanged.connect(self.on_text_changed)
         self.text.verticalScrollBar().valueChanged.connect(self.text_scrolled)
@@ -293,11 +323,6 @@ class Document(QtGui.QWidget):
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(horizontal_splitter)
-        
-        self.config = config
-        self.callback = callback
-
-        self.filename = None
     
     def text_scrolled(self, value):
         max_text_scroll = self.text.verticalScrollBar().maximum()
@@ -309,8 +334,15 @@ class Document(QtGui.QWidget):
 
     def on_text_changed(self):
         self.reload()
+        self.check_saved()
         self.callback()
 
+    def check_saved(self):
+        if (self.file_path is not None):
+            with open(self.file_path, "r") as current_file:
+                content = current_file.read()
+            self.saved = self.text.toPlainText() == content
+        
     def reload(self):
         html = self.convert_input()
         self.output.clear()
@@ -324,21 +356,20 @@ class Document(QtGui.QWidget):
         return markdown.markdown(str(markdown_string))
         
     def save_file(self):
-        assert self.filename is not None
-        with open(self.filename, "w") as text_file:
+        with open(self.file_path, "w") as text_file:
             filedata = self.text.toPlainText()
             text_file.write(filedata)
+        self.saved = True
 
-    def open_file(self, filename):
-        with open(filename, "r") as read_file:
+    def open_file(self, file_path):
+        with open(file_path, "r") as read_file:
             filedata = read_file.read()
             self.text.setText(filedata)
-        self.filename = filename
+        self.file_path = file_path
 
-    def export_html(self, filename):
-        assert self.filename is not None
+    def export_html(self, file_path):
         html = self.convert_input()
-        with open(filename, "w") as html_file:
+        with open(file_path, "w") as html_file:
             html_file.write(html)
         
 def process_markdown(markdown_string):

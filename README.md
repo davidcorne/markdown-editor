@@ -12,6 +12,7 @@ This is going to be a fully featured editor for markdown.
 - Configuration
 - Export html
 - Scroll sync with preview (by % not inspecting markdown)
+- Mark files as saved
 
 ## TODO ##
 
@@ -29,3 +30,4 @@ This is going to be a fully featured editor for markdown.
 - Delete line functionality (via C-x too)
 - Spell checking
 - Add font colouring
+
