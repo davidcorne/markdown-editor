@@ -1,5 +1,6 @@
 #! /usr/bin/python
  
+import copy 
 import sys
 import os
 import markdown
@@ -124,6 +125,10 @@ class MarkdownEditor(QtGui.QMainWindow):
         close_action.setStatusTip("Close MarkdownEditor")
         close_action.triggered.connect(self.close_file)
          
+        export_action = QtGui.QAction("Export HTML", self)
+        export_action.setStatusTip("Export as HTML")
+        export_action.triggered.connect(self.export_html)
+         
         menu_bar = self.menuBar()
         file_menu = menu_bar.addMenu("&File")
         file_menu.addAction(new_action)
@@ -131,6 +136,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_menu.addAction(close_action)
         file_menu.addAction(save_action)
         file_menu.addAction(save_as_action)
+        file_menu.addAction(export_action)
          
     def raise_configure_dialog(self):
         config_dialog = ConfigurationDialog(self, self.config)
@@ -141,6 +147,17 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
          
+    def export_html(self):
+        if (self.editor.count() != 0):
+            filename = QtGui.QFileDialog.getSaveFileName(
+                self,
+                "Export HTML",
+                ".",
+                "HTML (*.html)"
+                )
+            if (filename):
+                self.editor.currentWidget().export_html(filename)
+
     def close_file(self):
         if (self.editor.count() == 0):
             # there is no tab, so close the program
@@ -205,15 +222,16 @@ class ConfigurationDialog(QtGui.QDialog):
    def __init__(self, parent, configuration):
        super(ConfigurationDialog, self).__init__(parent)
 
-       self.configuration = configuration
+       self.parent_config = configuration
+       self.config = copy.copy(configuration)
 
        main_layout = QtGui.QVBoxLayout()
        
-       for key in self.configuration:
+       for key in self.config:
            layout = QtGui.QHBoxLayout()
            main_layout.addLayout(layout)
 
-           value = self.configuration[key]
+           value = self.config[key]
            if (isinstance(value, bool)):
                widget = QtGui.QCheckBox(key, self)
                if (value):
@@ -224,13 +242,32 @@ class ConfigurationDialog(QtGui.QDialog):
                    return lambda state:  self.bool_changed(name, state)
                widget.stateChanged.connect(change_function(key))
            layout.addWidget(widget)
+
+       # add a save and a cancel button
+       bottom_button_layout = QtGui.QHBoxLayout()
+
+       save_button = QtGui.QPushButton("Save & Close", self)
+       save_button.clicked.connect(self.save_and_close)
+       bottom_button_layout.addWidget(save_button)
+
+       cancel_button = QtGui.QPushButton("Cancel", self)
+       cancel_button.clicked.connect(self.close)
+       bottom_button_layout.addWidget(cancel_button)
+
+       main_layout.addLayout(bottom_button_layout)
+
        self.setLayout(main_layout)
 
        self.setWindowTitle("Configuration")
        self.exec_()
 
+   def save_and_close(self):
+       for key in self.config:
+           self.parent_config[key] = self.config[key]
+       self.close()
+
    def bool_changed(self, key, state):
-       self.configuration[key] = bool(state)
+       self.config[key] = bool(state)
 
 #==============================================================================
 class Document(QtGui.QWidget):
@@ -257,6 +294,10 @@ class Document(QtGui.QWidget):
         self.saved = True
     
     def on_text_changed(self):
+        self.reload()
+        self.saved = False
+
+    def reload(self):
         markdown_string = self.text.toPlainText()
         html = markdown.markdown(str(markdown_string))
         self.output.clear()
@@ -264,7 +305,6 @@ class Document(QtGui.QWidget):
             self.output.insertPlainText(html)
         else:
             self.output.insertHtml(html)
-        self.saved = False
          
     def save_file(self):
         assert self.filename is not None
@@ -279,6 +319,12 @@ class Document(QtGui.QWidget):
             self.text.setText(filedata)
         self.filename = filename
 
+    def export_html(self, filename):
+        assert self.filename is not None
+        with open(filename, "w") as html_file:
+            filedata = self.output.toHtml()
+            html_file.write(filedata)
+        
 def process_markdown(markdown_string):
     return markdown.markdown(markdown_string, ["extra"])
 
