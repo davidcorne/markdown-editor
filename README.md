@@ -11,7 +11,7 @@ This is going to be a fully featured editor for markdown.
 - Menu bar for quick save/open/new/etc.
 - Configuration
 - Export html
-- Scroll sync with preview (by % not inspecting markdown)
+- Scroll sync with preview (by % not inspecting markdown)
 
 ## TODO ##
 
@@ -28,3 +28,4 @@ This is going to be a fully featured editor for markdown.
 - Rectangle editing (via draggable menu and keyboard shortcuts)
 - Delete line functionality (via C-x too)
 - Spell checking
+- Add font colouring
