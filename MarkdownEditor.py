@@ -34,9 +34,9 @@ class MarkdownEditor(QtGui.QMainWindow):
         super(MarkdownEditor, self).__init__()
         self.images = find_images()
         self.config = DEFAULT_CONFIG
+        self.editor = QtGui.QTabWidget(self)
 
         self.initialise_UI()
-        self.editor = QtGui.QTabWidget(self)
         self.setCentralWidget(self.editor)
         
         for markdown in files:
@@ -182,21 +182,21 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(self.images["cut"])
             )
         cut_button.setToolTip("")
-        #cut_button.clicked.connect(self.cut)
+        cut_button.clicked.connect(self.cut)
 
         copy_button = QtGui.QToolButton()
         copy_button.setIcon(
             QtGui.QIcon(self.images["copy"])
             )
         copy_button.setToolTip("")
-        #copy_button.clicked.connect(self.copy)
+        copy_button.clicked.connect(self.copy)
 
         paste_button = QtGui.QToolButton()
         paste_button.setIcon(
             QtGui.QIcon(self.images["paste"])
             )
         paste_button.setToolTip("")
-        #cut_button.clicked.connect(self.cut)
+        paste_button.clicked.connect(self.paste)
 
         edit_toolbar.addWidget(cut_button)
         edit_toolbar.addWidget(copy_button)
@@ -277,6 +277,18 @@ class MarkdownEditor(QtGui.QMainWindow):
         if (self.editor.count()):
             self.editor.currentWidget().italic_highlighted()
 
+    def cut(self):
+        if (self.editor.count()):
+            self.editor.currentWidget().text.cut()
+
+    def copy(self):
+        if (self.editor.count()):
+            self.editor.currentWidget().text.copy()
+
+    def paste(self):
+        if (self.editor.count()):
+            self.editor.currentWidget().text.paste()
+
     def new_file(self):
         document = Document(None, self.config, self.document_changed)
         self.editor.addTab(document, "")
@@ -329,6 +341,7 @@ class MarkdownEditor(QtGui.QMainWindow):
     def save_file_as(self):
         if (self.editor.count() != 0):
             file_path = QtGui.QFileDialog.getSaveFileName(
+                "THING",
                 self,
                 "Save File",
                 ".",
@@ -415,7 +428,7 @@ class ConfigurationDialog(QtGui.QDialog):
                else:
                    widget.setCheckState(QtCore.Qt.Unchecked)
                def change_function(name):
-                   return lambda state:  self.bool_changed(name, state)
+                   return lambda state : self.bool_changed(name, state)
                widget.stateChanged.connect(change_function(key))
            layout.addWidget(widget)
 
@@ -458,7 +471,9 @@ class Document(QtGui.QWidget):
 
         self.text = QtGui.QTextEdit(self)
         self.text.textChanged.connect(self.on_text_changed)
-        self.text.verticalScrollBar().valueChanged.connect(self.text_scrolled)
+        self.text.verticalScrollBar().valueChanged.connect(
+            lambda value : self.sync_scrollbars()
+            )
 
         self.output = QtGui.QTextEdit(self)
         self.output.setReadOnly(True)
@@ -475,9 +490,10 @@ class Document(QtGui.QWidget):
         if (self.file_path is not None):
             return os.path.basename(str(self.file_path))
 
-    def text_scrolled(self, value):
+    def sync_scrollbars(self):
         max_text_scroll = self.text.verticalScrollBar().maximum()
         if (max_text_scroll != 0):
+            value = self.text.verticalScrollBar().value()
             percentage_scrolled = float(value) / max_text_scroll
 
             output_scroll = self.output.verticalScrollBar()
@@ -486,8 +502,6 @@ class Document(QtGui.QWidget):
 
     def on_text_changed(self):
         self.reload()
-        self.check_saved()
-        self.text_scrolled(self.text.verticalScrollBar().value())
         self.callback()
 
     def check_saved(self):
@@ -503,6 +517,8 @@ class Document(QtGui.QWidget):
             self.output.insertPlainText(html)
         else:
             self.output.insertHtml(html)
+        self.check_saved()
+        self.sync_scrollbars()
 
     def convert_input(self):
         markdown_string = self.text.toPlainText()

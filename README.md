@@ -16,6 +16,7 @@ This is going to be a fully featured editor for markdown.
 - Color higlighted area
 - Command line file opening
 - Bold/italic
+- Cut/copy/paste
 - Cool menu bar with icons
 
 ## TODO ##
