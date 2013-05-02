@@ -27,7 +27,10 @@ def find_images():
 #==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
 
-    def __init__(self):
+    def __init__(self, files):
+        """
+        files is an iterable of files to open.
+        """
         super(MarkdownEditor, self).__init__()
         self.images = find_images()
         self.config = DEFAULT_CONFIG
@@ -35,6 +38,23 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.initialise_UI()
         self.editor = QtGui.QTabWidget(self)
         self.setCentralWidget(self.editor)
+        
+        for markdown in files:
+            try:
+                self.open_file(markdown)
+            except IOError as e:
+                error = "".join(
+                    [
+                        "File \"",
+                        markdown,
+                        "\" does not exist"
+                        ]
+                    )
+                QtGui.QMessageBox.critical(
+                    self,
+                    "Error",
+                    error
+                    )
 
     def initialise_UI(self):
         self.create_menu()
@@ -125,7 +145,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(self.images["open_file"])
             )
         open_button.setToolTip("Open file")
-        open_button.clicked.connect(self.open_file)
+        open_button.clicked.connect(self.query_open_file)
 
         save_all_button = QtGui.QToolButton()
         save_all_button.setIcon(
@@ -220,7 +240,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         open_action = QtGui.QAction("Open", self)
         open_action.setShortcut("Ctrl+O")
         open_action.setStatusTip("Open a file")
-        open_action.triggered.connect(self.open_file)
+        open_action.triggered.connect(self.query_open_file)
 
         close_action = QtGui.QAction("Close", self)
         close_action.setShortcut("Ctrl+F4")
@@ -334,7 +354,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.save_file()
         self.editor.setCurrentIndex(current_index)
 
-    def open_file(self):
+    def query_open_file(self):
         file_path = QtGui.QFileDialog.getOpenFileName(
             self,
             "Open File",
@@ -342,11 +362,14 @@ class MarkdownEditor(QtGui.QMainWindow):
             MARKDOWN_FILE_STRING
             )
         if (file_path):
-            document = Document(None, self.config, self.document_changed)
-            document.open_file(file_path)
-            self.editor.addTab(document, "")
-            self.editor.setCurrentIndex(self.editor.count() - 1)
-            self.set_tab_title()
+            self.open_file(file_path)
+
+    def open_file(self, file_path):
+        document = Document(None, self.config, self.document_changed)
+        document.open_file(file_path)
+        self.editor.addTab(document, "")
+        self.editor.setCurrentIndex(self.editor.count() - 1)
+        self.set_tab_title()
 
     def set_tab_title(self):
         if (self.editor.currentWidget() is not None):
@@ -534,7 +557,7 @@ def process_markdown(markdown_string):
 #==============================================================================
 def main():
     app = QtGui.QApplication(sys.argv)
-    editor = MarkdownEditor()
+    editor = MarkdownEditor(sys.argv[1:])
     sys.exit(app.exec_())
 
 #==============================================================================
