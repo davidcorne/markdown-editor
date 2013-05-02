@@ -464,9 +464,7 @@ class ColourButton(QtGui.QFrame):
         style = "".join(
             [
                 "background: ",
-                self.colour,
-                #";",
-                #": 10px"
+                self.colour
                 ]
             )
         self.colour_button.setStyleSheet(style)
