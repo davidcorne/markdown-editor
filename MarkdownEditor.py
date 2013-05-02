@@ -35,7 +35,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.images = find_images()
         self.config = DEFAULT_CONFIG
         self.editor = QtGui.QTabWidget(self)
-
+        self.editor.setTabsClosable(True)
+        self.editor.tabCloseRequested.connect(self.tab_close_requested)
         self.initialise_UI()
         self.setCentralWidget(self.editor)
         
@@ -55,6 +56,15 @@ class MarkdownEditor(QtGui.QMainWindow):
                     "Error",
                     error
                     )
+
+    def tab_close_requested(self, index):
+        old_index = self.editor.currentIndex()
+        self.editor.setCurrentIndex(index)
+        self.close_file()
+        # old_index should decrement if you've deleted a tab left of it
+        if (index < old_index):
+            old_index -= 1
+        self.editor.setCurrentIndex(old_index)
 
     def initialise_UI(self):
         self.create_menu()
