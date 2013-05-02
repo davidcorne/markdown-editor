@@ -432,12 +432,14 @@ class ColourButton(QtGui.QFrame):
     def __init__(self, parent, callback, images):
         super(ColourButton, self).__init__(parent)
         self.callback = callback
-        self.colour = "#000000"
+        self.colour = "#ff0000"
         
         self.colour_button = QtGui.QToolButton()
         self.colour_button.setToolTip("Change colour of highlighted text")
         self.colour_button.clicked.connect(self.set_colour)
-        #self.colour_button.setMaximumHeight(11)
+        self.colour_button.setIcon(
+            QtGui.QIcon(images["letter"])
+            )
         self.colour_button.setContentsMargins(QtCore.QMargins(0,0,0,0))
 
         dialog_button = QtGui.QToolButton()
@@ -446,7 +448,7 @@ class ColourButton(QtGui.QFrame):
             QtGui.QIcon(images["down"])
             )
         dialog_button.clicked.connect(self.colour_dialog)
-        dialog_button.setMaximumWidth(11)
+        dialog_button.setMaximumWidth(15)
         dialog_button.setContentsMargins(QtCore.QMargins(0,0,0,0))
 
         layout = QtGui.QHBoxLayout(self)
@@ -458,7 +460,16 @@ class ColourButton(QtGui.QFrame):
         self.update_ui()
 
     def update_ui(self):
-        self.colour_button.setStyleSheet("background-color: " + self.colour)
+        icon = self.colour_button.icon()
+        style = "".join(
+            [
+                "background: ",
+                self.colour,
+                #";",
+                #": 10px"
+                ]
+            )
+        self.colour_button.setStyleSheet(style)
 
     def set_colour(self):
         self.callback(self.colour)
