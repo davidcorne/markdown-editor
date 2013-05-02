@@ -100,30 +100,38 @@ class MarkdownEditor(QtGui.QMainWindow):
     def create_format_toolbar(self):
         format_toolbar = QtGui.QToolBar("Format Toolbar")
 
-        # add the buttons
-        colour_button = QtGui.QToolButton()
-        #colour_button.setIcon(
-        #    style.standardIcon(style.SP_FileIcon)
-        #    )
-        colour_button.setToolTip("Change colour of highlighted text")
-        colour_button.clicked.connect(self.colour_highlighted)
-        
         bold_button = QtGui.QToolButton()
         bold_button.setIcon(
             QtGui.QIcon(self.images["bold"])
             )
-        bold_button.setToolTip("bold")
+        bold_button.setToolTip(
+            "Surround the highlighted area with strong emphasis (__)"
+            )
         bold_button.clicked.connect(self.bold_highlighted)
 
         italic_button = QtGui.QToolButton()
         italic_button.setIcon(
             QtGui.QIcon(self.images["italic"])
             )
-        italic_button.setToolTip("italic")
+        italic_button.setToolTip(
+            "Surround the highlighted area with emphasis (_)"
+            )
         italic_button.clicked.connect(self.italic_highlighted)
+
+        code_button = QtGui.QToolButton()
+        code_button.setIcon(
+            QtGui.QIcon(self.images["code"])
+            )
+        code_button.setToolTip(
+            "Surround the highlighted area with code blocks (```)"
+            )
+        code_button.clicked.connect(self.code_highlighted)
+
+        colour_button = ColourButton(self, self.colour_highlighted, self.images)
 
         format_toolbar.addWidget(bold_button)
         format_toolbar.addWidget(italic_button)
+        format_toolbar.addWidget(code_button)
         format_toolbar.addWidget(colour_button)
 
         # now change the format toolbar properties
@@ -274,10 +282,9 @@ class MarkdownEditor(QtGui.QMainWindow):
         config_dialog = ConfigurationDialog(self, self.config)
         self.editor.currentWidget().reload()
 
-    def colour_highlighted(self):
+    def colour_highlighted(self, colour):
         if (self.editor.count()):
-            colour = QtGui.QColorDialog.getColor()
-            self.editor.currentWidget().colour_highlighted(str(colour.name()))
+            self.editor.currentWidget().colour_highlighted(colour)
 
     def bold_highlighted(self):
         if (self.editor.count()):
@@ -286,6 +293,10 @@ class MarkdownEditor(QtGui.QMainWindow):
     def italic_highlighted(self):
         if (self.editor.count()):
             self.editor.currentWidget().italic_highlighted()
+
+    def code_highlighted(self):
+        if (self.editor.count()):
+            self.editor.currentWidget().code_block_highlighted()
 
     def cut(self):
         if (self.editor.count()):
@@ -415,6 +426,50 @@ class MarkdownEditor(QtGui.QMainWindow):
     def document_changed(self):
         self.set_tab_title()
 
+#==============================================================================
+class ColourButton(QtGui.QFrame):
+
+    def __init__(self, parent, callback, images):
+        super(ColourButton, self).__init__(parent)
+        self.callback = callback
+        self.colour = "#000000"
+        
+        self.colour_button = QtGui.QToolButton()
+        self.colour_button.setToolTip("Change colour of highlighted text")
+        self.colour_button.clicked.connect(self.set_colour)
+        #self.colour_button.setMaximumHeight(11)
+        self.colour_button.setContentsMargins(QtCore.QMargins(0,0,0,0))
+
+        dialog_button = QtGui.QToolButton()
+        dialog_button.setToolTip("Pick colour to change text to")
+        dialog_button.setIcon(
+            QtGui.QIcon(images["down"])
+            )
+        dialog_button.clicked.connect(self.colour_dialog)
+        dialog_button.setMaximumWidth(11)
+        dialog_button.setContentsMargins(QtCore.QMargins(0,0,0,0))
+
+        layout = QtGui.QHBoxLayout(self)
+        layout.addWidget(self.colour_button, 0, QtCore.Qt.AlignHCenter)
+        layout.addWidget(dialog_button, 0, QtCore.Qt.AlignHCenter)
+        layout.setContentsMargins(QtCore.QMargins(2,2,2,2))
+
+        self.setFrameStyle(QtGui.QFrame.StyledPanel | QtGui.QFrame.Plain)
+        self.update_ui()
+
+    def update_ui(self):
+        self.colour_button.setStyleSheet("background-color: " + self.colour)
+
+    def set_colour(self):
+        self.callback(self.colour)
+
+    def colour_dialog(self):
+        colour = QtGui.QColorDialog.getColor()
+        if (colour.isValid()):
+            self.colour = str(colour.name())
+            self.update_ui()
+            self.set_colour()
+        
 #==============================================================================
 class ConfigurationDialog(QtGui.QDialog):
 
