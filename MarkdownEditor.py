@@ -18,16 +18,21 @@ DEFAULT_CONFIG = {
 
 #==============================================================================
 def find_images():
-    return dict()
+    images = dict()
+    directory = "Images"
+    for image in os.listdir(directory):
+        images[os.path.splitext(image)[0]] = os.path.join(directory, image)
+    return images
 
 #==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
 
     def __init__(self):
         super(MarkdownEditor, self).__init__()
-        self.initialise_UI()
-        self.config = DEFAULT_CONFIG
         self.images = find_images()
+        self.config = DEFAULT_CONFIG
+
+        self.initialise_UI()
         self.editor = QtGui.QTabWidget(self)
         self.setCentralWidget(self.editor)
 
@@ -58,20 +63,37 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.move(qr.topLeft())
 
     def create_toolbars(self):
-        self.create_standard_toolbar()
+        self.create_file_toolbar()
+        self.create_edit_toolbar()
         self.create_format_toolbar()
 
     def create_format_toolbar(self):
         format_toolbar = QtGui.QToolBar("Format Toolbar")
-        style = QtGui.QApplication.style()
 
         # add the buttons
         colour_button = QtGui.QToolButton()
-        colour_button.setIcon(
-            style.standardIcon(style.SP_FileIcon)
-            )
-        colour_button.setToolTip("Make Red")
+        #colour_button.setIcon(
+        #    style.standardIcon(style.SP_FileIcon)
+        #    )
+        colour_button.setToolTip("Change colour of highlighted text")
         colour_button.clicked.connect(self.colour_highlighted)
+        
+        bold_button = QtGui.QToolButton()
+        bold_button.setIcon(
+            QtGui.QIcon(self.images["bold"])
+            )
+        bold_button.setToolTip("bold")
+        bold_button.clicked.connect(self.bold_highlighted)
+
+        italic_button = QtGui.QToolButton()
+        italic_button.setIcon(
+            QtGui.QIcon(self.images["italic"])
+            )
+        italic_button.setToolTip("italic")
+        italic_button.clicked.connect(self.italic_highlighted)
+
+        format_toolbar.addWidget(bold_button)
+        format_toolbar.addWidget(italic_button)
         format_toolbar.addWidget(colour_button)
 
         # now change the format toolbar properties
@@ -80,48 +102,91 @@ class MarkdownEditor(QtGui.QMainWindow):
         format_toolbar.setAllowedAreas(QtCore.Qt.AllToolBarAreas)
         self.addToolBar(format_toolbar)
 
-    def create_standard_toolbar(self):
-        standard_toolbar = QtGui.QToolBar("Standard Toolbar")
-        style = QtGui.QApplication.style()
+    def create_file_toolbar(self):
+        file_toolbar = QtGui.QToolBar("File Toolbar")
 
         # add the buttons
         new_button = QtGui.QToolButton()
         new_button.setIcon(
-            style.standardIcon(style.SP_FileIcon)
+            QtGui.QIcon(self.images["new_file"])
             )
         new_button.setToolTip("Create new file")
         new_button.clicked.connect(self.new_file)
-        standard_toolbar.addWidget(new_button)
 
         save_button = QtGui.QToolButton()
         save_button.setIcon(
-            style.standardIcon(style.SP_DriveFDIcon)
+            QtGui.QIcon(self.images["save_file"])
             )
         save_button.setToolTip("Save current file")
         save_button.clicked.connect(self.save_file)
-        standard_toolbar.addWidget(save_button)
 
         open_button = QtGui.QToolButton()
         open_button.setIcon(
-            style.standardIcon(style.SP_FileIcon)
+            QtGui.QIcon(self.images["open_file"])
             )
         open_button.setToolTip("Open file")
         open_button.clicked.connect(self.open_file)
-        standard_toolbar.addWidget(open_button)
 
-        save_as_button = QtGui.QToolButton()
-        save_as_button.setIcon(
-            style.standardIcon(style.SP_DriveFDIcon)
+        save_all_button = QtGui.QToolButton()
+        save_all_button.setIcon(
+            QtGui.QIcon(self.images["save_all"])
             )
-        save_as_button.setToolTip("Write current document to file")
-        save_as_button.clicked.connect(self.save_file_as)
-        standard_toolbar.addWidget(save_as_button)
+        save_all_button.setToolTip("Write all current documents to file")
+        save_all_button.clicked.connect(self.save_all_files)
 
-        # now change the standard toolbar properties
-        standard_toolbar.setMovable(True)
-        standard_toolbar.setFloatable(True)
-        standard_toolbar.setAllowedAreas(QtCore.Qt.AllToolBarAreas)
-        self.addToolBar(standard_toolbar)
+        export_html_button = QtGui.QToolButton()
+        export_html_button.setIcon(
+            QtGui.QIcon(self.images["export_html"])
+            )
+        export_html_button.setToolTip("Export html output to file")
+        export_html_button.clicked.connect(self.export_html)
+
+        file_toolbar.addWidget(new_button)
+        file_toolbar.addWidget(open_button)
+        file_toolbar.addWidget(save_button)
+        file_toolbar.addWidget(save_all_button)
+        file_toolbar.addWidget(export_html_button)
+
+        # now change the file toolbar properties
+        file_toolbar.setMovable(True)
+        file_toolbar.setFloatable(True)
+        file_toolbar.setAllowedAreas(QtCore.Qt.AllToolBarAreas)
+        self.addToolBar(file_toolbar)
+
+    def create_edit_toolbar(self):
+        edit_toolbar = QtGui.QToolBar("Edit Toolbar")
+
+        # add the buttons
+        cut_button = QtGui.QToolButton()
+        cut_button.setIcon(
+            QtGui.QIcon(self.images["cut"])
+            )
+        cut_button.setToolTip("")
+        #cut_button.clicked.connect(self.cut)
+
+        copy_button = QtGui.QToolButton()
+        copy_button.setIcon(
+            QtGui.QIcon(self.images["copy"])
+            )
+        copy_button.setToolTip("")
+        #copy_button.clicked.connect(self.copy)
+
+        paste_button = QtGui.QToolButton()
+        paste_button.setIcon(
+            QtGui.QIcon(self.images["paste"])
+            )
+        paste_button.setToolTip("")
+        #cut_button.clicked.connect(self.cut)
+
+        edit_toolbar.addWidget(cut_button)
+        edit_toolbar.addWidget(copy_button)
+        edit_toolbar.addWidget(paste_button)
+
+        # now change the edit toolbar properties
+        edit_toolbar.setMovable(True)
+        edit_toolbar.setFloatable(True)
+        edit_toolbar.setAllowedAreas(QtCore.Qt.AllToolBarAreas)
+        self.addToolBar(edit_toolbar)
 
     def create_menu(self):
         self.create_file_menu()
@@ -180,8 +245,17 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.editor.currentWidget().reload()
 
     def colour_highlighted(self):
-        colour = QtGui.QColorDialog.getColor()
-        self.editor.currentWidget().colour_highlighted(str(colour.name()))
+        if (self.editor.count()):
+            colour = QtGui.QColorDialog.getColor()
+            self.editor.currentWidget().colour_highlighted(str(colour.name()))
+
+    def bold_highlighted(self):
+        if (self.editor.count()):
+            self.editor.currentWidget().bold_highlighted()
+
+    def italic_highlighted(self):
+        if (self.editor.count()):
+            self.editor.currentWidget().italic_highlighted()
 
     def new_file(self):
         document = Document(None, self.config, self.document_changed)
@@ -201,7 +275,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 self.editor.currentWidget().export_html(file_path)
 
     def close_file(self):
-        if (self.editor.count() == 0):
+        if (not self.editor.count()):
             # there is no tab, so close the program
             self.close()
         else:
@@ -252,6 +326,13 @@ class MarkdownEditor(QtGui.QMainWindow):
             else:
                 self.save_file_as()
             self.set_tab_title()
+
+    def save_all_files(self):
+        current_index = self.editor.currentIndex()
+        for index in range(self.editor.count()):
+            self.editor.setCurrentIndex(index)
+            self.save_file()
+        self.editor.setCurrentIndex(current_index)
 
     def open_file(self):
         file_path = QtGui.QFileDialog.getOpenFileName(
@@ -423,6 +504,12 @@ class Document(QtGui.QWidget):
 
     def colour_highlighted(self, colour):
         self.edit_selection("<font color=\"" + colour + "\">", "</font>")
+
+    def bold_highlighted(self):
+        self.edit_selection("__", "__")
+
+    def italic_highlighted(self):
+        self.edit_selection("_", "_")
 
     def code_block_highlighted(self):
         self.edit_selection("```\n", "\n```")
