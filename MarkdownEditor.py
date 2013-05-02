@@ -1,12 +1,12 @@
 #! /usr/bin/python
- 
-import copy 
+
+import copy
 import sys
 import os
 import markdown
 
 from PyQt4 import QtGui, QtCore
- 
+
 MARKDOWN_FILE_STRING = """\
 Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
 All Files (*)\
@@ -15,16 +15,22 @@ All Files (*)\
 DEFAULT_CONFIG = {
     "Debug": False,
     }
+
+#==============================================================================
+def find_images():
+    return dict()
+
 #==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
- 
+
     def __init__(self):
         super(MarkdownEditor, self).__init__()
         self.initialise_UI()
         self.config = DEFAULT_CONFIG
+        self.images = find_images()
         self.editor = QtGui.QTabWidget(self)
         self.setCentralWidget(self.editor)
-         
+
     def initialise_UI(self):
         self.create_menu()
         self.create_toolbars()
@@ -32,6 +38,17 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.resize(1200, 600)
         self.centre()
         self.show()
+
+    def closeEvent(self, event):
+        all_closed = True
+        while (self.editor.count()):
+            if (not self.close_file()):
+                all_closed = False
+                break
+        if (all_closed):
+            event.accept()
+        else:
+            event.ignore()
 
     def centre(self):
         """ Centre the window in the screen. """
@@ -42,11 +59,31 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_toolbars(self):
         self.create_standard_toolbar()
+        self.create_format_toolbar()
+
+    def create_format_toolbar(self):
+        format_toolbar = QtGui.QToolBar("Format Toolbar")
+        style = QtGui.QApplication.style()
+
+        # add the buttons
+        colour_button = QtGui.QToolButton()
+        colour_button.setIcon(
+            style.standardIcon(style.SP_FileIcon)
+            )
+        colour_button.setToolTip("Make Red")
+        colour_button.clicked.connect(self.colour_highlighted)
+        format_toolbar.addWidget(colour_button)
+
+        # now change the format toolbar properties
+        format_toolbar.setMovable(True)
+        format_toolbar.setFloatable(True)
+        format_toolbar.setAllowedAreas(QtCore.Qt.AllToolBarAreas)
+        self.addToolBar(format_toolbar)
 
     def create_standard_toolbar(self):
         standard_toolbar = QtGui.QToolBar("Standard Toolbar")
         style = QtGui.QApplication.style()
-        
+
         # add the buttons
         new_button = QtGui.QToolButton()
         new_button.setIcon(
@@ -89,12 +126,12 @@ class MarkdownEditor(QtGui.QMainWindow):
     def create_menu(self):
         self.create_file_menu()
         self.create_tools_menu()
-        
+
     def create_tools_menu(self):
         configure_action = QtGui.QAction("Configure", self)
         configure_action.setStatusTip("Configure MarkdownEditor")
         configure_action.triggered.connect(self.raise_configure_dialog)
-         
+
         menu_bar = self.menuBar()
         file_menu = menu_bar.addMenu("&Tools")
         file_menu.addAction(configure_action)
@@ -104,31 +141,31 @@ class MarkdownEditor(QtGui.QMainWindow):
         new_action.setShortcut("Ctrl+N")
         new_action.setStatusTip("Create new file")
         new_action.triggered.connect(self.new_file)
-         
+
         save_action = QtGui.QAction("Save", self)
         save_action.setShortcut("Ctrl+S")
         save_action.setStatusTip("Save current file")
         save_action.triggered.connect(self.save_file)
-         
+
         save_as_action = QtGui.QAction("Save As", self)
         save_as_action.setShortcut("F12")
         save_as_action.setStatusTip("Write current document to file")
         save_as_action.triggered.connect(self.save_file_as)
-         
+
         open_action = QtGui.QAction("Open", self)
         open_action.setShortcut("Ctrl+O")
         open_action.setStatusTip("Open a file")
         open_action.triggered.connect(self.open_file)
-         
+
         close_action = QtGui.QAction("Close", self)
         close_action.setShortcut("Ctrl+F4")
         close_action.setStatusTip("Close MarkdownEditor")
         close_action.triggered.connect(self.close_file)
-         
+
         export_action = QtGui.QAction("Export HTML", self)
         export_action.setStatusTip("Export as HTML")
         export_action.triggered.connect(self.export_html)
-         
+
         menu_bar = self.menuBar()
         file_menu = menu_bar.addMenu("&File")
         file_menu.addAction(new_action)
@@ -137,17 +174,21 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_menu.addAction(save_action)
         file_menu.addAction(save_as_action)
         file_menu.addAction(export_action)
-         
+
     def raise_configure_dialog(self):
         config_dialog = ConfigurationDialog(self, self.config)
         self.editor.currentWidget().reload()
+
+    def colour_highlighted(self):
+        colour = QtGui.QColorDialog.getColor()
+        self.editor.currentWidget().colour_highlighted(str(colour.name()))
 
     def new_file(self):
         document = Document(None, self.config, self.document_changed)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
-         
+
     def export_html(self):
         if (self.editor.count() != 0):
             file_path = QtGui.QFileDialog.getSaveFileName(
@@ -172,7 +213,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                  message = "".join(
                      [
                        "You have made changes to ",
-                       os.path.basename(str(self.editor.currentWidget().file_path))
+                       self.editor.currentWidget().filename
                        ]
                      )
                  confirm_dialog.setText(message)
@@ -187,9 +228,10 @@ class MarkdownEditor(QtGui.QMainWindow):
                  if (ret_val == QtGui.QMessageBox.Save):
                      self.save_file()
                  elif (ret_val == QtGui.QMessageBox.Cancel):
-                     return
+                     return False
             self.editor.removeTab(self.editor.currentIndex())
-         
+            return True
+
     def save_file_as(self):
         if (self.editor.count() != 0):
             file_path = QtGui.QFileDialog.getSaveFileName(
@@ -210,7 +252,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             else:
                 self.save_file_as()
             self.set_tab_title()
-         
+
     def open_file(self):
         file_path = QtGui.QFileDialog.getOpenFileName(
             self,
@@ -234,7 +276,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                     prefix = "* "
                 self.editor.setTabText(
                     self.editor.currentIndex(),
-                    prefix + os.path.basename(str(file_path))
+                    prefix + self.editor.currentWidget().filename
                     )
                 self.editor.setTabToolTip(
                     self.editor.currentIndex(),
@@ -256,7 +298,7 @@ class ConfigurationDialog(QtGui.QDialog):
        self.config = copy.copy(configuration)
 
        main_layout = QtGui.QVBoxLayout()
-       
+
        for key in self.config:
            layout = QtGui.QHBoxLayout()
            main_layout.addLayout(layout)
@@ -301,7 +343,7 @@ class ConfigurationDialog(QtGui.QDialog):
 
 #==============================================================================
 class Document(QtGui.QWidget):
-    
+
     def __init__(self, parent, config, callback):
         super(Document, self).__init__(parent)
 
@@ -323,18 +365,25 @@ class Document(QtGui.QWidget):
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(horizontal_splitter)
-    
+
+    @property
+    def filename(self):
+        if (self.file_path is not None):
+            return os.path.basename(str(self.file_path))
+
     def text_scrolled(self, value):
         max_text_scroll = self.text.verticalScrollBar().maximum()
-        percentage_scrolled = float(value) / max_text_scroll
-        
-        output_scroll = self.output.verticalScrollBar()
-        max_out_scroll = output_scroll.maximum()
-        output_scroll.setValue(int(max_out_scroll * percentage_scrolled))
+        if (max_text_scroll != 0):
+            percentage_scrolled = float(value) / max_text_scroll
+
+            output_scroll = self.output.verticalScrollBar()
+            max_out_scroll = output_scroll.maximum()
+            output_scroll.setValue(int(max_out_scroll * percentage_scrolled))
 
     def on_text_changed(self):
         self.reload()
         self.check_saved()
+        self.text_scrolled(self.text.verticalScrollBar().value())
         self.callback()
 
     def check_saved(self):
@@ -342,7 +391,7 @@ class Document(QtGui.QWidget):
             with open(self.file_path, "r") as current_file:
                 content = current_file.read()
             self.saved = self.text.toPlainText() == content
-        
+
     def reload(self):
         html = self.convert_input()
         self.output.clear()
@@ -354,7 +403,7 @@ class Document(QtGui.QWidget):
     def convert_input(self):
         markdown_string = self.text.toPlainText()
         return markdown.markdown(str(markdown_string))
-        
+
     def save_file(self):
         with open(self.file_path, "w") as text_file:
             filedata = self.text.toPlainText()
@@ -371,7 +420,27 @@ class Document(QtGui.QWidget):
         html = self.convert_input()
         with open(file_path, "w") as html_file:
             html_file.write(html)
+
+    def colour_highlighted(self, colour):
+        self.edit_selection("<font color=\"" + colour + "\">", "</font>")
+
+    def code_block_highlighted(self):
+        self.edit_selection("```\n", "\n```")
+
+    def edit_selection(self, beginning, end, empty=False):
+        """
+        Do an edit to the current selection. Add beginning to the start and end
+        to the end.
         
+        if selection is empty variable empty controls if anything is added,
+        """
+        cursor = self.text.textCursor()
+        if (cursor.hasSelection() or not empty):
+            text = cursor.selectedText()
+            text.prepend(beginning)
+            text.append(end)
+            cursor.insertText(text)
+
 def process_markdown(markdown_string):
     return markdown.markdown(markdown_string, ["extra"])
 
@@ -380,7 +449,7 @@ def main():
     app = QtGui.QApplication(sys.argv)
     editor = MarkdownEditor()
     sys.exit(app.exec_())
-     
+
 #==============================================================================
 if (__name__ == "__main__"):
     main()
