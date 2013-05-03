@@ -429,9 +429,9 @@ class MarkdownEditor(QtGui.QMainWindow):
 #==============================================================================
 class ColourButton(QtGui.QFrame):
 
-    def __init__(self, parent, callback, images):
+    def __init__(self, parent, set_colour, images):
         super(ColourButton, self).__init__(parent)
-        self.callback = callback
+        self.set_colour = set_colour
         self.colour = "#ff0000"
         
         self.colour_button = QtGui.QToolButton()
@@ -440,7 +440,6 @@ class ColourButton(QtGui.QFrame):
         self.colour_button.setIcon(
             QtGui.QIcon(images["letter"])
             )
-        self.colour_button.setContentsMargins(QtCore.QMargins(0,0,0,0))
 
         dialog_button = QtGui.QToolButton()
         dialog_button.setToolTip("Pick colour to change text to")
@@ -449,7 +448,6 @@ class ColourButton(QtGui.QFrame):
             )
         dialog_button.clicked.connect(self.colour_dialog)
         dialog_button.setMaximumWidth(15)
-        dialog_button.setContentsMargins(QtCore.QMargins(0,0,0,0))
 
         layout = QtGui.QHBoxLayout(self)
         layout.addWidget(self.colour_button, 0, QtCore.Qt.AlignHCenter)
@@ -469,15 +467,12 @@ class ColourButton(QtGui.QFrame):
             )
         self.colour_button.setStyleSheet(style)
 
-    def set_colour(self):
-        self.callback(self.colour)
-
     def colour_dialog(self):
         colour = QtGui.QColorDialog.getColor()
         if (colour.isValid()):
             self.colour = str(colour.name())
             self.update_ui()
-            self.set_colour()
+            self.set_colour(self.colour)
         
 #==============================================================================
 class ConfigurationDialog(QtGui.QDialog):

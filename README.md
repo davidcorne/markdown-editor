@@ -29,7 +29,7 @@ This is going to be a fully featured editor for markdown.
 
 - <font color="#00aa00">Improve menu bar, more buttons/colour icons</font>
 - <font color="#00aa00">Search</font>
--<font color="#00aa00"> Lots more configuration</font>
+- <font color="#00aa00"> Lots more configuration</font>
 - <font color="#00aa00">Find and replace</font>
 - <font color="#ff0000">Regex find and replace</font>
 - <font color="#00aa00">GitHub flavour markup</font>
@@ -42,7 +42,6 @@ This is going to be a fully featured editor for markdown.
 - <font color="#ff0000">Spell checking</font>
 - <font color="#ffaa00">Font size (in editor)</font>
 - Highlight editing such as
-    - <font color="#00aa00">Transform area into code</font>
     - <font color="#00aa00">Links</font>
     - <font color="#ffaa00">Add font </font>
     - <font color="#ffaa00">Add font size</font>
