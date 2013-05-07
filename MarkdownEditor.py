@@ -19,7 +19,7 @@ DEFAULT_CONFIG = {
 #==============================================================================
 def find_images():
     images = dict()
-    directory = "Images"
+    directory = os.path.join(os.path.dirname(__file__), "Images")
     for image in os.listdir(directory):
         images[os.path.splitext(image)[0]] = os.path.join(directory, image)
     return images
