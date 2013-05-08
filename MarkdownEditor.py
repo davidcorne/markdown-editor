@@ -1,5 +1,7 @@
 #! /usr/bin/python
 
+# python imports
+
 import copy
 import sys
 import os
@@ -7,22 +9,9 @@ import markdown
 
 from PyQt4 import QtGui, QtCore
 
-MARKDOWN_FILE_STRING = """\
-Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
-All Files (*)\
-"""
+# local imports
 
-DEFAULT_CONFIG = {
-    "Debug": False,
-    }
-
-#==============================================================================
-def find_images():
-    images = dict()
-    directory = os.path.join(os.path.dirname(sys.argv[0]), "Images")
-    for image in os.listdir(directory):
-        images[os.path.splitext(image)[0]] = os.path.join(directory, image)
-    return images
+import Configuration
 
 #==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
@@ -32,8 +21,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         files is an iterable of files to open.
         """
         super(MarkdownEditor, self).__init__()
-        self.images = find_images()
-        self.config = DEFAULT_CONFIG
+        
         self.editor = QtGui.QTabWidget(self)
         self.editor.setTabsClosable(True)
         self.editor.tabCloseRequested.connect(self.tab_close_requested)
@@ -102,7 +90,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 
         bold_button = QtGui.QToolButton()
         bold_button.setIcon(
-            QtGui.QIcon(self.images["bold"])
+            QtGui.QIcon(Configuration.IMAGES["bold"])
             )
         bold_button.setToolTip(
             "Surround the highlighted area with strong emphasis (__)"
@@ -111,7 +99,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 
         italic_button = QtGui.QToolButton()
         italic_button.setIcon(
-            QtGui.QIcon(self.images["italic"])
+            QtGui.QIcon(Configuration.IMAGES["italic"])
             )
         italic_button.setToolTip(
             "Surround the highlighted area with emphasis (_)"
@@ -120,14 +108,14 @@ class MarkdownEditor(QtGui.QMainWindow):
 
         code_button = QtGui.QToolButton()
         code_button.setIcon(
-            QtGui.QIcon(self.images["code"])
+            QtGui.QIcon(Configuration.IMAGES["code"])
             )
         code_button.setToolTip(
             "Surround the highlighted area with code blocks (```)"
             )
         code_button.clicked.connect(self.code_highlighted)
 
-        colour_button = ColourButton(self, self.colour_highlighted, self.images)
+        colour_button = ColourButton(self, self.colour_highlighted)
 
         format_toolbar.addWidget(bold_button)
         format_toolbar.addWidget(italic_button)
@@ -146,35 +134,35 @@ class MarkdownEditor(QtGui.QMainWindow):
         # add the buttons
         new_button = QtGui.QToolButton()
         new_button.setIcon(
-            QtGui.QIcon(self.images["new_file"])
+            QtGui.QIcon(Configuration.IMAGES["new_file"])
             )
         new_button.setToolTip("Create new file")
         new_button.clicked.connect(self.new_file)
 
         save_button = QtGui.QToolButton()
         save_button.setIcon(
-            QtGui.QIcon(self.images["save_file"])
+            QtGui.QIcon(Configuration.IMAGES["save_file"])
             )
         save_button.setToolTip("Save current file")
         save_button.clicked.connect(self.save_file)
 
         open_button = QtGui.QToolButton()
         open_button.setIcon(
-            QtGui.QIcon(self.images["open_file"])
+            QtGui.QIcon(Configuration.IMAGES["open_file"])
             )
         open_button.setToolTip("Open file")
         open_button.clicked.connect(self.query_open_file)
 
         save_all_button = QtGui.QToolButton()
         save_all_button.setIcon(
-            QtGui.QIcon(self.images["save_all"])
+            QtGui.QIcon(Configuration.IMAGES["save_all"])
             )
         save_all_button.setToolTip("Write all current documents to file")
         save_all_button.clicked.connect(self.save_all_files)
 
         export_html_button = QtGui.QToolButton()
         export_html_button.setIcon(
-            QtGui.QIcon(self.images["export_html"])
+            QtGui.QIcon(Configuration.IMAGES["export_html"])
             )
         export_html_button.setToolTip("Export html output to file")
         export_html_button.clicked.connect(self.export_html)
@@ -197,21 +185,21 @@ class MarkdownEditor(QtGui.QMainWindow):
         # add the buttons
         cut_button = QtGui.QToolButton()
         cut_button.setIcon(
-            QtGui.QIcon(self.images["cut"])
+            QtGui.QIcon(Configuration.IMAGES["cut"])
             )
         cut_button.setToolTip("")
         cut_button.clicked.connect(self.cut)
 
         copy_button = QtGui.QToolButton()
         copy_button.setIcon(
-            QtGui.QIcon(self.images["copy"])
+            QtGui.QIcon(Configuration.IMAGES["copy"])
             )
         copy_button.setToolTip("")
         copy_button.clicked.connect(self.copy)
 
         paste_button = QtGui.QToolButton()
         paste_button.setIcon(
-            QtGui.QIcon(self.images["paste"])
+            QtGui.QIcon(Configuration.IMAGES["paste"])
             )
         paste_button.setToolTip("")
         paste_button.clicked.connect(self.paste)
@@ -279,8 +267,9 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_menu.addAction(export_action)
 
     def raise_configure_dialog(self):
-        config_dialog = ConfigurationDialog(self, self.config)
-        self.editor.currentWidget().reload()
+        config_dialog = ConfigurationDialog(self)
+        if (self.editor.count()):
+            self.editor.currentWidget().reload()
 
     def colour_highlighted(self, colour):
         if (self.editor.count()):
@@ -311,13 +300,13 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.editor.currentWidget().text.paste()
 
     def new_file(self):
-        document = Document(None, self.config, self.document_changed)
+        document = Document(None, self.document_changed)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
 
     def export_html(self):
-        if (self.editor.count() != 0):
+        if (self.editor.count()):
             file_path = QtGui.QFileDialog.getSaveFileName(
                 self,
                 "Export HTML",
@@ -360,13 +349,13 @@ class MarkdownEditor(QtGui.QMainWindow):
             return True
 
     def save_file_as(self):
-        if (self.editor.count() != 0):
+        if (self.editor.count()):
             file_path = QtGui.QFileDialog.getSaveFileName(
                 "THING",
                 self,
                 "Save File",
                 ".",
-                MARKDOWN_FILE_STRING
+                Configuration.MARKDOWN_FILE_STRING
                 )
             if (file_path):
                 self.editor.currentWidget().file_path = file_path
@@ -374,7 +363,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 self.set_tab_title()
 
     def save_file(self):
-        if (self.editor.count() != 0):
+        if (self.editor.count()):
             if (self.editor.currentWidget().file_path):
                 self.editor.currentWidget().save_file()
             else:
@@ -393,13 +382,13 @@ class MarkdownEditor(QtGui.QMainWindow):
             self,
             "Open File",
             ".",
-            MARKDOWN_FILE_STRING
+            Configuration.MARKDOWN_FILE_STRING
             )
         if (file_path):
             self.open_file(file_path)
 
     def open_file(self, file_path):
-        document = Document(None, self.config, self.document_changed)
+        document = Document(None, self.document_changed)
         document.open_file(file_path)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
@@ -429,7 +418,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 #==============================================================================
 class ColourButton(QtGui.QFrame):
 
-    def __init__(self, parent, set_colour, images):
+    def __init__(self, parent, set_colour):
         super(ColourButton, self).__init__(parent)
         self.set_colour = set_colour
         self.colour = "#ff0000"
@@ -438,13 +427,13 @@ class ColourButton(QtGui.QFrame):
         self.colour_button.setToolTip("Change colour of highlighted text")
         self.colour_button.clicked.connect(self.set_colour)
         self.colour_button.setIcon(
-            QtGui.QIcon(images["letter"])
+            QtGui.QIcon(Configuration.IMAGES["letter"])
             )
 
         dialog_button = QtGui.QToolButton()
         dialog_button.setToolTip("Pick colour to change text to")
         dialog_button.setIcon(
-            QtGui.QIcon(images["down"])
+            QtGui.QIcon(Configuration.IMAGES["down"])
             )
         dialog_button.clicked.connect(self.colour_dialog)
         dialog_button.setMaximumWidth(15)
@@ -477,11 +466,10 @@ class ColourButton(QtGui.QFrame):
 #==============================================================================
 class ConfigurationDialog(QtGui.QDialog):
 
-   def __init__(self, parent, configuration):
+   def __init__(self, parent):
        super(ConfigurationDialog, self).__init__(parent)
 
-       self.parent_config = configuration
-       self.config = copy.copy(configuration)
+       self.config = copy.copy(Configuration.OPTIONS)
 
        main_layout = QtGui.QVBoxLayout()
 
@@ -521,7 +509,7 @@ class ConfigurationDialog(QtGui.QDialog):
 
    def save_and_close(self):
        for key in self.config:
-           self.parent_config[key] = self.config[key]
+           Configuration.OPTIONS[key] = self.config[key]
        self.close()
 
    def bool_changed(self, key, state):
@@ -530,12 +518,11 @@ class ConfigurationDialog(QtGui.QDialog):
 #==============================================================================
 class Document(QtGui.QWidget):
 
-    def __init__(self, parent, config, callback):
+    def __init__(self, parent, callback):
         super(Document, self).__init__(parent)
 
         self.file_path = None
         self.saved = True
-        self.config = config
         self.callback = callback
 
         self.text = QtGui.QTextEdit(self)
@@ -561,7 +548,7 @@ class Document(QtGui.QWidget):
 
     def sync_scrollbars(self):
         max_text_scroll = self.text.verticalScrollBar().maximum()
-        if (max_text_scroll != 0):
+        if (max_text_scroll):
             value = self.text.verticalScrollBar().value()
             percentage_scrolled = float(value) / max_text_scroll
 
@@ -582,7 +569,7 @@ class Document(QtGui.QWidget):
     def reload(self):
         html = self.convert_input()
         self.output.clear()
-        if (self.config["Debug"]):
+        if (Configuration.OPTIONS["Show html"]):
             self.output.insertPlainText(html)
         else:
             self.output.insertHtml(html)
