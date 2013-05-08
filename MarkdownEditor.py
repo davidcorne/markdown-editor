@@ -286,6 +286,11 @@ class MarkdownEditor(QtGui.QMainWindow):
         save_as_action.setStatusTip("Write current document to file")
         save_as_action.triggered.connect(self.save_file_as)
 
+        save_all_action =  QtGui.QAction("Save All", self)
+        save_all_action.setShortcut("Ctrl+Shift+S")
+        save_all_action.setStatusTip("Write all current documents to file")
+        save_all_action.triggered.connect(self.save_all_files)
+
         open_action = QtGui.QAction("Open", self)
         open_action.setShortcut("Ctrl+O")
         open_action.setStatusTip("Open a file")
@@ -305,8 +310,11 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_menu.addAction(new_action)
         file_menu.addAction(open_action)
         file_menu.addAction(close_action)
+        file_menu.addSeparator()
         file_menu.addAction(save_action)
         file_menu.addAction(save_as_action)
+        file_menu.addAction(save_all_action)
+        file_menu.addSeparator()
         file_menu.addAction(export_action)
 
     def raise_configure_dialog(self):
@@ -409,9 +417,8 @@ class MarkdownEditor(QtGui.QMainWindow):
     def save_file_as(self):
         if (self.editor.count()):
             file_path = QtGui.QFileDialog.getSaveFileName(
-                "THING",
                 self,
-                "Save File",
+                "Save As",
                 ".",
                 Configuration.MARKDOWN_FILE_STRING
                 )

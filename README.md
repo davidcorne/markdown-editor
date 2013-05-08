@@ -18,7 +18,7 @@ This is going to be a fully featured editor for markdown.
 - Bold/italic
 - Cut/copy/paste
 - Cool menu bar with icons
-- Available as a windows exe.
+- Available as a windows exe
 - Find functionality
 -  Font colouring
 
