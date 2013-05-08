@@ -521,11 +521,57 @@ class ColourButton(QtGui.QFrame):
             self.set_colour(self.colour)
         
 #==============================================================================
-class FindDialog(QtGui.QDialog):
+class FindDialog(QtGui.QDockWidget):
 
     def __init__(self, parent):
-       super(FindDialog, self).__init__(parent)
+       super(FindDialog, self).__init__("Find", parent)
+       find_widget = FindWidget(parent)
+       self.setWidget(find_widget)
+       self.topLevelChanged.connect(self.adjustSize)
+       self.setFloating(True)
        self.show()
+
+#==============================================================================
+class FindWidget(QtGui.QWidget):
+
+    def __init__(self, parent):
+       super(FindWidget, self).__init__(parent)
+       self.initialise_ui()
+
+    def initialise_ui(self):
+       label = QtGui.QLabel("Find &what:")
+       line_edit = QtGui.QLineEdit()
+       label.setBuddy(line_edit)
+
+       case_box = QtGui.QCheckBox("Match &case")
+       backward_box = QtGui.QCheckBox("Search &backward")
+
+       find_button = QtGui.QPushButton("&Find")
+       find_button.setDefault(True)
+       find_button.setEnabled(False)
+
+       close_button = QtGui.QPushButton("Close")
+
+       top_left_layout = QtGui.QHBoxLayout()
+       top_left_layout.addWidget(label)
+       top_left_layout.addWidget(line_edit)
+       top_left_layout.addStretch()
+
+       left_layout = QtGui.QVBoxLayout()
+       left_layout.addLayout(top_left_layout)
+       left_layout.addWidget(case_box)
+       left_layout.addWidget(backward_box)
+       left_layout.addStretch()
+
+       right_layout = QtGui.QVBoxLayout()
+       right_layout.addWidget(find_button)
+       right_layout.addWidget(close_button)
+       right_layout.addStretch()
+
+       main_layout = QtGui.QHBoxLayout()
+       main_layout.addLayout(left_layout)
+       main_layout.addLayout(right_layout)
+       self.setLayout(main_layout)
         
 #==============================================================================
 class ConfigurationDialog(QtGui.QDialog):
