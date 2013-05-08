@@ -245,6 +245,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         select_all_action.triggered.connect(self.select_all)
 
         search_action = QtGui.QAction("Find and Replace", self)
+        search_action.setShortcut("Ctrl+F")
         search_action.setStatusTip("Raises find and replace dialog")
         search_action.triggered.connect(self.raise_find_dialog)
 
@@ -450,6 +451,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
+        self.editor.currentWidget().text.setFocus()
 
     def set_tab_title(self):
         if (self.editor.currentWidget() is not None):
@@ -525,7 +527,7 @@ class FindDialog(QtGui.QDockWidget):
 
     def __init__(self, parent):
        super(FindDialog, self).__init__("Find", parent)
-       find_widget = FindWidget(parent)
+       find_widget = FindWidget(parent.editor)
        self.setWidget(find_widget)
        self.topLevelChanged.connect(self.adjustSize)
        self.setFloating(True)
@@ -534,44 +536,91 @@ class FindDialog(QtGui.QDockWidget):
 #==============================================================================
 class FindWidget(QtGui.QWidget):
 
-    def __init__(self, parent):
-       super(FindWidget, self).__init__(parent)
+    def __init__(self, editor):
+       super(FindWidget, self).__init__()
+       
+       self.editor = editor
+
+       self.find_backwards = False
+       self.find_case_sensitive = False
+       self.find_whole_words = False
+       
        self.initialise_ui()
 
     def initialise_ui(self):
        label = QtGui.QLabel("Find &what:")
-       line_edit = QtGui.QLineEdit()
-       label.setBuddy(line_edit)
+       self.line_edit = QtGui.QLineEdit()
+       self.line_edit.returnPressed.connect(self.find)
+       label.setBuddy(self.line_edit)
+       
 
        case_box = QtGui.QCheckBox("Match &case")
+       case_box.stateChanged.connect(
+           lambda : self.flip(self.find_case_sensitive)
+           )
+
        backward_box = QtGui.QCheckBox("Search &backward")
+       backward_box.stateChanged.connect(
+           lambda : self.flip(self.find_backwards)
+           )
+
+       whole_words_box = QtGui.QCheckBox("Match &whole words")
+       whole_words_box.stateChanged.connect(
+           lambda : self.flip(self.find_whole_words)
+           )
 
        find_button = QtGui.QPushButton("&Find")
-       find_button.setDefault(True)
-       find_button.setEnabled(False)
+       find_button.clicked.connect(self.find)
 
        close_button = QtGui.QPushButton("Close")
+       close_button.clicked.connect(self.close)
 
        top_left_layout = QtGui.QHBoxLayout()
        top_left_layout.addWidget(label)
-       top_left_layout.addWidget(line_edit)
-       top_left_layout.addStretch()
+       top_left_layout.addWidget(self.line_edit)
 
        left_layout = QtGui.QVBoxLayout()
        left_layout.addLayout(top_left_layout)
        left_layout.addWidget(case_box)
        left_layout.addWidget(backward_box)
+       left_layout.addWidget(whole_words_box)
        left_layout.addStretch()
 
        right_layout = QtGui.QVBoxLayout()
        right_layout.addWidget(find_button)
        right_layout.addWidget(close_button)
+       #right_layout.setAlignment(QtCore.Qt.AlignLeft)
        right_layout.addStretch()
 
        main_layout = QtGui.QHBoxLayout()
        main_layout.addLayout(left_layout)
        main_layout.addLayout(right_layout)
+       main_layout.addStretch()
        self.setLayout(main_layout)
+       
+    def flip(self, member):
+        """
+        Flips a boolean -- this is stupid! but no assignment in lambdas
+        """
+        member = not member
+
+    def find(self):
+        if (self.editor.count()):
+            text = self.line_edit.text()
+            found = self.editor.currentWidget().text.find(text)
+            if (found):
+                #self.editor.activateWindow()
+                self.editor.currentWidget().text.setFocus()
+            else:
+                cant_find_dialog = QtGui.QMessageBox(
+                    QtGui.QMessageBox.Information,
+                    "Not Found",
+                    "The following specified text was not found:",
+                    QtGui.QMessageBox.Ok,
+                    self
+                    ) 
+                cant_find_dialog.setInformativeText(text)
+                cant_find_dialog.show()
         
 #==============================================================================
 class ConfigurationDialog(QtGui.QDialog):

@@ -19,6 +19,8 @@ This is going to be a fully featured editor for markdown.
 - Cut/copy/paste
 - Cool menu bar with icons
 - Available as a windows exe.
+- Find functionality
+-  Font colouring
 
 ## TODO ##
 
@@ -29,9 +31,8 @@ This is going to be a fully featured editor for markdown.
 <font color="#ff0000">Red</font> are probably not.
 
 - <font color="#00aa00">Improve menu bar, more buttons/colour icons</font>
-- <font color="#00aa00">Search</font>
 - <font color="#00aa00"> Lots more configuration</font>
-- <font color="#00aa00">Find and replace</font>
+- <font color="#00aa00">Replace</font>
 - <font color="#ff0000">Regex find and replace</font>
 - <font color="#00aa00">GitHub flavour markup</font>
 - <font color="#ffaa00">Export pdf</font>
@@ -46,8 +47,7 @@ This is going to be a fully featured editor for markdown.
     - <font color="#00aa00">Links</font>
     - <font color="#ffaa00">Add font </font>
     - <font color="#ffaa00">Add font size</font>
-    - <font color="#00aa00">Add font colouring</font>
 
 ## Bugs ##
 
-None currently known.
+- Find function does not get the cursor on creation.
