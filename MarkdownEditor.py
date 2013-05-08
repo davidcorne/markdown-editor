@@ -216,7 +216,49 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_menu(self):
         self.create_file_menu()
+        self.create_edit_menu()
         self.create_tools_menu()
+
+    def create_edit_menu(self):
+        undo_action = QtGui.QAction("Undo", self)
+        undo_action.setStatusTip("Undo last change")
+        undo_action.triggered.connect(self.undo)
+
+        redo_action = QtGui.QAction("Redo", self)
+        redo_action.setStatusTip("Redoes the last undo")
+        redo_action.triggered.connect(self.redo)
+
+        cut_action = QtGui.QAction("Cut", self)
+        cut_action.setStatusTip("Cut selected text")
+        cut_action.triggered.connect(self.cut)
+
+        copy_action = QtGui.QAction("Copy", self)
+        copy_action.setStatusTip("Copies selected text")
+        copy_action.triggered.connect(self.copy)
+
+        paste_action = QtGui.QAction("Paste", self)
+        paste_action.setStatusTip("Pastes at current cursor location")
+        paste_action.triggered.connect(self.paste)
+
+        select_all_action = QtGui.QAction("Select All", self)
+        select_all_action.setStatusTip("Selects all text")
+        select_all_action.triggered.connect(self.select_all)
+
+        search_action = QtGui.QAction("Find and Replace", self)
+        search_action.setStatusTip("Raises find and replace dialog")
+        search_action.triggered.connect(self.raise_find_dialog)
+
+        menu_bar = self.menuBar()
+        edit_menu = menu_bar.addMenu("&Edit")
+        edit_menu.addAction(undo_action)
+        edit_menu.addAction(redo_action)
+        edit_menu.addSeparator()
+        edit_menu.addAction(cut_action)
+        edit_menu.addAction(copy_action)
+        edit_menu.addAction(paste_action)
+        edit_menu.addSeparator()
+        edit_menu.addAction(select_all_action)
+        edit_menu.addAction(search_action)
 
     def create_tools_menu(self):
         configure_action = QtGui.QAction("Configure", self)
@@ -224,8 +266,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         configure_action.triggered.connect(self.raise_configure_dialog)
 
         menu_bar = self.menuBar()
-        file_menu = menu_bar.addMenu("&Tools")
-        file_menu.addAction(configure_action)
+        tools_menu = menu_bar.addMenu("&Tools")
+        tools_menu.addAction(configure_action)
 
     def create_file_menu(self):
         new_action = QtGui.QAction("New", self)
@@ -271,6 +313,9 @@ class MarkdownEditor(QtGui.QMainWindow):
         if (self.editor.count()):
             self.editor.currentWidget().reload()
 
+    def raise_find_dialog(self):
+        find_dialog = FindDialog(self)
+
     def colour_highlighted(self, colour):
         if (self.editor.count()):
             self.editor.currentWidget().colour_highlighted(colour)
@@ -298,6 +343,18 @@ class MarkdownEditor(QtGui.QMainWindow):
     def paste(self):
         if (self.editor.count()):
             self.editor.currentWidget().text.paste()
+
+    def undo(self):
+        if (self.editor.count()):
+            self.editor.currentWidget().text.undo()
+
+    def redo(self):
+        if (self.editor.count()):
+            self.editor.currentWidget().text.redo()
+
+    def select_all(self):
+        if (self.editor.count()):
+            self.editor.currentWidget().text.selectAll()
 
     def new_file(self):
         document = Document(None, self.document_changed)
@@ -464,6 +521,13 @@ class ColourButton(QtGui.QFrame):
             self.set_colour(self.colour)
         
 #==============================================================================
+class FindDialog(QtGui.QDialog):
+
+    def __init__(self, parent):
+       super(FindDialog, self).__init__(parent)
+       self.show()
+        
+#==============================================================================
 class ConfigurationDialog(QtGui.QDialog):
 
    def __init__(self, parent):
@@ -609,6 +673,15 @@ class Document(QtGui.QWidget):
     def code_block_highlighted(self):
         self.edit_selection("```\n", "\n```")
 
+    def upper(self):
+        """ 
+        If there is a selection it will make it upper case, otherwise it will 
+        make the next word upper case.
+        """
+        cursor = self.text.textCursor()
+        if (cursor.hasSelection()):
+            print cursor.selectedText()
+
     def edit_selection(self, beginning, end, empty=False):
         """
         Do an edit to the current selection. Add beginning to the start and end
@@ -623,6 +696,7 @@ class Document(QtGui.QWidget):
             text.append(end)
             cursor.insertText(text)
 
+#==============================================================================
 def process_markdown(markdown_string):
     return markdown.markdown(markdown_string, ["extra"])
 
