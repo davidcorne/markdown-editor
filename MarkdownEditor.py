@@ -555,19 +555,13 @@ class FindWidget(QtGui.QWidget):
        
 
        case_box = QtGui.QCheckBox("Match &case")
-       case_box.stateChanged.connect(
-           lambda : self.flip(self.find_case_sensitive)
-           )
+       case_box.stateChanged.connect(self.find_case_changed)
 
        backward_box = QtGui.QCheckBox("Search &backward")
-       backward_box.stateChanged.connect(
-           lambda : self.flip(self.find_backwards)
-           )
+       backward_box.stateChanged.connect(self.find_backwards_changed)
 
        whole_words_box = QtGui.QCheckBox("Match &whole words")
-       whole_words_box.stateChanged.connect(
-           lambda : self.flip(self.find_whole_words)
-           )
+       whole_words_box.stateChanged.connect(self.find_whole_words_changed)
 
        find_button = QtGui.QPushButton("&Find")
        find_button.clicked.connect(self.find)
@@ -598,18 +592,37 @@ class FindWidget(QtGui.QWidget):
        main_layout.addStretch()
        self.setLayout(main_layout)
        
-    def flip(self, member):
+    def find_case_changed(self):
+        self.find_case_sensitive = not self.find_case_sensitive
+
+    def find_backwards_changed(self):
+        self.find_backwards = not self.find_backwards
+
+    def find_whole_words_changed(self):
+        self.find_whole_words = not self.find_whole_words
+
+    def get_find_flags(self):
         """
-        Flips a boolean -- this is stupid! but no assignment in lambdas
+        Returns the flags or'd together.
         """
-        member = not member
+        flags = QtGui.QTextDocument.FindFlags()
+        if (self.find_backwards):
+            flags = flags | QtGui.QTextDocument.FindBackward
+        if (self.find_case_sensitive):
+            flags = flags | QtGui.QTextDocument.FindCaseSensitively
+        if (self.find_whole_words):
+            flags = flags | QtGui.QTextDocument.FindWholeWords
+        return flags
 
     def find(self):
         if (self.editor.count()):
             text = self.line_edit.text()
-            found = self.editor.currentWidget().text.find(text)
+            found = self.editor.currentWidget().text.find(
+                text,
+                self.get_find_flags()
+                )
             if (found):
-                #self.editor.activateWindow()
+                self.editor.currentWidget().activateWindow()
                 self.editor.currentWidget().text.setFocus()
             else:
                 cant_find_dialog = QtGui.QMessageBox(
