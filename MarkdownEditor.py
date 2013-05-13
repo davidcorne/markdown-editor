@@ -534,6 +534,7 @@ class FindDialog(QtGui.QDockWidget):
 
     def __init__(self, parent):
        super(FindDialog, self).__init__("Find", parent)
+       self.move(parent.frameGeometry().center())
        find_widget = FindWidget(parent.editor)
        self.setWidget(find_widget)
        self.topLevelChanged.connect(self.adjustSize)
