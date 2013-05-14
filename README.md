@@ -21,7 +21,7 @@ This is going to be a fully featured editor for markdown.
 - Available as a windows exe
 - Find functionality
 -  Font colouring
-- Easily translatable
+- Error messages in case anything goes wrong
 
 ## TODO ##
 
@@ -31,7 +31,7 @@ This is going to be a fully featured editor for markdown.
 
 <font color="#ff0000">Red</font> are probably not.
 
-- <font color="#00aa00">Improve menu bar, more buttons/colour icons</font>
+- <font color="#00aa00">Colour icons</font>
 - <font color="#00aa00"> Lots more configuration</font>
 - <font color="#00aa00">Replace</font>
 - <font color="#ff0000">Regex find and replace</font>
