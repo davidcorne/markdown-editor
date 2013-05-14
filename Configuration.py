@@ -6,6 +6,7 @@ import os
 import sys
 
 # local imports
+import Error
 
 OPTIONS = {
     "Show html": False,
@@ -77,13 +78,44 @@ TOOL_TIP = {
     }
 
 #==============================================================================
-def find_images():
-    images = dict()
-    directory = os.path.join(os.path.dirname(sys.argv[0]), "Images")
-    for image in os.listdir(directory):
-        images[os.path.splitext(image)[0]] = os.path.join(directory, image)
-    return images
+class Images(object):
 
+    def __init__(self):
+        self.images = dict()
+
+    def __getitem__(self, key):
+        if (not self.images):
+            self.find_images()
+        return self.images[key]
+
+    def find_images(self):
+        directory = os.path.join(os.path.dirname(sys.argv[0]), "Images")
+        if (os.path.isdir(directory)):
+            for image in os.listdir(directory):
+                self.images[os.path.splitext(image)[0]] = os.path.join(
+                    directory, 
+                    image
+                    )
+        else:
+            message = ["Images not found at location:", "\n\n", directory]
+            message = "".join(message)
+            Error.show_error(message)
+
+
+def find_images():
+    directory = os.path.join(os.path.dirname(sys.argv[0]), "Images")
+    if (os.path.isdir(directory)):
+        for image in os.listdir(directory):
+            self.images[os.path.splitext(image)[0]] = os.path.join(
+                directory, 
+                image
+                )
+    else:
+        message = ["Images not found at location:", "\n\n", directory]
+        message = "".join(message)
+        Error.show_error(message)
+
+#IMAGES = Images()
 IMAGES = find_images()
     
 #==============================================================================
