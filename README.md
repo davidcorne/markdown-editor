@@ -21,6 +21,7 @@ This is going to be a fully featured editor for markdown.
 - Available as a windows exe
 - Find functionality
 -  Font colouring
+- Easily translatable
 
 ## TODO ##
 

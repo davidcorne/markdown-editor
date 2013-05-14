@@ -48,6 +48,7 @@ USER_TEXT = {
     "save_as" : "Save As",
     "find_and_replace" : "Find and Replace",
     "select_all" : "Select All",
+    "saved": "File saved",
     }
 
 TOOL_TIP = {

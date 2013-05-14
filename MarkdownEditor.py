@@ -57,6 +57,9 @@ class MarkdownEditor(QtGui.QMainWindow):
     def initialise_UI(self):
         self.create_menu()
         self.create_toolbars()
+        status_bar = QtGui.QStatusBar()
+        self.setStatusBar(status_bar)
+        
         self.setWindowTitle(Configuration.USER_TEXT["program_name"])
         self.resize(1200, 600)
         self.centre()
@@ -96,6 +99,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["undo"])
             )
         undo_button.setToolTip(Configuration.TOOL_TIP["undo"])
+        undo_button.setStatusTip(Configuration.TOOL_TIP["undo"])
         undo_button.clicked.connect(self.undo)
 
         redo_button = QtGui.QToolButton()
@@ -103,6 +107,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["redo"])
             )
         redo_button.setToolTip(Configuration.TOOL_TIP["redo"])
+        redo_button.setStatusTip(Configuration.TOOL_TIP["redo"])
         redo_button.clicked.connect(self.redo)
 
         undo_redo_toolbar.addWidget(undo_button)
@@ -124,6 +129,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["bold"])
             )
         bold_button.setToolTip(Configuration.TOOL_TIP["bold"])
+        bold_button.setStatusTip(Configuration.TOOL_TIP["bold"])
         bold_button.clicked.connect(self.bold_highlighted)
 
         italic_button = QtGui.QToolButton()
@@ -131,6 +137,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["italic"])
             )
         italic_button.setToolTip(Configuration.TOOL_TIP["italic"])
+        italic_button.setStatusTip(Configuration.TOOL_TIP["italic"])
         italic_button.clicked.connect(self.italic_highlighted)
 
         code_button = QtGui.QToolButton()
@@ -138,6 +145,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["code"])
             )
         code_button.setToolTip(Configuration.TOOL_TIP["code"])
+        code_button.setStatusTip(Configuration.TOOL_TIP["code"])
         code_button.clicked.connect(self.code_highlighted)
 
         colour_button = ColourButton(self, self.colour_highlighted)
@@ -164,6 +172,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["new_file"])
             )
         new_button.setToolTip(Configuration.TOOL_TIP["new_file"])
+        new_button.setStatusTip(Configuration.TOOL_TIP["new_file"])
         new_button.clicked.connect(self.new_file)
 
         save_button = QtGui.QToolButton()
@@ -171,6 +180,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["save_file"])
             )
         save_button.setToolTip(Configuration.TOOL_TIP["save_file"])
+        save_button.setStatusTip(Configuration.TOOL_TIP["save_file"])
         save_button.clicked.connect(self.save_file)
 
         open_button = QtGui.QToolButton()
@@ -178,6 +188,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["open_file"])
             )
         open_button.setToolTip(Configuration.TOOL_TIP["open_file"])
+        open_button.setStatusTip(Configuration.TOOL_TIP["open_file"])
         open_button.clicked.connect(self.query_open_file)
 
         save_all_button = QtGui.QToolButton()
@@ -185,6 +196,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["save_all"])
             )
         save_all_button.setToolTip(Configuration.TOOL_TIP["save_all"])
+        save_all_button.setStatusTip(Configuration.TOOL_TIP["save_all"])
         save_all_button.clicked.connect(self.save_all_files)
 
         close_button = QtGui.QToolButton()
@@ -192,6 +204,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["close_file"])
             )
         close_button.setToolTip(Configuration.TOOL_TIP["close_file"])
+        close_button.setStatusTip(Configuration.TOOL_TIP["close_file"])
         close_button.clicked.connect(self.close_file)
 
         export_html_button = QtGui.QToolButton()
@@ -199,6 +212,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["export_html"])
             )
         export_html_button.setToolTip(Configuration.TOOL_TIP["export_html"])
+        export_html_button.setStatusTip(Configuration.TOOL_TIP["export_html"])
         export_html_button.clicked.connect(self.export_html)
 
         file_toolbar.addWidget(new_button)
@@ -225,6 +239,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["cut"])
             )
         cut_button.setToolTip(Configuration.TOOL_TIP["cut"])
+        cut_button.setStatusTip(Configuration.TOOL_TIP["cut"])
         cut_button.clicked.connect(self.cut)
 
         copy_button = QtGui.QToolButton()
@@ -232,6 +247,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["copy"])
             )
         copy_button.setToolTip(Configuration.TOOL_TIP["copy"])
+        copy_button.setStatusTip(Configuration.TOOL_TIP["copy"])
         copy_button.clicked.connect(self.copy)
 
         paste_button = QtGui.QToolButton()
@@ -239,6 +255,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["paste"])
             )
         paste_button.setToolTip(Configuration.TOOL_TIP["paste"])
+        paste_button.setStatusTip(Configuration.TOOL_TIP["paste"])
         paste_button.clicked.connect(self.paste)
 
         edit_toolbar.addWidget(cut_button)
@@ -500,6 +517,10 @@ class MarkdownEditor(QtGui.QMainWindow):
                 self.editor.currentWidget().file_path = file_path
                 self.editor.currentWidget().save_file()
                 self.set_tab_title()
+                self.statusBar().showMessage(
+                    Configuration.USER_TEXT["saved"],
+                    1000
+                    )
 
     def save_file(self):
         if (self.editor.count()):
@@ -508,6 +529,10 @@ class MarkdownEditor(QtGui.QMainWindow):
             else:
                 self.save_file_as()
             self.set_tab_title()
+            self.statusBar().showMessage(
+                Configuration.USER_TEXT["saved"], 
+                1000
+                )
 
     def save_all_files(self):
         current_index = self.editor.currentIndex()
@@ -515,7 +540,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.editor.setCurrentIndex(index)
             self.save_file()
         self.editor.setCurrentIndex(current_index)
-
+            
     def query_open_file(self):
         file_path = QtGui.QFileDialog.getOpenFileName(
             self,
@@ -553,7 +578,9 @@ class MarkdownEditor(QtGui.QMainWindow):
                 self.editor.setTabText(self.editor.currentIndex(), "*")
 
     def document_changed(self):
-        self.set_tab_title()
+        if (self.editor.count()):
+            self.editor.currentWidget().reload()
+            self.set_tab_title()
 
 #==============================================================================
 class ColourButton(QtGui.QFrame):
@@ -565,6 +592,7 @@ class ColourButton(QtGui.QFrame):
         
         self.colour_button = QtGui.QToolButton()
         self.colour_button.setToolTip(Configuration.TOOL_TIP["set_colour"])
+        self.colour_button.setStatusTip(Configuration.TOOL_TIP["set_colour"])
         self.colour_button.clicked.connect(self.set_colour)
         self.colour_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["letter"])
@@ -572,6 +600,7 @@ class ColourButton(QtGui.QFrame):
 
         dialog_button = QtGui.QToolButton()
         dialog_button.setToolTip(Configuration.TOOL_TIP["choose_colour"])
+        dialog_button.setStatusTip(Configuration.TOOL_TIP["choose_colour"])
         dialog_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["down"])
             )
@@ -782,10 +811,9 @@ class Document(QtGui.QWidget):
 
         self.file_path = None
         self.saved = True
-        self.callback = callback
 
         self.text = QtGui.QTextEdit(self)
-        self.text.textChanged.connect(self.on_text_changed)
+        self.text.textChanged.connect(callback)
         self.text.verticalScrollBar().valueChanged.connect(
             lambda value : self.sync_scrollbars()
             )
@@ -814,10 +842,6 @@ class Document(QtGui.QWidget):
             output_scroll = self.output.verticalScrollBar()
             max_out_scroll = output_scroll.maximum()
             output_scroll.setValue(int(max_out_scroll * percentage_scrolled))
-
-    def on_text_changed(self):
-        self.reload()
-        self.callback()
 
     def check_saved(self):
         if (self.file_path is not None):
@@ -850,6 +874,7 @@ class Document(QtGui.QWidget):
             filedata = read_file.read()
             self.text.setText(filedata)
         self.file_path = file_path
+        self.reload()
 
     def export_html(self, file_path):
         html = self.convert_input()
