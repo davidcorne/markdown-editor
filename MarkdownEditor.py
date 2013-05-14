@@ -83,7 +83,34 @@ class MarkdownEditor(QtGui.QMainWindow):
     def create_toolbars(self):
         self.create_file_toolbar()
         self.create_edit_toolbar()
+        self.create_undo_redo_toolbar()
         self.create_format_toolbar()
+
+    def create_undo_redo_toolbar(self):
+        undo_redo_toolbar = QtGui.QToolBar("Undo/Redo Toolbar")
+
+        undo_button = QtGui.QToolButton()
+        undo_button.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["undo"])
+            )
+        undo_button.setToolTip("Undo last change")
+        undo_button.clicked.connect(self.undo)
+
+        redo_button = QtGui.QToolButton()
+        redo_button.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["redo"])
+            )
+        redo_button.setToolTip("Redoes the last undo")
+        redo_button.clicked.connect(self.redo)
+
+        undo_redo_toolbar.addWidget(undo_button)
+        undo_redo_toolbar.addWidget(redo_button)
+
+        # now change the undo_redo toolbar properties
+        undo_redo_toolbar.setMovable(True)
+        undo_redo_toolbar.setFloatable(True)
+        undo_redo_toolbar.setAllowedAreas(QtCore.Qt.AllToolBarAreas)
+        self.addToolBar(undo_redo_toolbar)
 
     def create_format_toolbar(self):
         format_toolbar = QtGui.QToolBar("Format Toolbar")
@@ -160,6 +187,13 @@ class MarkdownEditor(QtGui.QMainWindow):
         save_all_button.setToolTip("Write all current documents to file")
         save_all_button.clicked.connect(self.save_all_files)
 
+        close_button = QtGui.QToolButton()
+        close_button.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["close_file"])
+            )
+        close_button.setToolTip("Closes current document")
+        close_button.clicked.connect(self.close_file)
+
         export_html_button = QtGui.QToolButton()
         export_html_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["export_html"])
@@ -171,6 +205,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_toolbar.addWidget(open_button)
         file_toolbar.addWidget(save_button)
         file_toolbar.addWidget(save_all_button)
+        file_toolbar.addWidget(close_button)
         file_toolbar.addWidget(export_html_button)
 
         # now change the file toolbar properties
@@ -221,22 +256,27 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_edit_menu(self):
         undo_action = QtGui.QAction("Undo", self)
+        undo_action.setIcon(QtGui.QIcon(Configuration.IMAGES["undo"]))
         undo_action.setStatusTip("Undo last change")
         undo_action.triggered.connect(self.undo)
 
         redo_action = QtGui.QAction("Redo", self)
+        redo_action.setIcon(QtGui.QIcon(Configuration.IMAGES["redo"]))
         redo_action.setStatusTip("Redoes the last undo")
         redo_action.triggered.connect(self.redo)
 
         cut_action = QtGui.QAction("Cut", self)
+        cut_action.setIcon(QtGui.QIcon(Configuration.IMAGES["cut"]))
         cut_action.setStatusTip("Cut selected text")
         cut_action.triggered.connect(self.cut)
 
         copy_action = QtGui.QAction("Copy", self)
+        copy_action.setIcon(QtGui.QIcon(Configuration.IMAGES["copy"]))
         copy_action.setStatusTip("Copies selected text")
         copy_action.triggered.connect(self.copy)
 
         paste_action = QtGui.QAction("Paste", self)
+        paste_action.setIcon(QtGui.QIcon(Configuration.IMAGES["paste"]))
         paste_action.setStatusTip("Pastes at current cursor location")
         paste_action.triggered.connect(self.paste)
 
@@ -245,6 +285,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         select_all_action.triggered.connect(self.select_all)
 
         search_action = QtGui.QAction("Find and Replace", self)
+        search_action.setIcon(QtGui.QIcon(Configuration.IMAGES["find"]))
         search_action.setShortcut("Ctrl+F")
         search_action.setStatusTip("Raises find and replace dialog")
         search_action.triggered.connect(self.raise_find_dialog)
@@ -263,6 +304,9 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_tools_menu(self):
         configure_action = QtGui.QAction("Configure", self)
+        configure_action.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["configure"])
+            )
         configure_action.setStatusTip("Configure MarkdownEditor")
         configure_action.triggered.connect(self.raise_configure_dialog)
 
@@ -272,36 +316,43 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_file_menu(self):
         new_action = QtGui.QAction("New", self)
+        new_action.setIcon(QtGui.QIcon(Configuration.IMAGES["new_file"]))
         new_action.setShortcut("Ctrl+N")
         new_action.setStatusTip("Create new file")
         new_action.triggered.connect(self.new_file)
 
         save_action = QtGui.QAction("Save", self)
+        save_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_file"]))
         save_action.setShortcut("Ctrl+S")
         save_action.setStatusTip("Save current file")
         save_action.triggered.connect(self.save_file)
 
         save_as_action = QtGui.QAction("Save As", self)
+        save_as_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_as"]))
         save_as_action.setShortcut("F12")
         save_as_action.setStatusTip("Write current document to file")
         save_as_action.triggered.connect(self.save_file_as)
 
         save_all_action =  QtGui.QAction("Save All", self)
+        save_all_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_all"]))
         save_all_action.setShortcut("Ctrl+Shift+S")
         save_all_action.setStatusTip("Write all current documents to file")
         save_all_action.triggered.connect(self.save_all_files)
 
         open_action = QtGui.QAction("Open", self)
+        open_action.setIcon(QtGui.QIcon(Configuration.IMAGES["open_file"]))
         open_action.setShortcut("Ctrl+O")
         open_action.setStatusTip("Open a file")
         open_action.triggered.connect(self.query_open_file)
 
         close_action = QtGui.QAction("Close", self)
+        close_action.setIcon(QtGui.QIcon(Configuration.IMAGES["close_file"]))
         close_action.setShortcut("Ctrl+F4")
         close_action.setStatusTip("Close MarkdownEditor")
         close_action.triggered.connect(self.close_file)
 
         export_action = QtGui.QAction("Export HTML", self)
+        export_action.setIcon(QtGui.QIcon(Configuration.IMAGES["export_html"]))
         export_action.setStatusTip("Export as HTML")
         export_action.triggered.connect(self.export_html)
 
