@@ -49,6 +49,8 @@ USER_TEXT = {
     "find_and_replace" : "Find and Replace",
     "select_all" : "Select All",
     "saved": "File saved",
+    "exception" : "An internal error has occured.",
+    "error_text_was": "The text from it was:",
     }
 
 TOOL_TIP = {

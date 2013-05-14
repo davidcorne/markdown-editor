@@ -921,9 +921,25 @@ def process_markdown(markdown_string):
     return markdown.markdown(markdown_string, ["extra"])
 
 #==============================================================================
+def exception_hook(exception_type, exception_value, traceback):
+    message = list(Configuration.USER_TEXT["exception"])
+    if (exception_value.message):
+        message.append(" ")
+        message.append(Configuration.USER_TEXT["error_text_was"])
+        message.append("\n\n")
+        message.append(exception_value.message)
+    message = "".join(message)
+    show_error(message)
+
+#==============================================================================
+def show_error(message):
+    QtGui.QMessageBox.critical(None, "Error", message)
+
+#==============================================================================
 def main():
     app = QtGui.QApplication(sys.argv)
     editor = MarkdownEditor(sys.argv[1:])
+    sys.excepthook = exception_hook
     sys.exit(app.exec_())
 
 #==============================================================================
