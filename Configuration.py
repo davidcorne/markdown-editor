@@ -48,11 +48,9 @@ USER_TEXT = {
     "save_as" : "Save As",
     "find_and_replace" : "Find and Replace",
     "select_all" : "Select All",
-    "": "TO_BE_ENTERED",
     }
 
 TOOL_TIP = {
-    "": "TO_BE_ENTERED",
     "bold": "Surround the highlighted area with strong emphasis (__)",
     "italic": "Surround the highlighted area with emphasis (_)",
     "code": "Surround the highlighted area with code blocks (```)",
