@@ -816,7 +816,6 @@ class Document(QtGui.QWidget):
             )
 
         self.output = QtGui.QTextBrowser(self)
-        self.output.setReadOnly(True)
         self.output.setOpenExternalLinks(True)
 
         horizontal_splitter = QtGui.QSplitter(QtCore.Qt.Horizontal, self)
