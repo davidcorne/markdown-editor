@@ -6,3 +6,4 @@ syntax: glob
 # the setup stuff
 build/*
 dist/*
+py2exe/*
