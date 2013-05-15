@@ -815,8 +815,9 @@ class Document(QtGui.QWidget):
             lambda value : self.sync_scrollbars()
             )
 
-        self.output = QtGui.QTextEdit(self)
+        self.output = QtGui.QTextBrowser(self)
         self.output.setReadOnly(True)
+        self.output.setOpenExternalLinks(True)
 
         horizontal_splitter = QtGui.QSplitter(QtCore.Qt.Horizontal, self)
         horizontal_splitter.addWidget(self.text)
