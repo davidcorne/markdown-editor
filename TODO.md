@@ -1,29 +1,4 @@
-# Markdown Editor #
-
-This is going to be a fully featured editor for markdown.
-
-## Features ##
-
-- Text edit
-- Preview pane
-- Save as/New/Open/Close
-- Multiple documents via tabbed bar
-- Menu bar for quick save/open/new/etc.
-- Configuration
-- Export HTML
-- Scroll sync with preview (by % not inspecting markdown)
-- Mark files as saved/unsaved
-- Color higlighted area
-- Command line file opening
-- Bold/italic
-- Cut/copy/paste
-- Cool menu bar with icons
-- Available as a windows exe
-- Find functionality
--  Font colouring
-- Error messages in case anything goes wrong
-
-## TODO ##
+# TODO #
 
 <font color="#00aa00">Green</font> items are essential.
 
@@ -48,7 +23,3 @@ This is going to be a fully featured editor for markdown.
     - <font color="#00aa00">Links</font>
     - <font color="#ffaa00">Add font </font>
     - <font color="#ffaa00">Add font size</font>
-
-## Bugs ##
-
-- Find function does not get the cursor on creation.
