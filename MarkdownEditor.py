@@ -40,11 +40,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                         "\" does not exist"
                         ]
                     )
-                QtGui.QMessageBox.critical(
-                    self,
-                    "Error",
-                    error
-                    )
+                Error.show_error(error)
 
     def tab_close_requested(self, index):
         old_index = self.editor.currentIndex()
