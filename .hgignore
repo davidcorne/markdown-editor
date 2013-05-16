@@ -8,3 +8,7 @@ build/*
 dist/*
 py2exe/*
 MANIFEST
+
+*.suo
+*.msi
+*.exe
