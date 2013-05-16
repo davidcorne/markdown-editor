@@ -1,8 +1,4 @@
 from distutils.core import setup
-try:
-    import py2exe
-except ImportError:
-    pass
 
 with open("wiki/Home.md", "r") as wiki_home:
     description = wiki_home.read()
@@ -20,14 +16,4 @@ setup(
     url="https://bitbucket.org/davidcorne/markdown-editor",
     description="A fully featured cross platform markdown editor.",
     long_description=description,
-    windows=["MarkdownEditor.py"],
-    options={
-        "py2exe":{
-            "ascii":False,
-            "optimize":2,
-            "includes" : ["sip", "PyQt4"],
-            "dist_dir": "py2exe",
-            #"bundle_files": 1 # bundle everything into the exe
-            }
-        }
     )

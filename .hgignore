@@ -3,12 +3,13 @@ syntax: glob
 *~
 *.pyc
 
-# the setup stuff
+# the setup stuff, including pyinstaller
 build/*
 dist/*
-py2exe/*
+MarkdownEditor.spec
 MANIFEST
 
+# visual studio installer stuff
 *.suo
 *.msi
 *.exe
