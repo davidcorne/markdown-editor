@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_22B0B579B3CE474A9938BC221E7EB726"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_23229151E93F4B9F9EE365EA4D1AA2F3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -34,12 +40,6 @@
         "Entry"
         {
         "MsmKey" = "8:_363BF6143E554019A8F8CDDF1E346C35"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3E6E63620B7347A595C5CFA22E0AE0E1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -117,6 +117,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B89BA706B94945E6A0F45700D18DD262"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_CBD5EC1BEDF047319CE3CFDDD674B1B3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -139,6 +145,12 @@
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_FCA158622EDD4268AE088DCF9B0F4E2D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -157,13 +169,21 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\MarkdownEditor.msi"
+        "OutputFilename" = "8:..\\Binaries\\MarkdownEditorWindows\\MarkdownEditor.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -173,6 +193,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -200,6 +228,26 @@
             "TargetName" = "8:save_all.png"
             "Tag" = "8:"
             "Folder" = "8:_1AF255BE7C7D48CFBCC522DFDA536C38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_22B0B579B3CE474A9938BC221E7EB726"
+            {
+            "SourcePath" = "8:..\\Binaries\\EXE\\MarkdownEditor.exe"
+            "TargetName" = "8:MarkdownEditor.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_C722B1384E9940039161FA40532995BB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -260,26 +308,6 @@
             "TargetName" = "8:italic.png"
             "Tag" = "8:"
             "Folder" = "8:_1AF255BE7C7D48CFBCC522DFDA536C38"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3E6E63620B7347A595C5CFA22E0AE0E1"
-            {
-            "SourcePath" = "8:..\\dist\\MarkdownEditor.exe"
-            "TargetName" = "8:MarkdownEditor.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_C722B1384E9940039161FA40532995BB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -534,6 +562,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B89BA706B94945E6A0F45700D18DD262"
+            {
+            "SourcePath" = "8:..\\Images\\icon.ico"
+            "TargetName" = "8:icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_1AF255BE7C7D48CFBCC522DFDA536C38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CBD5EC1BEDF047319CE3CFDDD674B1B3"
             {
             "SourcePath" = "8:..\\Images\\close_file.png"
@@ -598,6 +646,26 @@
             {
             "SourcePath" = "8:..\\Images\\copy.png"
             "TargetName" = "8:copy.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1AF255BE7C7D48CFBCC522DFDA536C38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FCA158622EDD4268AE088DCF9B0F4E2D"
+            {
+            "SourcePath" = "8:..\\Images\\icon.png"
+            "TargetName" = "8:icon.png"
             "Tag" = "8:"
             "Folder" = "8:_1AF255BE7C7D48CFBCC522DFDA536C38"
             "Condition" = "8:"
@@ -681,22 +749,22 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Markdown Editor"
-        "ProductCode" = "8:{20FD9A67-C025-494C-9898-93DC4A031706}"
-        "PackageCode" = "8:{A86E61A3-846C-4BE6-A370-04D0F6A3F29F}"
+        "ProductCode" = "8:{65349C4C-9EE5-436D-B326-00C97CEF7C65}"
+        "PackageCode" = "8:{DED0D664-4ECB-4B2B-8491-E7AAB25C36BE}"
         "UpgradeCode" = "8:{0A9F50B5-E60F-49B4-9D54-3CE8C2C9D934}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:0.1.0"
         "Manufacturer" = "8:David Corne"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bitbucket.org/davidcorne/markdown-editor"
         "Title" = "8:Markdown Editor"
         "Subject" = "8:"
         "ARPCONTACT" = "8:David Corne"
-        "Keywords" = "8:"
+        "Keywords" = "8:markdown editor preview"
         "ARPCOMMENTS" = "8:A fully featured editor for Markdown"
         "ARPURLINFOABOUT" = "8:http://davidcorne.com"
         "ARPPRODUCTICON" = "8:"
@@ -802,7 +870,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D51FAD7751084EC19F4B92B85EDA8D40"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A3F0E0DF77D34D10A79C7A706EE9D1F3"
             {
             "Name" = "8:MarkdownEditor"
             "Arguments" = "8:"
@@ -810,10 +878,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_3E6E63620B7347A595C5CFA22E0AE0E1"
-            "Folder" = "8:_49F1AC3C3AA0402295380C6D3DBC13EF"
+            "Target" = "8:_22B0B579B3CE474A9938BC221E7EB726"
+            "Folder" = "8:_2F903B6E2C99490A9CFA435BAF201459"
             "WorkingFolder" = "8:_C722B1384E9940039161FA40532995BB"
-            "Icon" = "8:"
+            "Icon" = "8:_B89BA706B94945E6A0F45700D18DD262"
             "Feature" = "8:"
             }
         }

@@ -15,6 +15,13 @@ import Configuration
 import Error
 
 #==============================================================================
+class MarkdownEditorApp(QtGui.QApplication):
+
+    def __init__(self, command_args):
+        super(MarkdownEditorApp, self).__init__(command_args)
+        self.setWindowIcon(QtGui.QIcon(Configuration.IMAGES["icon"]))
+
+#==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
 
     def __init__(self, files):
@@ -920,7 +927,7 @@ def process_markdown(markdown_string):
 #==============================================================================
 def main():
     Error.set_exception_handler()
-    app = QtGui.QApplication(sys.argv)
+    app = MarkdownEditorApp(sys.argv)
     editor = MarkdownEditor(sys.argv[1:])
     sys.exit(app.exec_())
 
