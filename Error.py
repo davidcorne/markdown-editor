@@ -13,8 +13,13 @@ import Configuration
 #==============================================================================
 def exception_hook(exception_type, exception_value, trace):
     message = Configuration.USER_TEXT["exception"]
-    trace = "".join(traceback.format_tb(trace))
-    show_error(message, trace)
+    detail = traceback.format_exception(
+        exception_type,
+        exception_value,
+        trace
+        )
+    detail = "".join(detail)
+    show_error(message, detail)
 
 #==============================================================================
 def show_error(message, detail=None):
@@ -31,6 +36,9 @@ def show_error(message, detail=None):
 
 def set_exception_handler():
     sys.excepthook = exception_hook
+
+def reset_exception_handler():
+    sys.excepthook = sys.__excepthook__
 
 #==============================================================================
 if (__name__ == "__main__"):
