@@ -865,7 +865,7 @@ class Document(QtGui.QWidget):
 
     def convert_input(self):
         markdown_string = self.text.toPlainText()
-        return markdown.markdown(str(markdown_string))
+        return process_markdown(str(markdown_string))
 
     def save_file(self):
         with open(self.file_path, "w") as text_file:
@@ -897,15 +897,6 @@ class Document(QtGui.QWidget):
     def code_block_highlighted(self):
         self.edit_selection("```\n", "\n```")
 
-    def upper(self):
-        """ 
-        If there is a selection it will make it upper case, otherwise it will 
-        make the next word upper case.
-        """
-        cursor = self.text.textCursor()
-        if (cursor.hasSelection()):
-            print cursor.selectedText()
-
     def edit_selection(self, beginning, end, empty=False):
         """
         Do an edit to the current selection. Add beginning to the start and end
@@ -922,7 +913,8 @@ class Document(QtGui.QWidget):
 
 #==============================================================================
 def process_markdown(markdown_string):
-    return markdown.markdown(markdown_string, ["extra"])
+    html = markdown.markdown(markdown_string, ["extra"])
+    return html
 
 #==============================================================================
 def main():
