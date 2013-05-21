@@ -52,6 +52,8 @@ USER_TEXT = {
     "saved": "File saved",
     "exception" : "An internal error has occured.",
     "error_text_was": "The text from it was:",
+    "insert_link": "Insert Link",
+    "enter_link": "Enter the destination URL",
     }
 
 TOOL_TIP = {
@@ -75,6 +77,7 @@ TOOL_TIP = {
     "select_all": "Select all the text in the current document",
     "set_colour": "Set the colour of the highlighted area to this colour",
     "undo": "Undo the previous change",
+    "link": "Insert a link with the title of the surrounded area",
     }
 
 #==============================================================================

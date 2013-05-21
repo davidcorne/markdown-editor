@@ -152,11 +152,20 @@ class MarkdownEditor(QtGui.QMainWindow):
         code_button.setStatusTip(Configuration.TOOL_TIP["code"])
         code_button.clicked.connect(self.code_highlighted)
 
+        link_button = QtGui.QToolButton()
+        link_button.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["link"])
+            )
+        link_button.setToolTip(Configuration.TOOL_TIP["link"])
+        link_button.setStatusTip(Configuration.TOOL_TIP["link"])
+        link_button.clicked.connect(self.insert_link)
+
         colour_button = ColourButton(self, self.colour_highlighted)
 
         format_toolbar.addWidget(bold_button)
         format_toolbar.addWidget(italic_button)
         format_toolbar.addWidget(code_button)
+        format_toolbar.addWidget(link_button)
         format_toolbar.addWidget(colour_button)
 
         # now change the format toolbar properties
@@ -436,6 +445,16 @@ class MarkdownEditor(QtGui.QMainWindow):
         if (self.editor.count()):
             self.editor.currentWidget().code_block_highlighted()
 
+    def insert_link(self):
+        if (self.editor.count()):
+            link, ok = QtGui.QInputDialog.getText(
+                self,
+                Configuration.USER_TEXT["insert_link"],
+                Configuration.USER_TEXT["enter_link"]
+                )
+            if (ok):
+                self.editor.currentWidget().insert_link(str(link))
+
     def cut(self):
         if (self.editor.count()):
             self.editor.currentWidget().text.cut()
@@ -486,29 +505,29 @@ class MarkdownEditor(QtGui.QMainWindow):
                 # have a dialog here for saving current tab
                 # do you want to save the changes you've made to [file_path]
                 # yes/no/cancel
-                 confirm_dialog = QtGui.QMessageBox(self)
-                 confirm_dialog.setWindowTitle(
-                     Configuration.USER_TEXT["program_name"]
-                     )
-                 message = "".join(
-                     [
-                       "You have made changes to ",
-                       self.editor.currentWidget().filename
-                       ]
-                     )
-                 confirm_dialog.setText(message)
-                 confirm_dialog.setInformativeText(
-                     "Do you want to save your changes?"
-                     )
-                 confirm_dialog.setStandardButtons(
-                     QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
-                     )
-                 confirm_dialog.setDefaultButton(QtGui.QMessageBox.Save);
-                 ret_val = confirm_dialog.exec_();
-                 if (ret_val == QtGui.QMessageBox.Save):
-                     self.save_file()
-                 elif (ret_val == QtGui.QMessageBox.Cancel):
-                     return False
+                confirm_dialog = QtGui.QMessageBox(self)
+                confirm_dialog.setWindowTitle(
+                    Configuration.USER_TEXT["program_name"]
+                    )
+                message = "".join(
+                    [
+                        "You have made changes to ",
+                        self.editor.currentWidget().filename
+                        ]
+                    )
+                confirm_dialog.setText(message)
+                confirm_dialog.setInformativeText(
+                    "Do you want to save your changes?"
+                    )
+                confirm_dialog.setStandardButtons(
+                    QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
+                    )
+                confirm_dialog.setDefaultButton(QtGui.QMessageBox.Save);
+                ret_val = confirm_dialog.exec_();
+                if (ret_val == QtGui.QMessageBox.Save):
+                    self.save_file()
+                elif (ret_val == QtGui.QMessageBox.Cancel):
+                    return False
             self.editor.removeTab(self.editor.currentIndex())
             return True
 
@@ -600,7 +619,9 @@ class ColourButton(QtGui.QFrame):
         self.colour_button = QtGui.QToolButton()
         self.colour_button.setToolTip(Configuration.TOOL_TIP["set_colour"])
         self.colour_button.setStatusTip(Configuration.TOOL_TIP["set_colour"])
-        self.colour_button.clicked.connect(self.set_colour)
+        self.colour_button.clicked.connect(
+            lambda : self.set_colour(self.colour)
+            )
         self.colour_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["letter"])
             )
@@ -826,6 +847,7 @@ class MarkdownPreview(QtGui.QTextBrowser):
             Error.show_error("Failed to open URL", "\n\n".join(detail))
 
     def show_preview(self, html):
+        self.clear()
         if (Configuration.OPTIONS["Show html"]):
             self.insertPlainText(html)
         else:
@@ -916,15 +938,23 @@ class Document(QtGui.QWidget):
     def code_block_highlighted(self):
         self.edit_selection("```\n", "\n```")
 
-    def edit_selection(self, beginning, end, empty=False):
+    def insert_link(self, link):
+        self.edit_selection("[", "]", False)
+        cursor = self.text.textCursor()
+        text = cursor.selectedText()
+        text.append("".join(["(", link, ")"]))
+        cursor.insertText(text)
+
+    def edit_selection(self, beginning, end, needs_selection=True):
         """
         Do an edit to the current selection. Add beginning to the start and end
         to the end.
         
-        if selection is empty variable empty controls if anything is added,
+        needs selection governs whether if the selection is empty it will 
+        insert anything.
         """
         cursor = self.text.textCursor()
-        if (cursor.hasSelection() or not empty):
+        if (not needs_selection or cursor.hasSelection()):
             text = cursor.selectedText()
             text.prepend(beginning)
             text.append(end)
