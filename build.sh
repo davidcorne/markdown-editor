@@ -25,7 +25,7 @@ fi
 # remove the temporary build files
 rm -rf build/
 rm -rf dist/
-rm logdict*
+rm -f logdict*
 
 echo ""
 
@@ -35,7 +35,7 @@ then
   cd Installer
   echo "Making windows installer"
   devenv Installer.sln /Project Installer.vdproj /Rebuild Release
-  else
+else
   echo "Devenv is not a command, skipping windows installer."
 fi
 

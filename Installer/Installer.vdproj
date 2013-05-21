@@ -51,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4379FD59C49A47409311BBD40AC08F5C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_489D5564B5A74DC5A2DF3195F3475791"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -141,6 +147,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E4958DFC7B6C4C44A5379C6CC9218381"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F23A4666D7AD4C1485058206E27E3AF6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -176,6 +188,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -200,6 +225,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -335,6 +373,26 @@
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4379FD59C49A47409311BBD40AC08F5C"
+            {
+            "SourcePath" = "8:C:\\Windows\\System32\\msiexec.exe"
+            "TargetName" = "8:msiexec.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_B32FE61632564308A5B9EF9F07AFC77D"
+            "Condition" = "8:Not Installed"
+            "Transitive" = "11:TRUE"
+            "Vital" = "11:FALSE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:TRUE"
+            "Permanent" = "11:TRUE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
@@ -642,6 +700,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E4958DFC7B6C4C44A5379C6CC9218381"
+            {
+            "SourcePath" = "8:Markdown Editor on the web.url"
+            "TargetName" = "8:Markdown Editor on the web.url"
+            "Tag" = "8:"
+            "Folder" = "8:_247B593638924F42A120E155167750CB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F23A4666D7AD4C1485058206E27E3AF6"
             {
             "SourcePath" = "8:..\\Images\\copy.png"
@@ -697,6 +775,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_247B593638924F42A120E155167750CB"
+                    {
+                    "Name" = "8:Markdown Editor"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_3E1B57A5B8194EF88F88B4C60BF14956"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_49F1AC3C3AA0402295380C6D3DBC13EF"
@@ -706,6 +795,17 @@
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:DesktopFolder"
+                "Folders"
+                {
+                }
+            }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_B32FE61632564308A5B9EF9F07AFC77D"
+            {
+            "Name" = "8:#1914"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:SystemFolder"
                 "Folders"
                 {
                 }
@@ -750,7 +850,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Markdown Editor"
         "ProductCode" = "8:{65349C4C-9EE5-436D-B326-00C97CEF7C65}"
-        "PackageCode" = "8:{DED0D664-4ECB-4B2B-8491-E7AAB25C36BE}"
+        "PackageCode" = "8:{956092EA-903F-48EB-86C8-317DB5293ACA}"
         "UpgradeCode" = "8:{0A9F50B5-E60F-49B4-9D54-3CE8C2C9D934}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -767,7 +867,7 @@
         "Keywords" = "8:markdown editor preview"
         "ARPCOMMENTS" = "8:A fully featured editor for Markdown"
         "ARPURLINFOABOUT" = "8:http://davidcorne.com"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_B89BA706B94945E6A0F45700D18DD262"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -870,6 +970,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_98AA7F4B61B34BFC9486EDDBF9C92E2D"
+            {
+            "Name" = "8:Uninstall Markdown Editor"
+            "Arguments" = "8:/x [ProductCode]"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_4379FD59C49A47409311BBD40AC08F5C"
+            "Folder" = "8:_247B593638924F42A120E155167750CB"
+            "WorkingFolder" = "8:_B32FE61632564308A5B9EF9F07AFC77D"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A3F0E0DF77D34D10A79C7A706EE9D1F3"
             {
             "Name" = "8:MarkdownEditor"
@@ -879,7 +993,21 @@
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
             "Target" = "8:_22B0B579B3CE474A9938BC221E7EB726"
-            "Folder" = "8:_2F903B6E2C99490A9CFA435BAF201459"
+            "Folder" = "8:_247B593638924F42A120E155167750CB"
+            "WorkingFolder" = "8:_C722B1384E9940039161FA40532995BB"
+            "Icon" = "8:_B89BA706B94945E6A0F45700D18DD262"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D7B95B9CEF30440CBE52AC3EF996E23C"
+            {
+            "Name" = "8:MarkdownEditor"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_22B0B579B3CE474A9938BC221E7EB726"
+            "Folder" = "8:_49F1AC3C3AA0402295380C6D3DBC13EF"
             "WorkingFolder" = "8:_C722B1384E9940039161FA40532995BB"
             "Icon" = "8:_B89BA706B94945E6A0F45700D18DD262"
             "Feature" = "8:"
