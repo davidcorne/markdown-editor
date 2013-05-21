@@ -486,7 +486,10 @@ class MarkdownEditor(QtGui.QMainWindow):
                 # have a dialog here for saving current tab
                 # do you want to save the changes you've made to [file_path]
                 # yes/no/cancel
-                 confirm_dialog = QtGui.QMessageBox()
+                 confirm_dialog = QtGui.QMessageBox(self)
+                 confirm_dialog.setWindowTitle(
+                     Configuration.USER_TEXT["program_name"]
+                     )
                  message = "".join(
                      [
                        "You have made changes to ",
@@ -808,6 +811,27 @@ class ConfigurationDialog(QtGui.QDialog):
        self.config[key] = bool(state)
 
 #==============================================================================
+class MarkdownPreview(QtGui.QTextBrowser):
+
+    def __init__(self, parent):
+        super(MarkdownPreview, self).__init__(parent)
+        self.setOpenLinks(False)
+        self.anchorClicked.connect(self.link_clicked)
+
+    def link_clicked(self, url):
+        # even try local files using openUrl
+        ok = QtGui.QDesktopServices.openUrl(url)
+        if (not ok):
+            detail = ["Could not find location:", str(url.toString())]
+            Error.show_error("Failed to open URL", "\n\n".join(detail))
+
+    def show_preview(self, html):
+        if (Configuration.OPTIONS["Show html"]):
+            self.insertPlainText(html)
+        else:
+            self.insertHtml(html)
+        
+#==============================================================================
 class Document(QtGui.QWidget):
 
     def __init__(self, parent, callback):
@@ -822,8 +846,7 @@ class Document(QtGui.QWidget):
             lambda value : self.sync_scrollbars()
             )
 
-        self.output = QtGui.QTextBrowser(self)
-        self.output.setOpenExternalLinks(True)
+        self.output = MarkdownPreview(self)
 
         horizontal_splitter = QtGui.QSplitter(QtCore.Qt.Horizontal, self)
         horizontal_splitter.addWidget(self.text)
@@ -855,11 +878,7 @@ class Document(QtGui.QWidget):
 
     def reload(self):
         html = self.convert_input()
-        self.output.clear()
-        if (Configuration.OPTIONS["Show html"]):
-            self.output.insertPlainText(html)
-        else:
-            self.output.insertHtml(html)
+        self.output.show_preview(html)
         self.check_saved()
         self.sync_scrollbars()
 
