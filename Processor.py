@@ -8,8 +8,6 @@ import markdown
 
 # local imports
 
-#import misaka_test
-
 #==============================================================================
 class MarkdownRenderer(object):
     __metaclass__ = abc.ABCMeta
