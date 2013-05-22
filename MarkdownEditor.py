@@ -503,10 +503,16 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def export_html(self):
         if (self.editor.count()):
+            location = "."
+            if (self.editor.currentWidget().file_path):
+                location, ext = os.path.splitext(
+                    str(self.editor.currentWidget().file_path)
+                    )
+                location = location + ".html"
             file_path = QtGui.QFileDialog.getSaveFileName(
                 self,
-                "Export HTML",
-                ".",
+                Configuration.USER_TEXT["export_html"],
+                location,
                 "HTML (*.html)"
                 )
             if (file_path):
