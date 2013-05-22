@@ -17,8 +17,10 @@ Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
 All Files (*)\
 """
 
+# full image formats from list in word dropdown - probably overkill
 IMAGE_FILE_STRING = """\
-Images (*.png *.jpg *.jpeg *.gif);;\
+Images (*.png *.jpg *.jpeg *.gif *.bmp *.emf *.wmf *.jfif *.jpe *.dib *.rle \
+*.bmz *.gfa *.emz *.wmz *.pcz *.tif *.tiff *.cgm *.eps *.pct *.pict *.wpg);;\
 All Files (*)\
 """
 
