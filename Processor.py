@@ -46,7 +46,7 @@ class GithubFlavouredMarkdownRenderer(misaka.HtmlRenderer, misaka.SmartyPants):
                 "</code></pre>\n",
                 ]
             return "".join(code)
-        formatter = pygments.formatters.HtmlFormatter()
+        formatter = pygments.formatters.HtmlFormatter(full=True)
         return pygments.highlight(text, lexer, formatter)
 
 #==============================================================================
