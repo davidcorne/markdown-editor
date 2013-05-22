@@ -126,7 +126,7 @@ PROCESSOR_TYPES[USER_TEXT["markdown"]] = Processor.Markdown
 PROCESSOR_TYPES[USER_TEXT["markdown_extra"]] = Processor.MarkdownExtra
 PROCESSOR_TYPES[USER_TEXT["github_flavoured_markdown"]] = Processor.GithubFlavouredMarkdown
 
-PROCESSOR = PROCESSOR_TYPES[USER_TEXT["markdown_extra"]]()
+PROCESSOR = PROCESSOR_TYPES[USER_TEXT["github_flavoured_markdown"]]()
 
 #==============================================================================
 if (__name__ == "__main__"):
