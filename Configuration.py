@@ -63,6 +63,9 @@ USER_TEXT = {
     "enter_image_location": "Enter the image location",
     "enter_image_title": "Enter the image title (optional)",
     "browse_for_image": "Browse for image",
+    "current_document": "the current document",
+    "save_changes?": "Do you want to save your changes?",
+    "made_changes": "You have made changes to",
     }
 
 TOOL_TIP = {

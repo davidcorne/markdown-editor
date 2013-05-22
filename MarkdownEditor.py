@@ -524,34 +524,43 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.close()
         else:
             if (not self.editor.currentWidget().saved):
-                # have a dialog here for saving current tab
-                # do you want to save the changes you've made to [file_path]
-                # yes/no/cancel
-                confirm_dialog = QtGui.QMessageBox(self)
-                confirm_dialog.setWindowTitle(
-                    Configuration.USER_TEXT["program_name"]
-                    )
-                message = "".join(
-                    [
-                        "You have made changes to ",
-                        self.editor.currentWidget().filename
-                        ]
-                    )
-                confirm_dialog.setText(message)
-                confirm_dialog.setInformativeText(
-                    "Do you want to save your changes?"
-                    )
-                confirm_dialog.setStandardButtons(
-                    QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
-                    )
-                confirm_dialog.setDefaultButton(QtGui.QMessageBox.Save);
-                ret_val = confirm_dialog.exec_();
-                if (ret_val == QtGui.QMessageBox.Save):
+                if (self.confirm_close_file()):
                     self.save_file()
-                elif (ret_val == QtGui.QMessageBox.Cancel):
-                    return False
             self.editor.removeTab(self.editor.currentIndex())
-            return True
+
+
+    def confirm_close_file(self):
+        """
+        Asks the user whether they want to close the file.
+        returns True if they want to close it, False otherwise
+        """
+        # have a dialog here for saving current tab
+        # do you want to save the changes you've made to [file_path]
+        # yes/no/cancel
+        confirm_dialog = QtGui.QMessageBox(self)
+        confirm_dialog.setWindowTitle(
+            Configuration.USER_TEXT["program_name"]
+            )
+        document = self.editor.currentWidget()
+        message = [
+            Configuration.USER_TEXT["made_changes"],
+            " "
+            ]
+        
+        if (document.filename):
+            message.append(document.filename)
+        else:
+            message.append(Configuration.USER_TEXT["current_document"])
+            
+        confirm_dialog.setText("".join(message))
+        confirm_dialog.setInformativeText(
+            Configuration.USER_TEXT["save_changes?"]
+            )
+        confirm_dialog.setStandardButtons(
+            QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
+            )
+        confirm_dialog.setDefaultButton(QtGui.QMessageBox.Save)
+        return confirm_dialog.exec_() == QtGui.QMessageBox.Save
 
     def save_file_as(self):
         if (self.editor.count()):
@@ -1002,6 +1011,8 @@ class Document(QtGui.QWidget):
             with open(self.file_path, "r") as current_file:
                 content = current_file.read()
             self.saved = self.text.toPlainText() == content
+        else:
+            self.saved = False
 
     def reload(self):
         html = self.convert_input()
