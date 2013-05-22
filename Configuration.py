@@ -2,14 +2,16 @@
 # Written by: DGC
 
 # python imports
+import collections
 import os
 import sys
 
 # local imports
 import Error
+import Processor
 
 OPTIONS = {
-    "Show html": False,
+    "show_html": False,
     }
 
 MARKDOWN_FILE_STRING = """\
@@ -40,9 +42,8 @@ USER_TEXT = {
     "find_title": "Find",
     "find": "&Find",
     "close": "Close",
-    "configuration": "Configuration",
     "close_file": "Close File",
-    "configure": "Configure",
+    "options": "Options",
     "copy" : "Copy",
     "cut" : "Cut",
     "paste" : "Paste",
@@ -68,6 +69,13 @@ USER_TEXT = {
     "current_document": "the current document",
     "save_changes?": "Do you want to save your changes?",
     "made_changes": "You have made changes to",
+    "markdown": "Markdown",
+    "markdown_extra": "Markdown Extra",
+    "github_flavoured_markdown": "Github Flavoured Markdown",
+    "show_html": "Show HTML",
+    "misc": "Miscellaneous",
+    "markdown_type": "Markdown Type",
+    "debug_options": "Debug Options",
     }
 
 TOOL_TIP = {
@@ -112,7 +120,14 @@ def find_images():
     return images
 
 IMAGES = find_images()
-    
+
+PROCESSOR_TYPES = collections.OrderedDict()
+PROCESSOR_TYPES[USER_TEXT["markdown"]] = Processor.Markdown
+PROCESSOR_TYPES[USER_TEXT["markdown_extra"]] = Processor.MarkdownExtra
+PROCESSOR_TYPES[USER_TEXT["github_flavoured_markdown"]] = Processor.GithubFlavouredMarkdown
+
+PROCESSOR = PROCESSOR_TYPES[USER_TEXT["markdown_extra"]]()
+
 #==============================================================================
 if (__name__ == "__main__"):
     pass

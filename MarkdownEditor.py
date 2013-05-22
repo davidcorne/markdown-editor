@@ -2,16 +2,15 @@
 
 # python imports
 
-import copy
 import sys
 import os
-import markdown
 
 from PyQt4 import QtGui, QtCore
 
 # local imports
 
 import Configuration
+import ConfigurationDialog
 import Error
 
 #==============================================================================
@@ -351,7 +350,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_tools_menu(self):
         configure_action = QtGui.QAction(
-            Configuration.USER_TEXT["configure"], 
+            Configuration.USER_TEXT["options"], 
             self
             )
         configure_action.setIcon(
@@ -431,7 +430,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_menu.addAction(export_action)
 
     def raise_configure_dialog(self):
-        config_dialog = ConfigurationDialog(self)
+        config_dialog = ConfigurationDialog.ConfigurationDialog(self)
         if (self.editor.count()):
             self.editor.currentWidget().reload()
 
@@ -908,54 +907,6 @@ class FindWidget(QtGui.QWidget):
                 cant_find_dialog.show()
         
 #==============================================================================
-class ConfigurationDialog(QtGui.QDialog):
-
-   def __init__(self, parent):
-       super(ConfigurationDialog, self).__init__(parent)
-
-       self.config = copy.copy(Configuration.OPTIONS)
-
-       main_layout = QtGui.QVBoxLayout()
-
-       for key in self.config:
-           layout = QtGui.QHBoxLayout()
-           main_layout.addLayout(layout)
-
-           value = self.config[key]
-           if (isinstance(value, bool)):
-               widget = QtGui.QCheckBox(key, self)
-               if (value):
-                   widget.setCheckState(QtCore.Qt.Checked)
-               else:
-                   widget.setCheckState(QtCore.Qt.Unchecked)
-               def change_function(name):
-                   return lambda state : self.bool_changed(name, state)
-               widget.stateChanged.connect(change_function(key))
-           layout.addWidget(widget)
-
-       # add a save and a cancel button
-       bottom_buttons = QtGui.QDialogButtonBox(
-            QtGui.QDialogButtonBox.Save |  QtGui.QDialogButtonBox.Cancel
-           )
-       bottom_buttons.accepted.connect(self.save_and_close)
-       bottom_buttons.rejected.connect(self.close)
-       main_layout.addWidget(bottom_buttons)
-
-       self.setLayout(main_layout)
-       
-
-       self.setWindowTitle(Configuration.USER_TEXT["configuration"])
-       self.exec_()
-
-   def save_and_close(self):
-       for key in self.config:
-           Configuration.OPTIONS[key] = self.config[key]
-       self.close()
-
-   def bool_changed(self, key, state):
-       self.config[key] = bool(state)
-
-#==============================================================================
 class MarkdownPreview(QtGui.QTextBrowser):
 
     def __init__(self, parent):
@@ -972,7 +923,7 @@ class MarkdownPreview(QtGui.QTextBrowser):
 
     def show_preview(self, html):
         self.clear()
-        if (Configuration.OPTIONS["Show html"]):
+        if (Configuration.OPTIONS["show_html"]):
             self.insertPlainText(html)
         else:
             self.insertHtml(html)
@@ -1095,12 +1046,11 @@ class Document(QtGui.QWidget):
 
 #==============================================================================
 def process_markdown(markdown_string):
-    html = markdown.markdown(markdown_string, ["extra"])
-    return html
+    return Configuration.PROCESSOR.render(markdown_string)
 
 #==============================================================================
 def main():
-    Error.set_exception_handler()
+    #Error.set_exception_handler()
     app = MarkdownEditorApp(sys.argv)
     editor = MarkdownEditor(sys.argv[1:])
     sys.exit(app.exec_())
