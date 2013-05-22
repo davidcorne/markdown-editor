@@ -160,12 +160,21 @@ class MarkdownEditor(QtGui.QMainWindow):
         link_button.setStatusTip(Configuration.TOOL_TIP["link"])
         link_button.clicked.connect(self.insert_link)
 
+        image_button = QtGui.QToolButton()
+        image_button.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["image"])
+            )
+        image_button.setToolTip(Configuration.TOOL_TIP["image"])
+        image_button.setStatusTip(Configuration.TOOL_TIP["image"])
+        image_button.clicked.connect(self.insert_image)
+
         colour_button = ColourButton(self, self.colour_highlighted)
 
         format_toolbar.addWidget(bold_button)
         format_toolbar.addWidget(italic_button)
         format_toolbar.addWidget(code_button)
         format_toolbar.addWidget(link_button)
+        format_toolbar.addWidget(image_button)
         format_toolbar.addWidget(colour_button)
 
         # now change the format toolbar properties
@@ -455,6 +464,13 @@ class MarkdownEditor(QtGui.QMainWindow):
             if (ok):
                 self.editor.currentWidget().insert_link(str(link))
 
+    def insert_image(self):
+        if (self.editor.count()):
+            dialog = ImageDialog(self)
+            ok, image_location, title = dialog.get_image()
+            if (ok):
+                self.editor.currentWidget().insert_image(image_location, title)
+
     def cut(self):
         if (self.editor.count()):
             self.editor.currentWidget().text.cut()
@@ -570,7 +586,7 @@ class MarkdownEditor(QtGui.QMainWindow):
     def query_open_file(self):
         file_path = QtGui.QFileDialog.getOpenFileName(
             self,
-            "Open File",
+            Configuration.USER_TEXT["open_file"],
             ".",
             Configuration.MARKDOWN_FILE_STRING
             )
@@ -661,84 +677,167 @@ class ColourButton(QtGui.QFrame):
             self.set_colour(self.colour)
         
 #==============================================================================
+class ImageDialog(QtGui.QDialog):
+
+    def __init__(self, parent):
+        super(ImageDialog, self).__init__(parent)
+        
+        self.accepted = False
+
+        self.initialise_ui()
+        self.exec_()
+
+    def initialise_ui(self):
+        enter_image_label = QtGui.QLabel(
+            Configuration.USER_TEXT["enter_image_location"]
+            )
+        self.image_entry = QtGui.QLineEdit()
+        enter_image_label.setBuddy(self.image_entry)
+        browse_for_image = QtGui.QPushButton(
+            Configuration.USER_TEXT["browse_for_image"]
+            )
+        browse_for_image.clicked.connect(self.browse_for_image)
+
+        title_label = QtGui.QLabel(
+            Configuration.USER_TEXT["enter_image_title"]
+            )
+        self.title_entry = QtGui.QLineEdit()
+        title_label.setBuddy(self.title_entry)
+
+        # add a save and a cancel button
+        bottom_buttons = QtGui.QDialogButtonBox(
+            QtGui.QDialogButtonBox.Ok |  QtGui.QDialogButtonBox.Cancel
+            )
+        bottom_buttons.accepted.connect(self.accept)
+        bottom_buttons.rejected.connect(self.close)
+        
+        line_layout = QtGui.QHBoxLayout()
+        line_layout.addWidget(enter_image_label)
+        line_layout.addWidget(self.image_entry)
+
+        button_layout = QtGui.QHBoxLayout()
+        button_layout.addStretch()
+        button_layout.addWidget(browse_for_image)
+
+        image_entry_layout = QtGui.QVBoxLayout()
+        image_entry_layout.addLayout(line_layout)
+        image_entry_layout.addLayout(button_layout)
+
+        title_layout = QtGui.QHBoxLayout()
+        title_layout.addWidget(title_label)
+        title_layout.addWidget(self.title_entry)
+        
+        main_layout = QtGui.QVBoxLayout()
+        main_layout.addLayout(image_entry_layout)
+        main_layout.addLayout(title_layout)
+        main_layout.addWidget(bottom_buttons)
+
+        self.setLayout(main_layout)
+
+        self.setWindowTitle(Configuration.USER_TEXT["insert_image"])
+
+    def browse_for_image(self):
+        file_path = QtGui.QFileDialog.getOpenFileName(
+            self,
+            Configuration.USER_TEXT["browse_for_image"],
+            ".",
+            Configuration.IMAGE_FILE_STRING
+            )
+        if (file_path):
+            self.image_entry.setText(file_path)
+
+    def accept(self):
+        self.accepted = True
+        self.close()
+
+    def get_image(self):
+        """
+        Raises the form and returns a tuple 
+        (ok_clicked, image_location, title)
+        """
+        image_location = str(self.image_entry.text())
+        title = str(self.title_entry.text())
+        return (self.accepted, image_location, title)
+
+#==============================================================================
 class FindDialog(QtGui.QDockWidget):
 
     def __init__(self, parent):
-       super(FindDialog, self).__init__(
-           Configuration.USER_TEXT["find_title"],
-           parent
-           )
-       self.move(parent.frameGeometry().center())
-       find_widget = FindWidget(parent.editor)
-       self.setWidget(find_widget)
-       self.topLevelChanged.connect(self.adjustSize)
-       self.setFloating(True)
-       self.show()
+        super(FindDialog, self).__init__(
+            Configuration.USER_TEXT["find_title"],
+            parent
+            )
+        self.move(parent.frameGeometry().center())
+        find_widget = FindWidget(parent.editor)
+        self.setWidget(find_widget)
+        self.topLevelChanged.connect(self.adjustSize)
+        self.setFloating(True)
+        self.show()
 
 #==============================================================================
 class FindWidget(QtGui.QWidget):
 
     def __init__(self, editor):
-       super(FindWidget, self).__init__()
+        super(FindWidget, self).__init__()
        
-       self.editor = editor
+        self.editor = editor
 
-       self.find_backwards = False
-       self.find_case_sensitive = False
-       self.find_whole_words = False
-       
-       self.initialise_ui()
+        self.find_backwards = False
+        self.find_case_sensitive = False
+        self.find_whole_words = False
+        
+        self.initialise_ui()
 
     def initialise_ui(self):
-       label = QtGui.QLabel(Configuration.USER_TEXT["find_what"])
-       self.line_edit = QtGui.QLineEdit()
-       self.line_edit.returnPressed.connect(self.find)
-       label.setBuddy(self.line_edit)
+        label = QtGui.QLabel(Configuration.USER_TEXT["find_what"])
+        self.line_edit = QtGui.QLineEdit()
+        self.line_edit.returnPressed.connect(self.find)
+        label.setBuddy(self.line_edit)
        
 
-       case_box = QtGui.QCheckBox(Configuration.USER_TEXT["match_case"])
-       case_box.stateChanged.connect(self.find_case_changed)
+        case_box = QtGui.QCheckBox(Configuration.USER_TEXT["match_case"])
+        case_box.stateChanged.connect(self.find_case_changed)
+        
+        backward_box = QtGui.QCheckBox(
+            Configuration.USER_TEXT["search_backwards"]
+            )
+        backward_box.stateChanged.connect(self.find_backwards_changed)
 
-       backward_box = QtGui.QCheckBox(
-           Configuration.USER_TEXT["search_backwards"]
-           )
-       backward_box.stateChanged.connect(self.find_backwards_changed)
+        whole_words_box = QtGui.QCheckBox(
+            Configuration.USER_TEXT["match_whole_words"]
+            )
+        whole_words_box.stateChanged.connect(self.find_whole_words_changed)
+        
+        find_button = QtGui.QPushButton(
+            Configuration.USER_TEXT["find"]
+            )
+        find_button.clicked.connect(self.find)
 
-       whole_words_box = QtGui.QCheckBox(
-           Configuration.USER_TEXT["match_whole_words"]
-           )
-       whole_words_box.stateChanged.connect(self.find_whole_words_changed)
+        close_button = QtGui.QPushButton(Configuration.USER_TEXT["close"])
+        close_button.clicked.connect(self.close)
 
-       find_button = QtGui.QPushButton(
-           Configuration.USER_TEXT["find"]
-           )
-       find_button.clicked.connect(self.find)
+        top_left_layout = QtGui.QHBoxLayout()
+        top_left_layout.addWidget(label)
+        top_left_layout.addWidget(self.line_edit)
 
-       close_button = QtGui.QPushButton(Configuration.USER_TEXT["close"])
-       close_button.clicked.connect(self.close)
-
-       top_left_layout = QtGui.QHBoxLayout()
-       top_left_layout.addWidget(label)
-       top_left_layout.addWidget(self.line_edit)
-
-       left_layout = QtGui.QVBoxLayout()
-       left_layout.addLayout(top_left_layout)
-       left_layout.addWidget(case_box)
-       left_layout.addWidget(backward_box)
-       left_layout.addWidget(whole_words_box)
-       left_layout.addStretch()
-
-       right_layout = QtGui.QVBoxLayout()
-       right_layout.addWidget(find_button)
-       right_layout.addWidget(close_button)
-       #right_layout.setAlignment(QtCore.Qt.AlignLeft)
-       right_layout.addStretch()
-
-       main_layout = QtGui.QHBoxLayout()
-       main_layout.addLayout(left_layout)
-       main_layout.addLayout(right_layout)
-       main_layout.addStretch()
-       self.setLayout(main_layout)
+        left_layout = QtGui.QVBoxLayout()
+        left_layout.addLayout(top_left_layout)
+        left_layout.addWidget(case_box)
+        left_layout.addWidget(backward_box)
+        left_layout.addWidget(whole_words_box)
+        left_layout.addStretch()
+        
+        right_layout = QtGui.QVBoxLayout()
+        right_layout.addWidget(find_button)
+        right_layout.addWidget(close_button)
+        #right_layout.setAlignment(QtCore.Qt.AlignLeft)
+        right_layout.addStretch()
+        
+        main_layout = QtGui.QHBoxLayout()
+        main_layout.addLayout(left_layout)
+        main_layout.addLayout(right_layout)
+        main_layout.addStretch()
+        self.setLayout(main_layout)
        
     def find_case_changed(self):
         self.find_case_sensitive = not self.find_case_sensitive
@@ -943,6 +1042,13 @@ class Document(QtGui.QWidget):
         cursor = self.text.textCursor()
         text = cursor.selectedText()
         text.append("".join(["(", link, ")"]))
+        cursor.insertText(text)
+
+    def insert_image(self, image_location, title):
+        self.edit_selection("![", "]", False)
+        cursor = self.text.textCursor()
+        text = cursor.selectedText()
+        text.append("".join(["(", image_location, " \"", title, "\")"]))
         cursor.insertText(text)
 
     def edit_selection(self, beginning, end, needs_selection=True):

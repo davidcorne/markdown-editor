@@ -17,6 +17,11 @@ Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
 All Files (*)\
 """
 
+IMAGE_FILE_STRING = """\
+Images (*.png *.jpg *.jpeg *.gif);;\
+All Files (*)\
+"""
+
 USER_TEXT = {
     "program_name": "MarkdownEditor",
     "undo_redo_toolbar": "Undo Redo Toolbar",
@@ -54,6 +59,10 @@ USER_TEXT = {
     "error_text_was": "The text from it was:",
     "insert_link": "Insert Link",
     "enter_link": "Enter the destination URL",
+    "insert_image": "Insert Image",
+    "enter_image_location": "Enter the image location",
+    "enter_image_title": "Enter the image title (optional)",
+    "browse_for_image": "Browse for image",
     }
 
 TOOL_TIP = {
@@ -77,7 +86,8 @@ TOOL_TIP = {
     "select_all": "Select all the text in the current document",
     "set_colour": "Set the colour of the highlighted area to this colour",
     "undo": "Undo the previous change",
-    "link": "Insert a link with the title of the surrounded area",
+    "link": "Insert a link with the link text of the surrounded area",
+    "image": "Insert an image with the title of the surrounded area",
     }
 
 #==============================================================================
