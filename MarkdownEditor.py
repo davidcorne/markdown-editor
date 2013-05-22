@@ -519,20 +519,30 @@ class MarkdownEditor(QtGui.QMainWindow):
                 self.editor.currentWidget().export_html(file_path)
 
     def close_file(self):
+        """
+        Removes the tab, if unsaved confirms either save or close without 
+        saving.
+
+        returns whether the file was closed.
+        """
         if (not self.editor.count()):
             # there is no tab, so close the program
             self.close()
         else:
             if (not self.editor.currentWidget().saved):
-                if (self.confirm_close_file()):
+                action = self.confirm_close_file()
+                if (action == QtGui.QMessageBox.Save):
                     self.save_file()
+                elif (action == QtGui.QMessageBox.Cancel):
+                    return False
             self.editor.removeTab(self.editor.currentIndex())
+            return True
 
 
     def confirm_close_file(self):
         """
         Asks the user whether they want to close the file.
-        returns True if they want to close it, False otherwise
+        returns the action
         """
         # have a dialog here for saving current tab
         # do you want to save the changes you've made to [file_path]
@@ -560,7 +570,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
             )
         confirm_dialog.setDefaultButton(QtGui.QMessageBox.Save)
-        return confirm_dialog.exec_() == QtGui.QMessageBox.Save
+        return confirm_dialog.exec_()
 
     def save_file_as(self):
         if (self.editor.count()):
