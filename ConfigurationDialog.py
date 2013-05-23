@@ -69,17 +69,35 @@ class CSSConfig(QtGui.QDialog):
         css_group = QtGui.QGroupBox(
             Configuration.USER_TEXT["style_name"]
             )
+        markdown_css_label = [
+            Configuration.USER_TEXT["markdown"],
+            " ",
+            Configuration.USER_TEXT["css"],
+            ]
+        markdown_css_label = QtGui.QLabel("".join(markdown_css_label))
 
-        css_label = QtGui.QLabel(Configuration.USER_TEXT["css"])
+        markdown_css_combo = self.find_markdown_css_options()
 
-        css_combo = self.find_css_options()
+        markdown_css_layout = QtGui.QHBoxLayout()
+        markdown_css_layout.addWidget(markdown_css_label)
+        markdown_css_layout.addWidget(markdown_css_combo)
 
-        css_layout = QtGui.QHBoxLayout()
-        css_layout.addWidget(css_label)
-        css_layout.addWidget(css_combo)
+        code_css_label = [
+            Configuration.USER_TEXT["code"],
+            " ",
+            Configuration.USER_TEXT["css"],
+            ]
+        code_css_label = QtGui.QLabel("".join(code_css_label))
+
+        code_css_combo = self.find_code_css_options()
+
+        code_css_layout = QtGui.QHBoxLayout()
+        code_css_layout.addWidget(code_css_label)
+        code_css_layout.addWidget(code_css_combo)
 
         config_layout = QtGui.QVBoxLayout()
-        config_layout.addLayout(css_layout)
+        config_layout.addLayout(markdown_css_layout)
+        config_layout.addLayout(code_css_layout)
         css_group.setLayout(config_layout)
 
         main_layout = QtGui.QVBoxLayout()
@@ -88,7 +106,31 @@ class CSSConfig(QtGui.QDialog):
 
         self.setLayout(main_layout)
 
-    def find_css_options(self):
+    def find_code_css_options(self):
+        css_combo = QtGui.QComboBox()
+        css_combo.addItem("None")
+        css_dir = os.path.join(Configuration.exe_dir(), "CSS/Code")
+        css_files = [s for s in os.listdir(css_dir) if s.endswith(".css")]
+        css_files = [os.path.splitext(md_file)[0] for md_file in css_files]
+        for md_file in css_files:
+            css_combo.addItem(md_file)
+        # add one for None
+        if (self.config["code_css"]):
+            css_combo.setCurrentIndex(
+                css_files.index(self.config["code_css"]) + 1
+            )
+        css_combo.currentIndexChanged["QString"].connect(
+            self.new_code_css_chosen
+            )
+
+        return css_combo
+
+    def new_code_css_chosen(self, css):
+        if (css == "None"):
+            css = ""
+        self.config["code_css"] = str(css)
+
+    def find_markdown_css_options(self):
         css_combo = QtGui.QComboBox()
         css_combo.addItem("None")
         css_dir = os.path.join(Configuration.exe_dir(), "CSS/Markdown")
@@ -97,9 +139,10 @@ class CSSConfig(QtGui.QDialog):
         for md_file in css_files:
             css_combo.addItem(md_file)
         # add one for None
-        css_combo.setCurrentIndex(
-            css_files.index(self.config["markdown_css"]) + 1
-        )
+        if (self.config["markdown_css"]):
+            css_combo.setCurrentIndex(
+                css_files.index(self.config["markdown_css"]) + 1
+            )
         css_combo.currentIndexChanged["QString"].connect(
             self.new_markdown_css_chosen
             )

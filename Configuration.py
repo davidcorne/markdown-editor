@@ -81,6 +81,7 @@ USER_TEXT = {
     "debug_options": "Debug Options",
     "css": "CSS",
     "style_name": "Style Name",
+    "code": "Code",
     }
 
 TOOL_TIP = {
