@@ -32,7 +32,7 @@ echo ""
 # now make the installer, first test if devenv is a command
 if hash devenv 2>/dev/null
 then
-  cd Installer
+  \cd Installer
   echo "Making windows installer"
   devenv Installer.sln /Project Installer.vdproj /Rebuild Release
 else
