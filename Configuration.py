@@ -104,9 +104,16 @@ TOOL_TIP = {
     }
 
 #==============================================================================
+def exe_dir():
+    """
+    Returns the directory this is being run from.
+    """
+    return os.path.dirname(sys.argv[0])
+
+#==============================================================================
 def find_images():
     images = dict()
-    directory = os.path.join(os.path.dirname(sys.argv[0]), "Images")
+    directory = os.path.join(exe_dir(), "Images")
     if (os.path.isdir(directory)):
         for image in os.listdir(directory):
             images[os.path.splitext(image)[0]] = os.path.join(
@@ -127,6 +134,17 @@ PROCESSOR_TYPES[USER_TEXT["markdown_extra"]] = Processor.MarkdownExtra
 PROCESSOR_TYPES[USER_TEXT["github_flavoured_markdown"]] = Processor.GithubFlavouredMarkdown
 
 PROCESSOR = PROCESSOR_TYPES[USER_TEXT["github_flavoured_markdown"]]()
+
+#==============================================================================
+def read_css(filename):
+    filename += ".css"
+    directory = os.path.join(exe_dir(), "CSS")
+    filename = os.path.join(directory, filename)
+    with open(filename, "r") as css_file:
+        return css_file.read()
+
+MARKDOWN_CSS = read_css("Markdown/markdown")
+CODE_CSS = read_css("Code/standard")
 
 #==============================================================================
 if (__name__ == "__main__"):
