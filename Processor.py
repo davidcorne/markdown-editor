@@ -79,11 +79,16 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
     class Renderer(misaka.HtmlRenderer, misaka.SmartyPants):
     
         def block_code(self, text, language):
-            lexer = pygments.lexers.get_lexer_by_name(language, stripall=True)
+            try:
+                lexer = pygments.lexers.get_lexer_by_name(
+                    language,
+                    stripall=True
+                    )
+            except pygments.util.ClassNotFound:
+                return cgi.escape(text, quote=True)
             formatter = pygments.formatters.HtmlFormatter(linenos=True)#, cssclass="dgc")
             formatter.get_style_defs("")
             highlighted = pygments.highlight(text, lexer, formatter)
-            #print highlighted
             return highlighted
 
     def __init__(self):
