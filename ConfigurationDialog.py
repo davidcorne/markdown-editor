@@ -4,6 +4,7 @@
 # python imports
 
 import copy
+import os
 
 from PyQt4 import QtGui, QtCore
 
@@ -18,7 +19,6 @@ class MarkdownConfig(QtGui.QDialog):
     def __init__(self, parent, config):
         super(MarkdownConfig, self).__init__(parent)
         self.config = config
-        self.markdown_types = Configuration.PROCESSOR_TYPES.keys()
 
         config_group = QtGui.QGroupBox(
             Configuration.USER_TEXT["markdown_type"]
@@ -28,15 +28,12 @@ class MarkdownConfig(QtGui.QDialog):
 
         markdown_combo = QtGui.QComboBox()
         for markdown_type in Configuration.PROCESSOR_TYPES.keys():
-            markdown_combo.addItem(markdown_type)
-        # select the currently used processor, not particularly pleasent
-        selected_processor = Configuration.PROCESSOR.__class__
-        index = Configuration.PROCESSOR_TYPES.values().index(
-            selected_processor
+            markdown_combo.addItem(Configuration.USER_TEXT[markdown_type])
+        index = Configuration.PROCESSOR_TYPES.keys().index(
+            self.config["processor"]
             )
         markdown_combo.setCurrentIndex(index) 
-        self.markdown_type = self.markdown_types[index]
-        markdown_combo.currentIndexChanged["QString"].connect(
+        markdown_combo.currentIndexChanged.connect(
             self.new_markdown_chosen
             )
 
@@ -54,12 +51,81 @@ class MarkdownConfig(QtGui.QDialog):
 
         self.setLayout(main_layout)
 
-    def new_markdown_chosen(self, markdown_type):
-        self.markdown_type = str(markdown_type)
+    def new_markdown_chosen(self, index):
+        self.config["processor"] = Configuration.PROCESSOR_TYPES.keys()[index]
     
     def save(self):
-        new_processor = Configuration.PROCESSOR_TYPES[self.markdown_type]()
-        Configuration.PROCESSOR = new_processor
+        Configuration.PROCESSOR = Configuration.PROCESSOR_TYPES[
+            self.config["processor"]
+        ]()
+
+#==============================================================================
+class CSSConfig(QtGui.QDialog):
+
+    def __init__(self, parent, config):
+        super(CSSConfig, self).__init__(parent)
+        self.config = config
+
+        css_group = QtGui.QGroupBox(
+            Configuration.USER_TEXT["style_name"]
+            )
+
+        css_label = QtGui.QLabel(Configuration.USER_TEXT["css"])
+
+        css_combo = self.find_css_options()
+
+        css_layout = QtGui.QHBoxLayout()
+        css_layout.addWidget(css_label)
+        css_layout.addWidget(css_combo)
+
+        config_layout = QtGui.QVBoxLayout()
+        config_layout.addLayout(css_layout)
+        css_group.setLayout(config_layout)
+
+        main_layout = QtGui.QVBoxLayout()
+        main_layout.addWidget(css_group)
+        main_layout.addStretch(1)
+
+        self.setLayout(main_layout)
+
+    def find_css_options(self):
+        css_combo = QtGui.QComboBox()
+        css_combo.addItem("None")
+        css_dir = os.path.join(Configuration.exe_dir(), "CSS/Markdown")
+        css_files = [s for s in os.listdir(css_dir) if s.endswith(".css")]
+        css_files = [os.path.splitext(md_file)[0] for md_file in css_files]
+        for md_file in css_files:
+            css_combo.addItem(md_file)
+        # add one for None
+        css_combo.setCurrentIndex(
+            css_files.index(self.config["markdown_css"]) + 1
+        )
+        css_combo.currentIndexChanged["QString"].connect(
+            self.new_markdown_css_chosen
+            )
+
+        return css_combo
+
+    def new_markdown_css_chosen(self, css):
+        if (css == "None"):
+            css = ""
+        self.config["markdown_css"] = str(css)
+
+    def save(self):
+        if (self.config["markdown_css"]):
+            markdown_css = Configuration.read_css(
+                "Markdown/" + self.config["markdown_css"]
+            )
+        else:
+            markdown_css = ""
+        Configuration.MARKDOWN_CSS = markdown_css
+            
+        if (self.config["code_css"]):
+            Configuration.CODE_CSS = Configuration.read_css(
+                "Code/" + self.config["code_css"]
+            )
+        else:
+            Configuration.CODE_CSS = ""
 
 #==============================================================================
 class MiscConfig(QtGui.QDialog):
@@ -110,6 +176,7 @@ class ConfigurationDialog(QtGui.QDialog):
 
         self.pages = QtGui.QStackedWidget()
         self.pages.addWidget(MarkdownConfig(self, self.config))
+        self.pages.addWidget(CSSConfig(self, self.config))
         self.pages.addWidget(MiscConfig(self, self.config))
 
         # add a save and a cancel button
@@ -159,6 +226,16 @@ class ConfigurationDialog(QtGui.QDialog):
         markdown_button.setText(Configuration.USER_TEXT["markdown"])
         markdown_button.setTextAlignment(QtCore.Qt.AlignHCenter)
         markdown_button.setFlags(
+            QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
+            )
+
+        css_button = QtGui.QListWidgetItem(self.contents)
+        css_button.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["css"])
+            )
+        css_button.setText(Configuration.USER_TEXT["css"])
+        css_button.setTextAlignment(QtCore.Qt.AlignHCenter)
+        css_button.setFlags(
             QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
             )
 

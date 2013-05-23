@@ -12,6 +12,9 @@ import Processor
 
 OPTIONS = {
     "show_html": False,
+    "processor": "github_flavoured_markdown",
+    "markdown_css": "Markdown",
+    "code_css": "Standard",
     }
 
 MARKDOWN_FILE_STRING = """\
@@ -76,6 +79,8 @@ USER_TEXT = {
     "misc": "Miscellaneous",
     "markdown_type": "Markdown Type",
     "debug_options": "Debug Options",
+    "css": "CSS",
+    "style_name": "Style Name",
     }
 
 TOOL_TIP = {
@@ -129,11 +134,11 @@ def find_images():
 IMAGES = find_images()
 
 PROCESSOR_TYPES = collections.OrderedDict()
-PROCESSOR_TYPES[USER_TEXT["markdown"]] = Processor.Markdown
-PROCESSOR_TYPES[USER_TEXT["markdown_extra"]] = Processor.MarkdownExtra
-PROCESSOR_TYPES[USER_TEXT["github_flavoured_markdown"]] = Processor.GithubFlavouredMarkdown
+PROCESSOR_TYPES["markdown"] = Processor.Markdown
+PROCESSOR_TYPES["markdown_extra"] = Processor.MarkdownExtra
+PROCESSOR_TYPES["github_flavoured_markdown"] = Processor.GithubFlavouredMarkdown
 
-PROCESSOR = PROCESSOR_TYPES[USER_TEXT["github_flavoured_markdown"]]()
+PROCESSOR = PROCESSOR_TYPES[OPTIONS["processor"]]()
 
 #==============================================================================
 def read_css(filename):
@@ -143,8 +148,8 @@ def read_css(filename):
     with open(filename, "r") as css_file:
         return css_file.read()
 
-MARKDOWN_CSS = read_css("Markdown/markdown")
-CODE_CSS = read_css("Code/standard")
+MARKDOWN_CSS = read_css("Markdown/" + OPTIONS["markdown_css"])
+CODE_CSS = read_css("Code/"  + OPTIONS["code_css"])
 
 #==============================================================================
 if (__name__ == "__main__"):
