@@ -2,6 +2,7 @@
 # Written by: DGC
 
 # python imports
+from __future__ import unicode_literals
 
 import copy
 import os
@@ -128,7 +129,7 @@ class CSSConfig(QtGui.QDialog):
     def new_code_css_chosen(self, css):
         if (css == "None"):
             css = ""
-        self.config["code_css"] = str(css)
+        self.config["code_css"] = unicode(css)
 
     def find_markdown_css_options(self):
         css_combo = QtGui.QComboBox()
@@ -152,7 +153,7 @@ class CSSConfig(QtGui.QDialog):
     def new_markdown_css_chosen(self, css):
         if (css == "None"):
             css = ""
-        self.config["markdown_css"] = str(css)
+        self.config["markdown_css"] = unicode(css)
 
     def save(self):
         if (self.config["markdown_css"]):

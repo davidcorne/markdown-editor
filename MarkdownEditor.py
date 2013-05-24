@@ -2,6 +2,8 @@
 
 # python imports
 
+from __future__ import unicode_literals
+
 import sys
 import os
 
@@ -461,7 +463,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 Configuration.USER_TEXT["enter_link"]
                 )
             if (ok):
-                self.editor.currentWidget().insert_link(str(link))
+                self.editor.currentWidget().insert_link(unicode(link))
 
     def insert_image(self):
         if (self.editor.count()):
@@ -505,7 +507,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             location = "."
             if (self.editor.currentWidget().file_path):
                 location, ext = os.path.splitext(
-                    str(self.editor.currentWidget().file_path)
+                    unicode(self.editor.currentWidget().file_path)
                     )
                 location = location + ".html"
             file_path = QtGui.QFileDialog.getSaveFileName(
@@ -696,7 +698,7 @@ class ColourButton(QtGui.QFrame):
     def colour_dialog(self):
         colour = QtGui.QColorDialog.getColor()
         if (colour.isValid()):
-            self.colour = str(colour.name())
+            self.colour = unicode(colour.name())
             self.update_ui()
             self.set_colour(self.colour)
         
@@ -779,8 +781,8 @@ class ImageDialog(QtGui.QDialog):
         Raises the form and returns a tuple 
         (ok_clicked, image_location, title)
         """
-        image_location = str(self.image_entry.text())
-        title = str(self.title_entry.text())
+        image_location = unicode(self.image_entry.text())
+        title = unicode(self.title_entry.text())
         return (self.accepted, image_location, title)
 
 #==============================================================================
@@ -918,7 +920,7 @@ class MarkdownPreview(QtGui.QTextBrowser):
         # even try local files using openUrl
         ok = QtGui.QDesktopServices.openUrl(url)
         if (not ok):
-            detail = ["Could not find location:", str(url.toString())]
+            detail = ["Could not find location:", unicode(url.toString())]
             Error.show_error("Failed to open URL", "\n\n".join(detail))
 
     def show_preview(self, html):
@@ -955,7 +957,7 @@ class Document(QtGui.QWidget):
     @property
     def filename(self):
         if (self.file_path is not None):
-            return os.path.basename(str(self.file_path))
+            return os.path.basename(unicode(self.file_path))
 
     def sync_scrollbars(self):
         max_text_scroll = self.text.verticalScrollBar().maximum()
@@ -983,7 +985,7 @@ class Document(QtGui.QWidget):
 
     def convert_input(self):
         markdown_string = self.text.toPlainText()
-        return process_markdown(str(markdown_string))
+        return process_markdown(unicode(markdown_string))
 
     def save_file(self):
         with open(self.file_path, "w") as text_file:

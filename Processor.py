@@ -21,7 +21,7 @@ OPEN_HEAD = """<html>
   <title></title>
   <meta http-equiv="content-type" content="text/html; charset=None">
   <style type="text/css">
-"""
+"""
 
 CLOSE_HEAD = """</style>
 </head>
