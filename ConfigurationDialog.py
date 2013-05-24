@@ -156,20 +156,8 @@ class CSSConfig(QtGui.QDialog):
         self.config["markdown_css"] = unicode(css)
 
     def save(self):
-        if (self.config["markdown_css"]):
-            markdown_css = Configuration.read_css(
-                "Markdown/" + self.config["markdown_css"]
-            )
-        else:
-            markdown_css = ""
-        Configuration.MARKDOWN_CSS = markdown_css
-            
-        if (self.config["code_css"]):
-            Configuration.CODE_CSS = Configuration.read_css(
-                "Code/" + self.config["code_css"]
-            )
-        else:
-            Configuration.CODE_CSS = ""
+        Configuration.reload_markdown_css()
+        Configuration.reload_code_css()
 
 #==============================================================================
 class MiscConfig(QtGui.QDialog):
@@ -254,6 +242,7 @@ class ConfigurationDialog(QtGui.QDialog):
             self.pages.widget(index).save()
         for key in self.config:
             Configuration.OPTIONS[key] = self.config[key]
+        Configuration.save_options()
         self.close()
 
     def change_page(self, current, previous):

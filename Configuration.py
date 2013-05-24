@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 
 import collections
+import pickle
 import os
 import sys
 
@@ -12,13 +13,22 @@ import sys
 import Error
 import Processor
 
-OPTIONS = {
-    "show_html": False,
-    "processor": "github_flavoured_markdown",
-    "markdown_css": "Markdown",
-    "code_css": "Standard",
-    }
+#==============================================================================
+def resource_dir():
+    """
+    Returns the directory this is being run from.
+    """
+    return os.path.join(os.path.dirname(sys.argv[0]), "Resources")
 
+with open(os.path.join(resource_dir(), "Options.pickle"), "r") as options_file:
+    OPTIONS = pickle.load(options_file)
+
+def save_options():
+    options_path = os.path.join(resource_dir(), "Options.pickle")
+    with open(options_path, "w") as options_file:
+        pickle.dump(OPTIONS, options_file)
+
+    
 MARKDOWN_FILE_STRING = """\
 Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
 All Files (*)\
@@ -112,13 +122,6 @@ TOOL_TIP = {
     }
 
 #==============================================================================
-def resource_dir():
-    """
-    Returns the directory this is being run from.
-    """
-    return os.path.join(os.path.dirname(sys.argv[0]), "Resources")
-
-#==============================================================================
 def find_images():
     images = dict()
     directory = os.path.join(resource_dir(), "Images")
@@ -151,8 +154,24 @@ def read_css(filename):
     with open(filename, "r") as css_file:
         return css_file.read()
 
-MARKDOWN_CSS = read_css("Markdown/" + OPTIONS["markdown_css"])
-CODE_CSS = read_css("Code/"  + OPTIONS["code_css"])
+#==============================================================================
+def reload_markdown_css():
+    css = ""
+    if (OPTIONS["markdown_css"]):
+        css = read_css("Markdown/" + OPTIONS["markdown_css"])
+    global MARKDOWN_CSS
+    MARKDOWN_CSS = css
+
+#==============================================================================
+def reload_code_css():
+    css = ""
+    if (OPTIONS["code_css"]):
+        css = read_css("Code/" + OPTIONS["code_css"])
+    global CODE_CSS
+    CODE_CSS = css
+
+reload_markdown_css()
+reload_code_css()
 
 #==============================================================================
 if (__name__ == "__main__"):
