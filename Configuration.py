@@ -20,14 +20,32 @@ def resource_dir():
     """
     return os.path.join(os.path.dirname(sys.argv[0]), "Resources")
 
-with open(os.path.join(resource_dir(), "Options.pickle"), "r") as options_file:
-    OPTIONS = pickle.load(options_file)
+#==============================================================================
+def options_file_name():
+    # user environmental variable called different things on different systems
+    name = "_Options.pickle"
+    if (os.environ.get("USER")):
+        name = os.environ.get("USER") + name
+    elif (os.environ.get("USERNAME")):
+        name = os.environ.get("USERNAME") + name
+    return name
 
+#==============================================================================
+def read_options():
+    filename = os.path.join(resource_dir(), options_file_name())
+    if (not os.path.isfile(filename)):
+        filename = os.path.join(resource_dir(), "Options.pickle")
+    with open(filename, "r") as options_file:
+        global OPTIONS
+        OPTIONS = pickle.load(options_file)
+
+read_options()
+
+#==============================================================================
 def save_options():
-    options_path = os.path.join(resource_dir(), "Options.pickle")
+    options_path = os.path.join(resource_dir(), options_file_name())
     with open(options_path, "w") as options_file:
         pickle.dump(OPTIONS, options_file)
-
     
 MARKDOWN_FILE_STRING = """\
 Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
