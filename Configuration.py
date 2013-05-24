@@ -112,16 +112,16 @@ TOOL_TIP = {
     }
 
 #==============================================================================
-def exe_dir():
+def resource_dir():
     """
     Returns the directory this is being run from.
     """
-    return os.path.dirname(sys.argv[0])
+    return os.path.join(os.path.dirname(sys.argv[0]), "Resources")
 
 #==============================================================================
 def find_images():
     images = dict()
-    directory = os.path.join(exe_dir(), "Images")
+    directory = os.path.join(resource_dir(), "Images")
     if (os.path.isdir(directory)):
         for image in os.listdir(directory):
             images[os.path.splitext(image)[0]] = os.path.join(
@@ -146,7 +146,7 @@ PROCESSOR = PROCESSOR_TYPES[OPTIONS["processor"]]()
 #==============================================================================
 def read_css(filename):
     filename += ".css"
-    directory = os.path.join(exe_dir(), "CSS")
+    directory = os.path.join(resource_dir(), "CSS")
     filename = os.path.join(directory, filename)
     with open(filename, "r") as css_file:
         return css_file.read()

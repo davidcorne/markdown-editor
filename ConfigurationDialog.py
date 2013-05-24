@@ -110,7 +110,7 @@ class CSSConfig(QtGui.QDialog):
     def find_code_css_options(self):
         css_combo = QtGui.QComboBox()
         css_combo.addItem("None")
-        css_dir = os.path.join(Configuration.exe_dir(), "CSS/Code")
+        css_dir = os.path.join(Configuration.resource_dir(), "CSS/Code")
         css_files = [s for s in os.listdir(css_dir) if s.endswith(".css")]
         css_files = [os.path.splitext(md_file)[0] for md_file in css_files]
         for md_file in css_files:
@@ -134,7 +134,7 @@ class CSSConfig(QtGui.QDialog):
     def find_markdown_css_options(self):
         css_combo = QtGui.QComboBox()
         css_combo.addItem("None")
-        css_dir = os.path.join(Configuration.exe_dir(), "CSS/Markdown")
+        css_dir = os.path.join(Configuration.resource_dir(), "CSS/Markdown")
         css_files = [s for s in os.listdir(css_dir) if s.endswith(".css")]
         css_files = [os.path.splitext(md_file)[0] for md_file in css_files]
         for md_file in css_files:
