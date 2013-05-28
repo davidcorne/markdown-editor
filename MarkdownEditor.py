@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui, QtCore, QtWebKit
 
 # local imports
 
@@ -856,7 +856,6 @@ class FindWidget(QtGui.QWidget):
         right_layout = QtGui.QVBoxLayout()
         right_layout.addWidget(find_button)
         right_layout.addWidget(close_button)
-        #right_layout.setAlignment(QtCore.Qt.AlignLeft)
         right_layout.addStretch()
         
         main_layout = QtGui.QHBoxLayout()
@@ -909,12 +908,14 @@ class FindWidget(QtGui.QWidget):
                 cant_find_dialog.show()
         
 #==============================================================================
-class MarkdownPreview(QtGui.QTextBrowser):
+class MarkdownPreview(QtWebKit.QWebView):
 
     def __init__(self, parent):
         super(MarkdownPreview, self).__init__(parent)
-        self.setOpenLinks(False)
-        self.anchorClicked.connect(self.link_clicked)
+        self.page = QtWebKit.QWebPage()
+        self.page.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
+        self.setPage(self.page)
+        self.linkClicked.connect(self.link_clicked)
 
     def link_clicked(self, url):
         # even try local files using openUrl
@@ -924,11 +925,25 @@ class MarkdownPreview(QtGui.QTextBrowser):
             Error.show_error("Failed to open URL", "\n\n".join(detail))
 
     def show_preview(self, html):
-        self.clear()
+        self.setHtml(html)
+        return
         if (Configuration.OPTIONS["show_html"]):
             self.insertPlainText(html)
         else:
             self.insertHtml(html)
+
+    def scroll(self, ratio):
+        """
+        Ratio should be a number between 0 and 1
+        """
+        frame = super(MarkdownPreview, self).page().mainFrame()
+        value = ratio * frame.scrollBarMaximum(QtCore.Qt.Vertical)
+        frame.setScrollPosition(QtCore.QPoint(0, value))
+
+    def __del__(self):
+        # For some reason without this, when you quit the application it 
+        # restarts itself, I think it's to do with ref counts on the page
+        del self.page
         
 #==============================================================================
 class Document(QtGui.QWidget):
@@ -963,11 +978,8 @@ class Document(QtGui.QWidget):
         max_text_scroll = self.text.verticalScrollBar().maximum()
         if (max_text_scroll):
             value = self.text.verticalScrollBar().value()
-            percentage_scrolled = float(value) / max_text_scroll
-
-            output_scroll = self.output.verticalScrollBar()
-            max_out_scroll = output_scroll.maximum()
-            output_scroll.setValue(int(max_out_scroll * percentage_scrolled))
+            ratio = float(value) / max_text_scroll
+            self.output.scroll(ratio)
 
     def check_saved(self):
         if (self.file_path is not None):
