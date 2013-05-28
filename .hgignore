@@ -13,3 +13,6 @@ MANIFEST
 *.suo
 *.msi
 *.exe
+
+# user specific option files
+Resources/*_Options.pickle
