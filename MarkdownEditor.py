@@ -4,6 +4,7 @@
 
 from __future__ import unicode_literals
 
+import cgi
 import sys
 import os
 
@@ -925,12 +926,15 @@ class MarkdownPreview(QtWebKit.QWebView):
             Error.show_error("Failed to open URL", "\n\n".join(detail))
 
     def show_preview(self, html):
-        self.setHtml(html)
-        return
         if (Configuration.OPTIONS["show_html"]):
-            self.insertPlainText(html)
-        else:
-            self.insertHtml(html)
+            html = "".join(
+                [
+                    "<pre><code>",
+                    cgi.escape(html),
+                    "</code></pre>"
+                    ]
+                )
+        self.setHtml(html)
 
     def scroll(self, ratio):
         """
