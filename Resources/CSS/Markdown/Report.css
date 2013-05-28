@@ -1,0 +1,30 @@
+{
+padding:0 0 0.5em 0;
+
+font-family:georgia, sans-serif;
+}
+h3 {
+margin:2em 0 0 0;
+border-bottom:2px solid #66f;
+}
+p {
+padding:0.6em 0.5em 0 0.5em;
+}
+img {
+padding:0.6em 0.5em 0 0.5em;
+}
+a {
+color:#33f;
+}
+.hint {
+text-decoration:none;
+color:#000;
+border-bottom:1px dotted #333;
+}
+.hint:hover {
+cursor:help;
+}
+tt
+{
+color:#909;
+}
