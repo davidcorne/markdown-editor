@@ -13,7 +13,7 @@ then
   . ~/my_profile.ksh
 fi
 
-pyinstaller -F -w --icon=Images/icon.ico MarkdownEditor.py
+pyinstaller -F -w --icon=Resources/Images/icon.ico MarkdownEditor.py
 
 echo ""
 
