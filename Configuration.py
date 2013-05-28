@@ -112,6 +112,7 @@ USER_TEXT = {
     "css": "CSS",
     "style_name": "Style Name",
     "code": "Code",
+    "preview": "Preview",
     }
 
 TOOL_TIP = {
