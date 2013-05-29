@@ -52,7 +52,7 @@ Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
 All Files (*)\
 """
 
-# full image formats from list in word dropdown - probably overkill
+# full image formats from list in MS word dropdown - probably overkill
 IMAGE_FILE_STRING = """\
 Images (*.png *.jpg *.jpeg *.gif *.bmp *.emf *.wmf *.jfif *.jpe *.dib *.rle \
 *.bmz *.gfa *.emz *.wmz *.pcz *.tif *.tiff *.cgm *.eps *.pct *.pict *.wpg);;\
@@ -73,6 +73,10 @@ USER_TEXT = {
     "match_whole_words": "Match &whole words",
     "search_backwards": "Search &backwards",
     "find_title": "Find",
+    "replace_title": "Replace",
+    "replace_with": "Replace with:",
+    "replace": "&Replace",
+    "replace_all": "Replace &all",
     "find": "&Find",
     "close": "Close",
     "close_file": "Close File",

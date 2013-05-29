@@ -795,19 +795,32 @@ class FindDialog(QtGui.QDockWidget):
             parent
             )
         self.move(parent.frameGeometry().center())
-        find_widget = FindWidget(parent.editor)
-        self.setWidget(find_widget)
+        tabs = QtGui.QTabWidget(self)
+        tabs.setTabsClosable(False)
+        
+        find_widget = FindReplaceWidget(parent.editor, self.close)
+        replace_widget = FindReplaceWidget(
+            parent.editor,
+            self.close,
+            replace=True
+            )
+        tabs.addTab(find_widget, Configuration.USER_TEXT["find_title"])
+        tabs.addTab(replace_widget, Configuration.USER_TEXT["replace_title"])
+
+        self.setWidget(tabs)
         self.topLevelChanged.connect(self.adjustSize)
         self.setFloating(True)
         self.show()
 
 #==============================================================================
-class FindWidget(QtGui.QWidget):
+class FindReplaceWidget(QtGui.QWidget):
 
-    def __init__(self, editor):
-        super(FindWidget, self).__init__()
+    def __init__(self, editor, close_action, replace=False):
+        super(FindReplaceWidget, self).__init__()
        
         self.editor = editor
+        self.close_action = close_action
+        self.replace_widget = replace
 
         self.find_backwards = False
         self.find_case_sensitive = False
@@ -816,11 +829,15 @@ class FindWidget(QtGui.QWidget):
         self.initialise_ui()
 
     def initialise_ui(self):
-        label = QtGui.QLabel(Configuration.USER_TEXT["find_what"])
-        self.line_edit = QtGui.QLineEdit()
-        self.line_edit.returnPressed.connect(self.find)
-        label.setBuddy(self.line_edit)
+        find_label = QtGui.QLabel(Configuration.USER_TEXT["find_what"])
+        self.find_entry = QtGui.QLineEdit()
+        self.find_entry.returnPressed.connect(self.find)
+        find_label.setBuddy(self.find_entry)
        
+        replace_label = QtGui.QLabel(Configuration.USER_TEXT["replace_with"])
+        self.replace_entry = QtGui.QLineEdit()
+        self.replace_entry.returnPressed.connect(self.find)
+        replace_label.setBuddy(self.replace_entry)
 
         case_box = QtGui.QCheckBox(Configuration.USER_TEXT["match_case"])
         case_box.stateChanged.connect(self.find_case_changed)
@@ -839,16 +856,35 @@ class FindWidget(QtGui.QWidget):
             Configuration.USER_TEXT["find"]
             )
         find_button.clicked.connect(self.find)
+        
+        replace_button = QtGui.QPushButton(
+            Configuration.USER_TEXT["replace"]
+            )
+        replace_button.clicked.connect(self.replace)
+        replace_all_button = QtGui.QPushButton(
+            Configuration.USER_TEXT["replace_all"]
+            )
+        replace_all_button.clicked.connect(self.replace_all)
 
         close_button = QtGui.QPushButton(Configuration.USER_TEXT["close"])
-        close_button.clicked.connect(self.close)
+        close_button.clicked.connect(self.close_action)
 
-        top_left_layout = QtGui.QHBoxLayout()
-        top_left_layout.addWidget(label)
-        top_left_layout.addWidget(self.line_edit)
+        find_layout = QtGui.QHBoxLayout()
+        find_layout.addWidget(find_label)
+        find_layout.addWidget(self.find_entry)
+
+        replace_layout = QtGui.QHBoxLayout()
+        replace_layout.addWidget(replace_label)
+        replace_layout.addWidget(self.replace_entry)
+
+        replace_buttons = QtGui.QHBoxLayout()
+        replace_buttons.addWidget(replace_button)
+        replace_buttons.addWidget(replace_all_button)
 
         left_layout = QtGui.QVBoxLayout()
-        left_layout.addLayout(top_left_layout)
+        left_layout.addLayout(find_layout)
+        if (self.replace_widget):
+            left_layout.addLayout(replace_layout)
         left_layout.addWidget(case_box)
         left_layout.addWidget(backward_box)
         left_layout.addWidget(whole_words_box)
@@ -856,6 +892,8 @@ class FindWidget(QtGui.QWidget):
         
         right_layout = QtGui.QVBoxLayout()
         right_layout.addWidget(find_button)
+        if (self.replace_widget):
+            right_layout.addLayout(replace_buttons)
         right_layout.addWidget(close_button)
         right_layout.addStretch()
         
@@ -887,9 +925,10 @@ class FindWidget(QtGui.QWidget):
             flags = flags | QtGui.QTextDocument.FindWholeWords
         return flags
 
-    def find(self):
+    def find(self, raise_dialog=True):
+        found = False
         if (self.editor.count()):
-            text = self.line_edit.text()
+            text = self.find_entry.text()
             found = self.editor.currentWidget().text.find(
                 text,
                 self.get_find_flags()
@@ -897,7 +936,7 @@ class FindWidget(QtGui.QWidget):
             if (found):
                 self.editor.currentWidget().activateWindow()
                 self.editor.currentWidget().text.setFocus()
-            else:
+            elif (raise_dialog):
                 cant_find_dialog = QtGui.QMessageBox(
                     QtGui.QMessageBox.Information,
                     "Not Found",
@@ -907,6 +946,19 @@ class FindWidget(QtGui.QWidget):
                     ) 
                 cant_find_dialog.setInformativeText(text)
                 cant_find_dialog.show()
+        return found
+
+    def replace(self, raise_dialog=True):
+        found = self.find(raise_dialog)
+        if (found):
+            # the cursor should be highlighting the found text
+            cursor = self.editor.currentWidget().text.textCursor()
+            cursor.insertText(self.replace_entry.text())
+        return found
+
+    def replace_all(self):
+        while(self.replace(False)):
+            pass
         
 #==============================================================================
 class MarkdownPreview(QtWebKit.QWebView):
