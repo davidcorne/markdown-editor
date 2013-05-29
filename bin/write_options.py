@@ -25,7 +25,7 @@ OPTIONS = {
 def write_options_file():
     options_path = os.path.join(
         os.path.dirname(sys.argv[0]),
-        "Resources/Options.pickle"
+        "../Resources/Options.pickle"
         )
     with open(options_path, "wb") as options_file:
         pickle.dump(OPTIONS, options_file)
