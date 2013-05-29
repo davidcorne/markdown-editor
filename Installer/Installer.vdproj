@@ -75,6 +75,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_27698C403A4C481B9D89649C107ED31D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2A52C5F0C56E462D9FBE5EDDC665A4A9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -602,6 +608,26 @@
             "TargetName" = "8:MarkdownEditor.exe"
             "Tag" = "8:"
             "Folder" = "8:_C722B1384E9940039161FA40532995BB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27698C403A4C481B9D89649C107ED31D"
+            {
+            "SourcePath" = "8:..\\Resources\\Images\\print.png"
+            "TargetName" = "8:print.png"
+            "Tag" = "8:"
+            "Folder" = "8:_2B6964B728334E7A85960CF99A2A7147"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

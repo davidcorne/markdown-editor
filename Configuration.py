@@ -117,6 +117,10 @@ USER_TEXT = {
     "style_name": "Style Name",
     "code": "Code",
     "preview": "Preview",
+    "print": "Print",
+    "print_markdown": "Print Markdown",
+    "print_rendered_html": "Print Rendered HTML",
+    "print_raw_html": "Print Raw HTML Code",
     }
 
 TOOL_TIP = {
@@ -142,6 +146,10 @@ TOOL_TIP = {
     "undo": "Undo the previous change",
     "link": "Insert a link with the link text of the surrounded area",
     "image": "Insert an image with the title of the surrounded area",
+    "print_menu": "Opens the printing menu",
+    "print_markdown": "Prints the markdown document",
+    "print_rendered_html": "Prints the HTML output as it will be rendered by a browser",
+    "print_raw_html": "Prints the raw HTML code output",
     }
 
 #==============================================================================
