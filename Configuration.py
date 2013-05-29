@@ -35,7 +35,7 @@ def read_options():
     filename = os.path.join(resource_dir(), options_file_name())
     if (not os.path.isfile(filename)):
         filename = os.path.join(resource_dir(), "Options.pickle")
-    with open(filename, "r") as options_file:
+    with open(filename, "rb") as options_file:
         global OPTIONS
         OPTIONS = pickle.load(options_file)
 
@@ -44,7 +44,7 @@ read_options()
 #==============================================================================
 def save_options():
     options_path = os.path.join(resource_dir(), options_file_name())
-    with open(options_path, "w") as options_file:
+    with open(options_path, "wb") as options_file:
         pickle.dump(OPTIONS, options_file)
     
 MARKDOWN_FILE_STRING = """\
@@ -116,6 +116,7 @@ USER_TEXT = {
     "css": "CSS",
     "style_name": "Style Name",
     "code": "Code",
+    "preview": "Preview",
     "print": "Print",
     "print_markdown": "Print Markdown",
     "print_rendered_html": "Print Rendered HTML",
