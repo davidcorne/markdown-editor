@@ -195,8 +195,20 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         print_markdown.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
         print_markdown.setStatusTip(Configuration.TOOL_TIP["print_markdown"])
-        print_markdown.triggered.connect(self.print_markdown)
+        print_markdown.triggered.connect(self.print_markdown_dialog)
         
+        print_preview_markdown = menu.addAction(
+                Configuration.USER_TEXT["print_preview_markdown"]
+                )
+        print_preview_markdown.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["print_preview"])
+            )
+        print_preview_markdown.setStatusTip(
+            Configuration.TOOL_TIP["print_preview_markdown"]
+            )
+        print_preview_markdown.triggered.connect(self.print_preview_markdown)
+        menu.addSeparator()
+
         print_rendered_html = menu.addAction(
                 Configuration.USER_TEXT["print_rendered_html"]
                 )
@@ -204,15 +216,41 @@ class MarkdownEditor(QtGui.QMainWindow):
         print_rendered_html.setStatusTip(
             Configuration.TOOL_TIP["print_rendered_html"]
             )
-        print_rendered_html.triggered.connect(self.print_rendered_html)
+        print_rendered_html.triggered.connect(self.print_rendered_html_dialog)
+
+        print_preview_rendered_html = menu.addAction(
+                Configuration.USER_TEXT["print_preview_rendered_html"]
+                )
+        print_preview_rendered_html.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["print_preview"])
+            )
+        print_preview_rendered_html.setStatusTip(
+            Configuration.TOOL_TIP["print_preview_rendered_html"]
+            )
+        print_preview_rendered_html.triggered.connect(
+            self.print_preview_rendered_html
+            )
+        menu.addSeparator()
         
         print_raw_html = menu.addAction(
                 Configuration.USER_TEXT["print_raw_html"]
                 )
         print_raw_html.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
         print_raw_html.setStatusTip(Configuration.TOOL_TIP["print_raw_html"])
-        print_raw_html.triggered.connect(self.print_raw_html)
-        
+        print_raw_html.triggered.connect(self.print_raw_html_dialog)
+
+        print_preview_raw_html = menu.addAction(
+                Configuration.USER_TEXT["print_preview_raw_html"]
+                )
+        print_preview_raw_html.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["print_preview"])
+            )
+        print_preview_raw_html.setStatusTip(
+            Configuration.TOOL_TIP["print_preview_raw_html"]
+            )
+        print_preview_raw_html.triggered.connect(
+            self.print_preview_raw_html
+            )
         return menu
 
     def create_file_toolbar(self):
@@ -481,34 +519,56 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_menu.addAction(export_action)
         file_menu.addAction(print_action)
 
-    def print_markdown(self):
+    def print_dialog(self, print_function):
         if (self.editor.count()):
             printer = QtGui.QPrinter()
             printer_dialog = QtGui.QPrintDialog(printer, self)
             result = printer_dialog.exec_()
             if (result == QtGui.QDialog.Accepted):
-                self.editor.currentWidget().text.print_(printer)
+                print_function(printer)
 
-    def print_rendered_html(self):
-        if (self.editor.count()):
-            printer = QtGui.QPrinter()
-            printer_dialog = QtGui.QPrintDialog(printer, self)
-            result = printer_dialog.exec_()
-            if (result == QtGui.QDialog.Accepted):
-                self.editor.currentWidget().output.print_(printer)
+    def print_markdown_dialog(self):
+        self.print_dialog(self.print_markdown)
 
-    def print_raw_html(self):
+    def print_rendered_html_dialog(self):
+        self.print_dialog(self.print_rendered_html)
+
+    def print_raw_html_dialog(self):
+        self.print_dialog(self.print_raw_html)
+
+    def print_markdown(self, printer):
+        self.editor.currentWidget().text.print_(printer)
+
+    def print_preview_markdown(self):
+        self.print_preview_dialog(self.print_markdown)
+
+    def print_preview_rendered_html(self):
+        self.print_preview_dialog(self.print_rendered_html)
+
+    def print_preview_raw_html(self):
+        self.print_preview_dialog(self.print_raw_html)
+
+    def print_preview_dialog(self, print_function):
         if (self.editor.count()):
             printer = QtGui.QPrinter()
-            printer_dialog = QtGui.QPrintDialog(printer, self)
-            result = printer_dialog.exec_()
-            if (result == QtGui.QDialog.Accepted):
-                original = Configuration.OPTIONS["show_html"]
-                Configuration.OPTIONS["show_html"] = True
-                self.editor.currentWidget().reload()
-                self.editor.currentWidget().output.print_(printer)
-                Configuration.OPTIONS["show_html"] = original
-                self.editor.currentWidget().reload()
+            preview = QtGui.QPrintPreviewDialog(printer, self)
+            filename = self.editor.currentWidget().filename
+            if (filename):
+                preview.setWindowTitle(filename)
+            preview.resize(800, 1000)
+            preview.paintRequested.connect(print_function)
+            preview.exec_()
+
+    def print_rendered_html(self, printer):
+        self.editor.currentWidget().output.print_(printer)
+
+    def print_raw_html(self, printer):
+        original = Configuration.OPTIONS["show_html"]
+        Configuration.OPTIONS["show_html"] = True
+        self.editor.currentWidget().reload()
+        self.editor.currentWidget().output.print_(printer)
+        Configuration.OPTIONS["show_html"] = original
+        self.editor.currentWidget().reload()
 
     def raise_configure_dialog(self):
         config_dialog = ConfigurationDialog.ConfigurationDialog(self)

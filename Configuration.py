@@ -116,11 +116,13 @@ USER_TEXT = {
     "css": "CSS",
     "style_name": "Style Name",
     "code": "Code",
-    "preview": "Preview",
     "print": "Print",
     "print_markdown": "Print Markdown",
     "print_rendered_html": "Print Rendered HTML",
     "print_raw_html": "Print Raw HTML Code",
+    "print_preview_markdown": "Print Preview Markdown",
+    "print_preview_rendered_html": "Print Preview Rendered HTML",
+    "print_preview_raw_html": "Print Preview Raw HTML Code",
     }
 
 TOOL_TIP = {
@@ -150,6 +152,9 @@ TOOL_TIP = {
     "print_markdown": "Prints the markdown document",
     "print_rendered_html": "Prints the HTML output as it will be rendered by a browser",
     "print_raw_html": "Prints the raw HTML code output",
+    "print_preview_markdown": "Shows a preview of the markdown before printing",
+    "print_preview_rendered_html": "Shows a preview of the HTML output as it will be rendered by a browser before printing",
+    "print_preview_raw_html": "Shows a preview of the raw HTML code output before printing",
     }
 
 #==============================================================================
