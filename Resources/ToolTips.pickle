@@ -1,0 +1,118 @@
+(dp0
+Vcode
+p1
+VSurround the highlighted area with code blocks (```)
+p2
+sVfind_and_replace
+p3
+VRaise the find and replace window
+p4
+sVimage
+p5
+VInsert an image with the title of the surrounded area
+p6
+sVprint_preview_markdown
+p7
+VShows a preview of the markdown before printing
+p8
+sVsave_all
+p9
+VSave all open documents
+p10
+sVredo
+p11
+VRedo the previous undo
+p12
+sVconfigure
+p13
+VConfigure the program
+p14
+sVsave_as
+p15
+VSave the current document with a specified name
+p16
+sVcut
+p17
+VCut the highlighted area to the clipboard
+p18
+sVprint_rendered_html
+p19
+VPrints the HTML output as it will be rendered by a browser
+p20
+sVselect_all
+p21
+VSelect all the text in the current document
+p22
+sVopen_file
+p23
+VOpen an existing document
+p24
+sVprint_preview_raw_html
+p25
+VShows a preview of the raw HTML code output before printing
+p26
+sVitalic
+p27
+VSurround the highlighted area with emphasis (_)
+p28
+sVprint_menu
+p29
+VOpens the printing menu
+p30
+sVchoose_colour
+p31
+VRaise a colour chooser dialog
+p32
+sVbold
+p33
+VSurround the highlighted area with strong emphasis (__)
+p34
+sVnew_file
+p35
+VStart a new document
+p36
+sVundo
+p37
+VUndo the previous change
+p38
+sVlink
+p39
+VInsert a link with the link text of the surrounded area
+p40
+sVcopy
+p41
+VCopy the highlighted area to the clipboard
+p42
+sVpaste
+p43
+VPaste from the clipboard to the current cursor location
+p44
+sVset_colour
+p45
+VSet the colour of the highlighted area to this colour
+p46
+sVclose_file
+p47
+VClose the currently open document
+p48
+sVsave_file
+p49
+VSave the current document
+p50
+sVprint_preview_rendered_html
+p51
+VShows a preview of the HTML output as it will be rendered by a browser before printing
+p52
+sVprint_raw_html
+p53
+VPrints the raw HTML code output
+p54
+sVexport_html
+p55
+VExport the current document as html
+p56
+sVprint_markdown
+p57
+VPrints the markdown document
+p58
+s.

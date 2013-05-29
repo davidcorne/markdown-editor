@@ -1,0 +1,258 @@
+(dp0
+Vmarkdown
+p1
+VMarkdown
+p2
+sVfind_and_replace
+p3
+VFind and Replace
+p4
+sVerror_text_was
+p5
+VThe text from it was:
+p6
+sVbrowse_for_image
+p7
+VBrowse for image
+p8
+sVprint_preview_markdown
+p9
+VPrint Preview Markdown
+p10
+sVreplace
+p11
+V&Replace
+p12
+sVmatch_case
+p13
+VMatch &case
+p14
+sVcode
+p15
+VCode
+p16
+sVedit_toolbar
+p17
+VEdit Toolbar
+p18
+sVclose
+p19
+VClose
+p20
+sVredo
+p21
+VRedo
+p22
+sVfind
+p23
+V&Find
+p24
+sVreplace_title
+p25
+VReplace
+p26
+sVsave_as
+p27
+VSave As
+p28
+sVformat_toolbar
+p29
+VFormat Toolbar
+p30
+sVprint_rendered_html
+p31
+VPrint Rendered HTML
+p32
+sVselect_all
+p33
+VSelect All
+p34
+sVopen_file
+p35
+VOpen File
+p36
+sVsaved
+p37
+VFile saved
+p38
+sVsearch_backwards
+p39
+VSearch &backwards
+p40
+sVmatch_whole_words
+p41
+VMatch &whole words
+p42
+sVfile_menu
+p43
+V&File
+p44
+sVreplace_with
+p45
+VReplace with:
+p46
+sVundo_redo_toolbar
+p47
+VUndo Redo Toolbar
+p48
+sVcurrent_document
+p49
+Vthe current document
+p50
+sVmarkdown_type
+p51
+VMarkdown Type
+p52
+sVstyle_name
+p53
+VStyle Name
+p54
+sVprint
+p55
+VPrint
+p56
+sVinsert_link
+p57
+VInsert Link
+p58
+sVpreview
+p59
+VPreview
+p60
+sVenter_image_location
+p61
+VEnter the image location
+p62
+sVenter_link
+p63
+VEnter the destination URL
+p64
+sVfile_toolbar
+p65
+VFile Toolbar
+p66
+sVsave_all
+p67
+VSave All Files
+p68
+sVmade_changes
+p69
+VYou have made changes to
+p70
+sVmarkdown_extra
+p71
+VMarkdown Extra
+p72
+sVnew_file
+p73
+VNew File
+p74
+sVmisc
+p75
+VMiscellaneous
+p76
+sVsave_changes?
+p77
+VDo you want to save your changes?
+p78
+sVundo
+p79
+VUndo
+p80
+sVcut
+p81
+VCut
+p82
+sVfind_what
+p83
+VFind &what:
+p84
+sVgithub_flavoured_markdown
+p85
+VGithub Flavoured Markdown
+p86
+sVprint_preview_raw_html
+p87
+VPrint Preview Raw HTML Code
+p88
+sVprogram_name
+p89
+VMarkdownEditor
+p90
+sVcopy
+p91
+VCopy
+p92
+sVpaste
+p93
+VPaste
+p94
+sVexception
+p95
+VAn internal error has occured.
+p96
+sVfind_title
+p97
+VFind
+p98
+sVclose_file
+p99
+VClose File
+p100
+sVsave_file
+p101
+VSave
+p102
+sVenter_image_title
+p103
+VEnter the image title (optional)
+p104
+sVedit_menu
+p105
+V&Edit
+p106
+sVinsert_image
+p107
+VInsert Image
+p108
+sVprint_markdown
+p109
+VPrint Markdown
+p110
+sVprint_preview_rendered_html
+p111
+VPrint Preview Rendered HTML
+p112
+sVprint_raw_html
+p113
+VPrint Raw HTML Code
+p114
+sVcss
+p115
+VCSS
+p116
+sVreplace_all
+p117
+VReplace &all
+p118
+sVexport_html
+p119
+VExport html
+p120
+sVtools_menu
+p121
+V&Tools
+p122
+sVshow_html
+p123
+VShow HTML
+p124
+sVoptions
+p125
+VOptions
+p126
+sVdebug_options
+p127
+VDebug Options
+p128
+s.
