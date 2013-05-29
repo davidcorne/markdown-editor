@@ -32,12 +32,23 @@ echo ""
 # now make the installer, first test if devenv is a command
 if hash devenv 2>/dev/null
 then
-  \cd Installer
-  echo "Making windows installer"
-  devenv Installer.sln /Project Installer.vdproj /Rebuild Release
+  (
+    \cd Installer &&
+    echo "Making windows installer" &&
+    devenv Installer.sln /Project Installer.vdproj /Rebuild Release
+  )
 else
   echo "Devenv is not a command, skipping windows installer."
 fi
+
+echo ""
+echo "Zipping windows installer"
+
+(
+  \cd Binaries &&
+  zip -r MarkdownEditorWindows.zip MarkdownEditorWindows &&
+  rm -rf MarkdownEditorWindows
+)
 
 echo ""
 echo "Done"
