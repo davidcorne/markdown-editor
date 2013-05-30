@@ -86,7 +86,9 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
                     )
             except pygments.util.ClassNotFound:
                 return cgi.escape(text, quote=True)
-            formatter = pygments.formatters.HtmlFormatter(linenos=True)
+            formatter = pygments.formatters.HtmlFormatter(
+                linenos=Configuration.OPTIONS["display_line_numbers"]
+                )
             highlighted = pygments.highlight(text, lexer, formatter)
             return highlighted
 

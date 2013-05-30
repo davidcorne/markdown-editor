@@ -33,11 +33,19 @@ def options_file_name():
 #==============================================================================
 def read_options():
     filename = os.path.join(resource_dir(), options_file_name())
+    default_filename = os.path.join(resource_dir(), "Options.pickle")
     if (not os.path.isfile(filename)):
-        filename = os.path.join(resource_dir(), "Options.pickle")
+        filename = default_filename
     with open(filename, "rb") as options_file:
         global OPTIONS
         OPTIONS = pickle.load(options_file)
+    # for forward compatibility, if there are any new options add them to the
+    # user specific ones
+    with open(default_filename, "rb") as options_file:
+        default_options = pickle.load(options_file)
+    for key in default_options:
+        if (not key in OPTIONS):
+            OPTIONS[key] = default_options[key]
 
 #==============================================================================
 def save_options():

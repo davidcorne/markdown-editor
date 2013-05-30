@@ -18,7 +18,8 @@ OPTIONS = {
     "code_css": "Standard", 
     "show_html": False,
     "processor": "github_flavoured_markdown",
-    "markdown_css": "Markdown"
+    "markdown_css": "Markdown",
+    "display_line_numbers": True,
     }
 
 USER_TEXT = {
