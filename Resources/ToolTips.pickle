@@ -31,9 +31,9 @@ sVsave_as
 p15
 VSave the current document with a specified name
 p16
-sVcut
+sVexport_pdf
 p17
-VCut the highlighted area to the clipboard
+VExport the current document as a pdf file
 p18
 sVprint_rendered_html
 p19
@@ -75,44 +75,48 @@ sVundo
 p37
 VUndo the previous change
 p38
-sVlink
+sVcut
 p39
-VInsert a link with the link text of the surrounded area
+VCut the highlighted area to the clipboard
 p40
-sVcopy
+sVlink
 p41
-VCopy the highlighted area to the clipboard
+VInsert a link with the link text of the surrounded area
 p42
-sVpaste
+sVcopy
 p43
-VPaste from the clipboard to the current cursor location
+VCopy the highlighted area to the clipboard
 p44
-sVset_colour
+sVpaste
 p45
-VSet the colour of the highlighted area to this colour
+VPaste from the clipboard to the current cursor location
 p46
-sVclose_file
+sVset_colour
 p47
-VClose the currently open document
+VSet the colour of the highlighted area to this colour
 p48
-sVsave_file
+sVclose_file
 p49
-VSave the current document
+VClose the currently open document
 p50
-sVprint_preview_rendered_html
+sVsave_file
 p51
-VShows a preview of the HTML output as it will be rendered by a browser before printing
+VSave the current document
 p52
-sVprint_raw_html
+sVprint_preview_rendered_html
 p53
-VPrints the raw HTML code output
+VShows a preview of the HTML output as it will be rendered by a browser before printing
 p54
-sVexport_html
+sVprint_raw_html
 p55
-VExport the current document as html
+VPrints the raw HTML code output
 p56
-sVprint_markdown
+sVexport_html
 p57
-VPrints the markdown document
+VExport the current document as html
 p58
+sVprint_markdown
+p59
+VPrints the markdown document
+p60
 s.

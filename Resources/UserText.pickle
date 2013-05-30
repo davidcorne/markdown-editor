@@ -155,104 +155,108 @@ sVsave_changes?
 p77
 VDo you want to save your changes?
 p78
-sVundo
+sVexport_pdf
 p79
-VUndo
+VExport PDF
 p80
-sVcut
+sVundo
 p81
-VCut
+VUndo
 p82
-sVfind_what
+sVcut
 p83
-VFind &what:
+VCut
 p84
-sVgithub_flavoured_markdown
+sVfind_what
 p85
-VGithub Flavoured Markdown
+VFind &what:
 p86
-sVprint_preview_raw_html
+sVgithub_flavoured_markdown
 p87
-VPrint Preview Raw HTML Code
+VGithub Flavoured Markdown
 p88
-sVprogram_name
+sVprint_preview_raw_html
 p89
-VMarkdownEditor
+VPrint Preview Raw HTML Code
 p90
-sVcopy
+sVprogram_name
 p91
-VCopy
+VMarkdownEditor
 p92
-sVpaste
+sVcopy
 p93
-VPaste
+VCopy
 p94
-sVexception
+sVpaste
 p95
-VAn internal error has occured.
+VPaste
 p96
-sVfind_title
+sVexception
 p97
-VFind
+VAn internal error has occured.
 p98
-sVclose_file
+sVfind_title
 p99
-VClose File
+VFind
 p100
-sVsave_file
+sVclose_file
 p101
-VSave
+VClose File
 p102
-sVenter_image_title
+sVsave_file
 p103
-VEnter the image title (optional)
+VSave
 p104
-sVedit_menu
+sVenter_image_title
 p105
-V&Edit
+VEnter the image title (optional)
 p106
-sVinsert_image
+sVedit_menu
 p107
-VInsert Image
+V&Edit
 p108
-sVprint_markdown
+sVinsert_image
 p109
-VPrint Markdown
+VInsert Image
 p110
-sVprint_preview_rendered_html
+sVprint_markdown
 p111
-VPrint Preview Rendered HTML
+VPrint Markdown
 p112
-sVprint_raw_html
+sVprint_preview_rendered_html
 p113
-VPrint Raw HTML Code
+VPrint Preview Rendered HTML
 p114
-sVcss
+sVprint_raw_html
 p115
-VCSS
+VPrint Raw HTML Code
 p116
-sVreplace_all
+sVcss
 p117
-VReplace &all
+VCSS
 p118
-sVexport_html
+sVreplace_all
 p119
-VExport html
+VReplace &all
 p120
-sVtools_menu
+sVexport_html
 p121
-V&Tools
+VExport HTML
 p122
-sVshow_html
+sVtools_menu
 p123
-VShow HTML
+V&Tools
 p124
-sVoptions
+sVshow_html
 p125
-VOptions
+VShow HTML
 p126
-sVdebug_options
+sVoptions
 p127
-VDebug Options
+VOptions
 p128
+sVdebug_options
+p129
+VDebug Options
+p130
 s.

@@ -307,6 +307,14 @@ class MarkdownEditor(QtGui.QMainWindow):
         export_html_button.setStatusTip(Configuration.TOOL_TIP["export_html"])
         export_html_button.clicked.connect(self.export_html)
 
+        export_pdf_button = QtGui.QToolButton()
+        export_pdf_button.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["export_pdf"])
+            )
+        export_pdf_button.setStatusTip(Configuration.TOOL_TIP["export_pdf"])
+        export_pdf_button.setToolTip(Configuration.TOOL_TIP["export_pdf"])
+        export_pdf_button.clicked.connect(self.export_pdf)
+
         print_button = QtGui.QToolButton()
         print_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["print"])
@@ -322,6 +330,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_toolbar.addWidget(save_all_button)
         file_toolbar.addWidget(close_button)
         file_toolbar.addWidget(export_html_button)
+        file_toolbar.addWidget(export_pdf_button)
         file_toolbar.addWidget(print_button)
 
         # now change the file toolbar properties
@@ -490,13 +499,25 @@ class MarkdownEditor(QtGui.QMainWindow):
         close_action.setStatusTip(Configuration.TOOL_TIP["close_file"])
         close_action.triggered.connect(self.close_file)
 
-        export_action = QtGui.QAction(
+        export_html_action = QtGui.QAction(
             Configuration.USER_TEXT["export_html"], 
             self
             )
-        export_action.setIcon(QtGui.QIcon(Configuration.IMAGES["export_html"]))
-        export_action.setStatusTip(Configuration.TOOL_TIP["export_html"])
-        export_action.triggered.connect(self.export_html)
+        export_html_action.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["export_html"])
+            )
+        export_html_action.setStatusTip(Configuration.TOOL_TIP["export_html"])
+        export_html_action.triggered.connect(self.export_html)
+
+        export_pdf_action = QtGui.QAction(
+            Configuration.USER_TEXT["export_pdf"], 
+            self
+            )
+        export_pdf_action.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["export_pdf"])
+            )
+        export_pdf_action.setStatusTip(Configuration.TOOL_TIP["export_pdf"])
+        export_pdf_action.triggered.connect(self.export_pdf)
 
         print_action = QtGui.QAction(
             Configuration.USER_TEXT["print"], 
@@ -516,7 +537,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_menu.addAction(save_as_action)
         file_menu.addAction(save_all_action)
         file_menu.addSeparator()
-        file_menu.addAction(export_action)
+        file_menu.addAction(export_html_action)
+        file_menu.addAction(export_pdf_action)
         file_menu.addAction(print_action)
 
     def print_dialog(self, print_function):
@@ -640,6 +662,26 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
+
+    def export_pdf(self):
+        if (self.editor.count()):
+            location = "."
+            if (self.editor.currentWidget().file_path):
+                location, ext = os.path.splitext(
+                    unicode(self.editor.currentWidget().file_path)
+                    )
+                location = location + ".pdf"
+            file_path = QtGui.QFileDialog.getSaveFileName(
+                self,
+                Configuration.USER_TEXT["export_pdf"],
+                location,
+                "PDF (*.pdf)"
+                )
+            if (file_path):
+                printer = QtGui.QPrinter()
+                printer.setOutputFormat(QtGui.QPrinter.PdfFormat)
+                printer.setOutputFileName(file_path)
+                self.print_rendered_html(printer)
 
     def export_html(self):
         if (self.editor.count()):
