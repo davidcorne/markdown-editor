@@ -257,81 +257,19 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_toolbar = QtGui.QToolBar(
             Configuration.USER_TEXT["file_toolbar"]
             )
-
-        # add the buttons
-        new_button = QtGui.QToolButton()
-        new_button.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["new_file"])
-            )
-        new_button.setToolTip(Configuration.TOOL_TIP["new_file"])
-        new_button.setStatusTip(Configuration.TOOL_TIP["new_file"])
-        new_button.clicked.connect(self.new_file)
-
-        save_button = QtGui.QToolButton()
-        save_button.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["save_file"])
-            )
-        save_button.setToolTip(Configuration.TOOL_TIP["save_file"])
-        save_button.setStatusTip(Configuration.TOOL_TIP["save_file"])
-        save_button.clicked.connect(self.save_file)
-
-        open_button = QtGui.QToolButton()
-        open_button.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["open_file"])
-            )
-        open_button.setToolTip(Configuration.TOOL_TIP["open_file"])
-        open_button.setStatusTip(Configuration.TOOL_TIP["open_file"])
-        open_button.clicked.connect(self.query_open_file)
-
-        save_all_button = QtGui.QToolButton()
-        save_all_button.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["save_all"])
-            )
-        save_all_button.setToolTip(Configuration.TOOL_TIP["save_all"])
-        save_all_button.setStatusTip(Configuration.TOOL_TIP["save_all"])
-        save_all_button.clicked.connect(self.save_all_files)
-
-        close_button = QtGui.QToolButton()
-        close_button.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["close_file"])
-            )
-        close_button.setToolTip(Configuration.TOOL_TIP["close_file"])
-        close_button.setStatusTip(Configuration.TOOL_TIP["close_file"])
-        close_button.clicked.connect(self.close_file)
-
-        export_html_button = QtGui.QToolButton()
-        export_html_button.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["export_html"])
-            )
-        export_html_button.setToolTip(Configuration.TOOL_TIP["export_html"])
-        export_html_button.setStatusTip(Configuration.TOOL_TIP["export_html"])
-        export_html_button.clicked.connect(self.export_html)
-
-        export_pdf_button = QtGui.QToolButton()
-        export_pdf_button.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["export_pdf"])
-            )
-        export_pdf_button.setStatusTip(Configuration.TOOL_TIP["export_pdf"])
-        export_pdf_button.setToolTip(Configuration.TOOL_TIP["export_pdf"])
-        export_pdf_button.clicked.connect(self.export_pdf)
-
-        print_button = QtGui.QToolButton()
-        print_button.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["print"])
-            )
-        print_button.setMenu(self.print_menu())
-        print_button.setPopupMode(QtGui.QToolButton.InstantPopup)
-        print_button.setToolTip(Configuration.TOOL_TIP["print_menu"])
-        print_button.setStatusTip(Configuration.TOOL_TIP["print_menu"])
-
-        file_toolbar.addWidget(new_button)
-        file_toolbar.addWidget(open_button)
-        file_toolbar.addWidget(save_button)
-        file_toolbar.addWidget(save_all_button)
-        file_toolbar.addWidget(close_button)
-        file_toolbar.addWidget(export_html_button)
-        file_toolbar.addWidget(export_pdf_button)
-        file_toolbar.addWidget(print_button)
+        file_actions = [
+            self.file_actions(),
+            self.save_actions(), 
+            self.output_actions()
+            ]
+        for actions in file_actions:
+            for action in actions:
+                button = QtGui.QToolButton()
+                button.setDefaultAction(action)
+                # this makes the buttons which are menus work correctly and 
+                # doesn't break the ones without menus
+                button.setPopupMode(QtGui.QToolButton.InstantPopup)
+                file_toolbar.addWidget(button)
 
         # now change the file toolbar properties
         file_toolbar.setMovable(True)
@@ -454,40 +392,31 @@ class MarkdownEditor(QtGui.QMainWindow):
         tools_menu.addAction(configure_action)
 
     def create_file_menu(self):
+        menu_bar = self.menuBar()
+        file_menu = menu_bar.addMenu(Configuration.USER_TEXT["file_menu"])
+        file_actions = [
+            self.file_actions(),
+            self.save_actions(),
+            self.output_actions()
+            ]
+        for actions in file_actions:
+            for action in actions:
+                file_menu.addAction(action)
+            file_menu.addSeparator()
+
+    def file_actions(self):
         new_action = QtGui.QAction(Configuration.USER_TEXT["new_file"], self)
         new_action.setIcon(QtGui.QIcon(Configuration.IMAGES["new_file"]))
         new_action.setShortcut("Ctrl+N")
         new_action.setStatusTip(Configuration.TOOL_TIP["new_file"])
+        new_action.setToolTip(Configuration.TOOL_TIP["new_file"])
         new_action.triggered.connect(self.new_file)
-
-        save_action = QtGui.QAction(Configuration.USER_TEXT["save_file"], self)
-        save_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_file"]))
-        save_action.setShortcut("Ctrl+S")
-        save_action.setStatusTip(Configuration.TOOL_TIP["save_file"])
-        save_action.triggered.connect(self.save_file)
-
-        save_as_action = QtGui.QAction(
-            Configuration.USER_TEXT["save_as"],
-            self
-            )
-        save_as_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_as"]))
-        save_as_action.setShortcut("F12")
-        save_as_action.setStatusTip(Configuration.TOOL_TIP["save_as"])
-        save_as_action.triggered.connect(self.save_file_as)
-
-        save_all_action =  QtGui.QAction(
-            Configuration.USER_TEXT["save_all"],
-            self
-            )
-        save_all_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_all"]))
-        save_all_action.setShortcut("Ctrl+Shift+S")
-        save_all_action.setStatusTip(Configuration.TOOL_TIP["save_all"])
-        save_all_action.triggered.connect(self.save_all_files)
 
         open_action = QtGui.QAction(Configuration.USER_TEXT["open_file"], self)
         open_action.setIcon(QtGui.QIcon(Configuration.IMAGES["open_file"]))
         open_action.setShortcut("Ctrl+O")
         open_action.setStatusTip(Configuration.TOOL_TIP["open_file"])
+        open_action.setToolTip(Configuration.TOOL_TIP["open_file"])
         open_action.triggered.connect(self.query_open_file)
 
         close_action = QtGui.QAction(
@@ -497,8 +426,56 @@ class MarkdownEditor(QtGui.QMainWindow):
         close_action.setIcon(QtGui.QIcon(Configuration.IMAGES["close_file"]))
         close_action.setShortcut("Ctrl+F4")
         close_action.setStatusTip(Configuration.TOOL_TIP["close_file"])
+        close_action.setToolTip(Configuration.TOOL_TIP["close_file"])
         close_action.triggered.connect(self.close_file)
 
+        # only make each action once, otherwise shortcuts are ambiguous
+        if (not hasattr(self, "_file_actions")):
+            self._file_actions = list()
+            self._file_actions.append(new_action)
+            self._file_actions.append(open_action)
+            self._file_actions.append(close_action)
+
+        return self._file_actions
+
+    def save_actions(self):
+        save_action = QtGui.QAction(Configuration.USER_TEXT["save_file"], self)
+        save_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_file"]))
+        save_action.setShortcut("Ctrl+S")
+        save_action.setStatusTip(Configuration.TOOL_TIP["save_file"])
+        save_action.setToolTip(Configuration.TOOL_TIP["save_file"])
+        save_action.triggered.connect(self.save_file)
+
+        save_as_action = QtGui.QAction(
+            Configuration.USER_TEXT["save_as"],
+            self
+            )
+        save_as_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_as"]))
+        save_as_action.setShortcut("F12")
+        save_as_action.setStatusTip(Configuration.TOOL_TIP["save_as"])
+        save_as_action.setToolTip(Configuration.TOOL_TIP["save_as"])
+        save_as_action.triggered.connect(self.save_file_as)
+
+        save_all_action =  QtGui.QAction(
+            Configuration.USER_TEXT["save_all"],
+            self
+            )
+        save_all_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_all"]))
+        save_all_action.setShortcut("Ctrl+Shift+S")
+        save_all_action.setStatusTip(Configuration.TOOL_TIP["save_all"])
+        save_all_action.setToolTip(Configuration.TOOL_TIP["save_all"])
+        save_all_action.triggered.connect(self.save_all_files)
+        
+        # only make each action once, otherwise shortcuts are ambiguous
+        if (not hasattr(self, "_save_actions")):
+            self._save_actions = list()
+            self._save_actions.append(save_action)
+            self._save_actions.append(save_as_action)
+            self._save_actions.append(save_all_action)
+
+        return self._save_actions        
+
+    def output_actions(self):
         export_html_action = QtGui.QAction(
             Configuration.USER_TEXT["export_html"], 
             self
@@ -507,6 +484,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["export_html"])
             )
         export_html_action.setStatusTip(Configuration.TOOL_TIP["export_html"])
+        export_html_action.setToolTip(Configuration.TOOL_TIP["export_html"])
         export_html_action.triggered.connect(self.export_html)
 
         export_pdf_action = QtGui.QAction(
@@ -517,6 +495,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["export_pdf"])
             )
         export_pdf_action.setStatusTip(Configuration.TOOL_TIP["export_pdf"])
+        export_pdf_action.setToolTip(Configuration.TOOL_TIP["export_pdf"])
         export_pdf_action.triggered.connect(self.export_pdf)
 
         print_action = QtGui.QAction(
@@ -525,21 +504,17 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         print_action.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
         print_action.setStatusTip(Configuration.TOOL_TIP["print_menu"])
+        print_action.setToolTip(Configuration.TOOL_TIP["print_menu"])
         print_action.setMenu(self.print_menu())
 
-        menu_bar = self.menuBar()
-        file_menu = menu_bar.addMenu(Configuration.USER_TEXT["file_menu"])
-        file_menu.addAction(new_action)
-        file_menu.addAction(open_action)
-        file_menu.addAction(close_action)
-        file_menu.addSeparator()
-        file_menu.addAction(save_action)
-        file_menu.addAction(save_as_action)
-        file_menu.addAction(save_all_action)
-        file_menu.addSeparator()
-        file_menu.addAction(export_html_action)
-        file_menu.addAction(export_pdf_action)
-        file_menu.addAction(print_action)
+        # only make each action once, otherwise shortcuts are ambiguous
+        if (not hasattr(self, "_output_actions")):
+            self._output_actions = list()
+            self._output_actions.append(export_html_action)
+            self._output_actions.append(export_pdf_action)
+            self._output_actions.append(print_action)
+
+        return self._output_actions
 
     def print_dialog(self, print_function):
         if (self.editor.count()):
