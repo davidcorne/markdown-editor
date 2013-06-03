@@ -1,3 +1,7 @@
+/*
+  CSS Taken from BitBucket. 
+  This has been edited by David Corne to remove a background tag on pre.
+*/
 .body {
   margin-top: 0;
   margin-bottom: 0;
@@ -26,7 +30,6 @@ pre > code {
 }
 
 pre {
-  background: #f5f5f5;
   overflow-x: auto;
 }
 
