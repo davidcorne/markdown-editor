@@ -14,6 +14,7 @@ then
 fi
 
 pyinstaller -F -w --icon=Resources/Images/icon.ico MarkdownEditor.py
+rm MarkdownEditor.spec
 
 echo ""
 
@@ -29,26 +30,13 @@ rm -f logdict*
 
 echo ""
 
-# now make the installer, first test if devenv is a command
-if hash devenv 2>/dev/null
-then
-  (
-    \cd Installer &&
-    echo "Making windows installer" &&
-    devenv Installer.sln /Project Installer.vdproj /Rebuild Release
-  )
-else
-  echo "Devenv is not a command, skipping windows installer."
-fi
+echo "[InternetShortcut]
+URL=https://bitbucket.org/davidcorne/markdown-editor
+" > "Markdown Editor on the web.url"
 
-echo ""
-echo "Zipping windows installer"
-
-(
-  \cd Binaries &&
-  zip -r MarkdownEditorWindows.zip MarkdownEditorWindows &&
-  rm -rf MarkdownEditorWindows
-)
+echo "Making windows installer" 
+makensis installer.nsi
+rm "Markdown Editor on the web.url"
 
 echo ""
 echo "Done"
