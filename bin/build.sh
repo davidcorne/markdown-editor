@@ -1,6 +1,8 @@
 #!/bin/sh
 # Written by: DGC
 
+# should be run from project directory i.e markdown-editor
+
 set -e
 
 mkdir -p Binaries
@@ -14,7 +16,7 @@ then
 fi
 
 pyinstaller -F -w --icon=Resources/Images/icon.ico MarkdownEditor.py
-rm MarkdownEditor.spec
+rm -f MarkdownEditor.spec
 
 echo ""
 
@@ -36,7 +38,7 @@ URL=https://bitbucket.org/davidcorne/markdown-editor
 
 echo "Making windows installer" 
 makensis installer.nsi
-rm "Markdown Editor on the web.url"
+rm -f "Markdown Editor on the web.url"
 
 echo ""
 echo "Done"
