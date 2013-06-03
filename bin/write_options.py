@@ -88,6 +88,8 @@ USER_TEXT = {
     "print_preview_markdown": "Print Preview Markdown",
     "print_preview_rendered_html": "Print Preview Rendered HTML",
     "print_preview_raw_html": "Print Preview Raw HTML Code",
+    "show_line_numbers": "Display Line Numbers",
+    "other_options": "Other Options",
     }
 
 TOOL_TIPS = {

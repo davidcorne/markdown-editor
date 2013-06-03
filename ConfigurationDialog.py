@@ -219,24 +219,39 @@ class MiscConfig(QtGui.QDialog):
         super(MiscConfig, self).__init__(parent)
         self.reload_callback = reload_callback
         
-        config_group = QtGui.QGroupBox(
+        debug_group = QtGui.QGroupBox(
             Configuration.USER_TEXT["debug_options"]
             )
+        
+        show_html = self.check_box(
+            Configuration.USER_TEXT["show_html"],
+            self.show_html_changed,
+            Configuration.OPTIONS["show_html"]
+            )
 
-        show_html = QtGui.QCheckBox(Configuration.USER_TEXT["show_html"])
-        if (Configuration.OPTIONS["show_html"]):
-            show_html.setCheckState(QtCore.Qt.Checked)
-        else:
-            show_html.setCheckState(QtCore.Qt.Unchecked) 
-        show_html.stateChanged.connect(self.show_html_changed)
+        other_group = QtGui.QGroupBox(
+            Configuration.USER_TEXT["other_options"]
+            )
 
-        group_layout = QtGui.QVBoxLayout()
-        group_layout.addWidget(show_html)
+        show_line_numbers = self.check_box(
+            Configuration.USER_TEXT["show_line_numbers"],
+            self.show_line_numbers_changed,
+            Configuration.OPTIONS["display_line_numbers"]
+            )
 
-        config_group.setLayout(group_layout)
+        debug_layout = QtGui.QVBoxLayout()
+        debug_layout.addWidget(show_html)
+
+        debug_group.setLayout(debug_layout)
+
+        other_layout = QtGui.QVBoxLayout()
+        other_layout.addWidget(show_line_numbers)
+        
+        other_group.setLayout(other_layout)
 
         main_layout = QtGui.QVBoxLayout()
-        main_layout.addWidget(config_group)
+        main_layout.addWidget(other_group)
+        main_layout.addWidget(debug_group)
         main_layout.addStretch(1)
 
         self.setLayout(main_layout)
@@ -244,6 +259,23 @@ class MiscConfig(QtGui.QDialog):
     def show_html_changed(self, value):
         Configuration.OPTIONS["show_html"] = value
         self.reload_callback()
+
+    def show_line_numbers_changed(self, value):
+        Configuration.OPTIONS["display_line_numbers"] = value
+        self.reload_callback()
+
+    def check_box(self, name, callback, checked):
+        """
+        Returns a Qt checkbox with the specified name, bound to the function
+        and checked.
+        """
+        check_box = QtGui.QCheckBox(name)
+        if (checked):
+            check_box.setCheckState(QtCore.Qt.Checked)
+        else:
+            check_box.setCheckState(QtCore.Qt.Unchecked) 
+        check_box.stateChanged.connect(callback)
+        return check_box
 
     def revert(self):
         pass

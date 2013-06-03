@@ -39,224 +39,232 @@ sVclose
 p19
 VClose
 p20
-sVredo
+sVshow_line_numbers
 p21
-VRedo
+VDisplay Line Numbers
 p22
-sVfind
+sVredo
 p23
-V&Find
+VRedo
 p24
-sVreplace_title
+sVfind
 p25
-VReplace
+V&Find
 p26
-sVsave_as
+sVreplace_title
 p27
-VSave As
+VReplace
 p28
-sVformat_toolbar
+sVsave_as
 p29
-VFormat Toolbar
+VSave As
 p30
-sVprint_rendered_html
+sVformat_toolbar
 p31
-VPrint Rendered HTML
+VFormat Toolbar
 p32
-sVselect_all
+sVprint_rendered_html
 p33
-VSelect All
+VPrint Rendered HTML
 p34
-sVopen_file
+sVselect_all
 p35
-VOpen File
+VSelect All
 p36
-sVsaved
+sVopen_file
 p37
-VFile saved
+VOpen File
 p38
-sVsearch_backwards
+sVsaved
 p39
-VSearch &backwards
+VFile saved
 p40
-sVmatch_whole_words
+sVsearch_backwards
 p41
-VMatch &whole words
+VSearch &backwards
 p42
-sVfile_menu
+sVmatch_whole_words
 p43
-V&File
+VMatch &whole words
 p44
-sVreplace_with
+sVfile_menu
 p45
-VReplace with:
+V&File
 p46
-sVundo_redo_toolbar
+sVreplace_with
 p47
-VUndo Redo Toolbar
+VReplace with:
 p48
-sVcurrent_document
+sVundo_redo_toolbar
 p49
-Vthe current document
+VUndo Redo Toolbar
 p50
-sVmarkdown_type
+sVcurrent_document
 p51
-VMarkdown Type
+Vthe current document
 p52
-sVstyle_name
+sVmarkdown_type
 p53
-VStyle Name
+VMarkdown Type
 p54
-sVprint
+sVstyle_name
 p55
-VPrint
+VStyle Name
 p56
-sVinsert_link
+sVprint
 p57
-VInsert Link
+VPrint
 p58
-sVpreview
+sVinsert_link
 p59
-VPreview
+VInsert Link
 p60
-sVenter_image_location
+sVpreview
 p61
-VEnter the image location
+VPreview
 p62
-sVenter_link
+sVenter_image_location
 p63
-VEnter the destination URL
+VEnter the image location
 p64
-sVfile_toolbar
+sVenter_link
 p65
-VFile Toolbar
+VEnter the destination URL
 p66
-sVsave_all
+sVfile_toolbar
 p67
-VSave All Files
+VFile Toolbar
 p68
-sVmade_changes
+sVsave_all
 p69
-VYou have made changes to
+VSave All Files
 p70
-sVmarkdown_extra
+sVmade_changes
 p71
-VMarkdown Extra
+VYou have made changes to
 p72
-sVnew_file
+sVmarkdown_extra
 p73
-VNew File
+VMarkdown Extra
 p74
-sVmisc
+sVnew_file
 p75
-VMiscellaneous
+VNew File
 p76
-sVsave_changes?
+sVmisc
 p77
-VDo you want to save your changes?
+VMiscellaneous
 p78
-sVexport_pdf
+sVsave_changes?
 p79
-VExport PDF
+VDo you want to save your changes?
 p80
-sVundo
+sVexport_pdf
 p81
-VUndo
+VExport PDF
 p82
-sVcut
+sVundo
 p83
-VCut
+VUndo
 p84
-sVfind_what
+sVcut
 p85
-VFind &what:
+VCut
 p86
-sVgithub_flavoured_markdown
+sVother_options
 p87
-VGithub Flavoured Markdown
+VOther Options
 p88
-sVprint_preview_raw_html
+sVfind_what
 p89
-VPrint Preview Raw HTML Code
+VFind &what:
 p90
-sVprogram_name
+sVgithub_flavoured_markdown
 p91
-VMarkdownEditor
+VGithub Flavoured Markdown
 p92
-sVcopy
+sVprint_preview_raw_html
 p93
-VCopy
+VPrint Preview Raw HTML Code
 p94
-sVpaste
+sVprogram_name
 p95
-VPaste
+VMarkdownEditor
 p96
-sVexception
+sVcopy
 p97
-VAn internal error has occured.
+VCopy
 p98
-sVfind_title
+sVpaste
 p99
-VFind
+VPaste
 p100
-sVclose_file
+sVexception
 p101
-VClose File
+VAn internal error has occured.
 p102
-sVsave_file
+sVfind_title
 p103
-VSave
+VFind
 p104
-sVenter_image_title
+sVclose_file
 p105
-VEnter the image title (optional)
+VClose File
 p106
-sVedit_menu
+sVsave_file
 p107
-V&Edit
+VSave
 p108
-sVinsert_image
+sVenter_image_title
 p109
-VInsert Image
+VEnter the image title (optional)
 p110
-sVprint_markdown
+sVedit_menu
 p111
-VPrint Markdown
+V&Edit
 p112
-sVprint_preview_rendered_html
+sVinsert_image
 p113
-VPrint Preview Rendered HTML
+VInsert Image
 p114
-sVprint_raw_html
+sVprint_markdown
 p115
-VPrint Raw HTML Code
+VPrint Markdown
 p116
-sVcss
+sVprint_preview_rendered_html
 p117
-VCSS
+VPrint Preview Rendered HTML
 p118
-sVreplace_all
+sVprint_raw_html
 p119
-VReplace &all
+VPrint Raw HTML Code
 p120
-sVexport_html
+sVcss
 p121
-VExport HTML
+VCSS
 p122
-sVtools_menu
+sVreplace_all
 p123
-V&Tools
+VReplace &all
 p124
-sVshow_html
+sVexport_html
 p125
-VShow HTML
+VExport HTML
 p126
-sVoptions
+sVtools_menu
 p127
-VOptions
+V&Tools
 p128
-sVdebug_options
+sVshow_html
 p129
-VDebug Options
+VShow HTML
 p130
+sVoptions
+p131
+VOptions
+p132
+sVdebug_options
+p133
+VDebug Options
+p134
 s.
