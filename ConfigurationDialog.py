@@ -58,9 +58,7 @@ class MarkdownConfig(QtGui.QDialog):
     def new_markdown_chosen(self, index):
         types = Configuration.PROCESSOR_TYPES
         Configuration.OPTIONS["processor"] = types.keys()[index]
-        Configuration.PROCESSOR = Configuration.PROCESSOR_TYPES[
-            Configuration.OPTIONS["processor"]
-        ]()
+        Configuration.load_processor()
         self.reload_callback()
     
     def revert(self):
@@ -307,11 +305,12 @@ class ConfigurationDialog(QtGui.QDialog):
         self.pages.addWidget(misc_config)
 
         # add a save and a cancel button
-        bottom_buttons = QtGui.QDialogButtonBox(
-             QtGui.QDialogButtonBox.Save |  QtGui.QDialogButtonBox.Cancel
+        self.bottom_buttons = QtGui.QDialogButtonBox(
+             QtGui.QDialogButtonBox.Save |  QtGui.QDialogButtonBox.RestoreDefaults | QtGui.QDialogButtonBox.Cancel
             )
-        bottom_buttons.accepted.connect(self.save_and_close)
-        bottom_buttons.rejected.connect(self.revert_and_close)
+        self.bottom_buttons.clicked.connect(self.button_clicked)
+        self.bottom_buttons.accepted.connect(self.save_and_close)
+        self.bottom_buttons.rejected.connect(self.revert_and_close)
 
         self.create_icons()
         self.contents.setCurrentRow(ConfigurationDialog.OPEN_PAGE)
@@ -322,7 +321,8 @@ class ConfigurationDialog(QtGui.QDialog):
         horizontal_layout.addWidget(self.pages, 1)
 
         buttons_layout = QtGui.QHBoxLayout()
-        buttons_layout.addWidget(bottom_buttons)
+        buttons_layout.addStretch(1)
+        buttons_layout.addWidget(self.bottom_buttons)
 
         main_layout = QtGui.QVBoxLayout()
         main_layout.addLayout(horizontal_layout)
@@ -334,6 +334,12 @@ class ConfigurationDialog(QtGui.QDialog):
         self.pages.setCurrentIndex(ConfigurationDialog.OPEN_PAGE)
         self.exec_()
 
+    def button_clicked(self, button):
+        role = self.bottom_buttons.buttonRole(button)
+        if (role == QtGui.QDialogButtonBox.ResetRole):
+            Configuration.reset_options()
+        self.save_and_close()
+            
     def save_and_close(self):
         Configuration.save_options()
         self.close()

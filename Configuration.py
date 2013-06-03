@@ -132,7 +132,23 @@ PROCESSOR_TYPES["markdown"] = Processor.Markdown
 PROCESSOR_TYPES["markdown_extra"] = Processor.MarkdownExtra
 PROCESSOR_TYPES["github_flavoured_markdown"] = Processor.GithubFlavouredMarkdown
 
-PROCESSOR = PROCESSOR_TYPES[OPTIONS["processor"]]()
+#==============================================================================
+def load_processor():
+    global PROCESSOR
+    PROCESSOR = PROCESSOR_TYPES[OPTIONS["processor"]]()
+
+load_processor()
+
+#==============================================================================
+def reset_options():
+    """
+    Also deletes the user specific file.
+    """
+    filename = os.path.join(resource_dir(), options_file_name())
+    if (os.path.isfile(filename)):
+        os.remove(filename)
+    read_options()
+    load_processor()
 
 #==============================================================================
 if (__name__ == "__main__"):
