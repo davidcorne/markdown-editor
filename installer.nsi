@@ -7,6 +7,8 @@
 
 ;--------------------------------
 
+!include "MUI.nsh"
+
 ; The name of the installer
 Name "Markdown Editor"
 
@@ -27,12 +29,22 @@ RequestExecutionLevel admin
 
 ; Pages
 
-Page components
-Page directory
-Page instfiles
+  !insertmacro MUI_PAGE_COMPONENTS
+  !insertmacro MUI_PAGE_DIRECTORY
+  !insertmacro MUI_PAGE_INSTFILES
 
-UninstPage uninstConfirm
-UninstPage instfiles
+  ; These indented statements modify settings for MUI_PAGE_FINISH
+    !define MUI_FINISHPAGE_RUN $INSTDIR\MarkdownEditor.exe
+
+  !insertmacro MUI_PAGE_FINISH  
+
+  !insertmacro MUI_UNPAGE_CONFIRM
+  !insertmacro MUI_UNPAGE_INSTFILES
+  
+;--------------------------------
+;Languages
+ 
+  !insertmacro MUI_LANGUAGE "English"
 
 ;--------------------------------
 
