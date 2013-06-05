@@ -34,9 +34,11 @@ def show_error(message, detail=None):
         message_box.setDetailedText(detail)
     message_box.exec_()
 
+#==============================================================================
 def set_exception_handler():
     sys.excepthook = exception_hook
 
+#==============================================================================
 def reset_exception_handler():
     sys.excepthook = sys.__excepthook__
 
