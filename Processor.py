@@ -60,41 +60,42 @@ class MarkdownExtra(MarkdownRenderer):
 
     def __init__(self):
         super(MarkdownExtra, self).__init__()
+        self.renderer = markdown.Markdown(["extra"])
 
     def make_html(self, markdown_string):
-        return markdown.markdown(markdown_string, ["extra"])
+        return self.renderer.convert(markdown_string)
 
 #==============================================================================
 class Markdown(MarkdownRenderer):
 
     def __init__(self):
         super(Markdown, self).__init__()
+        self.renderer = markdown.Markdown()
 
     def make_html(self, markdown_string):
-        return markdown.markdown(markdown_string)
+        return self.renderer.convert(markdown_string)
 
 #==============================================================================
 class CodeHilite(MarkdownRenderer):
 
     def __init__(self):
         super(CodeHilite, self).__init__()
-
-    def make_html(self, markdown_string):
-        
-        return markdown.markdown(
-            markdown_string, 
-            extensions=["codehilite"], 
+        self.renderer = markdown.Markdown(
+            extensions=["codehilite"],
             extension_configs={
-                "codehilite": [("css_class", "highlight")] 
+                "codehilite": [("css_class", "highlight")]
                 }
             )
 
+    def make_html(self, markdown_string):
+        return self.renderer.convert(markdown_string)
+
 #==============================================================================
 class GithubFlavouredMarkdown(MarkdownRenderer):
-    
+
     #==========================================================================
     class Renderer(misaka.HtmlRenderer, misaka.SmartyPants):
-    
+
         def block_code(self, text, language):
             try:
                 lexer = pygments.lexers.get_lexer_by_name(
@@ -113,7 +114,7 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
         super(GithubFlavouredMarkdown, self).__init__()
         my_renderer = GithubFlavouredMarkdown.Renderer()
         self.renderer = misaka.Markdown(
-            my_renderer, 
+            my_renderer,
             extensions=misaka.EXT_FENCED_CODE | misaka.EXT_NO_INTRA_EMPHASIS
             )
 
