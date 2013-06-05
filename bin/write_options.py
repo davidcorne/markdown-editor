@@ -72,6 +72,7 @@ USER_TEXT = {
     "made_changes": "You have made changes to",
     "markdown": "Markdown",
     "markdown_extra": "Markdown Extra",
+    "codehilite": "CodeHilite",
     "github_flavoured_markdown": "Github Flavoured Markdown",
     "show_html": "Show HTML",
     "misc": "Miscellaneous",

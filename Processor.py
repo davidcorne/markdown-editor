@@ -74,6 +74,22 @@ class Markdown(MarkdownRenderer):
         return markdown.markdown(markdown_string)
 
 #==============================================================================
+class CodeHilite(MarkdownRenderer):
+
+    def __init__(self):
+        super(CodeHilite, self).__init__()
+
+    def make_html(self, markdown_string):
+        
+        return markdown.markdown(
+            markdown_string, 
+            extensions=["codehilite"], 
+            extension_configs={
+                "codehilite": [("css_class", "highlight")] 
+                }
+            )
+
+#==============================================================================
 class GithubFlavouredMarkdown(MarkdownRenderer):
     
     #==========================================================================
