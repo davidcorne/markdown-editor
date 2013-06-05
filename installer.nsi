@@ -13,7 +13,7 @@
 Name "Markdown Editor"
 
 ; The file to write
-OutFile "Binaries\setup.exe"
+OutFile "Downloads\setup.exe"
 
 ; The default installation directory
 InstallDir "$PROGRAMFILES\Markdown Editor"
@@ -57,7 +57,7 @@ Section "Markdown_Editor (required)"
   SetOutPath $INSTDIR
   
   ; Put file there
-  File "Binaries\EXE\MarkdownEditor.exe"
+  File "Downloads\EXE\MarkdownEditor.exe"
   File "Markdown Editor on the web.url"
   File /r /x *_Options.pickle "Resources"
   

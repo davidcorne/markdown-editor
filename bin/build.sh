@@ -5,8 +5,8 @@
 
 set -e
 
-mkdir -p Binaries
-mkdir -p Binaries/EXE
+mkdir -p Downloads
+mkdir -p Downloads/EXE
 
 # expand aliases
 shopt -s expand_aliases
@@ -22,7 +22,7 @@ echo ""
 
 if [ -f dist/MarkdownEditor.exe ]
 then
-  mv -vf dist/MarkdownEditor.exe Binaries/EXE/
+  mv -vf dist/MarkdownEditor.exe Downloads/EXE/
 fi
 
 # remove the temporary build files
