@@ -34,8 +34,11 @@ class MarkdownRenderer(object):
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
-    def render(self, markdown_string):
+    def make_html(self, markdown_string):
         raise
+
+    def render(self, markdown_string):
+        return self.add_css(self.make_html(markdown_string))
 
     def add_css(self, raw_html):
         """
@@ -58,9 +61,8 @@ class MarkdownExtra(MarkdownRenderer):
     def __init__(self):
         super(MarkdownExtra, self).__init__()
 
-    def render(self, markdown_string):
-        html = markdown.markdown(markdown_string, ["extra"])
-        return self.add_css(html)
+    def make_html(self, markdown_string):
+        return markdown.markdown(markdown_string, ["extra"])
 
 #==============================================================================
 class Markdown(MarkdownRenderer):
@@ -68,9 +70,8 @@ class Markdown(MarkdownRenderer):
     def __init__(self):
         super(Markdown, self).__init__()
 
-    def render(self, markdown_string):
-        html = markdown.markdown(markdown_string)
-        return self.add_css(html)
+    def make_html(self, markdown_string):
+        return markdown.markdown(markdown_string)
 
 #==============================================================================
 class GithubFlavouredMarkdown(MarkdownRenderer):
@@ -100,9 +101,8 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
             extensions=misaka.EXT_FENCED_CODE | misaka.EXT_NO_INTRA_EMPHASIS
             )
 
-    def render(self, markdown_string):
-        rendered = self.renderer.render(markdown_string)
-        return self.add_css(rendered)
+    def make_html(self, markdown_string):
+        return self.renderer.render(markdown_string)
 
 #==============================================================================
 if (__name__ == "__main__"):
