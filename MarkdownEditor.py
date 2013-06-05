@@ -1170,6 +1170,7 @@ class Document(QtGui.QWidget):
         self.text.verticalScrollBar().valueChanged.connect(
             lambda value : self.sync_scrollbars()
             )
+        self.text.setAcceptRichText(False)
 
         self.output = MarkdownPreview(self)
 
