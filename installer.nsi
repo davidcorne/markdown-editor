@@ -59,7 +59,7 @@ Section "Markdown_Editor (required)"
   ; Put file there
   File "Downloads\EXE\MarkdownEditor.exe"
   File "Markdown Editor on the web.url"
-  File /r /x *_Options.pickle "Resources"
+  File /r /x *_Options.pickle /x "User" "Resources"
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\NSIS_Markdown_Editor "Install_Dir" "$INSTDIR"
@@ -101,15 +101,11 @@ Section "Uninstall"
   DeleteRegKey HKLM SOFTWARE\NSIS_Markdown_Editor
 
   ; Remove files and uninstaller
-  Delete $INSTDIR\MarkdownEditor.exe
-  Delete $INSTDIR\uninstall.exe
+  RMDIR /r "$INSTDIR"
 
   ; Remove shortcuts, if any
-  Delete "$SMPROGRAMS\Markdown Editor\*.*"
-  Delete "$DESKTOP\Markdown Editor.lnk"
+  RMDIR /r "$SMPROGRAMS\Markdown Editor"
 
-  ; Remove directories used
-  RMDir "$SMPROGRAMS\Markdown Editor"
-  RMDir "$INSTDIR"
+  Delete "$DESKTOP\Markdown Editor.lnk"
 
 SectionEnd
