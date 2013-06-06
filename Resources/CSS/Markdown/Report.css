@@ -28,3 +28,11 @@ tt
 {
 color:#909;
 }
+table, th, td
+{
+    border: 1px solid black;
+}
+table
+{
+    border-collapse:collapse;
+}
