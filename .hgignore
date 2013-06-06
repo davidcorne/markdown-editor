@@ -15,5 +15,6 @@ MANIFEST
 *.msi
 *.exe
 
-# user specific option files
+# user specific files
 Resources/*_Options.pickle
+*/User/*

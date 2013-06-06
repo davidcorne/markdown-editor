@@ -96,18 +96,22 @@ def find_images():
         Error.show_error(message, detail)
 
 #==============================================================================
-def read_css(filename):
+def read_css(directory, filename):
     filename += ".css"
-    directory = os.path.join(resource_dir(), "CSS")
-    filename = os.path.join(directory, filename)
-    with open(filename, "r") as css_file:
+    css_directory = os.path.join(resource_dir(), "CSS")
+    directory = os.path.join(css_directory, directory)
+    path = os.path.join(directory, filename)
+    if (not os.path.isfile(path)):
+        user_directory = os.path.join(directory, "User")
+        path = os.path.join(user_directory, filename)
+    with open(path, "r") as css_file:
         return css_file.read()
 
 #==============================================================================
 def reload_markdown_css():
     css = ""
     if (OPTIONS["markdown_css"]):
-        css = read_css("Markdown/" + OPTIONS["markdown_css"])
+        css = read_css("Markdown", OPTIONS["markdown_css"])
     global MARKDOWN_CSS
     MARKDOWN_CSS = css
 
@@ -115,7 +119,7 @@ def reload_markdown_css():
 def reload_code_css():
     css = ""
     if (OPTIONS["code_css"]):
-        css = read_css("Code/" + OPTIONS["code_css"])
+        css = read_css("Code", OPTIONS["code_css"])
     global CODE_CSS
     CODE_CSS = css
 

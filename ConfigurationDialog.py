@@ -150,9 +150,7 @@ class CSSConfig(QtGui.QDialog):
     def find_markdown_css_options(self):
         css_combo = QtGui.QComboBox()
         css_combo.addItem("None")
-        css_dir = os.path.join(Configuration.resource_dir(), "CSS/Markdown")
-        css_files = [s for s in os.listdir(css_dir) if s.endswith(".css")]
-        css_files = [os.path.splitext(md_file)[0] for md_file in css_files]
+        css_files = self.find_css_files("Markdown")
         for md_file in css_files:
             css_combo.addItem(md_file)
         # add one for None
@@ -165,6 +163,20 @@ class CSSConfig(QtGui.QDialog):
             )
 
         return css_combo
+
+    def find_css_files(self, directory):
+        """
+        Directory should be a directory below Resources/CSS
+        """
+        css_dir = os.path.join(Configuration.resource_dir(), "CSS")
+        css_dir = os.path.join(css_dir, directory)
+        css_files = [s for s in os.listdir(css_dir) if s.endswith(".css")]
+        user_css_dir = os.path.join(css_dir, "User")
+        if (os.path.isdir(user_css_dir)):
+            user_css_files = [s for s in os.listdir(user_css_dir) if s.endswith(".css")]
+            css_files += user_css_files
+        css_files = [os.path.splitext(md_file)[0] for md_file in css_files]
+        return css_files
 
     def reload_preview(self):
         html = MarkdownEditor.process_markdown("""\
