@@ -179,6 +179,7 @@ class CSSConfig(QtGui.QDialog):
         return css_files
 
     def reload_preview(self):
+        Configuration.load_processor()
         html = MarkdownEditor.process_markdown("""\
 # Heading 1 #
 
@@ -188,7 +189,7 @@ Some text
 
 More text
 
-### python ###
+### python ###
 
 This is a python function.  
 
@@ -196,7 +197,7 @@ This is a python function.
 def hi():
     print("Hi")
 ```
-### C++ ###
+### C++ ###
 
 This is the same function in C++.  
 
@@ -271,7 +272,7 @@ class MiscConfig(QtGui.QDialog):
         self.reload_callback()
 
     def show_line_numbers_changed(self, value):
-        Configuration.OPTIONS["display_line_numbers"] = value
+        Configuration.OPTIONS["display_line_numbers"] = bool(value)
         self.reload_callback()
 
     def check_box(self, name, callback, checked):

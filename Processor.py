@@ -92,8 +92,17 @@ class Everything(MarkdownRenderer):
 
     def __init__(self):
         super(Everything, self).__init__()
+        line_numbers = Configuration.OPTIONS["display_line_numbers"]
+        codehilite = [
+            "codehilite(css_class=highlight, linenums=",
+            str(line_numbers),
+            ")"
+            ]
         self.renderer = markdown.Markdown(
-            extensions=["extra", "codehilite(css_class=highlight)"]
+            extensions=[
+                "extra", 
+                "".join(codehilite)
+                ]
             )
 
     def make_html(self, markdown_string):
