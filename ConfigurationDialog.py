@@ -96,11 +96,7 @@ class CSSConfig(QtGui.QDialog):
 
         code_css_combo = self.find_code_css_options()
 
-        preview_group = QtGui.QGroupBox(
-            Configuration.USER_TEXT["preview"]
-            )
-        self.preview = MarkdownEditor.MarkdownPreview(None)
-        self.reload_preview()
+        self.preview = Preview()
 
         code_css_layout = QtGui.QHBoxLayout()
         code_css_layout.addWidget(code_css_label)
@@ -111,13 +107,9 @@ class CSSConfig(QtGui.QDialog):
         config_layout.addLayout(code_css_layout)
         css_group.setLayout(config_layout)
 
-        preview_layout = QtGui.QVBoxLayout()
-        preview_layout.addWidget(self.preview)
-        preview_group.setLayout(preview_layout)
-
         main_layout = QtGui.QVBoxLayout()
         main_layout.addWidget(css_group)
-        main_layout.addWidget(preview_group)
+        main_layout.addWidget(self.preview)
         main_layout.addStretch(1)
 
         self.setLayout(main_layout)
@@ -180,9 +172,7 @@ class CSSConfig(QtGui.QDialog):
         return css_files
 
     def reload_preview(self):
-        Configuration.load_processor()
-        html = MarkdownEditor.process_markdown(Examples.get_preview_markdown())
-        self.preview.show_preview(html)
+        self.preview.reload()
 
     def new_markdown_css_chosen(self, css):
         if (css == "None"):
@@ -371,7 +361,23 @@ class ConfigurationDialog(QtGui.QDialog):
             QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
             )
 
+#==============================================================================
+class Preview(QtGui.QGroupBox):
 
+    def __init__(self):
+        super(Preview, self).__init__(Configuration.USER_TEXT["preview"])
+        self.preview = MarkdownEditor.MarkdownPreview(None)
+        self.reload()
+
+        preview_layout = QtGui.QVBoxLayout()
+        preview_layout.addWidget(self.preview)
+        self.setLayout(preview_layout)
+
+    def reload(self):
+        Configuration.load_processor()
+        html = MarkdownEditor.process_markdown(Examples.get_preview_markdown())
+        self.preview.show_preview(html)
+        
 #==============================================================================
 if (__name__ == "__main__"):
     pass
