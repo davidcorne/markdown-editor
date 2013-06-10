@@ -137,6 +137,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         bold_button.setToolTip(Configuration.TOOL_TIP["bold"])
         bold_button.setStatusTip(Configuration.TOOL_TIP["bold"])
+        bold_button.setShortcut("Ctrl+B")
         bold_button.clicked.connect(self.bold_highlighted)
 
         italic_button = QtGui.QToolButton()
@@ -145,6 +146,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         italic_button.setToolTip(Configuration.TOOL_TIP["italic"])
         italic_button.setStatusTip(Configuration.TOOL_TIP["italic"])
+        italic_button.setShortcut("Ctrl+I")
         italic_button.clicked.connect(self.italic_highlighted)
 
         code_button = QtGui.QToolButton()
@@ -153,6 +155,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         code_button.setToolTip(Configuration.TOOL_TIP["code"])
         code_button.setStatusTip(Configuration.TOOL_TIP["code"])
+        code_button.setShortcut("Ctrl+Shift+C")
         code_button.clicked.connect(self.code_highlighted)
 
         link_button = QtGui.QToolButton()
@@ -161,6 +164,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         link_button.setToolTip(Configuration.TOOL_TIP["link"])
         link_button.setStatusTip(Configuration.TOOL_TIP["link"])
+        link_button.setShortcut("Ctrl+L")
         link_button.clicked.connect(self.insert_link)
 
         image_button = QtGui.QToolButton()
@@ -169,6 +173,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         image_button.setToolTip(Configuration.TOOL_TIP["image"])
         image_button.setStatusTip(Configuration.TOOL_TIP["image"])
+        image_button.setShortcut("Ctrl+M")
         image_button.clicked.connect(self.insert_image)
 
         colour_button = ColourButton(self, self.colour_highlighted)
