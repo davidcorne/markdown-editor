@@ -726,10 +726,12 @@ class MarkdownEditor(QtGui.QMainWindow):
                 "PDF (*.pdf)"
                 )
             if (file_path):
+                QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor);
                 printer = QtGui.QPrinter()
                 printer.setOutputFormat(QtGui.QPrinter.PdfFormat)
                 printer.setOutputFileName(file_path)
                 self.print_rendered_html(printer)
+                QtGui.QApplication.restoreOverrideCursor()
 
     def export_html(self):
         if (self.editor.count()):
