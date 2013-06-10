@@ -15,6 +15,7 @@ from PyQt4 import QtGui, QtCore, QtWebKit
 import Configuration
 import ConfigurationDialog
 import Error
+import Examples
 
 #==============================================================================
 class MarkdownEditorApp(QtGui.QApplication):
@@ -321,6 +322,46 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.create_file_menu()
         self.create_edit_menu()
         self.create_tools_menu()
+        self.create_help_menu()
+
+    def create_help_menu(self):
+        # make help a member so it sticks around, also doesn't override built 
+        # in help
+        self.help = Help()
+        
+        markdown_action = QtGui.QAction(Configuration.USER_TEXT["markdown"], self)
+        markdown_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        markdown_action.triggered.connect(self.help.markdown_description)
+
+        markdown_extra_action = QtGui.QAction(Configuration.USER_TEXT["markdown_extra"], self)
+        markdown_extra_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        markdown_extra_action.triggered.connect(self.help.markdown_extra_description)
+
+        markdown_all_action = QtGui.QAction(Configuration.USER_TEXT["markdown_all"], self)
+        markdown_all_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        markdown_all_action.triggered.connect(self.help.markdown_all_description)
+
+        codehilite_action = QtGui.QAction(Configuration.USER_TEXT["codehilite"], self)
+        codehilite_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        codehilite_action.triggered.connect(self.help.codehilite_description)
+
+        github_flavour_action = QtGui.QAction(Configuration.USER_TEXT["github_flavoured_markdown"], self)
+        github_flavour_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        github_flavour_action.triggered.connect(self.help.github_description)
+
+        link_action = QtGui.QAction(Configuration.USER_TEXT["help_link"], self)
+        link_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        link_action.triggered.connect(self.help.open_link)
+
+        menu_bar = self.menuBar()
+        help_menu = menu_bar.addMenu(Configuration.USER_TEXT["help_menu"])
+        help_menu.addAction(markdown_action)
+        help_menu.addAction(markdown_extra_action)
+        help_menu.addAction(markdown_all_action)
+        help_menu.addAction(codehilite_action)
+        help_menu.addAction(github_flavour_action)
+        help_menu.addSeparator()
+        help_menu.addAction(link_action)
 
     def create_edit_menu(self):
         undo_action = QtGui.QAction(Configuration.USER_TEXT["undo"], self)
@@ -1123,14 +1164,7 @@ class MarkdownPreview(QtWebKit.QWebView):
         self.page = QtWebKit.QWebPage()
         self.page.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.setPage(self.page)
-        self.linkClicked.connect(self.link_clicked)
-
-    def link_clicked(self, url):
-        # even try local files using openUrl
-        ok = QtGui.QDesktopServices.openUrl(url)
-        if (not ok):
-            detail = ["Could not find location:", unicode(url.toString())]
-            Error.show_error("Failed to open URL", "\n\n".join(detail))
+        self.linkClicked.connect(open_link)
 
     def show_preview(self, html):
         if (Configuration.OPTIONS["show_html"]):
@@ -1269,6 +1303,69 @@ class Document(QtGui.QWidget):
             text.prepend(beginning)
             text.append(end)
             cursor.insertText(text)
+
+#==============================================================================
+class PreviewDialog(QtGui.QDialog):
+
+    def __init__(self, parent, title, markdown):
+        super(PreviewDialog, self).__init__(parent)
+        self.setWindowTitle(title)
+        preview = MarkdownPreview(self)
+        preview.show_preview(process_markdown(markdown))
+
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(preview)
+
+#==============================================================================
+class Help(object):
+
+    def open_link(self):
+        open_link(
+            QtCore.QUrl("https://bitbucket.org/davidcorne/markdown-editor")
+            )
+
+    def open_description(self, markdown_type, description):
+        # Make sure the specific markdown help is rendered in the proper 
+        # variety of markdown
+        processor = Configuration.OPTIONS["processor"]
+        Configuration.OPTIONS["processor"] = markdown_type
+        Configuration.load_processor()
+        self.help_dialog = PreviewDialog(
+            None,
+            Configuration.USER_TEXT[markdown_type],
+            description
+            )
+        self.help_dialog.show()
+        Configuration.OPTIONS["processor"] = processor
+        Configuration.load_processor()
+
+    def markdown_description(self):
+        self.open_description("markdown", Examples.STANDARD_MARKDOWN)
+
+    def markdown_extra_description(self):
+        self.open_description("markdown_extra", Examples.MARKDOWN_EXTRA)
+
+    def markdown_all_description(self):
+        self.open_description("markdown_all", Examples.MARKDOWN_ALL)
+
+    def codehilite_description(self):
+        self.open_description("codehilite", Examples.CODEHILITE)
+        
+    def github_description(self):
+        self.open_description(
+            "github_flavoured_markdown",
+            Examples.GITHUB_FLAVOUR_PREVIEW
+            )
+        
+#==============================================================================
+def open_link(url):
+    """
+    Takes a QtCore.QUrl
+    """
+    ok = QtGui.QDesktopServices.openUrl(url)
+    if (not ok):
+        detail = ["Could not find location:", unicode(url.toString())]
+        Error.show_error("Failed to open URL", "\n\n".join(detail))
 
 #==============================================================================
 def process_markdown(markdown_string):

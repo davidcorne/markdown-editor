@@ -27,252 +27,260 @@ sVmatch_case
 p13
 VMatch &case
 p14
-sVcode
+sVhelp_menu
 p15
-VCode
+V&Help
 p16
-sVmarkdown_all
+sVcode
 p17
-VMarkdown All
+VCode
 p18
-sVedit_toolbar
+sVmarkdown_all
 p19
-VEdit Toolbar
+VMarkdown All
 p20
-sVclose
+sVedit_toolbar
 p21
-VClose
+VEdit Toolbar
 p22
-sVshow_line_numbers
+sVclose
 p23
-VDisplay Line Numbers
+VClose
 p24
-sVredo
+sVshow_line_numbers
 p25
-VRedo
+VDisplay Line Numbers
 p26
-sVfind
+sVredo
 p27
-V&Find
+VRedo
 p28
-sVreplace_title
+sVfind
 p29
-VReplace
+V&Find
 p30
-sVsave_as
+sVreplace_title
 p31
-VSave As
+VReplace
 p32
-sVformat_toolbar
+sVsave_as
 p33
-VFormat Toolbar
+VSave As
 p34
-sVprint_rendered_html
+sVformat_toolbar
 p35
-VPrint Rendered HTML
+VFormat Toolbar
 p36
-sVselect_all
+sVprint_rendered_html
 p37
-VSelect All
+VPrint Rendered HTML
 p38
-sVopen_file
+sVselect_all
 p39
-VOpen File
+VSelect All
 p40
-sVsaved
+sVopen_file
 p41
-VFile saved
+VOpen File
 p42
-sVsearch_backwards
+sVsaved
 p43
-VSearch &backwards
+VFile saved
 p44
-sVmatch_whole_words
+sVsearch_backwards
 p45
-VMatch &whole words
+VSearch &backwards
 p46
-sVfile_menu
+sVmatch_whole_words
 p47
-V&File
+VMatch &whole words
 p48
-sVreplace_with
+sVfile_menu
 p49
-VReplace with:
+V&File
 p50
-sVundo_redo_toolbar
+sVreplace_with
 p51
-VUndo Redo Toolbar
+VReplace with:
 p52
-sVcurrent_document
+sVundo_redo_toolbar
 p53
-Vthe current document
+VUndo Redo Toolbar
 p54
-sVmarkdown_type
+sVcurrent_document
 p55
-VMarkdown Type
+Vthe current document
 p56
-sVstyle_name
+sVmarkdown_type
 p57
-VStyle Name
+VMarkdown Type
 p58
-sVprint
+sVstyle_name
 p59
-VPrint
+VStyle Name
 p60
-sVinsert_link
+sVprint
 p61
-VInsert Link
+VPrint
 p62
-sVpreview
+sVinsert_link
 p63
-VPreview
+VInsert Link
 p64
-sVenter_image_location
+sVpreview
 p65
-VEnter the image location
+VPreview
 p66
-sVenter_link
+sVenter_image_location
 p67
-VEnter the destination URL
+VEnter the image location
 p68
-sVfile_toolbar
+sVenter_link
 p69
-VFile Toolbar
+VEnter the destination URL
 p70
-sVsave_all
+sVfile_toolbar
 p71
-VSave All Files
+VFile Toolbar
 p72
-sVmade_changes
+sVsave_all
 p73
-VYou have made changes to
+VSave All Files
 p74
-sVmarkdown_extra
+sVmade_changes
 p75
-VMarkdown Extra
+VYou have made changes to
 p76
-sVnew_file
+sVmarkdown_extra
 p77
-VNew File
+VMarkdown Extra
 p78
-sVmisc
+sVnew_file
 p79
-VMiscellaneous
+VNew File
 p80
-sVsave_changes?
+sVmisc
 p81
-VDo you want to save your changes?
+VMiscellaneous
 p82
-sVexport_pdf
+sVsave_changes?
 p83
-VExport PDF
+VDo you want to save your changes?
 p84
-sVundo
+sVexport_pdf
 p85
-VUndo
+VExport PDF
 p86
-sVcodehilite
+sVundo
 p87
-VCodeHilite
+VUndo
 p88
-sVcut
+sVcodehilite
 p89
-VCut
+VCodeHilite
 p90
-sVother_options
+sVcut
 p91
-VOther Options
+VCut
 p92
-sVfind_what
+sVother_options
 p93
-VFind &what:
+VOther Options
 p94
-sVgithub_flavoured_markdown
+sVfind_what
 p95
-VGithub Flavoured Markdown
+VFind &what:
 p96
-sVprint_preview_raw_html
+sVgithub_flavoured_markdown
 p97
-VPrint Preview Raw HTML Code
+VGithub Flavoured Markdown
 p98
-sVprogram_name
+sVprint_preview_raw_html
 p99
-VMarkdownEditor
+VPrint Preview Raw HTML Code
 p100
-sVcopy
+sVprogram_name
 p101
-VCopy
+VMarkdownEditor
 p102
-sVpaste
+sVcopy
 p103
-VPaste
+VCopy
 p104
-sVexception
+sVpaste
 p105
-VAn internal error has occured.
+VPaste
 p106
-sVfind_title
+sVexception
 p107
-VFind
+VAn internal error has occured.
 p108
-sVclose_file
+sVfind_title
 p109
-VClose File
+VFind
 p110
-sVsave_file
+sVhelp_link
 p111
-VSave
+VMarkdown On The Web
 p112
-sVenter_image_title
+sVclose_file
 p113
-VEnter the image title (optional)
+VClose File
 p114
-sVedit_menu
+sVsave_file
 p115
-V&Edit
+VSave
 p116
-sVinsert_image
+sVenter_image_title
 p117
-VInsert Image
+VEnter the image title (optional)
 p118
-sVprint_markdown
+sVedit_menu
 p119
-VPrint Markdown
+V&Edit
 p120
-sVprint_preview_rendered_html
+sVinsert_image
 p121
-VPrint Preview Rendered HTML
+VInsert Image
 p122
-sVprint_raw_html
+sVprint_markdown
 p123
-VPrint Raw HTML Code
+VPrint Markdown
 p124
-sVcss
+sVprint_preview_rendered_html
 p125
-VCSS
+VPrint Preview Rendered HTML
 p126
-sVreplace_all
+sVprint_raw_html
 p127
-VReplace &all
+VPrint Raw HTML Code
 p128
-sVexport_html
+sVcss
 p129
-VExport HTML
+VCSS
 p130
-sVtools_menu
+sVreplace_all
 p131
-V&Tools
+VReplace &all
 p132
-sVshow_html
+sVexport_html
 p133
-VShow HTML
+VExport HTML
 p134
-sVoptions
+sVtools_menu
 p135
-VOptions
+V&Tools
 p136
-sVdebug_options
+sVshow_html
 p137
-VDebug Options
+VShow HTML
 p138
+sVoptions
+p139
+VOptions
+p140
+sVdebug_options
+p141
+VDebug Options
+p142
 s.

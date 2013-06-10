@@ -95,28 +95,32 @@ sVset_colour
 p47
 VSet the colour of the highlighted area to this colour
 p48
-sVclose_file
+sVhelp_link
 p49
-VClose the currently open document
+VOpens the website for this product in your defualt browser
 p50
-sVsave_file
+sVclose_file
 p51
-VSave the current document
+VClose the currently open document
 p52
-sVprint_preview_rendered_html
+sVsave_file
 p53
-VShows a preview of the HTML output as it will be rendered by a browser before printing
+VSave the current document
 p54
-sVprint_raw_html
+sVprint_preview_rendered_html
 p55
-VPrints the raw HTML code output
+VShows a preview of the HTML output as it will be rendered by a browser before printing
 p56
-sVexport_html
+sVprint_raw_html
 p57
-VExport the current document as html
+VPrints the raw HTML code output
 p58
-sVprint_markdown
+sVexport_html
 p59
-VPrints the markdown document
+VExport the current document as html
 p60
+sVprint_markdown
+p61
+VPrints the markdown document
+p62
 s.

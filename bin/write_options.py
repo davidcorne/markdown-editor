@@ -92,6 +92,8 @@ USER_TEXT = {
     "print_preview_raw_html": "Print Preview Raw HTML Code",
     "show_line_numbers": "Display Line Numbers",
     "other_options": "Other Options",
+    "help_menu": "&Help",
+    "help_link": "Markdown On The Web",
     }
 
 TOOL_TIPS = {
@@ -125,6 +127,7 @@ TOOL_TIPS = {
     "print_preview_markdown": "Shows a preview of the markdown before printing",
     "print_preview_rendered_html": "Shows a preview of the HTML output as it will be rendered by a browser before printing",
     "print_preview_raw_html": "Shows a preview of the raw HTML code output before printing",
+    "help_link": "Opens the website for this product in your defualt browser",
     }
 
 #==============================================================================
