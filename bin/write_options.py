@@ -17,7 +17,7 @@ import sys
 OPTIONS = {
     "code_css": "Standard", 
     "show_html": False,
-    "processor": "github_flavoured_markdown",
+    "processor": "markdown_all",
     "markdown_css": "Markdown",
     "display_line_numbers": True,
     }
