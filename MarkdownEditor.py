@@ -329,23 +329,55 @@ class MarkdownEditor(QtGui.QMainWindow):
         # in help
         self.help = Help()
         
-        markdown_action = QtGui.QAction(Configuration.USER_TEXT["markdown"], self)
+        markdown_action = QtGui.QAction(
+            Configuration.USER_TEXT["markdown"], 
+            self
+            )
+        markdown_action.setIcon(QtGui.QIcon(Configuration.IMAGES["markdown"]))
         markdown_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
         markdown_action.triggered.connect(self.help.markdown_description)
 
-        markdown_extra_action = QtGui.QAction(Configuration.USER_TEXT["markdown_extra"], self)
+        markdown_extra_action = QtGui.QAction(
+            Configuration.USER_TEXT["markdown_extra"],
+            self
+            )
+        markdown_extra_action.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["markdown"])
+            )
         markdown_extra_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
-        markdown_extra_action.triggered.connect(self.help.markdown_extra_description)
+        markdown_extra_action.triggered.connect(
+            self.help.markdown_extra_description
+            )
 
-        markdown_all_action = QtGui.QAction(Configuration.USER_TEXT["markdown_all"], self)
+        markdown_all_action = QtGui.QAction(
+            Configuration.USER_TEXT["markdown_all"],
+            self
+            )
+        markdown_all_action.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["markdown"])
+            )
         markdown_all_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
-        markdown_all_action.triggered.connect(self.help.markdown_all_description)
+        markdown_all_action.triggered.connect(
+            self.help.markdown_all_description
+            )
 
-        codehilite_action = QtGui.QAction(Configuration.USER_TEXT["codehilite"], self)
+        codehilite_action = QtGui.QAction(
+            Configuration.USER_TEXT["codehilite"], 
+            self
+            )
+        codehilite_action.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["markdown"])
+            )
         codehilite_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
         codehilite_action.triggered.connect(self.help.codehilite_description)
 
-        github_flavour_action = QtGui.QAction(Configuration.USER_TEXT["github_flavoured_markdown"], self)
+        github_flavour_action = QtGui.QAction(
+            Configuration.USER_TEXT["github_flavoured_markdown"], 
+            self
+            )
+        github_flavour_action.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["markdown"])
+            )
         github_flavour_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
         github_flavour_action.triggered.connect(self.help.github_description)
 

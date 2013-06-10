@@ -93,7 +93,7 @@ USER_TEXT = {
     "show_line_numbers": "Display Line Numbers",
     "other_options": "Other Options",
     "help_menu": "&Help",
-    "help_link": "Markdown On The Web",
+    "help_link": "Markdown Editor On The Web",
     }
 
 TOOL_TIPS = {
