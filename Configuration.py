@@ -134,7 +134,7 @@ reload_code_css()
 PROCESSOR_TYPES = collections.OrderedDict()
 PROCESSOR_TYPES["markdown"] = Processor.Markdown
 PROCESSOR_TYPES["markdown_extra"] = Processor.MarkdownExtra
-PROCESSOR_TYPES["markdown_all"] = Processor.Everything
+PROCESSOR_TYPES["markdown_all"] = Processor.MarkdownAll
 PROCESSOR_TYPES["codehilite"] = Processor.CodeHilite
 PROCESSOR_TYPES["github_flavoured_markdown"] = Processor.GithubFlavouredMarkdown
 

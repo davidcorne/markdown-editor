@@ -80,28 +80,21 @@ class CodeHilite(MarkdownRenderer):
 
     def __init__(self):
         super(CodeHilite, self).__init__()
-        self.renderer = markdown.Markdown(
-            extensions=["codehilite(css_class=highlight)"]
-            )
+        self.renderer = markdown.Markdown(extensions=[codehilite_extension()])
 
     def make_html(self, markdown_string):
         return self.renderer.convert(markdown_string)
 
 #==============================================================================
-class Everything(MarkdownRenderer):
+class MarkdownAll(MarkdownRenderer):
 
     def __init__(self):
-        super(Everything, self).__init__()
-        line_numbers = Configuration.OPTIONS["display_line_numbers"]
-        codehilite = [
-            "codehilite(css_class=highlight, linenums=",
-            str(line_numbers),
-            ")"
-            ]
+        super(MarkdownAll, self).__init__()
+        
         self.renderer = markdown.Markdown(
             extensions=[
                 "extra", 
-                "".join(codehilite)
+                codehilite_extension()
                 ]
             )
 
@@ -138,6 +131,20 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
 
     def make_html(self, markdown_string):
         return self.renderer.render(markdown_string)
+
+#==============================================================================
+def codehilite_extension():
+    """
+    Returns the string you need for codehilite, it uses the correct css class
+    and adds line numbers if necessary.
+    """
+    line_numbers = Configuration.OPTIONS["display_line_numbers"]
+    codehilite = [
+        "codehilite(css_class=highlight, linenums=",
+        str(line_numbers),
+        ")"
+        ]
+    return "".join(codehilite)
 
 #==============================================================================
 if (__name__ == "__main__"):
