@@ -12,6 +12,7 @@ from PyQt4 import QtGui, QtCore
 # local imports
 
 import Configuration
+import Examples
 import MarkdownEditor
 import Processor
 
@@ -180,36 +181,7 @@ class CSSConfig(QtGui.QDialog):
 
     def reload_preview(self):
         Configuration.load_processor()
-        html = MarkdownEditor.process_markdown("""\
-# Heading 1 #
-
-Some text
-
-## Heading 2 ##
-
-More text
-
-### python ###
-
-This is a python function.  
-
-```python
-def hi():
-    print("Hi")
-```
-### C++ ###
-
-This is the same function in C++.  
-
-```c++
-#include <iostream>
-
-void hi() 
-{
-  std::cout << "Hi" << std::endl;
-}
-```
-""")
+        html = MarkdownEditor.process_markdown(Examples.get_preview_markdown())
         self.preview.show_preview(html)
 
     def new_markdown_css_chosen(self, css):
