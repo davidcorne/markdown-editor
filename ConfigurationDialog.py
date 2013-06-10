@@ -42,6 +42,8 @@ class MarkdownConfig(QtGui.QDialog):
             self.new_markdown_chosen
             )
 
+        self.preview = Preview()
+        
         markdown_layout = QtGui.QHBoxLayout()
         markdown_layout.addWidget(markdown_label)
         markdown_layout.addWidget(markdown_combo)
@@ -52,6 +54,7 @@ class MarkdownConfig(QtGui.QDialog):
 
         main_layout = QtGui.QVBoxLayout()
         main_layout.addWidget(config_group)
+        main_layout.addWidget(self.preview)
         main_layout.addStretch(1)
 
         self.setLayout(main_layout)
@@ -62,15 +65,19 @@ class MarkdownConfig(QtGui.QDialog):
         Configuration.load_processor()
         self.reload_callback()
     
+    def reload_preview(self):
+        self.preview.reload()
+
     def revert(self):
         Configuration.PROCESSOR = self.original_processor
 
 #==============================================================================
 class CSSConfig(QtGui.QDialog):
 
-    def __init__(self, parent):
+    def __init__(self, parent, reload_callback):
         super(CSSConfig, self).__init__(parent)
        
+        self.reload_callback = reload_callback
         css_group = QtGui.QGroupBox(
             Configuration.USER_TEXT["style_name"]
             )
@@ -138,7 +145,7 @@ class CSSConfig(QtGui.QDialog):
             css = ""
         Configuration.OPTIONS["code_css"] = unicode(css)
         Configuration.reload_code_css()
-        self.reload_preview()
+        self.reload_callback()
 
     def find_markdown_css_options(self):
         css_combo = QtGui.QComboBox()
@@ -179,7 +186,7 @@ class CSSConfig(QtGui.QDialog):
             css = ""
         Configuration.OPTIONS["markdown_css"] = unicode(css)
         Configuration.reload_markdown_css()
-        self.reload_preview()
+        self.reload_callback()
 
     def revert(self):
         Configuration.reload_markdown_css()
@@ -271,13 +278,13 @@ class ConfigurationDialog(QtGui.QDialog):
         self.contents.setSpacing(12)
 
         self.pages = QtGui.QStackedWidget()
-        css_config = CSSConfig(self)
-        md_config = MarkdownConfig(self, css_config.reload_preview)
-        misc_config = MiscConfig(self, css_config.reload_preview)
+        self.css_config = CSSConfig(self, self.reload_previews)
+        self.md_config = MarkdownConfig(self, self.reload_previews)
+        self.misc_config = MiscConfig(self, self.reload_previews)
 
-        self.pages.addWidget(md_config)
-        self.pages.addWidget(css_config)
-        self.pages.addWidget(misc_config)
+        self.pages.addWidget(self.md_config)
+        self.pages.addWidget(self.css_config)
+        self.pages.addWidget(self.misc_config)
 
         # add a save and a cancel button
         self.bottom_buttons = QtGui.QDialogButtonBox(
@@ -308,6 +315,10 @@ class ConfigurationDialog(QtGui.QDialog):
         self.setWindowTitle(Configuration.USER_TEXT["options"])
         self.pages.setCurrentIndex(ConfigurationDialog.OPEN_PAGE)
         self.exec_()
+
+    def reload_previews(self):
+        self.css_config.reload_preview()
+        self.md_config.reload_preview()
 
     def button_clicked(self, button):
         role = self.bottom_buttons.buttonRole(button)
