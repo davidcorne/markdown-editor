@@ -124,9 +124,7 @@ class CSSConfig(QtGui.QDialog):
     def find_code_css_options(self):
         css_combo = QtGui.QComboBox()
         css_combo.addItem("None")
-        css_dir = os.path.join(Configuration.resource_dir(), "CSS/Code")
-        css_files = [s for s in os.listdir(css_dir) if s.endswith(".css")]
-        css_files = [os.path.splitext(md_file)[0] for md_file in css_files]
+        css_files = self.find_css_files("Code")
         for md_file in css_files:
             css_combo.addItem(md_file)
         # add one for None
