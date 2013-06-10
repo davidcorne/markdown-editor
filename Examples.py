@@ -164,6 +164,13 @@ Content Cell  | Content Cell
 
 With the wrong CSS these will not look great however.
 
+Here is the markdown for this.
+
+    First Header  | Second Header
+    ------------- | -------------
+    Content Cell  | Content Cell
+    Content Cell  | Content Cell
+
 ## Definition Lists ##
 
 Apple
