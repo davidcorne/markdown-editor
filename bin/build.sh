@@ -5,8 +5,14 @@
 
 set -e
 
-mkdir -p Downloads
-mkdir -p Downloads/EXE
+if [ ! -d markdown-editor-downloads ]
+then
+  echo "No markdown-editor-downloads directory, can get it using
+
+hg clone https://davidcorne@bitbucket.org/davidcorne/markdown-editor-downloads
+"
+  exit
+fi
 
 # expand aliases
 shopt -s expand_aliases
@@ -22,7 +28,11 @@ echo ""
 
 if [ -f dist/MarkdownEditor.exe ]
 then
-  mv -vf dist/MarkdownEditor.exe Downloads/EXE/
+  mkdir -p markdown-editor-downloads/EXE/
+  mv -vf dist/MarkdownEditor.exe markdown-editor-downloads/EXE/
+else
+  echo "No executable made"
+  exit
 fi
 
 # remove the temporary build files
@@ -40,5 +50,6 @@ echo "Making windows installer"
 makensis installer.nsi
 rm -f "Markdown Editor on the web.url"
 
+rm -rf markdown-editor-downloads/EXE/
 echo ""
 echo "Done"
