@@ -6,6 +6,10 @@
 import abc
 import cgi
 import markdown
+# import all the extensions which are "hidden" to pyinstaller
+import markdown.extensions.extra
+import markdown.extensions.codehilite
+
 import misaka
 import pygments
 import pygments.lexers
