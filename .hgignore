@@ -18,3 +18,7 @@ MANIFEST
 # user specific files
 Resources/*_Options.pickle
 */User/*
+
+# Experiments
+*.md
+*.html
