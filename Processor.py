@@ -27,7 +27,7 @@ CLOSE_HEAD = """</style>
 </head>
 <body>"""
 
-CLOSE_BODY = "</body>"
+CLOSE_BODY = "</body></html>"
 
 #==============================================================================
 class MarkdownRenderer(object):
