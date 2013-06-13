@@ -6,15 +6,24 @@
 import abc
 import cgi
 import markdown
-# import all the extensions which are "hidden" to pyinstaller
-import markdown.extensions.extra
-import markdown.extensions.codehilite
-
 import misaka
 import pygments
 import pygments.lexers
 import pygments.formatters
 import os
+
+# import all the extensions which are "hidden" to pyinstaller
+import markdown.extensions.extra
+import markdown.extensions.codehilite
+import markdown.extensions.abbr
+import markdown.extensions.attr_list
+import markdown.extensions.def_list
+import markdown.extensions.fenced_code
+import markdown.extensions.footnotes
+import markdown.extensions.tables
+import markdown.extensions.smart_strong
+import markdown.extensions.extra
+import markdown.extensions.codehilite
 
 # local imports
 
