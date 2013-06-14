@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 import cgi
 import sys
 import os
+import time
 
 from PyQt4 import QtGui, QtCore, QtWebKit
 
@@ -883,7 +884,6 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def document_changed(self):
         if (self.editor.count()):
-            self.editor.currentWidget().reload()
             self.set_tab_title()
 
 #==============================================================================
@@ -1204,6 +1204,7 @@ class MarkdownPreview(QtWebKit.QWebView):
         self.page.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.setPage(self.page)
         self.linkClicked.connect(open_link)
+        self.scroll_x = 0
 
     def show_preview(self, html):
         if (Configuration.OPTIONS["show_html"]):
@@ -1216,13 +1217,27 @@ class MarkdownPreview(QtWebKit.QWebView):
                 )
         self.setHtml(html)
 
-    def scroll(self, ratio):
+    def scroll_position(self):
+        frame = super(MarkdownPreview, self).page().mainFrame()
+        x_current = frame.scrollPosition().x()
+        x_maximum = frame.scrollBarMaximum(QtCore.Qt.Horizontal)
+        if (x_maximum == 0):
+            x_maximum = 1
+        y_current = frame.scrollPosition().y()
+        y_maximum = frame.scrollBarMaximum(QtCore.Qt.Vertical)
+        if (y_maximum == 0):
+            y_maximum = 1
+        return (x_current / float(x_maximum), y_current / float(y_maximum))
+
+    def set_scroll_position(self, ratios):
         """
-        Ratio should be a number between 0 and 1
+        Ratio should be a pair of numbers between 0 and 1. x then y
         """
         frame = super(MarkdownPreview, self).page().mainFrame()
-        value = ratio * frame.scrollBarMaximum(QtCore.Qt.Vertical)
-        frame.setScrollPosition(QtCore.QPoint(0, value))
+        x_value = ratios[0] * frame.scrollBarMaximum(QtCore.Qt.Horizontal)
+        y_value = ratios[1] * frame.scrollBarMaximum(QtCore.Qt.Vertical)
+        point = QtCore.QPoint(x_value, y_value)
+        frame.setScrollPosition(point)
 
     def __del__(self):
         # For some reason without this, when you quit the application it 
@@ -1238,12 +1253,19 @@ class Document(QtGui.QWidget):
         self.file_path = None
         self.saved = True
 
+        self.callback = callback
+        self.edit_time = 0
+        
+        self.timer = QtCore.QTimer(self)
+        self.timer.setSingleShot(True)
+        self.timer.timeout.connect(self.text_changed)
+
         self.text = QtGui.QTextEdit(self)
-        self.text.textChanged.connect(callback)
         self.text.verticalScrollBar().valueChanged.connect(
             lambda value : self.sync_scrollbars()
             )
         self.text.setAcceptRichText(False)
+        self.text.textChanged.connect(self.reload)
 
         self.output = MarkdownPreview(self)
 
@@ -1264,7 +1286,7 @@ class Document(QtGui.QWidget):
         if (max_text_scroll):
             value = self.text.verticalScrollBar().value()
             ratio = float(value) / max_text_scroll
-            self.output.scroll(ratio)
+            self.output.set_scroll_position((0, ratio))
 
     def check_saved(self):
         if (self.file_path is not None):
@@ -1274,11 +1296,29 @@ class Document(QtGui.QWidget):
         else:
             self.saved = False
 
+    def text_changed(self):
+        """
+        We don't want to update on every keystroke, what this does is:
+          1. Times how long a reload takes
+          2. After reload start a timer for the duration that the reload took
+          3. If the timer is running, don't reload
+          4. If the time is not running go to 1.
+        """
+        if (not self.timer.isActive()):
+            t_start = time.time()
+            self.reload()
+            self.edit_time = time.time() - t_start
+            # self.edit_time is in seconds, timer wants milliseconds
+            self.timer.start(self.edit_time * 1000)
+        
     def reload(self):
         html = self.convert_input()
+        scroll_position = self.output.scroll_position()
         self.output.show_preview(html)
+        self.output.set_scroll_position(scroll_position)
         self.check_saved()
         self.sync_scrollbars()
+        self.callback()
 
     def convert_input(self):
         markdown_string = self.text.toPlainText()
