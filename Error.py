@@ -5,14 +5,28 @@
 import sys
 import traceback
 
-from PyQt4 import QtGui
-
 # local imports
-import Configuration
 
 #==============================================================================
+def get_user_text():
+    """
+    This gets the user text so we don't have to import Configuration at the 
+    top of the file. This means ANY error can be shown in a window, including 
+    import errors.
+    """
+    try:
+        import Configuration
+        user_text = Configuration.USER_TEXT
+    except ImportError:
+        user_text = {
+            "exception": "Exception",
+            "program_name": "MarkdownEditor",
+            }
+    return user_text
+    
+#==============================================================================
 def exception_hook(exception_type, exception_value, trace):
-    message = Configuration.USER_TEXT["exception"]
+    message = get_user_text()["exception"]
     detail = traceback.format_exception(
         exception_type,
         exception_value,
@@ -23,10 +37,11 @@ def exception_hook(exception_type, exception_value, trace):
 
 #==============================================================================
 def show_error(message, detail=None):
+    from PyQt4 import QtGui
     if (not QtGui.QApplication.instance()):
         app = QtGui.QApplication(sys.argv)
     message_box = QtGui.QMessageBox()
-    message_box.setWindowTitle(Configuration.USER_TEXT["program_name"])
+    message_box.setWindowTitle(get_user_text()["program_name"])
     message_box.setIcon(QtGui.QMessageBox.Critical)
     message_box.addButton(QtGui.QMessageBox.Ok)
     message_box.setText(message)

@@ -1451,12 +1451,5 @@ def process_markdown(markdown_string):
     return Configuration.PROCESSOR.render(markdown_string)
 
 #==============================================================================
-def main():
-    Error.set_exception_handler()
-    app = MarkdownEditorApp(sys.argv)
-    editor = MarkdownEditor(sys.argv[1:])
-    sys.exit(app.exec_())
-
-#==============================================================================
 if (__name__ == "__main__"):
-    main()
+    pass
