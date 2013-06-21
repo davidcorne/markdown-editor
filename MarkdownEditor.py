@@ -887,56 +887,64 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.set_tab_title()
 
 #==============================================================================
-class ColourButton(QtGui.QFrame):
+class ColourButton(QtGui.QToolButton):
 
     def __init__(self, parent, set_colour):
         super(ColourButton, self).__init__(parent)
+
         self.set_colour = set_colour
         self.colour = "#ff0000"
         
-        self.colour_button = QtGui.QToolButton()
-        self.colour_button.setToolTip(Configuration.TOOL_TIP["set_colour"])
-        self.colour_button.setStatusTip(Configuration.TOOL_TIP["set_colour"])
-        self.colour_button.clicked.connect(
+        self.setToolTip(Configuration.TOOL_TIP["set_colour"])
+        self.setStatusTip(Configuration.TOOL_TIP["set_colour"])
+        self.clicked.connect(
             lambda : self.set_colour(self.colour)
             )
-        self.colour_button.setIcon(
+        self.setIcon(
             QtGui.QIcon(Configuration.IMAGES["letter"])
             )
+        
+        menu = QtGui.QMenu(self)
+        self.setMenu(menu)
+        menu.aboutToShow.connect(self.colour_dialog)
 
-        dialog_button = QtGui.QToolButton()
-        dialog_button.setToolTip(Configuration.TOOL_TIP["choose_colour"])
-        dialog_button.setStatusTip(Configuration.TOOL_TIP["choose_colour"])
-        dialog_button.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["down"])
-            )
-        dialog_button.clicked.connect(self.colour_dialog)
-        dialog_button.setMaximumWidth(15)
+        self.setPopupMode(QtGui.QToolButton.MenuButtonPopup)
 
-        layout = QtGui.QHBoxLayout(self)
-        layout.addWidget(self.colour_button, 0, QtCore.Qt.AlignHCenter)
-        layout.addWidget(dialog_button, 0, QtCore.Qt.AlignHCenter)
-        layout.setContentsMargins(QtCore.QMargins(2,2,2,2))
-
-        self.setFrameStyle(QtGui.QFrame.StyledPanel | QtGui.QFrame.Plain)
         self.update_ui()
 
     def update_ui(self):
-        icon = self.colour_button.icon()
-        style = "".join(
-            [
-                "background: ",
-                self.colour
-                ]
-            )
-        self.colour_button.setStyleSheet(style)
+        style = [
+            "QToolButton {",
+            "border-style: outset;",
+            "border: 1px solid gray;",
+            "border-radius: 5px;",
+            "font: bold 14px;",
+            "width: 27px;",
+            "height: 20px;",
+            "background-color: ",
+            self.colour,
+            ";} ",
+            # Set the style for the menu part of the button
+            "QToolButton::menu-button {",
+            "background-color: beige;",
+            "border-style: outset;",
+            "border: 2px solid gray;",
+            "border-top-right-radius: 5px;",
+            "border-bottom-right-radius: 5px;",
+            "width: 9px;",
+            "height: 21px;",
+            "}",
+            ]
+        self.setStyleSheet("".join(style))
 
     def colour_dialog(self):
+        self.menu().hide()
         colour = QtGui.QColorDialog.getColor()
         if (colour.isValid()):
             self.colour = unicode(colour.name())
             self.update_ui()
             self.set_colour(self.colour)
+        self.menu().setVisible(False)
         
 #==============================================================================
 class ImageDialog(QtGui.QDialog):
