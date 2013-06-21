@@ -649,8 +649,9 @@ class MarkdownEditor(QtGui.QMainWindow):
     def raise_configure_dialog(self):
         config_dialog = ConfigurationDialog.ConfigurationDialog(self)
         for i in range(self.editor.count()):
+            self.editor.widget(i).set_font()
             self.editor.widget(i).reload()
-
+            
     def raise_find_dialog(self):
         find_dialog = FindDialog(self)
 
@@ -1274,8 +1275,10 @@ class Document(QtGui.QWidget):
             )
         self.text.setAcceptRichText(False)
         self.text.textChanged.connect(self.reload)
-
+        
         self.output = MarkdownPreview(self)
+        
+        self.set_font()
 
         horizontal_splitter = QtGui.QSplitter(QtCore.Qt.Horizontal, self)
         horizontal_splitter.addWidget(self.text)
@@ -1303,6 +1306,12 @@ class Document(QtGui.QWidget):
             self.saved = self.text.toPlainText() == content
         else:
             self.saved = False
+
+    def set_font(self):
+        config_font = Configuration.OPTIONS["font"]
+        font = QtGui.QFont()
+        font.fromString(config_font)
+        self.text.setFont(font)
 
     def text_changed(self):
         """

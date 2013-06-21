@@ -197,6 +197,23 @@ class MiscConfig(QtGui.QDialog):
         super(MiscConfig, self).__init__(parent)
         self.reload_callback = reload_callback
         
+        display_group = QtGui.QGroupBox(
+            Configuration.USER_TEXT["display_options"]
+            )
+        font_dialog_button = QtGui.QPushButton(
+            Configuration.USER_TEXT["change_font"]
+            )
+        font_dialog_button.clicked.connect(self.raise_font_dialog)
+
+        font_dialog_layout = QtGui.QHBoxLayout()
+        font_dialog_layout.addWidget(font_dialog_button)
+        font_dialog_layout.addStretch()
+
+        display_layout = QtGui.QVBoxLayout()
+        display_layout.addLayout(font_dialog_layout)
+
+        display_group.setLayout(display_layout)
+
         debug_group = QtGui.QGroupBox(
             Configuration.USER_TEXT["debug_options"]
             )
@@ -206,6 +223,12 @@ class MiscConfig(QtGui.QDialog):
             self.show_html_changed,
             Configuration.OPTIONS["show_html"]
             )
+
+        debug_layout = QtGui.QVBoxLayout()
+        debug_layout.addWidget(show_html)
+
+        debug_group.setLayout(debug_layout)
+
 
         other_group = QtGui.QGroupBox(
             Configuration.USER_TEXT["other_options"]
@@ -217,17 +240,13 @@ class MiscConfig(QtGui.QDialog):
             Configuration.OPTIONS["display_line_numbers"]
             )
 
-        debug_layout = QtGui.QVBoxLayout()
-        debug_layout.addWidget(show_html)
-
-        debug_group.setLayout(debug_layout)
-
         other_layout = QtGui.QVBoxLayout()
         other_layout.addWidget(show_line_numbers)
         
         other_group.setLayout(other_layout)
 
         main_layout = QtGui.QVBoxLayout()
+        main_layout.addWidget(display_group)
         main_layout.addWidget(other_group)
         main_layout.addWidget(debug_group)
         main_layout.addStretch(1)
@@ -254,6 +273,18 @@ class MiscConfig(QtGui.QDialog):
             check_box.setCheckState(QtCore.Qt.Unchecked) 
         check_box.stateChanged.connect(callback)
         return check_box
+
+    def raise_font_dialog(self):
+        config_font = Configuration.OPTIONS["font"]
+        current_font = QtGui.QFont()
+        current_font.fromString(config_font)
+        font, ok = QtGui.QFontDialog.getFont(
+            current_font,
+            self,
+            Configuration.USER_TEXT["change_font"]
+            )
+        if (ok):
+            Configuration.OPTIONS["font"] = font.toString()
 
     def revert(self):
         pass

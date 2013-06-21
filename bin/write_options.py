@@ -20,6 +20,7 @@ OPTIONS = {
     "processor": "markdown_all",
     "markdown_css": "Markdown",
     "display_line_numbers": True,
+    "font": "Arial,12,-1,5,50,0,0,0,0,0",
     }
 
 USER_TEXT = {
@@ -94,6 +95,9 @@ USER_TEXT = {
     "other_options": "Other Options",
     "help_menu": "&Help",
     "help_link": "Markdown Editor On The Web",
+    "display_options": "Display",
+    "set_font": "Set Font",
+    "change_font": "Change Editor Font",
     }
 
 TOOL_TIPS = {
