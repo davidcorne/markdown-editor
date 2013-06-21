@@ -648,8 +648,8 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def raise_configure_dialog(self):
         config_dialog = ConfigurationDialog.ConfigurationDialog(self)
-        if (self.editor.count()):
-            self.editor.currentWidget().reload()
+        for i in range(self.editor.count()):
+            self.editor.widget(i).reload()
 
     def raise_find_dialog(self):
         find_dialog = FindDialog(self)
