@@ -17,9 +17,12 @@ def get_user_text():
     try:
         import Configuration
         user_text = Configuration.USER_TEXT
-    except ImportError:
+    # Not good to catch all exceptions, but this is for safety the import
+    # could have failed or a file might not be there, anything could happen
+    except :
         user_text = {
-            "exception": "Exception",
+            # we know if this fails, the installation is wrong.
+            "exception": "An installation error has occured.",
             "program_name": "MarkdownEditor",
             }
     return user_text
@@ -37,7 +40,10 @@ def exception_hook(exception_type, exception_value, trace):
 
 #==============================================================================
 def show_error(message, detail=None):
-    from PyQt4 import QtGui
+    try:
+        from PyQt4 import QtGui
+    except ImportError:
+        tk_quit()
     if (not QtGui.QApplication.instance()):
         app = QtGui.QApplication(sys.argv)
     message_box = QtGui.QMessageBox()
@@ -48,6 +54,23 @@ def show_error(message, detail=None):
     if (detail):
         message_box.setDetailedText(detail)
     message_box.exec_()
+
+#==============================================================================
+def tk_quit():
+    """
+    The only reason you shouldd get here is an import error.
+    """
+    import tkMessageBox
+    message = """\
+User interface library not loaded.
+
+Please report this at https://bitbucket.org/davidcorne/markdown-editor/issues
+"""
+    tkMessageBox.showerror(
+        get_user_text()["program_name"],
+        message
+        )
+    sys.exit()
 
 #==============================================================================
 def set_exception_handler():
