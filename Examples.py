@@ -64,7 +64,7 @@ STANDARD_MARKDOWN = """\
 # Standard Markdown #
 
 The full syntax for markdown can be found \
-[here](http://daringfireball.net/projects/markdown/syntax).\
+[here](http://daringfireball.net/projects/markdown/syntax). \
 Here is a small sample.
 
 # Heading 1 #
