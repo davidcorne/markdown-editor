@@ -26,6 +26,27 @@ class MarkdownEditorApp(QtGui.QApplication):
         self.setWindowIcon(QtGui.QIcon(Configuration.IMAGES["icon"]))
 
 #==============================================================================
+class DocumentTabBar(QtGui.QTabBar):
+    
+    def __init__(self):
+        super(DocumentTabBar, self).__init__()
+        self.setTabsClosable(True)
+        self.setMovable(True)
+
+    def mouseReleaseEvent(self, event):
+        if (event.button() == QtCore.Qt.MidButton):
+            self.tabCloseRequested.emit(self.tabAt(event.pos()))
+        super(DocumentTabBar, self).mouseReleaseEvent(event)
+
+#==============================================================================
+class DocumentTabs(QtGui.QTabWidget):
+
+    def __init__(self, parent, tab_close_function):
+        super(DocumentTabs, self).__init__(parent)
+        self.tabCloseRequested.connect(tab_close_function)
+        self.setTabBar(DocumentTabBar())
+
+#==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
 
     def __init__(self, files):
@@ -34,9 +55,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         """
         super(MarkdownEditor, self).__init__()
         
-        self.editor = QtGui.QTabWidget(self)
-        self.editor.setTabsClosable(True)
-        self.editor.tabCloseRequested.connect(self.tab_close_requested)
+        self.editor = DocumentTabs(self, self.tab_close_requested)
         self.initialise_UI()
         self.setCentralWidget(self.editor)
         
