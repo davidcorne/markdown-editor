@@ -1212,15 +1212,21 @@ class FindReplaceWidget(QtGui.QWidget):
         return found
 
     def replace(self, raise_dialog=True):
-        found = self.find(raise_dialog)
+        text = self.replace_entry.text()
+        cursor = self.editor.currentWidget().text.textCursor()
+        # check if we have already found what we want
+        # check if there is highlighted text
+        if (cursor.selectedText() == text):
+            found = True
+        else:
+            found = self.find(raise_dialog)
         if (found):
             # the cursor should be highlighting the found text
-            cursor = self.editor.currentWidget().text.textCursor()
-            cursor.insertText(self.replace_entry.text())
+            cursor.insertText(text)
         return found
 
     def replace_all(self):
-        while(self.replace(False)):
+        while(self.replace(raise_dialog=False)):
             pass
         
 #==============================================================================
