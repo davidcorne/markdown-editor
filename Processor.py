@@ -12,22 +12,10 @@ import pygments.lexers
 import pygments.formatters
 import os
 
-# import all the extensions which are "hidden" to pyinstaller
-import markdown.extensions.extra
-import markdown.extensions.codehilite
-import markdown.extensions.abbr
-import markdown.extensions.attr_list
-import markdown.extensions.def_list
-import markdown.extensions.fenced_code
-import markdown.extensions.footnotes
-import markdown.extensions.tables
-import markdown.extensions.smart_strong
-import markdown.extensions.extra
-import markdown.extensions.codehilite
-
 # local imports
 
 import Configuration
+# import dgc_codehilite
 
 OPEN_HEAD = """<html>
 <head>
@@ -106,7 +94,14 @@ class MarkdownAll(MarkdownRenderer):
         
         self.renderer = markdown.Markdown(
             extensions=[
-                "extra", 
+                #"abbr",
+                #"attr_list",
+                #"def_list",
+                #"fenced_code",
+                #"footnotes",
+                #"tables",
+                #"smart_strong",
+                "extra",
                 codehilite_extension()
                 ]
             )
@@ -148,9 +143,14 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
 #==============================================================================
 def codehilite_extension():
     """
-    Returns the string you need for codehilite, it uses the correct css class
-    and adds line numbers if necessary.
+    Returns the extension with correct config for the custom codehilite.
     """
+    #line_numbers = Configuration.OPTIONS["display_line_numbers"]
+    #extension = dgc_codehilite.CodeHiliteExtension({})
+    #extension.config["css_class"] = ["highlight"]
+    #extension.config["linenums"] = [line_numbers]
+    #return extension
+    
     line_numbers = Configuration.OPTIONS["display_line_numbers"]
     codehilite = [
         "codehilite(css_class=highlight, linenums=",
