@@ -59,7 +59,7 @@ Section "Markdown_Editor (required)"
   ; Put file there
   File "markdown-editor-downloads\EXE\MarkdownEditor.exe"
   File "Markdown Editor on the web.url"
-  File /r /x *_Options.pickle /x "User" "Resources"
+  File /r /x *_Options.pickle /x "User" /x "markdown-editor-downloads" "Resources"
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\NSIS_Markdown_Editor "Install_Dir" "$INSTDIR"
