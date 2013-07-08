@@ -2,6 +2,7 @@ syntax: glob
 
 *~
 *.pyc
+*.pyo
 
 # the setup stuff, including pyinstaller
 build/*
