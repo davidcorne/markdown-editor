@@ -11,7 +11,7 @@ import sys
 
 # local imports
 import MarkdownEditor
-import PyinstallerHiddenImports
+import HiddenImports
 
 #==============================================================================
 def main():
