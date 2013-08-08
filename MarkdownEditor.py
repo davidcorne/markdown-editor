@@ -216,24 +216,6 @@ class MarkdownEditor(QtGui.QMainWindow):
         Returns a QMenu with all the print options.
         """
         menu = QtGui.QMenu()
-        print_markdown = menu.addAction(
-            Configuration.USER_TEXT["print_markdown"]
-            )
-        print_markdown.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
-        print_markdown.setStatusTip(Configuration.TOOL_TIP["print_markdown"])
-        print_markdown.triggered.connect(self.print_markdown_dialog)
-        
-        print_preview_markdown = menu.addAction(
-                Configuration.USER_TEXT["print_preview_markdown"]
-                )
-        print_preview_markdown.setIcon(
-            QtGui.QIcon(Configuration.IMAGES["print_preview"])
-            )
-        print_preview_markdown.setStatusTip(
-            Configuration.TOOL_TIP["print_preview_markdown"]
-            )
-        print_preview_markdown.triggered.connect(self.print_preview_markdown)
-        menu.addSeparator()
 
         print_rendered_html = menu.addAction(
                 Configuration.USER_TEXT["print_rendered_html"]
@@ -258,6 +240,25 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         menu.addSeparator()
         
+        print_markdown = menu.addAction(
+            Configuration.USER_TEXT["print_markdown"]
+            )
+        print_markdown.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
+        print_markdown.setStatusTip(Configuration.TOOL_TIP["print_markdown"])
+        print_markdown.triggered.connect(self.print_markdown_dialog)
+        
+        print_preview_markdown = menu.addAction(
+                Configuration.USER_TEXT["print_preview_markdown"]
+                )
+        print_preview_markdown.setIcon(
+            QtGui.QIcon(Configuration.IMAGES["print_preview"])
+            )
+        print_preview_markdown.setStatusTip(
+            Configuration.TOOL_TIP["print_preview_markdown"]
+            )
+        print_preview_markdown.triggered.connect(self.print_preview_markdown)
+        menu.addSeparator()
+
         print_raw_html = menu.addAction(
                 Configuration.USER_TEXT["print_raw_html"]
                 )
