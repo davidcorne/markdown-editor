@@ -5,7 +5,6 @@
 from __future__ import unicode_literals
 
 import cgi
-import sys
 import os
 import time
 
@@ -62,7 +61,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         for markdown in files:
             try:
                 self.open_file(markdown)
-            except IOError as e:
+            except IOError:
                 error = "".join(
                     [
                         "File \"",
@@ -105,10 +104,10 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def centre(self):
         """ Centre the window in the screen. """
-        qr = self.frameGeometry()
-        cp = QtGui.QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())
+        frame = self.frameGeometry()
+        screen_centre = QtGui.QDesktopWidget().availableGeometry().center()
+        frame.moveCenter(screen_centre)
+        self.move(frame.topLeft())
 
     def create_toolbars(self):
         self.create_file_toolbar()
@@ -668,12 +667,14 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def raise_configure_dialog(self):
         config_dialog = ConfigurationDialog.ConfigurationDialog(self)
+        config_dialog.exec_()
         for i in range(self.editor.count()):
             self.editor.widget(i).set_font()
             self.editor.widget(i).reload()
             
     def raise_find_dialog(self):
         find_dialog = FindDialog(self)
+        find_dialog.show()
 
     def colour_highlighted(self, colour):
         if (self.editor.count()):
@@ -693,19 +694,19 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def insert_link(self):
         if (self.editor.count()):
-            link, ok = QtGui.QInputDialog.getText(
+            link, link_ok = QtGui.QInputDialog.getText(
                 self,
                 Configuration.USER_TEXT["insert_link"],
                 Configuration.USER_TEXT["enter_link"]
                 )
-            if (ok):
+            if (link_ok):
                 self.editor.currentWidget().insert_link(unicode(link))
 
     def insert_image(self):
         if (self.editor.count()):
             dialog = ImageDialog(self)
-            ok, image_location, title = dialog.get_image()
-            if (ok):
+            ok_clicked, image_location, title = dialog.get_image()
+            if (ok_clicked):
                 self.editor.currentWidget().insert_image(image_location, title)
 
     def cut(self):
@@ -753,7 +754,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 "PDF (*.pdf)"
                 )
             if (file_path):
-                QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor);
+                QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
                 printer = QtGui.QPrinter()
                 printer.setOutputFormat(QtGui.QPrinter.PdfFormat)
                 printer.setOutputFileName(file_path)
@@ -826,7 +827,9 @@ class MarkdownEditor(QtGui.QMainWindow):
             Configuration.USER_TEXT["save_changes?"]
             )
         confirm_dialog.setStandardButtons(
-            QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
+            QtGui.QMessageBox.Save | 
+            QtGui.QMessageBox.Discard | 
+            QtGui.QMessageBox.Cancel
             )
         confirm_dialog.setDefaultButton(QtGui.QMessageBox.Save)
         return confirm_dialog.exec_()
@@ -1074,7 +1077,6 @@ class FindDialog(QtGui.QDockWidget):
         self.setWidget(tabs)
         self.topLevelChanged.connect(self.adjustSize)
         self.setFloating(True)
-        self.show()
 
 #==============================================================================
 class FindReplaceWidget(QtGui.QWidget):

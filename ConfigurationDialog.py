@@ -317,7 +317,9 @@ class ConfigurationDialog(QtGui.QDialog):
 
         # add a save and a cancel button
         self.bottom_buttons = QtGui.QDialogButtonBox(
-             QtGui.QDialogButtonBox.Save |  QtGui.QDialogButtonBox.RestoreDefaults | QtGui.QDialogButtonBox.Cancel
+             QtGui.QDialogButtonBox.Save |  
+             QtGui.QDialogButtonBox.RestoreDefaults | 
+             QtGui.QDialogButtonBox.Cancel
             )
         self.bottom_buttons.clicked.connect(self.button_clicked)
         self.bottom_buttons.accepted.connect(self.save_and_close)
@@ -343,7 +345,6 @@ class ConfigurationDialog(QtGui.QDialog):
 
         self.setWindowTitle(Configuration.USER_TEXT["options"])
         self.pages.setCurrentIndex(ConfigurationDialog.OPEN_PAGE)
-        self.exec_()
 
     def reload_previews(self):
         self.css_config.reload_preview()
