@@ -6,7 +6,6 @@ import sys
 import traceback
 
 # local imports
-import Resources
 
 #==============================================================================
 def get_user_text():
@@ -15,6 +14,7 @@ def get_user_text():
     """
     try:
         from UserText import USER_TEXT
+        import Resources
     except IOError:
         # The user text file has not been found, this is doing quite a lot in
         # an except block, but this SHOULD be safe.
@@ -31,6 +31,17 @@ Sorry for any inconvenience.
 """ %(Resources.directory()),
             "program_name": "MarkdownEditor",
             }
+    except Exception:
+        USER_TEXT = {
+            "exception": """\
+The installation has come accross an unknown error.
+
+Please report this at https://bitbucket.org/davidcorne/markdown-editor/issues
+
+Along with the details below.
+""",
+            "program_name": "MarkdownEditor",
+}
     return USER_TEXT
 
 #==============================================================================
