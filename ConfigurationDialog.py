@@ -15,6 +15,7 @@ import Configuration
 import Examples
 import MarkdownEditor
 import Processor
+import Resources
 
 #==============================================================================
 class MarkdownConfig(QtGui.QDialog):
@@ -166,7 +167,7 @@ class CSSConfig(QtGui.QDialog):
         """
         Directory should be a directory below Resources/CSS
         """
-        css_dir = os.path.join(Configuration.resource_dir(), "CSS")
+        css_dir = os.path.join(Resources.directory(), "CSS")
         css_dir = os.path.join(css_dir, directory)
         css_files = [s for s in os.listdir(css_dir) if s.endswith(".css")]
         user_css_dir = os.path.join(css_dir, "User")

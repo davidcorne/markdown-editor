@@ -12,13 +12,7 @@ import sys
 # local imports
 import Error
 import Processor
-
-#==============================================================================
-def resource_dir():
-    """
-    Returns the directory this is being run from.
-    """
-    return os.path.join(os.path.dirname(sys.argv[0]), "Resources")
+import Resources
 
 #==============================================================================
 def options_file_name():
@@ -32,8 +26,8 @@ def options_file_name():
 
 #==============================================================================
 def read_options():
-    filename = os.path.join(resource_dir(), options_file_name())
-    default_filename = os.path.join(resource_dir(), "Options.pickle")
+    filename = os.path.join(Resources.directory(), options_file_name())
+    default_filename = os.path.join(Resources.directory(), "Options.pickle")
     if (not os.path.isfile(filename)):
         filename = default_filename
     with open(filename, "rb") as options_file:
@@ -49,20 +43,20 @@ def read_options():
 
 #==============================================================================
 def save_options():
-    options_path = os.path.join(resource_dir(), options_file_name())
+    options_path = os.path.join(Resources.directory(), options_file_name())
     with open(options_path, "wb") as options_file:
         pickle.dump(OPTIONS, options_file)
     
 #==============================================================================
 def read_user_text():
-    filename = os.path.join(resource_dir(), "UserText.pickle")
+    filename = os.path.join(Resources.directory(), "UserText.pickle")
     with open(filename, "rb") as user_text_file:
         global USER_TEXT
         USER_TEXT = pickle.load(user_text_file)
 
 #==============================================================================
 def read_tool_tips():
-    filename = os.path.join(resource_dir(), "ToolTips.pickle")
+    filename = os.path.join(Resources.directory(), "ToolTips.pickle")
     with open(filename, "rb") as tool_tips_file:
         global TOOL_TIP
         TOOL_TIP = pickle.load(tool_tips_file)
@@ -83,7 +77,7 @@ All Files (*)\
 def find_images():
     global IMAGES
     IMAGES = dict()
-    directory = os.path.join(resource_dir(), "Images")
+    directory = os.path.join(Resources.directory(), "Images")
     if (os.path.isdir(directory)):
         for image in os.listdir(directory):
             IMAGES[os.path.splitext(image)[0]] = os.path.join(
@@ -98,7 +92,7 @@ def find_images():
 #==============================================================================
 def read_css(directory, filename):
     filename += ".css"
-    css_directory = os.path.join(resource_dir(), "CSS")
+    css_directory = os.path.join(Resources.directory(), "CSS")
     directory = os.path.join(css_directory, directory)
     path = os.path.join(directory, filename)
     if (not os.path.isfile(path)):
@@ -143,7 +137,7 @@ def reset_options():
     """
     Also deletes the user specific file.
     """
-    filename = os.path.join(resource_dir(), options_file_name())
+    filename = os.path.join(Resources.directory(), options_file_name())
     if (os.path.isfile(filename)):
         os.remove(filename)
     read_options()
