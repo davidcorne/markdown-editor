@@ -1237,11 +1237,26 @@ class MarkdownPreview(QtWebKit.QWebView):
 
     def __init__(self, parent):
         super(MarkdownPreview, self).__init__(parent)
+        self.parent = parent
         self.page = QtWebKit.QWebPage()
         self.page.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
+        self.page.linkHovered.connect(self.link_hovered)
         self.setPage(self.page)
         self.linkClicked.connect(open_link)
         self.scroll_x = 0
+
+    def link_hovered(self, link, title, text_content):
+        if (not link and not title and not text_content):
+            self.mouse_leave_link()
+        else:
+            self.mouse_over_link(link, title, text_content)
+
+    def mouse_over_link(self, link, title, text_content):
+        print ("Hover")
+        self.emit(QtCore.SIGNAL("status_bar_update"), link)
+        
+    def mouse_leave_link(self):
+        print "left"
 
     def show_preview(self, html):
         if (Configuration.OPTIONS["show_html"]):
