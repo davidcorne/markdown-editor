@@ -7,29 +7,11 @@ import traceback
 
 # local imports
 
-#==============================================================================
-def get_user_text():
-    """
-    This gets the user text so we don't have to import Configuration at the 
-    top of the file. This means ANY error can be shown in a window, including 
-    import errors.
-    """
-    try:
-        import Configuration
-        user_text = Configuration.USER_TEXT
-    # Not good to catch all exceptions, but this is for safety the import
-    # could have failed or a file might not be there, anything could happen
-    except :
-        user_text = {
-            # we know if this fails, the installation is wrong.
-            "exception": "An installation error has occured.",
-            "program_name": "MarkdownEditor",
-            }
-    return user_text
-    
+from UserText import USER_TEXT
+
 #==============================================================================
 def exception_hook(exception_type, exception_value, trace):
-    message = get_user_text()["exception"]
+    message = USER_TEXT["exception"]
     detail = traceback.format_exception(
         exception_type,
         exception_value,
@@ -47,7 +29,7 @@ def show_error(message, detail=None):
     if (not QtGui.QApplication.instance()):
         app = QtGui.QApplication(sys.argv)
     message_box = QtGui.QMessageBox()
-    message_box.setWindowTitle(get_user_text()["program_name"])
+    message_box.setWindowTitle(USER_TEXT["program_name"])
     message_box.setIcon(QtGui.QMessageBox.Critical)
     message_box.addButton(QtGui.QMessageBox.Ok)
     message_box.setText(message)
@@ -61,14 +43,9 @@ def tk_quit():
     The only reason you should get here is an import error.
     """
     import tkMessageBox
-    message = """\
-User interface library not loaded.
-
-Please report this at https://bitbucket.org/davidcorne/markdown-editor/issues
-"""
     tkMessageBox.showerror(
-        get_user_text()["program_name"],
-        message
+        USER_TEXT["program_name"],
+        USER_TEXT["user_interface_import_fail"]
         )
     sys.exit()
 

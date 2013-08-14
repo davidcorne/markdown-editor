@@ -98,6 +98,11 @@ USER_TEXT = {
     "display_options": "Display",
     "set_font": "Set Font",
     "change_font": "Change Editor Font",
+    "user_interface_import_fail": """\
+User interface library not loaded.
+
+Please report this at https://bitbucket.org/davidcorne/markdown-editor/issues
+""",
     }
 
 TOOL_TIPS = {

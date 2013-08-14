@@ -17,6 +17,8 @@ import ConfigurationDialog
 import Error
 import Examples
 
+from UserText import USER_TEXT
+
 #==============================================================================
 class MarkdownEditorApp(QtGui.QApplication):
 
@@ -105,7 +107,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         status_bar = QtGui.QStatusBar()
         self.setStatusBar(status_bar)
         
-        self.setWindowTitle(Configuration.USER_TEXT["program_name"])
+        self.setWindowTitle(USER_TEXT["program_name"])
         self.resize(1200, 600)
         self.centre()
         self.show()
@@ -136,7 +138,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_undo_redo_toolbar(self):
         undo_redo_toolbar = QtGui.QToolBar(
-            Configuration.USER_TEXT["undo_redo_toolbar"]
+            USER_TEXT["undo_redo_toolbar"]
             )
 
         undo_button = QtGui.QToolButton()
@@ -166,7 +168,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_format_toolbar(self):
         format_toolbar = QtGui.QToolBar(
-            Configuration.USER_TEXT["format_toolbar"]
+            USER_TEXT["format_toolbar"]
             )
 
         bold_button = QtGui.QToolButton()
@@ -236,7 +238,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         menu = QtGui.QMenu()
 
         print_rendered_html = menu.addAction(
-                Configuration.USER_TEXT["print_rendered_html"]
+                USER_TEXT["print_rendered_html"]
                 )
         print_rendered_html.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
         print_rendered_html.setStatusTip(
@@ -245,7 +247,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         print_rendered_html.triggered.connect(self.print_rendered_html_dialog)
 
         print_preview_rendered_html = menu.addAction(
-                Configuration.USER_TEXT["print_preview_rendered_html"]
+                USER_TEXT["print_preview_rendered_html"]
                 )
         print_preview_rendered_html.setIcon(
             QtGui.QIcon(Configuration.IMAGES["print_preview"])
@@ -259,14 +261,14 @@ class MarkdownEditor(QtGui.QMainWindow):
         menu.addSeparator()
         
         print_markdown = menu.addAction(
-            Configuration.USER_TEXT["print_markdown"]
+            USER_TEXT["print_markdown"]
             )
         print_markdown.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
         print_markdown.setStatusTip(Configuration.TOOL_TIP["print_markdown"])
         print_markdown.triggered.connect(self.print_markdown_dialog)
         
         print_preview_markdown = menu.addAction(
-                Configuration.USER_TEXT["print_preview_markdown"]
+                USER_TEXT["print_preview_markdown"]
                 )
         print_preview_markdown.setIcon(
             QtGui.QIcon(Configuration.IMAGES["print_preview"])
@@ -278,14 +280,14 @@ class MarkdownEditor(QtGui.QMainWindow):
         menu.addSeparator()
 
         print_raw_html = menu.addAction(
-                Configuration.USER_TEXT["print_raw_html"]
+                USER_TEXT["print_raw_html"]
                 )
         print_raw_html.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
         print_raw_html.setStatusTip(Configuration.TOOL_TIP["print_raw_html"])
         print_raw_html.triggered.connect(self.print_raw_html_dialog)
 
         print_preview_raw_html = menu.addAction(
-                Configuration.USER_TEXT["print_preview_raw_html"]
+                USER_TEXT["print_preview_raw_html"]
                 )
         print_preview_raw_html.setIcon(
             QtGui.QIcon(Configuration.IMAGES["print_preview"])
@@ -300,7 +302,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_file_toolbar(self):
         file_toolbar = QtGui.QToolBar(
-            Configuration.USER_TEXT["file_toolbar"]
+            USER_TEXT["file_toolbar"]
             )
         file_actions = [
             self.file_actions(),
@@ -324,7 +326,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_edit_toolbar(self):
         edit_toolbar = QtGui.QToolBar(
-            Configuration.USER_TEXT["edit_toolbar"]
+            USER_TEXT["edit_toolbar"]
             )
 
         # add the buttons
@@ -374,7 +376,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.help = Help()
         
         markdown_action = QtGui.QAction(
-            Configuration.USER_TEXT["markdown"], 
+            USER_TEXT["markdown"], 
             self
             )
         markdown_action.setIcon(QtGui.QIcon(Configuration.IMAGES["markdown"]))
@@ -382,7 +384,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         markdown_action.triggered.connect(self.help.markdown_description)
 
         markdown_extra_action = QtGui.QAction(
-            Configuration.USER_TEXT["markdown_extra"],
+            USER_TEXT["markdown_extra"],
             self
             )
         markdown_extra_action.setIcon(
@@ -394,7 +396,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
 
         markdown_all_action = QtGui.QAction(
-            Configuration.USER_TEXT["markdown_all"],
+            USER_TEXT["markdown_all"],
             self
             )
         markdown_all_action.setIcon(
@@ -406,7 +408,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
 
         codehilite_action = QtGui.QAction(
-            Configuration.USER_TEXT["codehilite"], 
+            USER_TEXT["codehilite"], 
             self
             )
         codehilite_action.setIcon(
@@ -416,7 +418,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         codehilite_action.triggered.connect(self.help.codehilite_description)
 
         github_flavour_action = QtGui.QAction(
-            Configuration.USER_TEXT["github_flavoured_markdown"], 
+            USER_TEXT["github_flavoured_markdown"], 
             self
             )
         github_flavour_action.setIcon(
@@ -425,12 +427,12 @@ class MarkdownEditor(QtGui.QMainWindow):
         github_flavour_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
         github_flavour_action.triggered.connect(self.help.github_description)
 
-        link_action = QtGui.QAction(Configuration.USER_TEXT["help_link"], self)
+        link_action = QtGui.QAction(USER_TEXT["help_link"], self)
         link_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
         link_action.triggered.connect(self.help.open_link)
 
         menu_bar = self.menuBar()
-        help_menu = menu_bar.addMenu(Configuration.USER_TEXT["help_menu"])
+        help_menu = menu_bar.addMenu(USER_TEXT["help_menu"])
         help_menu.addAction(markdown_action)
         help_menu.addAction(markdown_extra_action)
         help_menu.addAction(markdown_all_action)
@@ -440,40 +442,40 @@ class MarkdownEditor(QtGui.QMainWindow):
         help_menu.addAction(link_action)
 
     def create_edit_menu(self):
-        undo_action = QtGui.QAction(Configuration.USER_TEXT["undo"], self)
+        undo_action = QtGui.QAction(USER_TEXT["undo"], self)
         undo_action.setIcon(QtGui.QIcon(Configuration.IMAGES["undo"]))
         undo_action.setStatusTip(Configuration.TOOL_TIP["undo"])
         undo_action.triggered.connect(self.undo)
 
-        redo_action = QtGui.QAction(Configuration.USER_TEXT["redo"], self)
+        redo_action = QtGui.QAction(USER_TEXT["redo"], self)
         redo_action.setIcon(QtGui.QIcon(Configuration.IMAGES["redo"]))
         redo_action.setStatusTip(Configuration.TOOL_TIP["redo"])
         redo_action.triggered.connect(self.redo)
 
-        cut_action = QtGui.QAction(Configuration.USER_TEXT["cut"], self)
+        cut_action = QtGui.QAction(USER_TEXT["cut"], self)
         cut_action.setIcon(QtGui.QIcon(Configuration.IMAGES["cut"]))
         cut_action.setStatusTip(Configuration.TOOL_TIP["cut"])
         cut_action.triggered.connect(self.cut)
 
-        copy_action = QtGui.QAction(Configuration.USER_TEXT["copy"], self)
+        copy_action = QtGui.QAction(USER_TEXT["copy"], self)
         copy_action.setIcon(QtGui.QIcon(Configuration.IMAGES["copy"]))
         copy_action.setStatusTip(Configuration.TOOL_TIP["copy"])
         copy_action.triggered.connect(self.copy)
 
-        paste_action = QtGui.QAction(Configuration.USER_TEXT["paste"], self)
+        paste_action = QtGui.QAction(USER_TEXT["paste"], self)
         paste_action.setIcon(QtGui.QIcon(Configuration.IMAGES["paste"]))
         paste_action.setStatusTip(Configuration.TOOL_TIP["paste"])
         paste_action.triggered.connect(self.paste)
 
         select_all_action = QtGui.QAction(
-            Configuration.USER_TEXT["select_all"],
+            USER_TEXT["select_all"],
             self
             )
         select_all_action.setStatusTip(Configuration.TOOL_TIP["select_all"])
         select_all_action.triggered.connect(self.select_all)
 
         search_action = QtGui.QAction(
-            Configuration.USER_TEXT["find_and_replace"], 
+            USER_TEXT["find_and_replace"], 
             self
             )
         search_action.setIcon(QtGui.QIcon(Configuration.IMAGES["find"]))
@@ -482,7 +484,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         search_action.triggered.connect(self.raise_find_dialog)
 
         menu_bar = self.menuBar()
-        edit_menu = menu_bar.addMenu(Configuration.USER_TEXT["edit_menu"])
+        edit_menu = menu_bar.addMenu(USER_TEXT["edit_menu"])
         edit_menu.addAction(undo_action)
         edit_menu.addAction(redo_action)
         edit_menu.addSeparator()
@@ -495,7 +497,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def create_tools_menu(self):
         configure_action = QtGui.QAction(
-            Configuration.USER_TEXT["options"], 
+            USER_TEXT["options"], 
             self
             )
         configure_action.setIcon(
@@ -505,12 +507,12 @@ class MarkdownEditor(QtGui.QMainWindow):
         configure_action.triggered.connect(self.raise_configure_dialog)
 
         menu_bar = self.menuBar()
-        tools_menu = menu_bar.addMenu(Configuration.USER_TEXT["tools_menu"])
+        tools_menu = menu_bar.addMenu(USER_TEXT["tools_menu"])
         tools_menu.addAction(configure_action)
 
     def create_file_menu(self):
         menu_bar = self.menuBar()
-        file_menu = menu_bar.addMenu(Configuration.USER_TEXT["file_menu"])
+        file_menu = menu_bar.addMenu(USER_TEXT["file_menu"])
         file_actions = [
             self.file_actions(),
             self.save_actions(),
@@ -522,14 +524,14 @@ class MarkdownEditor(QtGui.QMainWindow):
             file_menu.addSeparator()
 
     def file_actions(self):
-        new_action = QtGui.QAction(Configuration.USER_TEXT["new_file"], self)
+        new_action = QtGui.QAction(USER_TEXT["new_file"], self)
         new_action.setIcon(QtGui.QIcon(Configuration.IMAGES["new_file"]))
         new_action.setShortcut("Ctrl+N")
         new_action.setStatusTip(Configuration.TOOL_TIP["new_file"])
         new_action.setToolTip(Configuration.TOOL_TIP["new_file"])
         new_action.triggered.connect(self.new_file)
 
-        open_action = QtGui.QAction(Configuration.USER_TEXT["open_file"], self)
+        open_action = QtGui.QAction(USER_TEXT["open_file"], self)
         open_action.setIcon(QtGui.QIcon(Configuration.IMAGES["open_file"]))
         open_action.setShortcut("Ctrl+O")
         open_action.setStatusTip(Configuration.TOOL_TIP["open_file"])
@@ -537,7 +539,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         open_action.triggered.connect(self.query_open_file)
 
         close_action = QtGui.QAction(
-            Configuration.USER_TEXT["close_file"],
+            USER_TEXT["close_file"],
             self
             )
         close_action.setIcon(QtGui.QIcon(Configuration.IMAGES["close_file"]))
@@ -556,7 +558,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         return self._file_actions
 
     def save_actions(self):
-        save_action = QtGui.QAction(Configuration.USER_TEXT["save_file"], self)
+        save_action = QtGui.QAction(USER_TEXT["save_file"], self)
         save_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_file"]))
         save_action.setShortcut("Ctrl+S")
         save_action.setStatusTip(Configuration.TOOL_TIP["save_file"])
@@ -564,7 +566,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         save_action.triggered.connect(self.save_file)
 
         save_as_action = QtGui.QAction(
-            Configuration.USER_TEXT["save_as"],
+            USER_TEXT["save_as"],
             self
             )
         save_as_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_as"]))
@@ -574,7 +576,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         save_as_action.triggered.connect(self.save_file_as)
 
         save_all_action =  QtGui.QAction(
-            Configuration.USER_TEXT["save_all"],
+            USER_TEXT["save_all"],
             self
             )
         save_all_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_all"]))
@@ -594,7 +596,7 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def output_actions(self):
         export_html_action = QtGui.QAction(
-            Configuration.USER_TEXT["export_html"], 
+            USER_TEXT["export_html"], 
             self
             )
         export_html_action.setIcon(
@@ -605,7 +607,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         export_html_action.triggered.connect(self.export_html)
 
         export_pdf_action = QtGui.QAction(
-            Configuration.USER_TEXT["export_pdf"], 
+            USER_TEXT["export_pdf"], 
             self
             )
         export_pdf_action.setIcon(
@@ -616,7 +618,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         export_pdf_action.triggered.connect(self.export_pdf)
 
         print_action = QtGui.QAction(
-            Configuration.USER_TEXT["print"], 
+            USER_TEXT["print"], 
             self
             )
         print_action.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
@@ -715,8 +717,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         if (self.editor.count()):
             link, link_ok = QtGui.QInputDialog.getText(
                 self,
-                Configuration.USER_TEXT["insert_link"],
-                Configuration.USER_TEXT["enter_link"]
+                USER_TEXT["insert_link"],
+                USER_TEXT["enter_link"]
                 )
             if (link_ok):
                 self.editor.currentWidget().insert_link(unicode(link))
@@ -768,7 +770,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 location = location + ".pdf"
             file_path = QtGui.QFileDialog.getSaveFileName(
                 self,
-                Configuration.USER_TEXT["export_pdf"],
+                USER_TEXT["export_pdf"],
                 location,
                 "PDF (*.pdf)"
                 )
@@ -790,7 +792,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 location = location + ".html"
             file_path = QtGui.QFileDialog.getSaveFileName(
                 self,
-                Configuration.USER_TEXT["export_html"],
+                USER_TEXT["export_html"],
                 location,
                 "HTML (*.html)"
                 )
@@ -828,22 +830,22 @@ class MarkdownEditor(QtGui.QMainWindow):
         # yes/no/cancel
         confirm_dialog = QtGui.QMessageBox(self)
         confirm_dialog.setWindowTitle(
-            Configuration.USER_TEXT["program_name"]
+            USER_TEXT["program_name"]
             )
         document = self.editor.currentWidget()
         message = [
-            Configuration.USER_TEXT["made_changes"],
+            USER_TEXT["made_changes"],
             " "
             ]
         
         if (document.filename):
             message.append(document.filename)
         else:
-            message.append(Configuration.USER_TEXT["current_document"])
+            message.append(USER_TEXT["current_document"])
             
         confirm_dialog.setText("".join(message))
         confirm_dialog.setInformativeText(
-            Configuration.USER_TEXT["save_changes?"]
+            USER_TEXT["save_changes?"]
             )
         confirm_dialog.setStandardButtons(
             QtGui.QMessageBox.Save | 
@@ -866,7 +868,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 self.editor.currentWidget().save_file()
                 self.set_tab_title()
                 self.statusBar().showMessage(
-                    Configuration.USER_TEXT["saved"],
+                    USER_TEXT["saved"],
                     1000
                     )
 
@@ -878,7 +880,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 self.save_file_as()
             self.set_tab_title()
             self.statusBar().showMessage(
-                Configuration.USER_TEXT["saved"], 
+                USER_TEXT["saved"], 
                 1000
                 )
 
@@ -892,7 +894,7 @@ class MarkdownEditor(QtGui.QMainWindow):
     def query_open_file(self):
         file_path = QtGui.QFileDialog.getOpenFileName(
             self,
-            Configuration.USER_TEXT["open_file"],
+            USER_TEXT["open_file"],
             ".",
             Configuration.MARKDOWN_FILE_STRING
             )
@@ -1002,17 +1004,17 @@ class ImageDialog(QtGui.QDialog):
 
     def initialise_ui(self):
         enter_image_label = QtGui.QLabel(
-            Configuration.USER_TEXT["enter_image_location"]
+            USER_TEXT["enter_image_location"]
             )
         self.image_entry = QtGui.QLineEdit()
         enter_image_label.setBuddy(self.image_entry)
         browse_for_image = QtGui.QPushButton(
-            Configuration.USER_TEXT["browse_for_image"]
+            USER_TEXT["browse_for_image"]
             )
         browse_for_image.clicked.connect(self.browse_for_image)
 
         title_label = QtGui.QLabel(
-            Configuration.USER_TEXT["enter_image_title"]
+            USER_TEXT["enter_image_title"]
             )
         self.title_entry = QtGui.QLineEdit()
         title_label.setBuddy(self.title_entry)
@@ -1047,12 +1049,12 @@ class ImageDialog(QtGui.QDialog):
 
         self.setLayout(main_layout)
 
-        self.setWindowTitle(Configuration.USER_TEXT["insert_image"])
+        self.setWindowTitle(USER_TEXT["insert_image"])
 
     def browse_for_image(self):
         file_path = QtGui.QFileDialog.getOpenFileName(
             self,
-            Configuration.USER_TEXT["browse_for_image"],
+            USER_TEXT["browse_for_image"],
             ".",
             Configuration.IMAGE_FILE_STRING
             )
@@ -1077,7 +1079,7 @@ class FindDialog(QtGui.QDockWidget):
 
     def __init__(self, parent):
         super(FindDialog, self).__init__(
-            Configuration.USER_TEXT["find_title"],
+            USER_TEXT["find_title"],
             parent
             )
         self.move(parent.frameGeometry().center())
@@ -1090,8 +1092,8 @@ class FindDialog(QtGui.QDockWidget):
             self.close,
             replace=True
             )
-        tabs.addTab(find_widget, Configuration.USER_TEXT["find_title"])
-        tabs.addTab(replace_widget, Configuration.USER_TEXT["replace_title"])
+        tabs.addTab(find_widget, USER_TEXT["find_title"])
+        tabs.addTab(replace_widget, USER_TEXT["replace_title"])
 
         self.setWidget(tabs)
         self.topLevelChanged.connect(self.adjustSize)
@@ -1114,44 +1116,44 @@ class FindReplaceWidget(QtGui.QWidget):
         self.initialise_ui()
 
     def initialise_ui(self):
-        find_label = QtGui.QLabel(Configuration.USER_TEXT["find_what"])
+        find_label = QtGui.QLabel(USER_TEXT["find_what"])
         self.find_entry = QtGui.QLineEdit()
         self.find_entry.returnPressed.connect(self.find)
         find_label.setBuddy(self.find_entry)
        
-        replace_label = QtGui.QLabel(Configuration.USER_TEXT["replace_with"])
+        replace_label = QtGui.QLabel(USER_TEXT["replace_with"])
         self.replace_entry = QtGui.QLineEdit()
         self.replace_entry.returnPressed.connect(self.find)
         replace_label.setBuddy(self.replace_entry)
 
-        case_box = QtGui.QCheckBox(Configuration.USER_TEXT["match_case"])
+        case_box = QtGui.QCheckBox(USER_TEXT["match_case"])
         case_box.stateChanged.connect(self.find_case_changed)
         
         backward_box = QtGui.QCheckBox(
-            Configuration.USER_TEXT["search_backwards"]
+            USER_TEXT["search_backwards"]
             )
         backward_box.stateChanged.connect(self.find_backwards_changed)
 
         whole_words_box = QtGui.QCheckBox(
-            Configuration.USER_TEXT["match_whole_words"]
+            USER_TEXT["match_whole_words"]
             )
         whole_words_box.stateChanged.connect(self.find_whole_words_changed)
         
         find_button = QtGui.QPushButton(
-            Configuration.USER_TEXT["find"]
+            USER_TEXT["find"]
             )
         find_button.clicked.connect(self.find)
         
         replace_button = QtGui.QPushButton(
-            Configuration.USER_TEXT["replace"]
+            USER_TEXT["replace"]
             )
         replace_button.clicked.connect(self.replace)
         replace_all_button = QtGui.QPushButton(
-            Configuration.USER_TEXT["replace_all"]
+            USER_TEXT["replace_all"]
             )
         replace_all_button.clicked.connect(self.replace_all)
 
-        close_button = QtGui.QPushButton(Configuration.USER_TEXT["close"])
+        close_button = QtGui.QPushButton(USER_TEXT["close"])
         close_button.clicked.connect(self.close_action)
 
         find_layout = QtGui.QHBoxLayout()
@@ -1493,7 +1495,7 @@ class Help(object):
         Configuration.load_processor()
         self.help_dialog = PreviewDialog(
             None,
-            Configuration.USER_TEXT[markdown_type],
+            USER_TEXT[markdown_type],
             description
             )
         self.help_dialog.show()

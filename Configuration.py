@@ -48,13 +48,6 @@ def save_options():
         pickle.dump(OPTIONS, options_file)
     
 #==============================================================================
-def read_user_text():
-    filename = os.path.join(Resources.directory(), "UserText.pickle")
-    with open(filename, "rb") as user_text_file:
-        global USER_TEXT
-        USER_TEXT = pickle.load(user_text_file)
-
-#==============================================================================
 def read_tool_tips():
     filename = os.path.join(Resources.directory(), "ToolTips.pickle")
     with open(filename, "rb") as tool_tips_file:
@@ -149,7 +142,6 @@ def on_import():
     Makes all the global config options.
     """
     read_options()
-    read_user_text()
     read_tool_tips()
     find_images()
     

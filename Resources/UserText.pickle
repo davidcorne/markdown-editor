@@ -143,156 +143,160 @@ sVenter_link
 p71
 VEnter the destination URL
 p72
-sVfile_toolbar
+sVuser_interface_import_fail
 p73
-VFile Toolbar
+VUser interface library not loaded.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
 p74
-sVchange_font
+sVfile_toolbar
 p75
-VChange Editor Font
+VFile Toolbar
 p76
-sVsave_all
+sVchange_font
 p77
-VSave All Files
+VChange Editor Font
 p78
-sVmade_changes
+sVsave_all
 p79
-VYou have made changes to
+VSave All Files
 p80
-sVmarkdown_extra
+sVmade_changes
 p81
-VMarkdown Extra
+VYou have made changes to
 p82
-sVnew_file
+sVmarkdown_extra
 p83
-VNew File
+VMarkdown Extra
 p84
-sVmisc
+sVnew_file
 p85
-VMiscellaneous
+VNew File
 p86
-sVsave_changes?
+sVmisc
 p87
-VDo you want to save your changes?
+VMiscellaneous
 p88
-sVexport_pdf
+sVsave_changes?
 p89
-VExport PDF
+VDo you want to save your changes?
 p90
-sVundo
+sVexport_pdf
 p91
-VUndo
+VExport PDF
 p92
-sVcodehilite
+sVundo
 p93
-VCodeHilite
+VUndo
 p94
-sVcut
+sVcodehilite
 p95
-VCut
+VCodeHilite
 p96
-sVother_options
+sVcut
 p97
-VOther Options
+VCut
 p98
-sVfind_what
+sVother_options
 p99
-VFind &what:
+VOther Options
 p100
-sVgithub_flavoured_markdown
+sVfind_what
 p101
-VGithub Flavoured Markdown
+VFind &what:
 p102
-sVprint_preview_raw_html
+sVgithub_flavoured_markdown
 p103
-VPrint Preview Raw HTML Code
+VGithub Flavoured Markdown
 p104
-sVprogram_name
+sVprint_preview_raw_html
 p105
-VMarkdownEditor
+VPrint Preview Raw HTML Code
 p106
-sVcopy
+sVprogram_name
 p107
-VCopy
+VMarkdownEditor
 p108
-sVpaste
+sVcopy
 p109
-VPaste
+VCopy
 p110
-sVset_font
+sVpaste
 p111
-VSet Font
+VPaste
 p112
-sVexception
+sVset_font
 p113
-VAn internal error has occured.
+VSet Font
 p114
-sVfind_title
+sVexception
 p115
-VFind
+VAn internal error has occured.
 p116
-sVhelp_link
+sVfind_title
 p117
-VMarkdown Editor On The Web
+VFind
 p118
-sVclose_file
+sVhelp_link
 p119
-VClose File
+VMarkdown Editor On The Web
 p120
-sVsave_file
+sVclose_file
 p121
-VSave
+VClose File
 p122
-sVenter_image_title
+sVsave_file
 p123
-VEnter the image title (optional)
+VSave
 p124
-sVedit_menu
+sVenter_image_title
 p125
-V&Edit
+VEnter the image title (optional)
 p126
-sVinsert_image
+sVedit_menu
 p127
-VInsert Image
+V&Edit
 p128
-sVprint_markdown
+sVinsert_image
 p129
-VPrint Markdown
+VInsert Image
 p130
-sVprint_preview_rendered_html
+sVprint_markdown
 p131
-VPrint Preview Rendered HTML
+VPrint Markdown
 p132
-sVprint_raw_html
+sVprint_preview_rendered_html
 p133
-VPrint Raw HTML Code
+VPrint Preview Rendered HTML
 p134
-sVcss
+sVprint_raw_html
 p135
-VCSS
+VPrint Raw HTML Code
 p136
-sVreplace_all
+sVcss
 p137
-VReplace &all
+VCSS
 p138
-sVexport_html
+sVreplace_all
 p139
-VExport HTML
+VReplace &all
 p140
-sVtools_menu
+sVexport_html
 p141
-V&Tools
+VExport HTML
 p142
-sVshow_html
+sVtools_menu
 p143
-VShow HTML
+V&Tools
 p144
-sVoptions
+sVshow_html
 p145
-VOptions
+VShow HTML
 p146
-sVdebug_options
+sVoptions
 p147
-VDebug Options
+VOptions
 p148
+sVdebug_options
+p149
+VDebug Options
+p150
 s.

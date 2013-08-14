@@ -27,14 +27,14 @@ class MarkdownConfig(QtGui.QDialog):
         self.original_processor = Configuration.PROCESSOR
 
         config_group = QtGui.QGroupBox(
-            Configuration.USER_TEXT["markdown_type"]
+            USER_TEXT["markdown_type"]
             )
 
-        markdown_label = QtGui.QLabel(Configuration.USER_TEXT["markdown"])
+        markdown_label = QtGui.QLabel(USER_TEXT["markdown"])
 
         markdown_combo = QtGui.QComboBox()
         for markdown_type in Configuration.PROCESSOR_TYPES.keys():
-            markdown_combo.addItem(Configuration.USER_TEXT[markdown_type])
+            markdown_combo.addItem(USER_TEXT[markdown_type])
         index = Configuration.PROCESSOR_TYPES.keys().index(
             Configuration.OPTIONS["processor"]
             )
@@ -80,12 +80,12 @@ class CSSConfig(QtGui.QDialog):
        
         self.reload_callback = reload_callback
         css_group = QtGui.QGroupBox(
-            Configuration.USER_TEXT["style_name"]
+            USER_TEXT["style_name"]
             )
         markdown_css_label = [
-            Configuration.USER_TEXT["markdown"],
+            USER_TEXT["markdown"],
             " ",
-            Configuration.USER_TEXT["css"],
+            USER_TEXT["css"],
             ]
         markdown_css_label = QtGui.QLabel("".join(markdown_css_label))
 
@@ -96,9 +96,9 @@ class CSSConfig(QtGui.QDialog):
         markdown_css_layout.addWidget(markdown_css_combo)
 
         code_css_label = [
-            Configuration.USER_TEXT["code"],
+            USER_TEXT["code"],
             " ",
-            Configuration.USER_TEXT["css"],
+            USER_TEXT["css"],
             ]
         code_css_label = QtGui.QLabel("".join(code_css_label))
 
@@ -199,10 +199,10 @@ class MiscConfig(QtGui.QDialog):
         self.reload_callback = reload_callback
         
         display_group = QtGui.QGroupBox(
-            Configuration.USER_TEXT["display_options"]
+            USER_TEXT["display_options"]
             )
         font_dialog_button = QtGui.QPushButton(
-            Configuration.USER_TEXT["change_font"]
+            USER_TEXT["change_font"]
             )
         font_dialog_button.clicked.connect(self.raise_font_dialog)
 
@@ -216,11 +216,11 @@ class MiscConfig(QtGui.QDialog):
         display_group.setLayout(display_layout)
 
         debug_group = QtGui.QGroupBox(
-            Configuration.USER_TEXT["debug_options"]
+            USER_TEXT["debug_options"]
             )
         
         show_html = self.check_box(
-            Configuration.USER_TEXT["show_html"],
+            USER_TEXT["show_html"],
             self.show_html_changed,
             Configuration.OPTIONS["show_html"]
             )
@@ -232,11 +232,11 @@ class MiscConfig(QtGui.QDialog):
 
 
         other_group = QtGui.QGroupBox(
-            Configuration.USER_TEXT["other_options"]
+            USER_TEXT["other_options"]
             )
 
         show_line_numbers = self.check_box(
-            Configuration.USER_TEXT["show_line_numbers"],
+            USER_TEXT["show_line_numbers"],
             self.show_line_numbers_changed,
             Configuration.OPTIONS["display_line_numbers"]
             )
@@ -282,7 +282,7 @@ class MiscConfig(QtGui.QDialog):
         font, ok = QtGui.QFontDialog.getFont(
             current_font,
             self,
-            Configuration.USER_TEXT["change_font"]
+            USER_TEXT["change_font"]
             )
         if (ok):
             Configuration.OPTIONS["font"] = font.toString()
@@ -344,7 +344,7 @@ class ConfigurationDialog(QtGui.QDialog):
 
         self.setLayout(main_layout)
 
-        self.setWindowTitle(Configuration.USER_TEXT["options"])
+        self.setWindowTitle(USER_TEXT["options"])
         self.pages.setCurrentIndex(ConfigurationDialog.OPEN_PAGE)
 
     def reload_previews(self):
@@ -377,7 +377,7 @@ class ConfigurationDialog(QtGui.QDialog):
         markdown_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["markdown"])
             )
-        markdown_button.setText(Configuration.USER_TEXT["markdown"])
+        markdown_button.setText(USER_TEXT["markdown"])
         markdown_button.setTextAlignment(QtCore.Qt.AlignHCenter)
         markdown_button.setFlags(
             QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
@@ -387,7 +387,7 @@ class ConfigurationDialog(QtGui.QDialog):
         css_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["css"])
             )
-        css_button.setText(Configuration.USER_TEXT["css"])
+        css_button.setText(USER_TEXT["css"])
         css_button.setTextAlignment(QtCore.Qt.AlignHCenter)
         css_button.setFlags(
             QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
@@ -397,7 +397,7 @@ class ConfigurationDialog(QtGui.QDialog):
         misc_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["configure"])
             )
-        misc_button.setText(Configuration.USER_TEXT["misc"])
+        misc_button.setText(USER_TEXT["misc"])
         misc_button.setTextAlignment(QtCore.Qt.AlignHCenter)
         misc_button.setFlags(
             QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
@@ -407,7 +407,7 @@ class ConfigurationDialog(QtGui.QDialog):
 class Preview(QtGui.QGroupBox):
 
     def __init__(self):
-        super(Preview, self).__init__(Configuration.USER_TEXT["preview"])
+        super(Preview, self).__init__(USER_TEXT["preview"])
         self.preview = MarkdownEditor.MarkdownPreview(None)
         self.reload()
 
