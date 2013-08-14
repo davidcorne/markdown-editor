@@ -17,6 +17,8 @@ import MarkdownEditor
 import Processor
 import Resources
 
+from UserText import USER_TEXT
+
 #==============================================================================
 class MarkdownConfig(QtGui.QDialog):
 
