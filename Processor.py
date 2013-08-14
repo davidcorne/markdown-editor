@@ -10,7 +10,6 @@ import misaka
 import pygments
 import pygments.lexers
 import pygments.formatters
-import os
 
 # local imports
 
