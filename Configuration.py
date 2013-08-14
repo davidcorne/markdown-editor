@@ -7,7 +7,6 @@ from __future__ import unicode_literals
 import collections
 import pickle
 import os
-import sys
 
 # local imports
 import Error
