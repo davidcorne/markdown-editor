@@ -15,7 +15,6 @@ import os
 # local imports
 
 import Configuration
-# import dgc_codehilite
 
 OPEN_HEAD = """<html>
 <head>
