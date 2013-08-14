@@ -142,7 +142,7 @@ class CSSConfig(QtGui.QDialog):
         if (css == "None"):
             css = ""
         Configuration.OPTIONS["code_css"] = unicode(css)
-        Configuration.reload_code_css()
+        Configuration.load_code_css()
         self.reload_callback()
 
     def find_markdown_css_options(self):
@@ -183,12 +183,12 @@ class CSSConfig(QtGui.QDialog):
         if (css == "None"):
             css = ""
         Configuration.OPTIONS["markdown_css"] = unicode(css)
-        Configuration.reload_markdown_css()
+        Configuration.load_markdown_css()
         self.reload_callback()
 
     def revert(self):
-        Configuration.reload_markdown_css()
-        Configuration.reload_code_css()
+        Configuration.load_markdown_css()
+        Configuration.load_code_css()
 
 #==============================================================================
 class MiscConfig(QtGui.QDialog):

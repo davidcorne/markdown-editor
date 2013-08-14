@@ -108,7 +108,7 @@ def read_css(directory, filename):
         return css_file.read()
 
 #==============================================================================
-def reload_markdown_css():
+def load_markdown_css():
     css = ""
     if (OPTIONS["markdown_css"]):
         css = read_css("Markdown", OPTIONS["markdown_css"])
@@ -116,20 +116,14 @@ def reload_markdown_css():
     MARKDOWN_CSS = css
 
 #==============================================================================
-def reload_code_css():
+def load_code_css():
     css = ""
     if (OPTIONS["code_css"]):
         css = read_css("Code", OPTIONS["code_css"])
     global CODE_CSS
     CODE_CSS = css
 
-read_options()
-read_user_text()
-read_tool_tips()
-find_images()
 
-reload_markdown_css()
-reload_code_css()
 
 PROCESSOR_TYPES = collections.OrderedDict()
 PROCESSOR_TYPES["markdown"] = Processor.Markdown
@@ -143,7 +137,6 @@ def load_processor():
     global PROCESSOR
     PROCESSOR = PROCESSOR_TYPES[OPTIONS["processor"]]()
 
-load_processor()
 
 #==============================================================================
 def reset_options():
@@ -155,6 +148,23 @@ def reset_options():
         os.remove(filename)
     read_options()
     load_processor()
+
+#==============================================================================
+def on_import():
+    """
+    Makes all the global config options.
+    """
+    read_options()
+    read_user_text()
+    read_tool_tips()
+    find_images()
+    
+    load_markdown_css()
+    load_code_css()
+    
+    load_processor()
+
+on_import()
 
 #==============================================================================
 if (__name__ == "__main__"):
