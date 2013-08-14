@@ -94,13 +94,6 @@ class MarkdownAll(MarkdownRenderer):
         
         self.renderer = markdown.Markdown(
             extensions=[
-                #"abbr",
-                #"attr_list",
-                #"def_list",
-                #"fenced_code",
-                #"footnotes",
-                #"tables",
-                #"smart_strong",
                 "extra",
                 codehilite_extension()
                 ]
@@ -145,12 +138,6 @@ def codehilite_extension():
     """
     Returns the extension with correct config for the custom codehilite.
     """
-    #line_numbers = Configuration.OPTIONS["display_line_numbers"]
-    #extension = dgc_codehilite.CodeHiliteExtension({})
-    #extension.config["css_class"] = ["highlight"]
-    #extension.config["linenums"] = [line_numbers]
-    #return extension
-    
     line_numbers = Configuration.OPTIONS["display_line_numbers"]
     codehilite = [
         "codehilite(css_class=highlight, linenums=",
