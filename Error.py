@@ -40,7 +40,7 @@ def show_error(message, detail=None):
 #==============================================================================
 def tk_quit():
     """
-    The only reason you should get here is an import error.
+    The only reason you should get here is an import error from Qt.
     """
     import tkMessageBox
     tkMessageBox.showerror(
