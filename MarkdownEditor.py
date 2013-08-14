@@ -734,7 +734,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.editor.currentWidget().text.selectAll()
 
     def new_file(self):
-        document = Document(None, self.document_changed)
+        document = Document(self, self.document_changed)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
@@ -881,7 +881,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.open_file(file_path)
 
     def open_file(self, file_path):
-        document = Document(None, self.document_changed)
+        document = Document(self, self.document_changed)
         document.open_file(file_path)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
