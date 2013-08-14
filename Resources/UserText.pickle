@@ -145,7 +145,7 @@ VEnter the destination URL
 p72
 sVuser_interface_import_fail
 p73
-VUser interface library not loaded.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
+VThere has been an error in the user interface library loading.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
 p74
 sVfile_toolbar
 p75
