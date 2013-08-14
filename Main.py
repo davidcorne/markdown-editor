@@ -15,7 +15,6 @@ import HiddenImports
 
 #==============================================================================
 def main():
-    # take over with real error handling 
     app = MarkdownEditor.MarkdownEditorApp(sys.argv)
     editor = MarkdownEditor.MarkdownEditor(sys.argv[1:])
     sys.exit(app.exec_())
