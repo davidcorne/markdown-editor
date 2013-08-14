@@ -44,7 +44,26 @@ class DocumentTabs(QtGui.QTabWidget):
         super(DocumentTabs, self).__init__(parent)
         self.tabCloseRequested.connect(tab_close_function)
         self.setTabBar(DocumentTabBar())
+        next_child_shortcut = QtGui.QShortcut(
+            QtGui.QKeySequence(QtGui.QKeySequence.NextChild),
+            self
+            )
+        next_child_shortcut.activated.connect(self.next_child)
 
+        previous_child_shortcut = QtGui.QShortcut(
+            QtGui.QKeySequence(QtGui.QKeySequence.PreviousChild),
+            self
+            )
+        previous_child_shortcut.activated.connect(self.previous_child)
+
+    def next_child(self):
+        new_index = (self.currentIndex() + 1) % self.count()
+        self.setCurrentIndex(new_index)        
+        
+    def previous_child(self):
+        new_index = (self.currentIndex() - 1) % self.count()
+        self.setCurrentIndex(new_index)        
+        
 #==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
 
