@@ -1237,11 +1237,19 @@ class MarkdownPreview(QtWebKit.QWebView):
 
     def __init__(self, parent):
         super(MarkdownPreview, self).__init__(parent)
+        self.parent = parent
         self.page = QtWebKit.QWebPage()
         self.page.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
+        self.page.linkHovered.connect(self.link_hovered)
         self.setPage(self.page)
         self.linkClicked.connect(open_link)
         self.scroll_x = 0
+
+    def link_hovered(self, link, title, text_content):
+        if (not link and not title and not text_content):
+            self.emit(QtCore.SIGNAL("mouse_left_link"))
+        else:
+            self.emit(QtCore.SIGNAL("mouse_over_link"), link)
 
     def show_preview(self, html):
         if (Configuration.OPTIONS["show_html"]):
@@ -1305,7 +1313,17 @@ class Document(QtGui.QWidget):
         self.text.textChanged.connect(self.reload)
         
         self.output = MarkdownPreview(self)
-        
+        QtCore.QObject.connect(
+            self.output,
+            QtCore.SIGNAL("mouse_over_link"),
+            lambda link: parent.statusBar().showMessage(link)
+            )
+        QtCore.QObject.connect(
+            self.output,
+            QtCore.SIGNAL("mouse_left_link"),
+            parent.statusBar().clearMessage
+            )
+
         self.set_font()
 
         horizontal_splitter = QtGui.QSplitter(QtCore.Qt.Horizontal, self)
