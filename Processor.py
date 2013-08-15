@@ -115,7 +115,8 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
             except pygments.util.ClassNotFound:
                 return cgi.escape(text, quote=True)
             formatter = pygments.formatters.HtmlFormatter(
-                linenos=Configuration.OPTIONS["display_line_numbers"]
+                linenos=Configuration.OPTIONS["display_line_numbers"],
+                cssclass=Configuration.OPTIONS["code_css_class"],
                 )
             highlighted = pygments.highlight(text, lexer, formatter)
             return highlighted
@@ -137,8 +138,11 @@ def codehilite_extension():
     Returns the extension with correct config for the custom codehilite.
     """
     line_numbers = Configuration.OPTIONS["display_line_numbers"]
+    css_code_class = Configuration.OPTIONS["code_css_class"]
     codehilite = [
-        "codehilite(css_class=highlight, linenums=",
+        "codehilite(css_class=",
+        css_code_class,
+        ", linenums=",
         str(line_numbers),
         ")"
         ]

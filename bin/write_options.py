@@ -16,6 +16,7 @@ import sys
 
 OPTIONS = {
     "code_css": "Standard", 
+    "code_css_class": "highlight",
     "show_html": False,
     "processor": "markdown_all",
     "markdown_css": "Markdown",
