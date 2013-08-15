@@ -72,7 +72,8 @@ def find_images():
     else:
         
         message = USER_TEXT["image_files_error"]
-        detail =  USER_TEXT["image_files_error_detail"] %(os.path.abspath(directory))
+        image_dir = os.path.abspath(directory)
+        detail =  USER_TEXT["image_files_error_detail"] %(image_dir)
         Error.show_error(message, detail, fatal=True)
 
 #==============================================================================
