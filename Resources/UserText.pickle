@@ -171,132 +171,140 @@ sVnew_file
 p85
 VNew File
 p86
-sVmisc
+sVimage_files_error_detail
 p87
-VMiscellaneous
+VImages should be found at %s
 p88
-sVsave_changes?
+sVmisc
 p89
-VDo you want to save your changes?
+VMiscellaneous
 p90
-sVexport_pdf
+sVsave_changes?
 p91
-VExport PDF
+VDo you want to save your changes?
 p92
-sVundo
+sVexport_pdf
 p93
-VUndo
+VExport PDF
 p94
-sVcodehilite
+sVundo
 p95
-VCodeHilite
+VUndo
 p96
-sVcut
+sVimage_files_error
 p97
-VCut
+VImage files not found.
 p98
-sVother_options
+sVcodehilite
 p99
-VOther Options
+VCodeHilite
 p100
-sVfind_what
+sVcut
 p101
-VFind &what:
+VCut
 p102
-sVgithub_flavoured_markdown
+sVother_options
 p103
-VGithub Flavoured Markdown
+VOther Options
 p104
-sVprint_preview_raw_html
+sVfind_what
 p105
-VPrint Preview Raw HTML Code
+VFind &what:
 p106
-sVprogram_name
+sVgithub_flavoured_markdown
 p107
-VMarkdownEditor
+VGithub Flavoured Markdown
 p108
-sVcopy
+sVprint_preview_raw_html
 p109
-VCopy
+VPrint Preview Raw HTML Code
 p110
-sVpaste
+sVprogram_name
 p111
-VPaste
+VMarkdownEditor
 p112
-sVset_font
+sVcopy
 p113
-VSet Font
+VCopy
 p114
-sVexception
+sVpaste
 p115
-VAn internal error has occured.
+VPaste
 p116
-sVfind_title
+sVset_font
 p117
-VFind
+VSet Font
 p118
-sVhelp_link
+sVexception
 p119
-VMarkdown Editor On The Web
+VAn internal error has occured.
 p120
-sVclose_file
+sVfind_title
 p121
-VClose File
+VFind
 p122
-sVsave_file
+sVhelp_link
 p123
-VSave
+VMarkdown Editor On The Web
 p124
-sVenter_image_title
+sVclose_file
 p125
-VEnter the image title (optional)
+VClose File
 p126
-sVedit_menu
+sVsave_file
 p127
-V&Edit
+VSave
 p128
-sVinsert_image
+sVenter_image_title
 p129
-VInsert Image
+VEnter the image title (optional)
 p130
-sVprint_markdown
+sVedit_menu
 p131
-VPrint Markdown
+V&Edit
 p132
-sVprint_preview_rendered_html
+sVinsert_image
 p133
-VPrint Preview Rendered HTML
+VInsert Image
 p134
-sVprint_raw_html
+sVprint_markdown
 p135
-VPrint Raw HTML Code
+VPrint Markdown
 p136
-sVcss
+sVprint_preview_rendered_html
 p137
-VCSS
+VPrint Preview Rendered HTML
 p138
-sVreplace_all
+sVprint_raw_html
 p139
-VReplace &all
+VPrint Raw HTML Code
 p140
-sVexport_html
+sVcss
 p141
-VExport HTML
+VCSS
 p142
-sVtools_menu
+sVreplace_all
 p143
-V&Tools
+VReplace &all
 p144
-sVshow_html
+sVexport_html
 p145
-VShow HTML
+VExport HTML
 p146
-sVoptions
+sVtools_menu
 p147
-VOptions
+V&Tools
 p148
-sVdebug_options
+sVshow_html
 p149
-VDebug Options
+VShow HTML
 p150
+sVoptions
+p151
+VOptions
+p152
+sVdebug_options
+p153
+VDebug Options
+p154
 s.

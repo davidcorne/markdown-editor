@@ -56,7 +56,7 @@ def exception_hook(exception_type, exception_value, trace):
     show_error(message, detail)
 
 #==============================================================================
-def show_error(message, detail=None):
+def show_error(message, detail=None, fatal=False):
     try:
         from PyQt4 import QtGui
     except ImportError:
@@ -71,6 +71,8 @@ def show_error(message, detail=None):
     if (detail):
         message_box.setDetailedText(detail)
     message_box.exec_()
+    if (fatal):
+        sys.exit()
 
 #==============================================================================
 def tk_quit():

@@ -12,6 +12,7 @@ import os
 import Error
 import Processor
 import Resources
+from UserText import USER_TEXT
 
 #==============================================================================
 def user_options_file_path():
@@ -69,9 +70,10 @@ def find_images():
                 image
                 )
     else:
-        message = "Image files not found."
-        detail = "Images should be found at " + os.path.abspath(directory)
-        Error.show_error(message, detail)
+        
+        message = USER_TEXT["image_files_error"]
+        detail =  USER_TEXT["image_files_error_detail"] %(os.path.abspath(directory))
+        Error.show_error(message, detail, fatal=True)
 
 #==============================================================================
 def read_css(directory, filename):

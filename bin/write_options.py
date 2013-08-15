@@ -104,6 +104,8 @@ There has been an error in the user interface library loading.
 
 Please report this at https://bitbucket.org/davidcorne/markdown-editor/issues
 """,
+    "image_files_error": "Image files not found.",
+    "image_files_error_detail": "Images should be found at %s",
     }
 
 TOOL_TIPS = {
