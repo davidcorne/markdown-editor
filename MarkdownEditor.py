@@ -1347,12 +1347,25 @@ class Document(QtGui.QWidget):
 
         self.set_font()
 
-        horizontal_splitter = QtGui.QSplitter(QtCore.Qt.Horizontal, self)
-        horizontal_splitter.addWidget(self.text)
-        horizontal_splitter.addWidget(self.output)
+        self.horizontal_splitter = QtGui.QSplitter(QtCore.Qt.Horizontal, self)
+        self.horizontal_splitter.addWidget(self.text)
+        self.horizontal_splitter.addWidget(self.output)
 
         layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(horizontal_splitter)
+        layout.addWidget(self.horizontal_splitter)
+
+    def showEvent(self, event):
+        super(Document, self).showEvent(event)
+        self.set_horizontal_sizes()
+
+    def set_horizontal_sizes(self):
+        size = self.horizontal_splitter.frameSize()
+        half_width = size.width() / 2
+        self.horizontal_splitter.setSizes([half_width, half_width])
+        print self.horizontal_splitter.sizes()
+
+    def dgc_debug(self, h_s):
+        print h_s.sizes()
 
     @property
     def filename(self):
