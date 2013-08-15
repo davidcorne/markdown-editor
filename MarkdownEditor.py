@@ -1350,18 +1350,21 @@ class Document(QtGui.QWidget):
         self.horizontal_splitter = QtGui.QSplitter(QtCore.Qt.Horizontal, self)
         self.horizontal_splitter.addWidget(self.text)
         self.horizontal_splitter.addWidget(self.output)
+        self.size_set = False
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.horizontal_splitter)
 
     def showEvent(self, event):
         super(Document, self).showEvent(event)
-        self.set_horizontal_sizes()
+        if (not self.size_set):
+            self.set_horizontal_sizes()
 
     def set_horizontal_sizes(self):
         size = self.horizontal_splitter.frameSize()
         half_width = size.width() / 2
         self.horizontal_splitter.setSizes([half_width, half_width])
+        self.size_set = True
 
     @property
     def filename(self):
