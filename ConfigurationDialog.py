@@ -243,8 +243,23 @@ class MiscConfig(QtGui.QDialog):
             Configuration.OPTIONS["display_line_numbers"]
             )
 
+        css_class_input = QtGui.QLineEdit(
+            Configuration.OPTIONS["code_css_class"]
+            )
+        css_class_input.textChanged.connect(self.css_class_changed)
+        css_class_label = QtGui.QLabel(
+            USER_TEXT["code_css_class"]
+            )
+        self.original_css_class = Configuration.OPTIONS["code_css_class"]
+        
+        css_class_layout = QtGui.QHBoxLayout()
+        css_class_layout.addWidget(css_class_input)
+        css_class_layout.addWidget(css_class_label)
+        css_class_layout.addStretch(1)
+
         other_layout = QtGui.QVBoxLayout()
         other_layout.addWidget(show_line_numbers)
+        other_layout.addLayout(css_class_layout)
         
         other_group.setLayout(other_layout)
 
@@ -255,6 +270,10 @@ class MiscConfig(QtGui.QDialog):
         main_layout.addStretch(1)
 
         self.setLayout(main_layout)
+
+    def css_class_changed(self, value):
+        Configuration.OPTIONS["code_css_class"] = unicode(value)
+        self.reload_callback()
 
     def show_html_changed(self, value):
         Configuration.OPTIONS["show_html"] = value
@@ -290,7 +309,7 @@ class MiscConfig(QtGui.QDialog):
             Configuration.OPTIONS["font"] = font.toString()
 
     def revert(self):
-        pass
+        Configuration.OPTIONS["code_css_class"] = self.original_css_class
     
 #==============================================================================
 class ConfigurationDialog(QtGui.QDialog):

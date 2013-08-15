@@ -105,6 +105,7 @@ Please report this at https://bitbucket.org/davidcorne/markdown-editor/issues
 """,
     "image_files_error": "Image files not found.",
     "image_files_error_detail": "Images should be found at %s",
+    "code_css_class": "CSS class used for code.",
     }
 
 TOOL_TIPS = {

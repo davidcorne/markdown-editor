@@ -131,176 +131,180 @@ sVpreview
 p65
 VPreview
 p66
-sVenter_image_location
+sVcode_css_class
 p67
-VEnter the image location
+VCSS class used for code.
 p68
-sVenter_link
+sVenter_image_location
 p69
-VEnter the destination URL
+VEnter the image location
 p70
-sVuser_interface_import_fail
+sVenter_link
 p71
-VThere has been an error in the user interface library loading.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
+VEnter the destination URL
 p72
-sVfile_toolbar
+sVuser_interface_import_fail
 p73
-VFile Toolbar
+VThere has been an error in the user interface library loading.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
 p74
-sVchange_font
+sVfile_toolbar
 p75
-VChange Editor Font
+VFile Toolbar
 p76
-sVsave_all
+sVchange_font
 p77
-VSave All Files
+VChange Editor Font
 p78
-sVmade_changes
+sVsave_all
 p79
-VYou have made changes to
+VSave All Files
 p80
-sVmarkdown_extra
+sVmade_changes
 p81
-VMarkdown Extra
+VYou have made changes to
 p82
-sVnew_file
+sVmarkdown_extra
 p83
-VNew File
+VMarkdown Extra
 p84
-sVimage_files_error_detail
+sVnew_file
 p85
-VImages should be found at %s
+VNew File
 p86
-sVmisc
+sVimage_files_error_detail
 p87
-VMiscellaneous
+VImages should be found at %s
 p88
-sVsave_changes?
+sVmisc
 p89
-VDo you want to save your changes?
+VMiscellaneous
 p90
-sVexport_pdf
+sVsave_changes?
 p91
-VExport PDF
+VDo you want to save your changes?
 p92
-sVundo
+sVexport_pdf
 p93
-VUndo
+VExport PDF
 p94
-sVimage_files_error
+sVundo
 p95
-VImage files not found.
+VUndo
 p96
-sVcodehilite
+sVimage_files_error
 p97
-VCodeHilite
+VImage files not found.
 p98
-sVcut
+sVcodehilite
 p99
-VCut
+VCodeHilite
 p100
-sVother_options
+sVcut
 p101
-VOther Options
+VCut
 p102
-sVfind_what
+sVother_options
 p103
-VFind &what:
+VOther Options
 p104
-sVgithub_flavoured_markdown
+sVfind_what
 p105
-VGithub Flavoured Markdown
+VFind &what:
 p106
-sVprint_preview_raw_html
+sVgithub_flavoured_markdown
 p107
-VPrint Preview Raw HTML Code
+VGithub Flavoured Markdown
 p108
-sVprogram_name
+sVprint_preview_raw_html
 p109
-VMarkdownEditor
+VPrint Preview Raw HTML Code
 p110
-sVcopy
+sVprogram_name
 p111
-VCopy
+VMarkdownEditor
 p112
-sVpaste
+sVcopy
 p113
-VPaste
+VCopy
 p114
-sVset_font
+sVpaste
 p115
-VSet Font
+VPaste
 p116
-sVexception
+sVset_font
 p117
-VAn internal error has occured.
+VSet Font
 p118
-sVfind_title
+sVexception
 p119
-VFind
+VAn internal error has occured.
 p120
-sVhelp_link
+sVfind_title
 p121
-VMarkdown Editor On The Web
+VFind
 p122
-sVclose_file
+sVhelp_link
 p123
-VClose File
+VMarkdown Editor On The Web
 p124
-sVsave_file
+sVclose_file
 p125
-VSave
+VClose File
 p126
-sVenter_image_title
+sVsave_file
 p127
-VEnter the image title (optional)
+VSave
 p128
-sVedit_menu
+sVenter_image_title
 p129
-V&Edit
+VEnter the image title (optional)
 p130
-sVinsert_image
+sVedit_menu
 p131
-VInsert Image
+V&Edit
 p132
-sVprint_markdown
+sVinsert_image
 p133
-VPrint Markdown
+VInsert Image
 p134
-sVprint_preview_rendered_html
+sVprint_markdown
 p135
-VPrint Preview Rendered HTML
+VPrint Markdown
 p136
-sVprint_raw_html
+sVprint_preview_rendered_html
 p137
-VPrint Raw HTML Code
+VPrint Preview Rendered HTML
 p138
-sVcss
+sVprint_raw_html
 p139
-VCSS
+VPrint Raw HTML Code
 p140
-sVreplace_all
+sVcss
 p141
-VReplace &all
+VCSS
 p142
-sVexport_html
+sVreplace_all
 p143
-VExport HTML
+VReplace &all
 p144
-sVtools_menu
+sVexport_html
 p145
-V&Tools
+VExport HTML
 p146
-sVshow_html
+sVtools_menu
 p147
-VShow HTML
+V&Tools
 p148
-sVoptions
+sVshow_html
 p149
-VOptions
+VShow HTML
 p150
-sVdebug_options
+sVoptions
 p151
-VDebug Options
+VOptions
 p152
+sVdebug_options
+p153
+VDebug Options
+p154
 s.
