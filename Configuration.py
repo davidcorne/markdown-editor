@@ -53,18 +53,6 @@ def read_tool_tips():
         global TOOL_TIP
         TOOL_TIP = pickle.load(tool_tips_file)
 
-MARKDOWN_FILE_STRING = """\
-Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
-All Files (*)\
-"""
-
-# full image formats from list in MS word dropdown - probably overkill
-IMAGE_FILE_STRING = """\
-Images (*.png *.jpg *.jpeg *.gif *.bmp *.emf *.wmf *.jfif *.jpe *.dib *.rle \
-*.bmz *.gfa *.emz *.wmz *.pcz *.tif *.tiff *.cgm *.eps *.pct *.pict *.wpg);;\
-All Files (*)\
-"""
-
 #==============================================================================
 def find_images():
     global IMAGES
@@ -109,15 +97,6 @@ def load_code_css():
     global CODE_CSS
     CODE_CSS = css
 
-
-
-PROCESSOR_TYPES = collections.OrderedDict()
-PROCESSOR_TYPES["markdown"] = Processor.Markdown
-PROCESSOR_TYPES["markdown_extra"] = Processor.MarkdownExtra
-PROCESSOR_TYPES["markdown_all"] = Processor.MarkdownAll
-PROCESSOR_TYPES["codehilite"] = Processor.CodeHilite
-PROCESSOR_TYPES["github_flavoured_markdown"] = Processor.GithubFlavouredMarkdown
-
 #==============================================================================
 def load_processor():
     global PROCESSOR
@@ -148,6 +127,27 @@ def on_import():
     load_code_css()
     
     load_processor()
+
+#==============================================================================
+# Global variables and functions run on import
+MARKDOWN_FILE_STRING = """\
+Markdown (*.md *.markdown *.mdown *.mkdn *.mkd *.mdtxt *.mdtext *.text);;\
+All Files (*)\
+"""
+
+# full image formats from list in MS word dropdown - probably overkill
+IMAGE_FILE_STRING = """\
+Images (*.png *.jpg *.jpeg *.gif *.bmp *.emf *.wmf *.jfif *.jpe *.dib *.rle \
+*.bmz *.gfa *.emz *.wmz *.pcz *.tif *.tiff *.cgm *.eps *.pct *.pict *.wpg);;\
+All Files (*)\
+"""
+
+PROCESSOR_TYPES = collections.OrderedDict()
+PROCESSOR_TYPES["markdown"] = Processor.Markdown
+PROCESSOR_TYPES["markdown_extra"] = Processor.MarkdownExtra
+PROCESSOR_TYPES["markdown_all"] = Processor.MarkdownAll
+PROCESSOR_TYPES["codehilite"] = Processor.CodeHilite
+PROCESSOR_TYPES["github_flavoured_markdown"] = Processor.GithubFlavouredMarkdown
 
 on_import()
 
