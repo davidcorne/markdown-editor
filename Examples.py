@@ -7,16 +7,17 @@
 
 import Configuration
 
-GITHUB_FLAVOUR_PREVIEW = """\
+GITHUB_FLAVOUR_PREVIEW = """
 # Github Flavoured Markdown #
 
-This is defined [here](https://help.github.com/articles/github-flavored-markdown). \
-Here are some of the major differences.
+This is defined 
+[here](https://help.github.com/articles/github-flavored-markdown). Here are 
+some of the major differences between this and traditional markdown.
 
 ## Fenced Code Blocks ##
 
-In addition to the standard markdown way of specifying code block you can also\
- surround them with backticks.
+In addition to the standard markdown way of specifying code block you can also
+surround them with backticks.
 
 <div><pre><span>def</span> <span>hello_world</span><span>():</span>
     <span>print</span><spa>(</span><span>&quot;Hello, World&quot;</span><span>)</span>
@@ -51,20 +52,20 @@ Note you cannot get syntax highlighting with the standard four space approach.
 
 ## Multiple Underscores ##
 
-In standard markdown this_word_sequence would become this<em>word</em>sequence. \
+In standard markdown this_word_sequence would become this<em>word</em>sequence.
 This is fixed in GitHub flavoured markdown.
 
 ## Newlines ##
 
-In standard markdown you need two newlines to seperate paragraphs, in GitHub \
+In standard markdown you need two newlines to seperate paragraphs, in GitHub
 flavoured markdown you only need one.
 """
 
-STANDARD_MARKDOWN = """\
+STANDARD_MARKDOWN = """
 # Standard Markdown #
 
-The full syntax for markdown can be found \
-[here](http://daringfireball.net/projects/markdown/syntax). \
+The full syntax for markdown can be found 
+[here](http://daringfireball.net/projects/markdown/syntax). 
 Here is a small sample.
 
 # Heading 1 #
@@ -123,10 +124,10 @@ Or even
     1. ...
 """
 
-MARKDOWN_EXTRA = """\
+MARKDOWN_EXTRA = """
 # Markdown Extra #
 
-A selection of the features of markdown extra, defined more fully \
+A selection of the features of markdown extra, defined more fully 
 [here](http://michelf.ca/projects/php-markdown/extra/).
 
 ## Code Blocks ##
@@ -196,10 +197,10 @@ double__underscore__words are not rendered like
 double __underscore__ words
 """
 
-MARKDOWN_ALL = """\
+MARKDOWN_ALL = """
 # Markdown All #
 
-This is a mixture of markdown extra and codehilite. It has the advantages of \
+This is a mixture of markdown extra and codehilite. It has the advantages of 
 using named language code blocks, definitions, tables and many more features.
 
 ## Code ##
@@ -257,15 +258,17 @@ Note the 4 spaces.
         print("Hello, World!")
 ```
 
-This gives a large degree of flexibility in how you can specify code. As you \
-can see in all of them you can specify the language and as long as it is \
+This gives a large degree of flexibility in how you can specify code. As you 
+can see in all of them you can specify the language and as long as it is 
 recognised the syntax will be highlighted.
 """
 
-CODEHILITE = """\
+CODEHILITE = """
 # Codehilte #
 
-This adds syntax highlighting for named code blocks. 
+This adds syntax highlighting for named code blocks. The full features of this
+extension can be found
+[here](http://pythonhosted.org/Markdown/extensions/code_hilite.html).
 
 ## Code ###
 
@@ -277,7 +280,7 @@ The following code is written in [python](http://www.python.org/).
     def hello_world():
         print("Hello, World!")
 
-It can be highlighted using any of these ways. These all augment the standard \
+It can be highlighted using any of these ways. These all augment the standard 
 markdown syntax, so each line should be prepended by four spaces.
 
 ### Using colons ###
