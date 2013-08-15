@@ -14,18 +14,22 @@ import Processor
 import Resources
 
 #==============================================================================
-def options_file_name():
+def user_options_file_path():
+    """
+    Returns the path to the user specific options file
+    Does not check if it exists.
+    """
     # user environmental variable called different things on different systems
     name = "_Options.pickle"
     if (os.environ.get("USER")):
         name = os.environ.get("USER") + name
     elif (os.environ.get("USERNAME")):
         name = os.environ.get("USERNAME") + name
-    return name
+    return os.path.join(Resources.directory(), name)
 
 #==============================================================================
 def read_options():
-    filename = os.path.join(Resources.directory(), options_file_name())
+    filename = user_options_file_path()
     default_filename = os.path.join(Resources.directory(), "Options.pickle")
     if (not os.path.isfile(filename)):
         filename = default_filename
@@ -42,7 +46,7 @@ def read_options():
 
 #==============================================================================
 def save_options():
-    options_path = os.path.join(Resources.directory(), options_file_name())
+    options_path = user_options_file_path()
     with open(options_path, "wb") as options_file:
         pickle.dump(OPTIONS, options_file)
     
@@ -102,13 +106,12 @@ def load_processor():
     global PROCESSOR
     PROCESSOR = PROCESSOR_TYPES[OPTIONS["processor"]]()
 
-
 #==============================================================================
 def reset_options():
     """
     Also deletes the user specific file.
     """
-    filename = os.path.join(Resources.directory(), options_file_name())
+    filename = user_options_file_path()
     if (os.path.isfile(filename)):
         os.remove(filename)
     read_options()
