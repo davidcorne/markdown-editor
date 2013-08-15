@@ -1259,10 +1259,10 @@ class MarkdownPreview(QtWebKit.QWebView):
     def __init__(self, parent):
         super(MarkdownPreview, self).__init__(parent)
         self.parent = parent
-        self.page = QtWebKit.QWebPage()
-        self.page.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
-        self.page.linkHovered.connect(self.link_hovered)
-        self.setPage(self.page)
+        self.displayed_page = QtWebKit.QWebPage()
+        self.displayed_page.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
+        self.displayed_page.linkHovered.connect(self.link_hovered)
+        self.setPage(self.displayed_page)
         self.linkClicked.connect(open_link)
         self.scroll_x = 0
 
@@ -1284,7 +1284,7 @@ class MarkdownPreview(QtWebKit.QWebView):
         self.setHtml(html)
 
     def scroll_position(self):
-        frame = super(MarkdownPreview, self).page().mainFrame()
+        frame = self.page().mainFrame()
         x_current = frame.scrollPosition().x()
         x_maximum = frame.scrollBarMaximum(QtCore.Qt.Horizontal)
         if (x_maximum == 0):
@@ -1308,7 +1308,7 @@ class MarkdownPreview(QtWebKit.QWebView):
     def __del__(self):
         # For some reason without this, when you quit the application it 
         # restarts itself, I think it's to do with ref counts on the page
-        del self.page
+        del self.displayed_page
         
 #==============================================================================
 class Document(QtGui.QWidget):
