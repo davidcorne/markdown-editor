@@ -11,300 +11,296 @@ sVfind_and_replace
 p5
 VFind and Replace
 p6
-sVerror_text_was
-p7
-VThe text from it was:
-p8
 sVbrowse_for_image
-p9
+p7
 VBrowse for image
-p10
+p8
 sVprint_preview_markdown
-p11
+p9
 VPrint Preview Markdown
-p12
+p10
 sVreplace
-p13
+p11
 V&Replace
-p14
+p12
 sVmatch_case
-p15
+p13
 VMatch &case
-p16
+p14
 sVhelp_menu
-p17
+p15
 V&Help
-p18
+p16
 sVcode
-p19
+p17
 VCode
-p20
+p18
 sVmarkdown_all
-p21
+p19
 VMarkdown All
-p22
+p20
 sVedit_toolbar
-p23
+p21
 VEdit Toolbar
-p24
+p22
 sVclose
-p25
+p23
 VClose
-p26
+p24
 sVshow_line_numbers
-p27
+p25
 VDisplay Line Numbers
-p28
+p26
 sVredo
-p29
+p27
 VRedo
-p30
+p28
 sVfind
-p31
+p29
 V&Find
-p32
+p30
 sVreplace_title
-p33
+p31
 VReplace
-p34
+p32
 sVsave_as
-p35
+p33
 VSave As
-p36
+p34
 sVformat_toolbar
-p37
+p35
 VFormat Toolbar
-p38
+p36
 sVprint_rendered_html
-p39
+p37
 VPrint Rendered HTML
-p40
+p38
 sVselect_all
-p41
+p39
 VSelect All
-p42
+p40
 sVopen_file
-p43
+p41
 VOpen File
-p44
+p42
 sVsaved
-p45
+p43
 VFile saved
-p46
+p44
 sVsearch_backwards
-p47
+p45
 VSearch &backwards
-p48
+p46
 sVmatch_whole_words
-p49
+p47
 VMatch &whole words
-p50
+p48
 sVfile_menu
-p51
+p49
 V&File
-p52
+p50
 sVreplace_with
-p53
+p51
 VReplace with:
-p54
+p52
 sVundo_redo_toolbar
-p55
+p53
 VUndo Redo Toolbar
-p56
+p54
 sVcurrent_document
-p57
+p55
 Vthe current document
-p58
+p56
 sVmarkdown_type
-p59
+p57
 VMarkdown Type
-p60
+p58
 sVstyle_name
-p61
+p59
 VStyle Name
-p62
+p60
 sVprint
-p63
+p61
 VPrint
-p64
+p62
 sVinsert_link
-p65
+p63
 VInsert Link
-p66
+p64
 sVpreview
-p67
+p65
 VPreview
-p68
+p66
 sVenter_image_location
-p69
+p67
 VEnter the image location
-p70
+p68
 sVenter_link
-p71
+p69
 VEnter the destination URL
-p72
+p70
 sVuser_interface_import_fail
-p73
+p71
 VThere has been an error in the user interface library loading.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
-p74
+p72
 sVfile_toolbar
-p75
+p73
 VFile Toolbar
-p76
+p74
 sVchange_font
-p77
+p75
 VChange Editor Font
-p78
+p76
 sVsave_all
-p79
+p77
 VSave All Files
-p80
+p78
 sVmade_changes
-p81
+p79
 VYou have made changes to
-p82
+p80
 sVmarkdown_extra
-p83
+p81
 VMarkdown Extra
-p84
+p82
 sVnew_file
-p85
+p83
 VNew File
-p86
+p84
 sVimage_files_error_detail
-p87
+p85
 VImages should be found at %s
-p88
+p86
 sVmisc
-p89
+p87
 VMiscellaneous
-p90
+p88
 sVsave_changes?
-p91
+p89
 VDo you want to save your changes?
-p92
+p90
 sVexport_pdf
-p93
+p91
 VExport PDF
-p94
+p92
 sVundo
-p95
+p93
 VUndo
-p96
+p94
 sVimage_files_error
-p97
+p95
 VImage files not found.
-p98
+p96
 sVcodehilite
-p99
+p97
 VCodeHilite
-p100
+p98
 sVcut
-p101
+p99
 VCut
-p102
+p100
 sVother_options
-p103
+p101
 VOther Options
-p104
+p102
 sVfind_what
-p105
+p103
 VFind &what:
-p106
+p104
 sVgithub_flavoured_markdown
-p107
+p105
 VGithub Flavoured Markdown
-p108
+p106
 sVprint_preview_raw_html
-p109
+p107
 VPrint Preview Raw HTML Code
-p110
+p108
 sVprogram_name
-p111
+p109
 VMarkdownEditor
-p112
+p110
 sVcopy
-p113
+p111
 VCopy
-p114
+p112
 sVpaste
-p115
+p113
 VPaste
-p116
+p114
 sVset_font
-p117
+p115
 VSet Font
-p118
+p116
 sVexception
-p119
+p117
 VAn internal error has occured.
-p120
+p118
 sVfind_title
-p121
+p119
 VFind
-p122
+p120
 sVhelp_link
-p123
+p121
 VMarkdown Editor On The Web
-p124
+p122
 sVclose_file
-p125
+p123
 VClose File
-p126
+p124
 sVsave_file
-p127
+p125
 VSave
-p128
+p126
 sVenter_image_title
-p129
+p127
 VEnter the image title (optional)
-p130
+p128
 sVedit_menu
-p131
+p129
 V&Edit
-p132
+p130
 sVinsert_image
-p133
+p131
 VInsert Image
-p134
+p132
 sVprint_markdown
-p135
+p133
 VPrint Markdown
-p136
+p134
 sVprint_preview_rendered_html
-p137
+p135
 VPrint Preview Rendered HTML
-p138
+p136
 sVprint_raw_html
-p139
+p137
 VPrint Raw HTML Code
-p140
+p138
 sVcss
-p141
+p139
 VCSS
-p142
+p140
 sVreplace_all
-p143
+p141
 VReplace &all
-p144
+p142
 sVexport_html
-p145
+p143
 VExport HTML
-p146
+p144
 sVtools_menu
-p147
+p145
 V&Tools
-p148
+p146
 sVshow_html
-p149
+p147
 VShow HTML
-p150
+p148
 sVoptions
-p151
+p149
 VOptions
-p152
+p150
 sVdebug_options
-p153
+p151
 VDebug Options
-p154
+p152
 s.

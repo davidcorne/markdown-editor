@@ -62,7 +62,6 @@ USER_TEXT = {
     "select_all" : "Select All",
     "saved": "File saved",
     "exception" : "An internal error has occured.",
-    "error_text_was": "The text from it was:",
     "insert_link": "Insert Link",
     "enter_link": "Enter the destination URL",
     "insert_image": "Insert Image",
