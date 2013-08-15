@@ -1362,10 +1362,6 @@ class Document(QtGui.QWidget):
         size = self.horizontal_splitter.frameSize()
         half_width = size.width() / 2
         self.horizontal_splitter.setSizes([half_width, half_width])
-        print self.horizontal_splitter.sizes()
-
-    def dgc_debug(self, h_s):
-        print h_s.sizes()
 
     @property
     def filename(self):
