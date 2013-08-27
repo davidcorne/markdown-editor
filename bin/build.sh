@@ -29,7 +29,7 @@ echo ""
 if [ -f dist/Main.exe ]
 then
   mkdir -p markdown-editor-downloads/EXE/
-  mv -vf dist/Main.exe markdown-editor-downloads/EXE/MarkdownEditor.exe
+  mv -vf dist/Main.exe markdown-editor-downloads/EXE/mde.exe
   cp -r Resources markdown-editor-downloads/EXE/
 else
   echo "No executable made"
@@ -51,6 +51,5 @@ echo "Making windows installer"
 makensis installer.nsi
 rm -f "Markdown Editor on the web.url"
 
-#rm -rf markdown-editor-downloads/EXE/
 echo ""
 echo "Done"

@@ -34,7 +34,7 @@ RequestExecutionLevel admin
   !insertmacro MUI_PAGE_INSTFILES
 
   ; These indented statements modify settings for MUI_PAGE_FINISH
-    !define MUI_FINISHPAGE_RUN $INSTDIR\MarkdownEditor.exe
+    !define MUI_FINISHPAGE_RUN $INSTDIR\mde.exe
 
   !insertmacro MUI_PAGE_FINISH  
 
@@ -57,7 +57,7 @@ Section "Markdown_Editor (required)"
   SetOutPath $INSTDIR
   
   ; Put file there
-  File "markdown-editor-downloads\EXE\MarkdownEditor.exe"
+  File "markdown-editor-downloads\EXE\mde.exe"
   File "Markdown Editor on the web.url"
   File /r /x *_Options.pickle /x "User" /x "markdown-editor-downloads" "Resources"
   
@@ -78,7 +78,7 @@ Section "Start Menu Shortcuts"
 
   CreateDirectory "$SMPROGRAMS\Markdown Editor"
   CreateShortCut "$SMPROGRAMS\Markdown Editor\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
-  CreateShortCut "$SMPROGRAMS\Markdown Editor\Markdown Editor.lnk" "$INSTDIR\MarkdownEditor.exe" "" "$INSTDIR\MarkdownEditor.exe" 0
+  CreateShortCut "$SMPROGRAMS\Markdown Editor\Markdown Editor.lnk" "$INSTDIR\mde.exe" "" "$INSTDIR\mde.exe" 0
   CreateShortCut "$SMPROGRAMS\Markdown Editor\Markdown Editor on the web.lnk" "$INSTDIR\Markdown Editor on the web.url" "" "$INSTDIR\Markdown Editor on the web.url" 0
   
 SectionEnd
@@ -86,7 +86,7 @@ SectionEnd
 ; Optional section (can be disabled by the user)
 Section "Desktop Shortcut"
 
-  CreateShortCut "$DESKTOP\Markdown Editor.lnk" "$INSTDIR\MarkdownEditor.exe" "" "$INSTDIR\MarkdownEditor.exe" 0
+  CreateShortCut "$DESKTOP\Markdown Editor.lnk" "$INSTDIR\mde.exe" "" "$INSTDIR\mde.exe" 0
   
 SectionEnd
 
