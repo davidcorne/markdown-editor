@@ -1,49 +1,97 @@
-{
-    padding:0 0 0.5em 0;
-    font-family:georgia, sans-serif;
+body {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  color: #444444;
+  line-height: 1;
+  max-width: 960px;
+  padding: 30px;
+  counter-reset: section;
 }
-h1 {
-    margin:2em 0 0 0.75em;
-    border-bottom:5px solid #66f;
-    display:inline; 
-}
+
 h2 {
-    margin:2em 0 0 0.5em;
-    border-bottom:3px solid #66f;
-    display:inline; 
+  counter-reset: sub-section;
 }
+
 h3 {
-    margin:2em 0 0 0.5em;
-    border-bottom:2px solid #66f;
-    display:inline; 
+  counter-reset: detail;
 }
-p {
-    padding:0.6em 0.5em 0 0.5em;
+
+h1 {
+  font-size:400%;
+  text-align: center;
 }
-img {
-    padding:0.6em 0.5em 0 0.5em;
+
+h1, h2 {
+  color: #3366FF
 }
-a {
-    colr:#33f;
+
+h2:before {
+  content: counter(section) ". ";
+  counter-increment: section;  /* Add 1 to section */
 }
-.hint {
-    text-decoration:none;
-    color:#000;
-    border-bottom:1px dotted #333;
+
+h3:before {
+  content: counter(section) "." counter(sub-section) ". ";
+  counter-increment: sub-section;  /* Add 1 to sub-section */
 }
-.hint:hover {
-    cursor:help;
+
+h4:before {
+  content: counter(section) "." counter(sub-section) "." counter(detail) ". ";
+  counter-increment: detail;  /* Add 1 to detail */
 }
-tt
-{
-    color:#909;
+
+dl {
+  margin-bottom:50px;
 }
-table, th, td
-{
-    margin: 0 0 0 1em;
-    border: 1px solid black;
+ 
+dl dt {
+  background:#5f9be3;
+  color:#fff;
+  float:left; 
+  font-weight:bold; 
+  margin-right:10px; 
+  padding:5px;  
+  width:150px; 
 }
-table
-{
-    border-collapse:collapse;
+ 
+dl dd {
+  margin:2px 0; 
+  padding:5px 0;
+}
+
+blockquote {
+  border-left:.5em solid #eee;
+  padding: 0 2em;
+  margin-left:0;
+  max-width: 476px;
+}
+blockquote  cite {
+  font-size:14px;
+  line-height:20px;
+  color:#bfbfbf;
+}
+blockquote cite:before {
+  content: '\2014 \00A0';
+}
+
+blockquote p {  
+  color: #666;
+  max-width: 460px;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th {
+  background:#5f9be3;
+  color:#fff;
+  font-weight:bold; 
+  margin-right:10px; 
+  padding:5px;  
+  width:100px; 
+  text-align:left
+}
+
+table {
+  border-collapse:collapse;
 }
