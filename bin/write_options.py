@@ -20,7 +20,7 @@ OPTIONS = {
     "show_html": False,
     "processor": "markdown_all",
     "markdown_css": "Markdown",
-    "display_line_numbers": True,
+    "display_line_numbers": False,
     "font": "Arial,12,-1,5,50,0,0,0,0,0",
     }
 
