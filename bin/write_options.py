@@ -106,6 +106,16 @@ Please report this at https://bitbucket.org/davidcorne/markdown-editor/issues
     "image_files_error": "Image files not found.",
     "image_files_error_detail": "Images should be found at %s",
     "code_css_class": "CSS class used for code.",
+    "program_description": """\
+This is a fully featured graphical editor for markdown.
+
+For more information visit https://bitbucket.org/davidcorne/markdown-editor
+""",
+    "reset_user_conf_help": "Remove all the user configuration file.",
+    "file_argument": "Files to open in MarkdownEditor",
+    "create_file_option": "Creates any new files passed to the executable.",
+    "file_not_found": "File %s does not exist.",
+    "file_not_created": "File %s could not be created.",
     }
 
 TOOL_TIPS = {

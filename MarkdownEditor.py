@@ -83,14 +83,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             try:
                 self.open_file(markdown)
             except IOError:
-                error = "".join(
-                    [
-                        "File \"",
-                        markdown,
-                        "\" does not exist"
-                        ]
-                    )
-                Error.show_error(error)
+                Error.show_error(USER_TEXT["file_not_found"] %(markdown))
 
     def tab_close_requested(self, index):
         old_index = self.editor.currentIndex()
