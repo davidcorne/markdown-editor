@@ -23,14 +23,14 @@ def touch_files(files):
     Will create each file in files if it does not already exist.
     if it cannot be created it will raise an error.
     """
-    for markdown_file in args.files:
+    for markdown_file in files:
         try:
             open(markdown_file, "a").close()
         except IOError:
             Error.show_error(
                 USER_TEXT["file_not_created"] %(markdown_file)
                 )
-            args.files.remove(markdown_file)
+            files.remove(markdown_file)
 
 #==============================================================================
 def parse_args():
