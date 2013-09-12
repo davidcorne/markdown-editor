@@ -1660,7 +1660,8 @@ def open_link(url):
 
 #==============================================================================
 def process_markdown(markdown_string):
-    return Configuration.PROCESSOR.render(markdown_string)
+    css = "".join([Configuration.MARKDOWN_CSS, Configuration.CODE_CSS])
+    return Configuration.PROCESSOR.render(markdown_string, css)
 
 #==============================================================================
 if (__name__ == "__main__"):

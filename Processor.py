@@ -13,8 +13,6 @@ import pygments.formatters
 
 # local imports
 
-import Configuration
-
 OPEN_HEAD = """<html>
 <head>
   <title></title>
@@ -29,6 +27,23 @@ CLOSE_HEAD = """</style>
 CLOSE_BODY = "</body></html>"
 
 #==============================================================================
+def add_css(body_html, css):
+    """
+    Takes raw html and adds CSS to the top, puts it in <html> tags and puts
+    it in a body.
+    """
+    html = [
+        OPEN_HEAD,
+        css,
+        #Configuration.MARKDOWN_CSS,
+        #Configuration.CODE_CSS,
+        CLOSE_HEAD,
+        body_html,
+        CLOSE_BODY
+        ]
+    return "".join(html)
+
+#==============================================================================
 class MarkdownRenderer(object):
     __metaclass__ = abc.ABCMeta
 
@@ -36,28 +51,13 @@ class MarkdownRenderer(object):
     def make_html(self, markdown_string):
         raise
 
-    def render(self, markdown_string):
-        return self.add_css(self.make_html(markdown_string))
-
-    def add_css(self, raw_html):
-        """
-        Takes raw html and adds CSS to the top, puts it in <html> tags and puts
-        it in a body.
-        """
-        html = [
-            OPEN_HEAD,
-            Configuration.MARKDOWN_CSS,
-            Configuration.CODE_CSS,
-            CLOSE_HEAD,
-            raw_html,
-            CLOSE_BODY
-            ]
-        return "".join(html)
+    def render(self, markdown_string, css):
+        return add_css(self.make_html(markdown_string), css)
 
 #==============================================================================
 class MarkdownExtra(MarkdownRenderer):
 
-    def __init__(self):
+    def __init__(self, line_numbers, css_code_class):
         super(MarkdownExtra, self).__init__()
         self.renderer = markdown.Markdown(["extra"])
 
@@ -67,7 +67,7 @@ class MarkdownExtra(MarkdownRenderer):
 #==============================================================================
 class Markdown(MarkdownRenderer):
 
-    def __init__(self):
+    def __init__(self, line_numbers, css_code_class):
         super(Markdown, self).__init__()
         self.renderer = markdown.Markdown()
 
@@ -77,9 +77,11 @@ class Markdown(MarkdownRenderer):
 #==============================================================================
 class CodeHilite(MarkdownRenderer):
 
-    def __init__(self):
+    def __init__(self, line_numbers, css_code_class):
         super(CodeHilite, self).__init__()
-        self.renderer = markdown.Markdown(extensions=[codehilite_extension()])
+        self.renderer = markdown.Markdown(
+            extensions=[codehilite_extension(line_numbers, css_code_class)]
+            )
 
     def make_html(self, markdown_string):
         return self.renderer.convert(markdown_string)
@@ -87,13 +89,13 @@ class CodeHilite(MarkdownRenderer):
 #==============================================================================
 class MarkdownAll(MarkdownRenderer):
 
-    def __init__(self):
+    def __init__(self, line_numbers, css_code_class):
         super(MarkdownAll, self).__init__()
         
         self.renderer = markdown.Markdown(
             extensions=[
                 "extra",
-                codehilite_extension()
+                codehilite_extension(line_numbers, css_code_class)
                 ]
             )
 
@@ -115,15 +117,17 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
             except pygments.util.ClassNotFound:
                 return cgi.escape(text, quote=True)
             formatter = pygments.formatters.HtmlFormatter(
-                linenos=Configuration.OPTIONS["display_line_numbers"],
-                cssclass=Configuration.OPTIONS["code_css_class"],
+                linenos=self.line_numbers,
+                cssclass=self.css_code_class,
                 )
             highlighted = pygments.highlight(text, lexer, formatter)
             return highlighted
 
-    def __init__(self):
+    def __init__(self, line_numbers, css_code_class):
         super(GithubFlavouredMarkdown, self).__init__()
         my_renderer = GithubFlavouredMarkdown.Renderer()
+        my_renderer.line_numbers = line_numbers
+        my_renderer.css_code_class = css_code_class
         self.renderer = misaka.Markdown(
             my_renderer,
             extensions=misaka.EXT_FENCED_CODE | misaka.EXT_NO_INTRA_EMPHASIS
@@ -133,12 +137,10 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
         return self.renderer.render(markdown_string)
 
 #==============================================================================
-def codehilite_extension():
+def codehilite_extension(line_numbers, css_code_class):
     """
     Returns the extension with correct config for the custom codehilite.
     """
-    line_numbers = Configuration.OPTIONS["display_line_numbers"]
-    css_code_class = Configuration.OPTIONS["code_css_class"]
     codehilite = [
         "codehilite(css_class=",
         css_code_class,

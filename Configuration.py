@@ -100,7 +100,10 @@ def load_code_css():
 #==============================================================================
 def load_processor():
     global PROCESSOR
-    PROCESSOR = PROCESSOR_TYPES[OPTIONS["processor"]]()
+    PROCESSOR = PROCESSOR_TYPES[OPTIONS["processor"]](
+        OPTIONS["display_line_numbers"],
+        OPTIONS["code_css_class"],
+        )
 
 #==============================================================================
 def reset_options():
