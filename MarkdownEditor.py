@@ -204,10 +204,11 @@ class MarkdownEditor(QtGui.QMainWindow):
         image_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["image"])
             )
-        image_button.setToolTip(Configuration.TOOL_TIP["image"])
-        image_button.setStatusTip(Configuration.TOOL_TIP["image"])
+        image_button.setToolTip(Configuration.TOOL_TIP["image_menu"])
+        image_button.setStatusTip(Configuration.TOOL_TIP["image_menu"])
         image_button.setShortcut("Ctrl+M")
-        image_button.clicked.connect(self.insert_image)
+        image_button.setMenu(self.image_menu())
+        image_button.setPopupMode(QtGui.QToolButton.InstantPopup)
 
         colour_button = ColourButton(self, self.colour_highlighted)
 
@@ -223,6 +224,19 @@ class MarkdownEditor(QtGui.QMainWindow):
         format_toolbar.setFloatable(True)
         format_toolbar.setAllowedAreas(QtCore.Qt.AllToolBarAreas)
         self.addToolBar(format_toolbar)
+
+    def image_menu(self):
+        """
+        Returns a QMenu with options for linking images or embedding images.
+        """
+        menu = QtGui.QMenu()
+
+        link_image = menu.addAction(USER_TEXT["link_image"])
+        link_image.setIcon(QtGui.QIcon(Configuration.IMAGES["link"]))
+        link_image.setStatusTip(Configuration.TOOL_TIP["link_image"])
+        link_image.setToolTip(Configuration.TOOL_TIP["link_image"])
+        link_image.triggered.connect(self.link_image)
+        return menu
 
     def print_menu(self):
         """
@@ -716,12 +730,12 @@ class MarkdownEditor(QtGui.QMainWindow):
             if (link_ok):
                 self.editor.currentWidget().insert_link(unicode(link))
 
-    def insert_image(self):
+    def link_image(self):
         if (self.editor.count()):
             dialog = ImageDialog(self)
             ok_clicked, image_location, title = dialog.get_image()
             if (ok_clicked):
-                self.editor.currentWidget().insert_image(image_location, title)
+                self.editor.currentWidget().link_image(image_location, title)
 
     def cut(self):
         if (self.editor.count()):
@@ -1042,7 +1056,7 @@ class ImageDialog(QtGui.QDialog):
 
         self.setLayout(main_layout)
 
-        self.setWindowTitle(USER_TEXT["insert_image"])
+        self.setWindowTitle(USER_TEXT["link_image"])
 
     def browse_for_image(self):
         file_path = QtGui.QFileDialog.getOpenFileName(
@@ -1450,7 +1464,7 @@ class Document(QtGui.QWidget):
         text.append("".join(["(", link, ")"]))
         cursor.insertText(text)
 
-    def insert_image(self, image_location, title):
+    def link_image(self, image_location, title):
         self.edit_selection("![", "]", False)
         cursor = self.text.textCursor()
         text = cursor.selectedText()
