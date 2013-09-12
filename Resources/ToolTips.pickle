@@ -67,64 +67,68 @@ sVsave_as
 p33
 VSave the current document with a specified name
 p34
-sVcut
+sVembed_image
 p35
-VCut the highlighted area to the clipboard
+VEmbed a given image as bytes
 p36
-sVprint_rendered_html
+sVcut
 p37
-VPrints the HTML output as it will be rendered by a browser
+VCut the highlighted area to the clipboard
 p38
-sVselect_all
+sVprint_rendered_html
 p39
-VSelect all the text in the current document
+VPrints the HTML output as it will be rendered by a browser
 p40
-sVclose_file
+sVselect_all
 p41
-VClose the currently open document
+VSelect all the text in the current document
 p42
-sVopen_file
+sVclose_file
 p43
-VOpen an existing document
+VClose the currently open document
 p44
-sVredo
+sVopen_file
 p45
-VRedo the previous undo
+VOpen an existing document
 p46
-sVprint_preview_rendered_html
+sVredo
 p47
-VShows a preview of the HTML output as it will be rendered by a browser before printing
+VRedo the previous undo
 p48
-sVlink_image
+sVprint_preview_rendered_html
 p49
-VLink to an image with the title of the surrounded area
+VShows a preview of the HTML output as it will be rendered by a browser before printing
 p50
-sVprint_raw_html
+sVlink_image
 p51
-VPrints the raw HTML code output
+VLink to an image with the title of the surrounded area
 p52
-sVitalic
+sVprint_raw_html
 p53
-VSurround the highlighted area with emphasis (_)
+VPrints the raw HTML code output
 p54
-sVsave_file
+sVitalic
 p55
-VSave the current document
+VSurround the highlighted area with emphasis (_)
 p56
-sVexport_html
+sVsave_file
 p57
-VExport the current document as html
+VSave the current document
 p58
-sVprint_menu
+sVexport_html
 p59
-VOpens the printing menu
+VExport the current document as html
 p60
-sVprint_markdown
+sVprint_menu
 p61
-VPrints the markdown document
+VOpens the printing menu
 p62
-sVchoose_colour
+sVprint_markdown
 p63
-VRaise a colour chooser dialog
+VPrints the markdown document
 p64
+sVchoose_colour
+p65
+VRaise a colour chooser dialog
+p66
 s.

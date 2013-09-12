@@ -26,7 +26,7 @@ def image_to_base_64_bytes(path):
     return data
 
 #==============================================================================
-def path_to_image_tag(path):
+def path_to_image_tag(path, alt="", title=""):
     """
     This takes a path and returns a byte array from the image. This byte array
     is base 64
@@ -36,10 +36,18 @@ def path_to_image_tag(path):
     
     """
     img = [
-        "<img src=\"",
+        "<img ",
+        "alt=\"",
+        alt,
+        "\" ",
+        "src=\"",
         "data:image;base64,",
         image_to_base_64_bytes(path),
-        "\" />"
+        "\"",
+        "title=\"",
+        title,
+        "\"",
+        "/>"
         ]
     return "".join(img)
 

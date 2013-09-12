@@ -17,7 +17,7 @@ VFind and Replace
 p8
 sVlink_image
 p9
-VInsert a link to an external image.
+VInsert a link to an external image
 p10
 sVbrowse_for_image
 p11
@@ -75,9 +75,9 @@ sVsave_as
 p37
 VSave As
 p38
-sVfile_not_created
+sVembed_image
 p39
-VFile %s could not be created.
+VEmbed a given image as bytes
 p40
 sVformat_toolbar
 p41
@@ -163,9 +163,9 @@ sVenter_link
 p81
 VEnter the destination URL
 p82
-sVuser_interface_import_fail
+sVimage_location
 p83
-VThere has been an error in the user interface library loading.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
+VThe image location
 p84
 sVfile_toolbar
 p85
@@ -199,136 +199,144 @@ sVmisc
 p99
 VMiscellaneous
 p100
-sVsave_changes?
+sVfile_not_created
 p101
-VDo you want to save your changes?
+VFile %s could not be created.
 p102
-sVexport_pdf
+sVsave_changes?
 p103
-VExport PDF
+VDo you want to save your changes?
 p104
-sVundo
+sVexport_pdf
 p105
-VUndo
+VExport PDF
 p106
-sVimage_files_error
+sVundo
 p107
-VImage files not found.
+VUndo
 p108
-sVcodehilite
+sVimage_files_error
 p109
-VCodeHilite
+VImage files not found.
 p110
-sVcut
+sVcodehilite
 p111
-VCut
+VCodeHilite
 p112
-sVother_options
+sVcut
 p113
-VOther Options
+VCut
 p114
-sVfind_what
+sVother_options
 p115
-VFind &what:
+VOther Options
 p116
-sVgithub_flavoured_markdown
+sVfind_what
 p117
-VGithub Flavoured Markdown
+VFind &what:
 p118
-sVprint_preview_raw_html
+sVgithub_flavoured_markdown
 p119
-VPrint Preview Raw HTML Code
+VGithub Flavoured Markdown
 p120
-sVcreate_file_option
+sVprint_preview_raw_html
 p121
-VCreates any new files passed to the executable.
+VPrint Preview Raw HTML Code
 p122
-sVprogram_name
+sVcreate_file_option
 p123
-VMarkdownEditor
+VCreates any new files passed to the executable.
 p124
-sVcopy
+sVprogram_name
 p125
-VCopy
+VMarkdownEditor
 p126
-sVpaste
+sVcopy
 p127
-VPaste
+VCopy
 p128
-sVset_font
+sVpaste
 p129
-VSet Font
+VPaste
 p130
-sVexception
+sVset_font
 p131
-VAn internal error has occured.
+VSet Font
 p132
-sVfile_not_found
+sVexception
 p133
-VFile %s does not exist.
+VAn internal error has occured.
 p134
-sVfind_title
+sVfile_not_found
 p135
-VFind
+VFile %s does not exist.
 p136
-sVhelp_link
+sVfind_title
 p137
-VMarkdown Editor On The Web
+VFind
 p138
-sVclose_file
+sVhelp_link
 p139
-VClose File
+VMarkdown Editor On The Web
 p140
-sVsave_file
+sVclose_file
 p141
-VSave
+VClose File
 p142
-sVenter_image_title
+sVsave_file
 p143
-VEnter the image title (optional)
+VSave
 p144
-sVedit_menu
+sVenter_image_title
 p145
-V&Edit
+VEnter the image title (optional)
 p146
-sVprint_markdown
+sVedit_menu
 p147
-VPrint Markdown
+V&Edit
 p148
-sVprint_preview_rendered_html
+sVprint_markdown
 p149
-VPrint Preview Rendered HTML
+VPrint Markdown
 p150
-sVprint_raw_html
+sVprint_preview_rendered_html
 p151
-VPrint Raw HTML Code
+VPrint Preview Rendered HTML
 p152
-sVcss
+sVprint_raw_html
 p153
-VCSS
+VPrint Raw HTML Code
 p154
-sVreplace_all
+sVcss
 p155
-VReplace &all
+VCSS
 p156
-sVexport_html
+sVreplace_all
 p157
-VExport HTML
+VReplace &all
 p158
-sVtools_menu
+sVuser_interface_import_fail
 p159
-V&Tools
+VThere has been an error in the user interface library loading.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
 p160
-sVshow_html
+sVexport_html
 p161
-VShow HTML
+VExport HTML
 p162
-sVoptions
+sVtools_menu
 p163
-VOptions
+V&Tools
 p164
-sVdebug_options
+sVshow_html
 p165
-VDebug Options
+VShow HTML
 p166
+sVoptions
+p167
+VOptions
+p168
+sVdebug_options
+p169
+VDebug Options
+p170
 s.
