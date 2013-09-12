@@ -35,13 +35,25 @@ def add_css(body_html, css):
     html = [
         OPEN_HEAD,
         css,
-        #Configuration.MARKDOWN_CSS,
-        #Configuration.CODE_CSS,
         CLOSE_HEAD,
         body_html,
         CLOSE_BODY
         ]
     return "".join(html)
+
+#==============================================================================
+def codehilite_extension(line_numbers, css_code_class):
+    """
+    Returns the extension with correct config for the custom codehilite.
+    """
+    codehilite = [
+        "codehilite(css_class=",
+        css_code_class,
+        ", linenums=",
+        str(line_numbers),
+        ")"
+        ]
+    return "".join(codehilite)
 
 #==============================================================================
 class MarkdownRenderer(object):
@@ -135,20 +147,6 @@ class GithubFlavouredMarkdown(MarkdownRenderer):
 
     def make_html(self, markdown_string):
         return self.renderer.render(markdown_string)
-
-#==============================================================================
-def codehilite_extension(line_numbers, css_code_class):
-    """
-    Returns the extension with correct config for the custom codehilite.
-    """
-    codehilite = [
-        "codehilite(css_class=",
-        css_code_class,
-        ", linenums=",
-        str(line_numbers),
-        ")"
-        ]
-    return "".join(codehilite)
 
 #==============================================================================
 if (__name__ == "__main__"):
