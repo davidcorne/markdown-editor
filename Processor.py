@@ -3,7 +3,6 @@
 
 # python imports
 
-import abc
 import cgi
 import markdown
 import misaka
@@ -57,11 +56,13 @@ def codehilite_extension(line_numbers, css_code_class):
 
 #==============================================================================
 class MarkdownRenderer(object):
-    __metaclass__ = abc.ABCMeta
 
-    @abc.abstractmethod
     def make_html(self, markdown_string):
-        raise
+        """
+        Use this to semi enforce this as an abstract base class without using 
+        the abc module.
+        """
+        raise TypeError("A MarkdownRenderer must override make_html()")
 
     def render(self, markdown_string, css):
         return add_css(self.make_html(markdown_string), css)
