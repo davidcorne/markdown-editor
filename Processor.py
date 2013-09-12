@@ -15,15 +15,20 @@ import pygments.formatters
 OPEN_HEAD = """<html>
 <head>
   <title></title>
-  <meta http-equiv="content-type" content="text/html; charset=None">
+  <meta http-equiv="content-type" content="text/html; charset=None" />
   <style type="text/css">
 """
 
-CLOSE_HEAD = """</style>
+CLOSE_HEAD = """
+  </style>
 </head>
-<body>"""
+<body>
+"""
 
-CLOSE_BODY = "</body></html>"
+CLOSE_BODY = """
+</body>
+</html>
+"""
 
 #==============================================================================
 def add_css(body_html, css):
