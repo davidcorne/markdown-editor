@@ -2,8 +2,6 @@
 # Written by: DGC
 
 # python imports
-import xml.dom.minidom
-import xml.parsers.expat
 import unittest
 
 # local imports
