@@ -3,124 +3,132 @@ Vcode
 p1
 VSurround the highlighted area with code blocks (```)
 p2
-sVfind_and_replace
-p3
-VRaise the find and replace window
-p4
-sVimage
-p5
-VInsert an image with the title of the surrounded area
-p6
-sVprint_preview_markdown
-p7
-VShows a preview of the markdown before printing
-p8
-sVsave_all
-p9
-VSave all open documents
-p10
-sVredo
-p11
-VRedo the previous undo
-p12
-sVconfigure
-p13
-VConfigure the program
-p14
-sVsave_as
-p15
-VSave the current document with a specified name
-p16
-sVexport_pdf
-p17
-VExport the current document as a pdf file
-p18
-sVprint_rendered_html
-p19
-VPrints the HTML output as it will be rendered by a browser
-p20
-sVselect_all
-p21
-VSelect all the text in the current document
-p22
-sVopen_file
-p23
-VOpen an existing document
-p24
-sVprint_preview_raw_html
-p25
-VShows a preview of the raw HTML code output before printing
-p26
-sVitalic
-p27
-VSurround the highlighted area with emphasis (_)
-p28
-sVprint_menu
-p29
-VOpens the printing menu
-p30
-sVchoose_colour
-p31
-VRaise a colour chooser dialog
-p32
 sVbold
-p33
+p3
 VSurround the highlighted area with strong emphasis (__)
-p34
+p4
+sVfind_and_replace
+p5
+VRaise the find and replace window
+p6
 sVnew_file
-p35
+p7
 VStart a new document
-p36
+p8
+sVimage_menu
+p9
+VOpens a list of image options
+p10
 sVundo
-p37
+p11
 VUndo the previous change
-p38
-sVcut
-p39
-VCut the highlighted area to the clipboard
-p40
+p12
+sVsave_all
+p13
+VSave all open documents
+p14
+sVexport_pdf
+p15
+VExport the current document as a pdf file
+p16
 sVlink
-p41
+p17
 VInsert a link with the link text of the surrounded area
-p42
-sVcopy
-p43
-VCopy the highlighted area to the clipboard
-p44
-sVpaste
-p45
-VPaste from the clipboard to the current cursor location
-p46
-sVset_colour
-p47
-VSet the colour of the highlighted area to this colour
-p48
+p18
+sVprint_preview_markdown
+p19
+VShows a preview of the markdown before printing
+p20
+sVprint_preview_raw_html
+p21
+VShows a preview of the raw HTML code output before printing
+p22
 sVhelp_link
-p49
+p23
 VOpens the website for this product in your defualt browser
-p50
+p24
+sVcopy
+p25
+VCopy the highlighted area to the clipboard
+p26
+sVpaste
+p27
+VPaste from the clipboard to the current cursor location
+p28
+sVset_colour
+p29
+VSet the colour of the highlighted area to this colour
+p30
+sVconfigure
+p31
+VConfigure the program
+p32
+sVsave_as
+p33
+VSave the current document with a specified name
+p34
+sVembed_image
+p35
+VEmbed a given image as bytes
+p36
+sVcut
+p37
+VCut the highlighted area to the clipboard
+p38
+sVprint_rendered_html
+p39
+VPrints the HTML output as it will be rendered by a browser
+p40
+sVselect_all
+p41
+VSelect all the text in the current document
+p42
 sVclose_file
-p51
+p43
 VClose the currently open document
-p52
-sVsave_file
-p53
-VSave the current document
-p54
+p44
+sVopen_file
+p45
+VOpen an existing document
+p46
+sVredo
+p47
+VRedo the previous undo
+p48
 sVprint_preview_rendered_html
-p55
+p49
 VShows a preview of the HTML output as it will be rendered by a browser before printing
-p56
+p50
+sVlink_image
+p51
+VLink to an image with the title of the surrounded area
+p52
 sVprint_raw_html
-p57
+p53
 VPrints the raw HTML code output
+p54
+sVitalic
+p55
+VSurround the highlighted area with emphasis (_)
+p56
+sVsave_file
+p57
+VSave the current document
 p58
 sVexport_html
 p59
 VExport the current document as html
 p60
-sVprint_markdown
+sVprint_menu
 p61
-VPrints the markdown document
+VOpens the printing menu
 p62
+sVprint_markdown
+p63
+VPrints the markdown document
+p64
+sVchoose_colour
+p65
+VRaise a colour chooser dialog
+p66
 s.
