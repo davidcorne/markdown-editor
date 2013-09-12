@@ -50,13 +50,6 @@ def save_options():
     options_path = user_options_file_path()
     with open(options_path, "wb") as options_file:
         pickle.dump(OPTIONS, options_file)
-    
-#==============================================================================
-def read_tool_tips():
-    filename = os.path.join(Resources.directory(), "ToolTips.pickle")
-    with open(filename, "rb") as tool_tips_file:
-        global TOOL_TIP
-        TOOL_TIP = pickle.load(tool_tips_file)
 
 #==============================================================================
 def find_images():
@@ -126,7 +119,6 @@ def on_import():
     Makes all the global config options.
     """
     read_options()
-    read_tool_tips()
     find_images()
     
     load_markdown_css()

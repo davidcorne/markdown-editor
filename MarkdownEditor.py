@@ -18,6 +18,7 @@ import Error
 import Examples
 
 from UserText import USER_TEXT
+from ToolTips import TOOL_TIP
 
 #==============================================================================
 class MarkdownEditorApp(QtGui.QApplication):
@@ -138,16 +139,16 @@ class MarkdownEditor(QtGui.QMainWindow):
         undo_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["undo"])
             )
-        undo_button.setToolTip(Configuration.TOOL_TIP["undo"])
-        undo_button.setStatusTip(Configuration.TOOL_TIP["undo"])
+        undo_button.setToolTip(TOOL_TIP["undo"])
+        undo_button.setStatusTip(TOOL_TIP["undo"])
         undo_button.clicked.connect(self.undo)
 
         redo_button = QtGui.QToolButton()
         redo_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["redo"])
             )
-        redo_button.setToolTip(Configuration.TOOL_TIP["redo"])
-        redo_button.setStatusTip(Configuration.TOOL_TIP["redo"])
+        redo_button.setToolTip(TOOL_TIP["redo"])
+        redo_button.setStatusTip(TOOL_TIP["redo"])
         redo_button.clicked.connect(self.redo)
 
         undo_redo_toolbar.addWidget(undo_button)
@@ -168,8 +169,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         bold_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["bold"])
             )
-        bold_button.setToolTip(Configuration.TOOL_TIP["bold"])
-        bold_button.setStatusTip(Configuration.TOOL_TIP["bold"])
+        bold_button.setToolTip(TOOL_TIP["bold"])
+        bold_button.setStatusTip(TOOL_TIP["bold"])
         bold_button.setShortcut("Ctrl+B")
         bold_button.clicked.connect(self.bold_highlighted)
 
@@ -177,8 +178,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         italic_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["italic"])
             )
-        italic_button.setToolTip(Configuration.TOOL_TIP["italic"])
-        italic_button.setStatusTip(Configuration.TOOL_TIP["italic"])
+        italic_button.setToolTip(TOOL_TIP["italic"])
+        italic_button.setStatusTip(TOOL_TIP["italic"])
         italic_button.setShortcut("Ctrl+I")
         italic_button.clicked.connect(self.italic_highlighted)
 
@@ -186,8 +187,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         code_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["code"])
             )
-        code_button.setToolTip(Configuration.TOOL_TIP["code"])
-        code_button.setStatusTip(Configuration.TOOL_TIP["code"])
+        code_button.setToolTip(TOOL_TIP["code"])
+        code_button.setStatusTip(TOOL_TIP["code"])
         code_button.setShortcut("Ctrl+Shift+C")
         code_button.clicked.connect(self.code_highlighted)
 
@@ -195,8 +196,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         link_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["link"])
             )
-        link_button.setToolTip(Configuration.TOOL_TIP["link"])
-        link_button.setStatusTip(Configuration.TOOL_TIP["link"])
+        link_button.setToolTip(TOOL_TIP["link"])
+        link_button.setStatusTip(TOOL_TIP["link"])
         link_button.setShortcut("Ctrl+L")
         link_button.clicked.connect(self.insert_link)
 
@@ -204,8 +205,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         image_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["image"])
             )
-        image_button.setToolTip(Configuration.TOOL_TIP["image_menu"])
-        image_button.setStatusTip(Configuration.TOOL_TIP["image_menu"])
+        image_button.setToolTip(TOOL_TIP["image_menu"])
+        image_button.setStatusTip(TOOL_TIP["image_menu"])
         image_button.setShortcut("Ctrl+M")
         image_button.setMenu(self.image_menu())
         image_button.setPopupMode(QtGui.QToolButton.InstantPopup)
@@ -233,8 +234,8 @@ class MarkdownEditor(QtGui.QMainWindow):
 
         link_image = menu.addAction(USER_TEXT["link_image"])
         link_image.setIcon(QtGui.QIcon(Configuration.IMAGES["link"]))
-        link_image.setStatusTip(Configuration.TOOL_TIP["link_image"])
-        link_image.setToolTip(Configuration.TOOL_TIP["link_image"])
+        link_image.setStatusTip(TOOL_TIP["link_image"])
+        link_image.setToolTip(TOOL_TIP["link_image"])
         link_image.triggered.connect(self.link_image)
         return menu
 
@@ -249,7 +250,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 )
         print_rendered_html.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
         print_rendered_html.setStatusTip(
-            Configuration.TOOL_TIP["print_rendered_html"]
+            TOOL_TIP["print_rendered_html"]
             )
         print_rendered_html.triggered.connect(self.print_rendered_html_dialog)
 
@@ -260,7 +261,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["print_preview"])
             )
         print_preview_rendered_html.setStatusTip(
-            Configuration.TOOL_TIP["print_preview_rendered_html"]
+            TOOL_TIP["print_preview_rendered_html"]
             )
         print_preview_rendered_html.triggered.connect(
             self.print_preview_rendered_html
@@ -271,7 +272,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             USER_TEXT["print_markdown"]
             )
         print_markdown.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
-        print_markdown.setStatusTip(Configuration.TOOL_TIP["print_markdown"])
+        print_markdown.setStatusTip(TOOL_TIP["print_markdown"])
         print_markdown.triggered.connect(self.print_markdown_dialog)
         
         print_preview_markdown = menu.addAction(
@@ -281,7 +282,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["print_preview"])
             )
         print_preview_markdown.setStatusTip(
-            Configuration.TOOL_TIP["print_preview_markdown"]
+            TOOL_TIP["print_preview_markdown"]
             )
         print_preview_markdown.triggered.connect(self.print_preview_markdown)
         menu.addSeparator()
@@ -290,7 +291,7 @@ class MarkdownEditor(QtGui.QMainWindow):
                 USER_TEXT["print_raw_html"]
                 )
         print_raw_html.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
-        print_raw_html.setStatusTip(Configuration.TOOL_TIP["print_raw_html"])
+        print_raw_html.setStatusTip(TOOL_TIP["print_raw_html"])
         print_raw_html.triggered.connect(self.print_raw_html_dialog)
 
         print_preview_raw_html = menu.addAction(
@@ -300,7 +301,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             QtGui.QIcon(Configuration.IMAGES["print_preview"])
             )
         print_preview_raw_html.setStatusTip(
-            Configuration.TOOL_TIP["print_preview_raw_html"]
+            TOOL_TIP["print_preview_raw_html"]
             )
         print_preview_raw_html.triggered.connect(
             self.print_preview_raw_html
@@ -341,24 +342,24 @@ class MarkdownEditor(QtGui.QMainWindow):
         cut_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["cut"])
             )
-        cut_button.setToolTip(Configuration.TOOL_TIP["cut"])
-        cut_button.setStatusTip(Configuration.TOOL_TIP["cut"])
+        cut_button.setToolTip(TOOL_TIP["cut"])
+        cut_button.setStatusTip(TOOL_TIP["cut"])
         cut_button.clicked.connect(self.cut)
 
         copy_button = QtGui.QToolButton()
         copy_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["copy"])
             )
-        copy_button.setToolTip(Configuration.TOOL_TIP["copy"])
-        copy_button.setStatusTip(Configuration.TOOL_TIP["copy"])
+        copy_button.setToolTip(TOOL_TIP["copy"])
+        copy_button.setStatusTip(TOOL_TIP["copy"])
         copy_button.clicked.connect(self.copy)
 
         paste_button = QtGui.QToolButton()
         paste_button.setIcon(
             QtGui.QIcon(Configuration.IMAGES["paste"])
             )
-        paste_button.setToolTip(Configuration.TOOL_TIP["paste"])
-        paste_button.setStatusTip(Configuration.TOOL_TIP["paste"])
+        paste_button.setToolTip(TOOL_TIP["paste"])
+        paste_button.setStatusTip(TOOL_TIP["paste"])
         paste_button.clicked.connect(self.paste)
 
         edit_toolbar.addWidget(cut_button)
@@ -387,7 +388,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             self
             )
         markdown_action.setIcon(QtGui.QIcon(Configuration.IMAGES["markdown"]))
-        markdown_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        markdown_action.setStatusTip(TOOL_TIP["help_link"])
         markdown_action.triggered.connect(self.help.markdown_description)
 
         markdown_extra_action = QtGui.QAction(
@@ -397,7 +398,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         markdown_extra_action.setIcon(
             QtGui.QIcon(Configuration.IMAGES["markdown"])
             )
-        markdown_extra_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        markdown_extra_action.setStatusTip(TOOL_TIP["help_link"])
         markdown_extra_action.triggered.connect(
             self.help.markdown_extra_description
             )
@@ -409,7 +410,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         markdown_all_action.setIcon(
             QtGui.QIcon(Configuration.IMAGES["markdown"])
             )
-        markdown_all_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        markdown_all_action.setStatusTip(TOOL_TIP["help_link"])
         markdown_all_action.triggered.connect(
             self.help.markdown_all_description
             )
@@ -421,7 +422,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         codehilite_action.setIcon(
             QtGui.QIcon(Configuration.IMAGES["markdown"])
             )
-        codehilite_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        codehilite_action.setStatusTip(TOOL_TIP["help_link"])
         codehilite_action.triggered.connect(self.help.codehilite_description)
 
         github_flavour_action = QtGui.QAction(
@@ -431,11 +432,11 @@ class MarkdownEditor(QtGui.QMainWindow):
         github_flavour_action.setIcon(
             QtGui.QIcon(Configuration.IMAGES["markdown"])
             )
-        github_flavour_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        github_flavour_action.setStatusTip(TOOL_TIP["help_link"])
         github_flavour_action.triggered.connect(self.help.github_description)
 
         link_action = QtGui.QAction(USER_TEXT["help_link"], self)
-        link_action.setStatusTip(Configuration.TOOL_TIP["help_link"])
+        link_action.setStatusTip(TOOL_TIP["help_link"])
         link_action.triggered.connect(self.help.open_link)
 
         menu_bar = self.menuBar()
@@ -451,34 +452,34 @@ class MarkdownEditor(QtGui.QMainWindow):
     def create_edit_menu(self):
         undo_action = QtGui.QAction(USER_TEXT["undo"], self)
         undo_action.setIcon(QtGui.QIcon(Configuration.IMAGES["undo"]))
-        undo_action.setStatusTip(Configuration.TOOL_TIP["undo"])
+        undo_action.setStatusTip(TOOL_TIP["undo"])
         undo_action.triggered.connect(self.undo)
 
         redo_action = QtGui.QAction(USER_TEXT["redo"], self)
         redo_action.setIcon(QtGui.QIcon(Configuration.IMAGES["redo"]))
-        redo_action.setStatusTip(Configuration.TOOL_TIP["redo"])
+        redo_action.setStatusTip(TOOL_TIP["redo"])
         redo_action.triggered.connect(self.redo)
 
         cut_action = QtGui.QAction(USER_TEXT["cut"], self)
         cut_action.setIcon(QtGui.QIcon(Configuration.IMAGES["cut"]))
-        cut_action.setStatusTip(Configuration.TOOL_TIP["cut"])
+        cut_action.setStatusTip(TOOL_TIP["cut"])
         cut_action.triggered.connect(self.cut)
 
         copy_action = QtGui.QAction(USER_TEXT["copy"], self)
         copy_action.setIcon(QtGui.QIcon(Configuration.IMAGES["copy"]))
-        copy_action.setStatusTip(Configuration.TOOL_TIP["copy"])
+        copy_action.setStatusTip(TOOL_TIP["copy"])
         copy_action.triggered.connect(self.copy)
 
         paste_action = QtGui.QAction(USER_TEXT["paste"], self)
         paste_action.setIcon(QtGui.QIcon(Configuration.IMAGES["paste"]))
-        paste_action.setStatusTip(Configuration.TOOL_TIP["paste"])
+        paste_action.setStatusTip(TOOL_TIP["paste"])
         paste_action.triggered.connect(self.paste)
 
         select_all_action = QtGui.QAction(
             USER_TEXT["select_all"],
             self
             )
-        select_all_action.setStatusTip(Configuration.TOOL_TIP["select_all"])
+        select_all_action.setStatusTip(TOOL_TIP["select_all"])
         select_all_action.triggered.connect(self.select_all)
 
         search_action = QtGui.QAction(
@@ -487,7 +488,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         search_action.setIcon(QtGui.QIcon(Configuration.IMAGES["find"]))
         search_action.setShortcut("Ctrl+F")
-        search_action.setStatusTip(Configuration.TOOL_TIP["find_and_replace"])
+        search_action.setStatusTip(TOOL_TIP["find_and_replace"])
         search_action.triggered.connect(self.raise_find_dialog)
 
         menu_bar = self.menuBar()
@@ -510,7 +511,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         configure_action.setIcon(
             QtGui.QIcon(Configuration.IMAGES["configure"])
             )
-        configure_action.setStatusTip(Configuration.TOOL_TIP["configure"])
+        configure_action.setStatusTip(TOOL_TIP["configure"])
         configure_action.triggered.connect(self.raise_configure_dialog)
 
         menu_bar = self.menuBar()
@@ -534,15 +535,15 @@ class MarkdownEditor(QtGui.QMainWindow):
         new_action = QtGui.QAction(USER_TEXT["new_file"], self)
         new_action.setIcon(QtGui.QIcon(Configuration.IMAGES["new_file"]))
         new_action.setShortcut("Ctrl+N")
-        new_action.setStatusTip(Configuration.TOOL_TIP["new_file"])
-        new_action.setToolTip(Configuration.TOOL_TIP["new_file"])
+        new_action.setStatusTip(TOOL_TIP["new_file"])
+        new_action.setToolTip(TOOL_TIP["new_file"])
         new_action.triggered.connect(self.new_file)
 
         open_action = QtGui.QAction(USER_TEXT["open_file"], self)
         open_action.setIcon(QtGui.QIcon(Configuration.IMAGES["open_file"]))
         open_action.setShortcut("Ctrl+O")
-        open_action.setStatusTip(Configuration.TOOL_TIP["open_file"])
-        open_action.setToolTip(Configuration.TOOL_TIP["open_file"])
+        open_action.setStatusTip(TOOL_TIP["open_file"])
+        open_action.setToolTip(TOOL_TIP["open_file"])
         open_action.triggered.connect(self.query_open_file)
 
         close_action = QtGui.QAction(
@@ -551,8 +552,8 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         close_action.setIcon(QtGui.QIcon(Configuration.IMAGES["close_file"]))
         close_action.setShortcut("Ctrl+F4")
-        close_action.setStatusTip(Configuration.TOOL_TIP["close_file"])
-        close_action.setToolTip(Configuration.TOOL_TIP["close_file"])
+        close_action.setStatusTip(TOOL_TIP["close_file"])
+        close_action.setToolTip(TOOL_TIP["close_file"])
         close_action.triggered.connect(self.close_file)
 
         # only make each action once, otherwise shortcuts are ambiguous
@@ -568,8 +569,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         save_action = QtGui.QAction(USER_TEXT["save_file"], self)
         save_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_file"]))
         save_action.setShortcut("Ctrl+S")
-        save_action.setStatusTip(Configuration.TOOL_TIP["save_file"])
-        save_action.setToolTip(Configuration.TOOL_TIP["save_file"])
+        save_action.setStatusTip(TOOL_TIP["save_file"])
+        save_action.setToolTip(TOOL_TIP["save_file"])
         save_action.triggered.connect(self.save_file)
 
         save_as_action = QtGui.QAction(
@@ -578,8 +579,8 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         save_as_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_as"]))
         save_as_action.setShortcut("F12")
-        save_as_action.setStatusTip(Configuration.TOOL_TIP["save_as"])
-        save_as_action.setToolTip(Configuration.TOOL_TIP["save_as"])
+        save_as_action.setStatusTip(TOOL_TIP["save_as"])
+        save_as_action.setToolTip(TOOL_TIP["save_as"])
         save_as_action.triggered.connect(self.save_file_as)
 
         save_all_action =  QtGui.QAction(
@@ -588,8 +589,8 @@ class MarkdownEditor(QtGui.QMainWindow):
             )
         save_all_action.setIcon(QtGui.QIcon(Configuration.IMAGES["save_all"]))
         save_all_action.setShortcut("Ctrl+Shift+S")
-        save_all_action.setStatusTip(Configuration.TOOL_TIP["save_all"])
-        save_all_action.setToolTip(Configuration.TOOL_TIP["save_all"])
+        save_all_action.setStatusTip(TOOL_TIP["save_all"])
+        save_all_action.setToolTip(TOOL_TIP["save_all"])
         save_all_action.triggered.connect(self.save_all_files)
         
         # only make each action once, otherwise shortcuts are ambiguous
@@ -609,8 +610,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         export_html_action.setIcon(
             QtGui.QIcon(Configuration.IMAGES["export_html"])
             )
-        export_html_action.setStatusTip(Configuration.TOOL_TIP["export_html"])
-        export_html_action.setToolTip(Configuration.TOOL_TIP["export_html"])
+        export_html_action.setStatusTip(TOOL_TIP["export_html"])
+        export_html_action.setToolTip(TOOL_TIP["export_html"])
         export_html_action.triggered.connect(self.export_html)
 
         export_pdf_action = QtGui.QAction(
@@ -620,8 +621,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         export_pdf_action.setIcon(
             QtGui.QIcon(Configuration.IMAGES["export_pdf"])
             )
-        export_pdf_action.setStatusTip(Configuration.TOOL_TIP["export_pdf"])
-        export_pdf_action.setToolTip(Configuration.TOOL_TIP["export_pdf"])
+        export_pdf_action.setStatusTip(TOOL_TIP["export_pdf"])
+        export_pdf_action.setToolTip(TOOL_TIP["export_pdf"])
         export_pdf_action.triggered.connect(self.export_pdf)
 
         print_action = QtGui.QAction(
@@ -629,8 +630,8 @@ class MarkdownEditor(QtGui.QMainWindow):
             self
             )
         print_action.setIcon(QtGui.QIcon(Configuration.IMAGES["print"]))
-        print_action.setStatusTip(Configuration.TOOL_TIP["print_menu"])
-        print_action.setToolTip(Configuration.TOOL_TIP["print_menu"])
+        print_action.setStatusTip(TOOL_TIP["print_menu"])
+        print_action.setToolTip(TOOL_TIP["print_menu"])
         print_action.setMenu(self.print_menu())
 
         # only make each action once, otherwise shortcuts are ambiguous
@@ -947,8 +948,8 @@ class ColourButton(QtGui.QToolButton):
         self.set_colour = set_colour
         self.colour = "#ff0000"
         
-        self.setToolTip(Configuration.TOOL_TIP["set_colour"])
-        self.setStatusTip(Configuration.TOOL_TIP["set_colour"])
+        self.setToolTip(TOOL_TIP["set_colour"])
+        self.setStatusTip(TOOL_TIP["set_colour"])
         self.clicked.connect(
             lambda : self.set_colour(self.colour)
             )
