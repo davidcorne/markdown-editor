@@ -13,6 +13,7 @@ import xml.dom.minidom
 from PyQt4 import QtGui, QtCore
 
 # local imports
+import Version
 
 from UserText import USER_TEXT
 
@@ -28,7 +29,8 @@ def current_version():
     """
     Returns the version of the software being run.
     """
-    return 0.5
+    # in future this will work out the os and return the appropriate one
+    return Version.WINDOWS_VERSION
 
 #==============================================================================
 def get_version_from_xml(xml_string):
