@@ -18,7 +18,6 @@ import Error
 import Examples
 import ImageConverter
 import Updater
-import UpdaterGui
 
 from UserText import USER_TEXT
 from ToolTips import TOOL_TIP
@@ -37,7 +36,7 @@ class MarkdownEditorApp(QtGui.QApplication):
     def check_update_finished(self):
         if (self.updater.finished):
             if (self.updater.update_available):
-                UpdaterGui.raise_new_version_dialog()
+                Updater.raise_new_version_dialog()
             self.timer.stop()
 
 #==============================================================================
