@@ -150,6 +150,14 @@ Paragraph
     <span class="k">print</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">)</span>
 </pre></div>""")
         self.assertEqual(result, html)
+        # 2 keywords
+        self.assertEqual(html.count("<span class=\"k\">"), 2)
+        # 1 name of function
+        self.assertEqual(html.count("<span class=\"nf\">"), 1)
+        # 3 parenteses [(), ( and )]
+        self.assertEqual(html.count("<span class=\"p\">"), 3)
+        # 1 string
+        self.assertEqual(html.count("<span class=\"s\">"), 1)
 
     def shebang_with_path_test(self, Renderer=CodeHilite):
         markdown = """
@@ -161,6 +169,14 @@ Paragraph
         html = renderer.make_html(markdown)
         num = html.count("pre")
         self.assertEqual(num, 2)
+        # 2 keywords
+        self.assertEqual(html.count("<span class=\"k\">"), 2)
+        # 1 name of function
+        self.assertEqual(html.count("<span class=\"nf\">"), 1)
+        # 3 parenteses [(), ( and )]
+        self.assertEqual(html.count("<span class=\"p\">"), 3)
+        # 1 string
+        self.assertEqual(html.count("<span class=\"s\">"), 1)
 
     def shebang_without_path_test(self, Renderer=CodeHilite):
         markdown = """
@@ -172,6 +188,14 @@ Paragraph
         html = renderer.make_html(markdown)
         num = html.count("pre")
         self.assertEqual(num, 2)
+        # 2 keywords
+        self.assertEqual(html.count("<span class=\"k\">"), 2)
+        # 1 name of function
+        self.assertEqual(html.count("<span class=\"nf\">"), 1)
+        # 3 parenteses [(), ( and )]
+        self.assertEqual(html.count("<span class=\"p\">"), 3)
+        # 1 string
+        self.assertEqual(html.count("<span class=\"s\">"), 1)
 
     def backticks_test(self, Renderer=GithubFlavouredMarkdown):
         code = """
