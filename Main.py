@@ -16,6 +16,7 @@ from UserText import USER_TEXT
 import Configuration
 import MarkdownEditor
 import HiddenImports
+import Updater
 
 #==============================================================================
 def touch_files(files):
@@ -71,6 +72,8 @@ def main():
     if (args.create_files):
         touch_files(args.files)
     editor = MarkdownEditor.MarkdownEditor(args.files)
+    if (Updater.new_version_available()):
+        Updater.raise_new_version_dialog(editor)
     sys.exit(app.exec_())
 
 #==============================================================================
