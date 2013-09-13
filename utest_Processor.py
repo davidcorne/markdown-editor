@@ -51,8 +51,7 @@ class utest_Processor(unittest.TestCase):
             self.assertIn(css, html)
             self.assertIn(markdown, html)
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def basic_markdown_test(self, Renderer):
+    def basic_markdown_test(self, Renderer=Markdown):
         self.headers_test(Renderer)
         self.ordered_list_test(Renderer)
         self.unordered_list_test(Renderer)
@@ -60,8 +59,7 @@ class utest_Processor(unittest.TestCase):
         self.image_test(Renderer)
         self.code_test(Renderer)
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def headers_test(self, Renderer):
+    def headers_test(self, Renderer=Markdown):
         markdown = """
 # Header 1 #
 ## Header 2 ##
@@ -80,8 +78,7 @@ class utest_Processor(unittest.TestCase):
 <h6>Header 6</h6>""")
         self.assertEqual(html, result)
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def ordered_list_test(self, Renderer):
+    def ordered_list_test(self, Renderer=Markdown):
         markdown = """
 1. thing
 1. another thing.
@@ -95,8 +92,7 @@ class utest_Processor(unittest.TestCase):
         self.assertEqual(html, result)
         pass
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def unordered_list_test(self, Renderer):
+    def unordered_list_test(self, Renderer=Markdown):
         markdown = """
 - thing
 - another thing.
@@ -110,8 +106,7 @@ class utest_Processor(unittest.TestCase):
         self.assertEqual(html, result)
         pass
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def link_test(self, Renderer):
+    def link_test(self, Renderer=Markdown):
         markdown = """
 [shameless link](www.davidcorne.com)
 """
@@ -121,8 +116,7 @@ class utest_Processor(unittest.TestCase):
         self.assertEqual(html, result)
         pass
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def image_test(self, Renderer):
+    def image_test(self, Renderer=Markdown):
         markdown = """
 ![image](image_location)
 """
@@ -132,8 +126,7 @@ class utest_Processor(unittest.TestCase):
         self.assertEqual(html, result)
         pass
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def code_test(self, Renderer):
+    def code_test(self, Renderer=Markdown):
         markdown = """
 Paragraph
 
@@ -145,8 +138,7 @@ Paragraph
         num = html.count("pre")
         self.assertEqual(num, 2)
     
-    @unittest.skip("nosetests shouldn't run this.")
-    def syntax_colons_test(self, Renderer):
+    def syntax_colons_test(self, Renderer=CodeHilite):
         markdown = """
     ::python
     def hello_world():
@@ -159,8 +151,7 @@ Paragraph
 </pre></div>""")
         self.assertEqual(result, html)
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def shebang_with_path_test(self, Renderer):
+    def shebang_with_path_test(self, Renderer=CodeHilite):
         markdown = """
     #!/usr/bin/python
     def hello_world():
@@ -171,8 +162,7 @@ Paragraph
         num = html.count("pre")
         self.assertEqual(num, 2)
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def shebang_without_path_test(self, Renderer):
+    def shebang_without_path_test(self, Renderer=CodeHilite):
         markdown = """
     #!python
     def hello_world():
@@ -183,8 +173,7 @@ Paragraph
         num = html.count("pre")
         self.assertEqual(num, 2)
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def backticks_test(self, Renderer):
+    def backticks_test(self, Renderer=GithubFlavouredMarkdown):
         code = """
 ```python
 def hi():
@@ -196,8 +185,7 @@ def hi():
         num = html.count("pre")
         self.assertEqual(num, 2)
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def backticks_highlight_test(self, Renderer):
+    def backticks_highlight_test(self, Renderer=GithubFlavouredMarkdown):
         code = """
 ```python
 def hi():
@@ -215,8 +203,7 @@ def hi():
         # 1 string
         self.assertEqual(html.count("<span class=\"s\">"), 1)
 
-    @unittest.skip("nosetests shouldn't run this.")
-    def table_test(self, Renderer):
+    def table_test(self, Renderer=MarkdownExtra):
         table = """
 First Header  | Second Header
 ------------- | -------------
