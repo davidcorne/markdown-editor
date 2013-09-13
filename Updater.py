@@ -7,6 +7,7 @@ has a dialog class to notify the user.
 """
 
 # python imports
+import threading
 import urllib2
 import xml.dom.minidom
 
@@ -16,6 +17,19 @@ from PyQt4 import QtGui, QtCore
 import Version
 
 from UserText import USER_TEXT
+
+#==============================================================================
+class Updater(object):
+
+    def __init__(self):
+        self.finished = False
+        self.thread = threading.Thread(target=self.check_update)
+        self.thread.start()
+
+    def check_update(self):
+        self.finished = False
+        self.update_available = new_version_available()
+        self.finished = True
 
 #==============================================================================
 def new_version_available():
@@ -67,11 +81,13 @@ def available_version():
     return get_version_from_xml(response)
 
 #==============================================================================
-def raise_new_version_dialog(parent):
+def raise_new_version_dialog():
     """
     Raises the new version dialog
     """
-    dialog = NewVersionDialog(parent)
+    # global so it stays around without a parent
+    global dialog
+    dialog = NewVersionDialog()
     dialog.show()
 
 #==============================================================================
@@ -79,8 +95,8 @@ class NewVersionDialog(QtGui.QMessageBox):
     """
     A dialog to tell the user that there is a new version, and where to get it.
     """
-    def __init__(self, parent):
-        super(NewVersionDialog, self).__init__(parent)
+    def __init__(self):
+        super(NewVersionDialog, self).__init__()
         self.setWindowTitle(USER_TEXT["update_available"])
         self.setText(USER_TEXT["update_message"])
         self.setTextFormat(QtCore.Qt.RichText);
