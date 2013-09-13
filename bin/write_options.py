@@ -118,6 +118,11 @@ For more information visit https://bitbucket.org/davidcorne/markdown-editor
     "create_file_option": "Creates any new files passed to the executable.",
     "file_not_found": "File %s does not exist.",
     "file_not_created": "File %s could not be created.",
+    "update_available": "Update Available",
+    "update_message": """\
+There is an update available to download from the 
+<a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>
+""",
     }
 
 TOOL_TIPS = {

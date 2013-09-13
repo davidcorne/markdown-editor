@@ -16,6 +16,7 @@ from UserText import USER_TEXT
 import Configuration
 import MarkdownEditor
 import HiddenImports
+import Updater
 
 #==============================================================================
 def touch_files(files):
