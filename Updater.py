@@ -3,43 +3,66 @@
 
 """
 This is a module for checking if there is a new version of the software and
-has view classes to notify the user.
+has a dialog class to notify the user.
 """
 
 # python imports
+import urllib2
+import xml.dom.minidom
 
 from PyQt4 import QtGui, QtCore
 
 # local imports
 
 from UserText import USER_TEXT
-from ToolTips import TOOL_TIP
-
-USER_TEXT["update_available"] = "Update Available"
-USER_TEXT["update_message"] = """\
-There is an update available to download from the <a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>
-"""
 
 #==============================================================================
 def new_version_available():
     """
     Checks this version and checks the download site for a new version.
     """
-    return True
+    return current_version() < available_version()
 
 #==============================================================================
 def current_version():
     """
     Returns the version of the software being run.
     """
-    pass
+    return 0.5
+
+#==============================================================================
+def get_version_from_xml(xml_string):
+    """
+    This takes a string of xml of the form
+    <Versions>
+      <Windows>1</Windows>
+    </Versions>
+    and returns the (float) value of the Windows node.
+    """
+    version_xml = xml.dom.minidom.parseString(xml_string)
+    version =  version_xml.getElementsByTagName("Windows")[0].firstChild
+    return float(version.nodeValue)
+
+#==============================================================================
+def get_version_xml():
+    """
+    Returns a string containing the xml from Version.xml
+
+    Will raise a urllib2.HTTPError if the file not found.
+    """
+    url = "https://bitbucket.org/davidcorne/markdown-editor-downloads/raw/tip/Version.xml"
+    return urllib2.urlopen(url).read()
 
 #==============================================================================
 def available_version():
     """
-    Returns the version available to download.
+    Returns the internal version number which is available to download.
     """
-    pass
+    try:
+        response = get_version_xml()
+    except urllib2.HTTPError:
+        return 0
+    return get_version_from_xml(response)
 
 #==============================================================================
 def raise_new_version_dialog(parent):
