@@ -43,7 +43,7 @@ def path_to_image_tag(path, alt="", title=""):
         "src=\"",
         "data:image;base64,",
         image_to_base_64_bytes(path),
-        "\"",
+        "\" ",
         "title=\"",
         title,
         "\"",
