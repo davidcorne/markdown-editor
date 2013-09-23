@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 
 import collections
+import getpass
 import pickle
 import os
 
@@ -21,11 +22,7 @@ def user_options_file_path():
     Does not check if it exists.
     """
     # user environmental variable called different things on different systems
-    name = "_Options.pickle"
-    if (os.environ.get("USER")):
-        name = os.environ.get("USER") + name
-    elif (os.environ.get("USERNAME")):
-        name = os.environ.get("USERNAME") + name
+    name = "%s_Options.pickle" %(getpass.getuser())
     return os.path.join(Resources.directory(), name)
 
 #==============================================================================
