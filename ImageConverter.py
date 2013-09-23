@@ -10,6 +10,7 @@ import os
 import base64
 
 # local imports
+import html
 
 #==============================================================================
 def image_to_base_64_bytes(path):
@@ -35,21 +36,25 @@ def path_to_image_tag(path, alt="", title=""):
       IOError if the path does not exist.
     
     """
-    img = [
-        "<img ",
-        "alt=\"",
-        alt,
-        "\" ",
-        "src=\"",
-        "data:image;base64,",
-        image_to_base_64_bytes(path),
-        "\" ",
-        "title=\"",
-        title,
-        "\"",
-        "/>"
-        ]
-    return "".join(img)
+    #img = [
+    #    "<img ",
+    #    "alt=\"",
+    #    alt,
+    #    "\" ",
+    #    "src=\"",
+    #    "data:image;base64,",
+    #    image_to_base_64_bytes(path),
+    #    "\" ",
+    #    "title=\"",
+    #    title,
+    #    "\"",
+    #    "/>"
+    #    ]
+    img = html.Node("img")
+    img["title"] = title
+    img["alt"] = alt
+    img["src"] = "data:image;base64,%s" %(image_to_base_64_bytes(path))
+    return img.to_string()
 
 #==============================================================================
 if (__name__ == "__main__"):
