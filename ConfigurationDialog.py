@@ -14,7 +14,6 @@ from PyQt4 import QtGui, QtCore
 import Configuration
 import Examples
 import MarkdownEditor
-import Processor
 import Resources
 
 from UserText import USER_TEXT
