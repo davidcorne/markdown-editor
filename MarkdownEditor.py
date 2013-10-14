@@ -789,7 +789,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.editor.currentWidget().text.selectAll()
 
     def new_file(self):
-        document = Document(self, self.document_changed)
+        document = DocumentFrameView(self, self.document_changed)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
@@ -936,7 +936,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.open_file(file_path)
 
     def open_file(self, file_path):
-        document = Document(self, self.document_changed)
+        document = DocumentFrameView(self, self.document_changed)
         document.open_file(file_path)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
@@ -1429,10 +1429,10 @@ class MarkdownPreview(QtWebKit.QWebView):
         del self.displayed_page
         
 #==============================================================================
-class Document(QtGui.QWidget):
+class DocumentFrameView(QtGui.QWidget):
 
     def __init__(self, parent, callback):
-        super(Document, self).__init__(parent)
+        super(DocumentFrameView, self).__init__(parent)
 
         self.file_path = None
         self.saved = True
@@ -1474,7 +1474,7 @@ class Document(QtGui.QWidget):
         layout.addWidget(self.horizontal_splitter)
 
     def showEvent(self, event):
-        super(Document, self).showEvent(event)
+        super(DocumentFrameView, self).showEvent(event)
         if (not self.size_set):
             self.set_horizontal_sizes()
 
