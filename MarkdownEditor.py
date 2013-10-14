@@ -1444,7 +1444,7 @@ class DocumentFrameView(QtGui.QWidget):
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.text_changed)
 
-        self.text = MarkdownView(self)
+        self.text = MarkdownView(self, self.sync_scrollbars)
         self.text.verticalScrollBar().valueChanged.connect(
             lambda value : self.sync_scrollbars()
             )
@@ -1610,8 +1610,9 @@ class DocumentFrameView(QtGui.QWidget):
 #==============================================================================
 class MarkdownView(QtGui.QTextEdit):
 
-    def __init__(self, parent):
+    def __init__(self, parent, scroll_callback):
         super(MarkdownView, self).__init__(parent)
+        self.verticalScrollBar().valueChanged.connect(scroll_callback)
 
 #==============================================================================
 class PreviewDialog(QtGui.QDialog):
