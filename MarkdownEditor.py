@@ -726,19 +726,19 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def colour_highlighted(self, colour):
         if (self.editor.count()):
-            self.editor.currentWidget().colour_highlighted(colour)
+            self.editor.currentWidget().text.colour_highlighted(colour)
 
     def bold_highlighted(self):
         if (self.editor.count()):
-            self.editor.currentWidget().bold_highlighted()
+            self.editor.currentWidget().text.bold_highlighted()
 
     def italic_highlighted(self):
         if (self.editor.count()):
-            self.editor.currentWidget().italic_highlighted()
+            self.editor.currentWidget().text.italic_highlighted()
 
     def code_highlighted(self):
         if (self.editor.count()):
-            self.editor.currentWidget().code_block_highlighted()
+            self.editor.currentWidget().text.code_block_highlighted()
 
     def insert_link(self):
         if (self.editor.count()):
@@ -748,21 +748,21 @@ class MarkdownEditor(QtGui.QMainWindow):
                 USER_TEXT["enter_link"]
                 )
             if (link_ok):
-                self.editor.currentWidget().insert_link(unicode(link))
+                self.editor.currentWidget().text.insert_link(unicode(link))
 
     def embed_image(self):
         if (self.editor.count()):
             dialog = EmbedImageDialog(self)
             ok_clicked, image_location, title = dialog.get_image()
             if (ok_clicked):
-                self.editor.currentWidget().embed_image(image_location, title)
+                self.editor.currentWidget().text.embed_image(image_location, title)
         
     def link_image(self):
         if (self.editor.count()):
             dialog = ImageDialog(self)
             ok_clicked, image_location, title = dialog.get_image()
             if (ok_clicked):
-                self.editor.currentWidget().link_image(image_location, title)
+                self.editor.currentWidget().text.link_image(image_location, title)
 
     def cut(self):
         if (self.editor.count()):
@@ -1444,12 +1444,7 @@ class DocumentFrameView(QtGui.QWidget):
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.text_changed)
 
-        self.text = MarkdownView(self, self.sync_scrollbars)
-        self.text.verticalScrollBar().valueChanged.connect(
-            lambda value : self.sync_scrollbars()
-            )
-        self.text.setAcceptRichText(False)
-        self.text.textChanged.connect(self.reload)
+        self.text = MarkdownView(self, self.sync_scrollbars, self.reload)
         
         self.output = MarkdownPreview(self)
         QtCore.QObject.connect(
@@ -1556,6 +1551,15 @@ class DocumentFrameView(QtGui.QWidget):
         with open(file_path, "w") as html_file:
             html_file.write(html)
 
+#==============================================================================
+class MarkdownView(QtGui.QTextEdit):
+
+    def __init__(self, parent, scroll_callback, text_changed):
+        super(MarkdownView, self).__init__(parent)
+        self.verticalScrollBar().valueChanged.connect(scroll_callback)
+        self.setAcceptRichText(False)
+        self.textChanged.connect(text_changed)
+        
     def colour_highlighted(self, colour):
         self.edit_selection("<font color=\"" + colour + "\">", "</font>")
 
@@ -1570,20 +1574,20 @@ class DocumentFrameView(QtGui.QWidget):
 
     def insert_link(self, link):
         self.edit_selection("[", "]", False)
-        cursor = self.text.textCursor()
+        cursor = self.textCursor()
         text = cursor.selectedText()
         text.append("".join(["(", link, ")"]))
         cursor.insertText(text)
 
     def link_image(self, image_location, title):
         self.edit_selection("![", "]", False)
-        cursor = self.text.textCursor()
+        cursor = self.textCursor()
         text = cursor.selectedText()
         text.append("".join(["(", image_location, " \"", title, "\")"]))
         cursor.insertText(text)
 
     def embed_image(self, image_location, title):
-        cursor = self.text.textCursor()
+        cursor = self.textCursor()
         text = unicode(cursor.selectedText())
         tag = ImageConverter.path_to_image_tag(
             image_location,
@@ -1600,19 +1604,12 @@ class DocumentFrameView(QtGui.QWidget):
         needs selection governs whether if the selection is empty it will 
         insert anything.
         """
-        cursor = self.text.textCursor()
+        cursor = self.textCursor()
         if (not needs_selection or cursor.hasSelection()):
             text = cursor.selectedText()
             text.prepend(beginning)
             text.append(end)
             cursor.insertText(text)
-
-#==============================================================================
-class MarkdownView(QtGui.QTextEdit):
-
-    def __init__(self, parent, scroll_callback):
-        super(MarkdownView, self).__init__(parent)
-        self.verticalScrollBar().valueChanged.connect(scroll_callback)
 
 #==============================================================================
 class PreviewDialog(QtGui.QDialog):
