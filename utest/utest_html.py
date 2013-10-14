@@ -2,9 +2,11 @@
 # Written by: DGC
 
 # python imports
+import sys
 import unittest
 
 # local imports
+sys.path.append("..")
 import html
 
 #==============================================================================
