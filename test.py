@@ -5,7 +5,6 @@
 import unittest
 
 # local imports
-from utest.utest_Document import *
 from utest.utest_ImageConverter import *
 from utest.utest_Processor import *
 from utest.utest_Updater import *
