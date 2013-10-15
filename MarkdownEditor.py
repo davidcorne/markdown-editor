@@ -1380,17 +1380,23 @@ class SpellingErrorHighlighter(QtGui.QSyntaxHighlighter):
     def __init__(self, document, dictionary):
         super(SpellingErrorHighlighter, self).__init__(document)
         self.dictionary = dictionary
+        self.incorrect_word_format = QtGui.QTextCharFormat()
+        self.incorrect_word_format.setUnderlineColor(QtCore.Qt.red)
+        self.incorrect_word_format.setUnderlineStyle(
+            QtGui.QTextCharFormat.SpellCheckUnderline
+            )
 
     def highlightBlock(self, text):
         """
         Overrided method which does the work.
         """
-        text = unicode(text)
-        incorrect_word_format = QtGui.QTextCharFormat()
-        incorrect_word_format.setUnderlineColor(QtCore.Qt.red)
-        incorrect_word_format.setUnderlineStyle(
-            QtGui.QTextCharFormat.SpellCheckUnderline
-            )
+        for word_object in re.finditer("(?iu)[\w\']+", unicode(text)):
+            if not self.dictionary.check(word_object.group()):
+                self.setFormat(
+                    word_object.start(),
+                    word_object.end() - word_object.start(), 
+                    self.incorrect_word_format
+                    )
 
 #==============================================================================
 class MarkdownPreview(QtWebKit.QWebView):
