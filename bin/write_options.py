@@ -22,6 +22,7 @@ OPTIONS = {
     "markdown_css": "Markdown",
     "display_line_numbers": False,
     "font": "Arial,12,-1,5,50,0,0,0,0,0",
+    "language": "en_GB",
     }
 
 USER_TEXT = {

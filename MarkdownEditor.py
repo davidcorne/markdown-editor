@@ -9,8 +9,6 @@ import os
 import time
 import re
 
-import enchant
-
 from PyQt4 import QtGui, QtCore, QtWebKit
 
 # local imports
@@ -20,6 +18,7 @@ import ConfigurationDialog
 import Error
 import Examples
 import ImageConverter
+import SpellChecker
 import Updater
 import UpdaterGui
 
@@ -1377,9 +1376,13 @@ class FindReplaceWidget(QtGui.QWidget):
 #==============================================================================
 class SpellingErrorHighlighter(QtGui.QSyntaxHighlighter):
 
-    def __init__(self, document, dictionary):
+    def __init__(self, document):
         super(SpellingErrorHighlighter, self).__init__(document)
-        self.dictionary = dictionary
+        spell_checker = SpellChecker.Dict(
+            Configuration.OPTIONS["language"], 
+            Configuration.language_directory()
+            )
+        self.dictionary = spell_checker.dict
         self.incorrect_word_format = QtGui.QTextCharFormat()
         self.incorrect_word_format.setUnderlineColor(QtCore.Qt.red)
         self.incorrect_word_format.setUnderlineStyle(
@@ -1586,10 +1589,8 @@ class MarkdownView(QtGui.QTextEdit):
         self.verticalScrollBar().valueChanged.connect(scroll_callback)
         self.setAcceptRichText(False)
         self.textChanged.connect(text_changed)
-        self.spelling_highlighter = SpellingErrorHighlighter(
-            self.document(),
-            enchant.Dict()
-            )
+        self.spelling_highlighter = SpellingErrorHighlighter(self.document())
+
     def mousePressEvent(self, event):
         """
         Overridden event so that a left mouse click will move the cursor.

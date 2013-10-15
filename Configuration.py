@@ -26,6 +26,13 @@ def user_options_file_path():
     return os.path.join(Resources.directory(), name)
 
 #==============================================================================
+def language_directory():
+    """
+    Returns the Language directory.
+    """
+    return os.path.join(Resources.directory(), "Languages")
+    
+#==============================================================================
 def read_options():
     filename = user_options_file_path()
     default_filename = os.path.join(Resources.directory(), "Options.pickle")

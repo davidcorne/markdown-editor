@@ -9,6 +9,7 @@ from utest.utest_ImageConverter import *
 from utest.utest_Processor import *
 from utest.utest_Updater import *
 from utest.utest_html import *
+from utest.utest_SpellChecker import *
 
 #==============================================================================
 if (__name__ == "__main__"):
