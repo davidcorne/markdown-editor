@@ -1634,7 +1634,6 @@ class MarkdownView(QtGui.QTextEdit):
         menu = self.createStandardContextMenu()
         
         # get the word under the cursor
-        # Select the word under the cursor.
         cursor = self.textCursor()
         cursor.select(QtGui.QTextCursor.WordUnderCursor)
         self.setTextCursor(cursor)
