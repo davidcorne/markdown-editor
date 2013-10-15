@@ -7,6 +7,9 @@ from __future__ import unicode_literals
 import cgi
 import os
 import time
+import re
+
+import enchant
 
 from PyQt4 import QtGui, QtCore, QtWebKit
 
@@ -726,19 +729,19 @@ class MarkdownEditor(QtGui.QMainWindow):
 
     def colour_highlighted(self, colour):
         if (self.editor.count()):
-            self.editor.currentWidget().colour_highlighted(colour)
+            self.editor.currentWidget().text.colour_highlighted(colour)
 
     def bold_highlighted(self):
         if (self.editor.count()):
-            self.editor.currentWidget().bold_highlighted()
+            self.editor.currentWidget().text.bold_highlighted()
 
     def italic_highlighted(self):
         if (self.editor.count()):
-            self.editor.currentWidget().italic_highlighted()
+            self.editor.currentWidget().text.italic_highlighted()
 
     def code_highlighted(self):
         if (self.editor.count()):
-            self.editor.currentWidget().code_block_highlighted()
+            self.editor.currentWidget().text.code_block_highlighted()
 
     def insert_link(self):
         if (self.editor.count()):
@@ -748,21 +751,21 @@ class MarkdownEditor(QtGui.QMainWindow):
                 USER_TEXT["enter_link"]
                 )
             if (link_ok):
-                self.editor.currentWidget().insert_link(unicode(link))
+                self.editor.currentWidget().text.insert_link(unicode(link))
 
     def embed_image(self):
         if (self.editor.count()):
             dialog = EmbedImageDialog(self)
             ok_clicked, image_location, title = dialog.get_image()
             if (ok_clicked):
-                self.editor.currentWidget().embed_image(image_location, title)
+                self.editor.currentWidget().text.embed_image(image_location, title)
         
     def link_image(self):
         if (self.editor.count()):
             dialog = ImageDialog(self)
             ok_clicked, image_location, title = dialog.get_image()
             if (ok_clicked):
-                self.editor.currentWidget().link_image(image_location, title)
+                self.editor.currentWidget().text.link_image(image_location, title)
 
     def cut(self):
         if (self.editor.count()):
@@ -789,7 +792,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.editor.currentWidget().text.selectAll()
 
     def new_file(self):
-        document = Document(self, self.document_changed)
+        document = DocumentFrameView(self, self.document_changed)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
         self.set_tab_title()
@@ -936,7 +939,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             self.open_file(file_path)
 
     def open_file(self, file_path):
-        document = Document(self, self.document_changed)
+        document = DocumentFrameView(self, self.document_changed)
         document.open_file(file_path)
         self.editor.addTab(document, "")
         self.editor.setCurrentIndex(self.editor.count() - 1)
@@ -1372,6 +1375,30 @@ class FindReplaceWidget(QtGui.QWidget):
             pass
         
 #==============================================================================
+class SpellingErrorHighlighter(QtGui.QSyntaxHighlighter):
+
+    def __init__(self, document, dictionary):
+        super(SpellingErrorHighlighter, self).__init__(document)
+        self.dictionary = dictionary
+        self.incorrect_word_format = QtGui.QTextCharFormat()
+        self.incorrect_word_format.setUnderlineColor(QtCore.Qt.red)
+        self.incorrect_word_format.setUnderlineStyle(
+            QtGui.QTextCharFormat.SpellCheckUnderline
+            )
+
+    def highlightBlock(self, text):
+        """
+        Overrided method which does the work.
+        """
+        for word_object in re.finditer("(?iu)[\w\']+", unicode(text)):
+            if not self.dictionary.check(word_object.group()):
+                self.setFormat(
+                    word_object.start(),
+                    word_object.end() - word_object.start(), 
+                    self.incorrect_word_format
+                    )
+
+#==============================================================================
 class MarkdownPreview(QtWebKit.QWebView):
 
     def __init__(self, parent):
@@ -1429,10 +1456,10 @@ class MarkdownPreview(QtWebKit.QWebView):
         del self.displayed_page
         
 #==============================================================================
-class Document(QtGui.QWidget):
+class DocumentFrameView(QtGui.QWidget):
 
     def __init__(self, parent, callback):
-        super(Document, self).__init__(parent)
+        super(DocumentFrameView, self).__init__(parent)
 
         self.file_path = None
         self.saved = True
@@ -1444,13 +1471,8 @@ class Document(QtGui.QWidget):
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.text_changed)
 
-        self.text = QtGui.QTextEdit(self)
-        self.text.verticalScrollBar().valueChanged.connect(
-            lambda value : self.sync_scrollbars()
-            )
-        self.text.setAcceptRichText(False)
-        self.text.textChanged.connect(self.reload)
-        
+        self.text = MarkdownView(self, self.sync_scrollbars, self.reload)
+
         self.output = MarkdownPreview(self)
         QtCore.QObject.connect(
             self.output,
@@ -1474,7 +1496,7 @@ class Document(QtGui.QWidget):
         layout.addWidget(self.horizontal_splitter)
 
     def showEvent(self, event):
-        super(Document, self).showEvent(event)
+        super(DocumentFrameView, self).showEvent(event)
         if (not self.size_set):
             self.set_horizontal_sizes()
 
@@ -1556,6 +1578,78 @@ class Document(QtGui.QWidget):
         with open(file_path, "w") as html_file:
             html_file.write(html)
 
+#==============================================================================
+class MarkdownView(QtGui.QTextEdit):
+
+    def __init__(self, parent, scroll_callback, text_changed):
+        super(MarkdownView, self).__init__(parent)
+        self.verticalScrollBar().valueChanged.connect(scroll_callback)
+        self.setAcceptRichText(False)
+        self.textChanged.connect(text_changed)
+        self.spelling_highlighter = SpellingErrorHighlighter(
+            self.document(),
+            enchant.Dict()
+            )
+    def mousePressEvent(self, event):
+        """
+        Overridden event so that a left mouse click will move the cursor.
+        """
+        if (event.button() == QtCore.Qt.RightButton):
+            # make this a left click event so the cursor moves
+            event = QtGui.QMouseEvent(
+                QtCore.QEvent.MouseButtonPress,
+                event.pos(),
+                QtCore.Qt.LeftButton,
+                QtCore.Qt.LeftButton,
+                QtCore.Qt.NoModifier
+                )
+        super(MarkdownView, self).mousePressEvent(event)
+
+    def correct_spelling(self, word):
+        """
+        Correct the word under the cursor with the word passed to this 
+        function.
+        """
+        cursor = self.textCursor()
+        cursor.insertText(word)
+        
+
+    def spelling_suggestions_menu(self, word):
+        """
+        Gives a menu with spelling suggestions
+        """
+        menu = QtGui.QMenu(USER_TEXT["spelling_suggestions"])
+        for correction in self.spelling_highlighter.dictionary.suggest(word):
+            action = QtGui.QAction(correction, self)
+            action.triggered.connect(
+                lambda event, cor=correction: self.correct_spelling(cor)
+                )
+            menu.addAction(action)
+        return menu
+
+    def contextMenuEvent(self, event):
+        """
+        Override this to add spelling suggestions to the top of the menu.
+        """
+        menu = self.createStandardContextMenu()
+        
+        # get the word under the cursor
+        cursor = self.textCursor()
+        cursor.select(QtGui.QTextCursor.WordUnderCursor)
+        self.setTextCursor(cursor)
+
+        if (self.textCursor().hasSelection()):
+            text = unicode(self.textCursor().selectedText())
+            # if the word is misspelt
+            if (not self.spelling_highlighter.dictionary.check(text)):
+                spelling_menu = self.spelling_suggestions_menu(text)
+                # Only add the spelling suggests to the menu if there are
+                # suggestions.
+                if (len(spelling_menu.actions()) != 0):
+                    menu.insertSeparator(menu.actions()[0])
+                    menu.insertMenu(menu.actions()[0], spelling_menu)
+        menu.exec_(event.globalPos())
+
     def colour_highlighted(self, colour):
         self.edit_selection("<font color=\"" + colour + "\">", "</font>")
 
@@ -1570,20 +1664,20 @@ class Document(QtGui.QWidget):
 
     def insert_link(self, link):
         self.edit_selection("[", "]", False)
-        cursor = self.text.textCursor()
+        cursor = self.textCursor()
         text = cursor.selectedText()
         text.append("".join(["(", link, ")"]))
         cursor.insertText(text)
 
     def link_image(self, image_location, title):
         self.edit_selection("![", "]", False)
-        cursor = self.text.textCursor()
+        cursor = self.textCursor()
         text = cursor.selectedText()
         text.append("".join(["(", image_location, " \"", title, "\")"]))
         cursor.insertText(text)
 
     def embed_image(self, image_location, title):
-        cursor = self.text.textCursor()
+        cursor = self.textCursor()
         text = unicode(cursor.selectedText())
         tag = ImageConverter.path_to_image_tag(
             image_location,
@@ -1600,7 +1694,7 @@ class Document(QtGui.QWidget):
         needs selection governs whether if the selection is empty it will 
         insert anything.
         """
-        cursor = self.text.textCursor()
+        cursor = self.textCursor()
         if (not needs_selection or cursor.hasSelection()):
             text = cursor.selectedText()
             text.prepend(beginning)
