@@ -1590,7 +1590,67 @@ class MarkdownView(QtGui.QTextEdit):
             self.document(),
             enchant.Dict()
             )
+    def mousePressEvent(self, event):
+        """
+        Overridden event so that a left mouse click will move the cursor.
+        """
+        if (event.button() == QtCore.Qt.RightButton):
+            # make this a left click event so the cursor moves
+            event = QtGui.QMouseEvent(
+                QtCore.QEvent.MouseButtonPress,
+                event.pos(),
+                QtCore.Qt.LeftButton,
+                QtCore.Qt.LeftButton,
+                QtCore.Qt.NoModifier
+                )
+        super(MarkdownView, self).mousePressEvent(event)
+
+    def correct_spelling(self, word):
+        """
+        Correct the word under the cursor with the word passed to this 
+        function.
+        """
+        cursor = self.textCursor()
+        cursor.insertText(word)
         
+
+    def spelling_suggestions_menu(self, word):
+        """
+        Gives a menu with spelling suggestions
+        """
+        menu = QtGui.QMenu("Spelling Suggestions")
+        for correction in self.spelling_highlighter.dictionary.suggest(word):
+            action = QtGui.QAction(correction, self)
+            action.triggered.connect(
+                lambda event, cor=correction: self.correct_spelling(cor)
+                )
+            menu.addAction(action)
+        return menu
+
+    def contextMenuEvent(self, event):
+        """
+        Override this to add spelling suggestions to the top of the menu.
+        """
+        menu = self.createStandardContextMenu()
+        
+        # get the word under the cursor
+        # Select the word under the cursor.
+        cursor = self.textCursor()
+        cursor.select(QtGui.QTextCursor.WordUnderCursor)
+        self.setTextCursor(cursor)
+
+        if (self.textCursor().hasSelection()):
+            text = unicode(self.textCursor().selectedText())
+            # if the word is misspelt
+            if (not self.spelling_highlighter.dictionary.check(text)):
+                spelling_menu = self.spelling_suggestions_menu(text)
+                # Only add the spelling suggests to the menu if there are
+                # suggestions.
+                if (len(spelling_menu.actions()) != 0):
+                    menu.insertSeparator(menu.actions()[0])
+                    menu.insertMenu(menu.actions()[0], spelling_menu)
+        menu.exec_(event.globalPos())
+
     def colour_highlighted(self, colour):
         self.edit_selection("<font color=\"" + colour + "\">", "</font>")
 
