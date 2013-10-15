@@ -7,6 +7,9 @@ from __future__ import unicode_literals
 import cgi
 import os
 import time
+import re
+
+import enchant
 
 from PyQt4 import QtGui, QtCore, QtWebKit
 
@@ -1372,6 +1375,24 @@ class FindReplaceWidget(QtGui.QWidget):
             pass
         
 #==============================================================================
+class SpellingErrorHighlighter(QtGui.QSyntaxHighlighter):
+
+    def __init__(self, document, dictionary):
+        super(SpellingErrorHighlighter, self).__init__(document)
+        self.dictionary = dictionary
+
+    def highlightBlock(self, text):
+        """
+        Overrided method which does the work.
+        """
+        text = unicode(text)
+        incorrect_word_format = QtGui.QTextCharFormat()
+        incorrect_word_format.setUnderlineColor(QtCore.Qt.red)
+        incorrect_word_format.setUnderlineStyle(
+            QtGui.QTextCharFormat.SpellCheckUnderline
+            )
+
+#==============================================================================
 class MarkdownPreview(QtWebKit.QWebView):
 
     def __init__(self, parent):
@@ -1450,7 +1471,11 @@ class Document(QtGui.QWidget):
             )
         self.text.setAcceptRichText(False)
         self.text.textChanged.connect(self.reload)
-        
+        self.spelling_highlighter = SpellingErrorHighlighter(
+            self.text.document(),
+            enchant.Dict()
+            )
+
         self.output = MarkdownPreview(self)
         QtCore.QObject.connect(
             self.output,
