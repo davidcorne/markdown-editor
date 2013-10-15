@@ -91,260 +91,264 @@ sVfile_argument
 p45
 VFiles to open in MarkdownEditor
 p46
-sVmarkdown_all
+sVspelling_suggestions
 p47
-VMarkdown All
+VSpelling Suggestions
 p48
-sVclose
+sVmarkdown_all
 p49
-VClose
+VMarkdown All
 p50
-sVshow_line_numbers
+sVclose
 p51
-VDisplay Line Numbers
+VClose
 p52
-sVreplace_title
+sVshow_line_numbers
 p53
-VReplace
+VDisplay Line Numbers
 p54
-sVembed_image
+sVreplace_title
 p55
-VEmbed a given image as bytes
+VReplace
 p56
-sVformat_toolbar
+sVembed_image
 p57
-VFormat Toolbar
+VEmbed a given image as bytes
 p58
-sVopen_file
+sVformat_toolbar
 p59
-VOpen File
+VFormat Toolbar
 p60
-sVreplace_with
+sVopen_file
 p61
-VReplace with:
+VOpen File
 p62
-sVstyle_name
+sVreplace_with
 p63
-VStyle Name
+VReplace with:
 p64
-sVprint
+sVstyle_name
 p65
-VPrint
+VStyle Name
 p66
-sVfile_toolbar
+sVprint
 p67
-VFile Toolbar
+VPrint
 p68
-sVnew_file
+sVfile_toolbar
 p69
-VNew File
+VFile Toolbar
 p70
-sVreset_user_conf_help
+sVnew_file
 p71
-VRemove all the user configuration file.
+VNew File
 p72
-sVchange_font
+sVreset_user_conf_help
 p73
-VChange Editor Font
+VRemove all the user configuration file.
 p74
-sVundo
+sVchange_font
 p75
-VUndo
+VChange Editor Font
 p76
-sVfind_what
+sVundo
 p77
-VFind &what:
+VUndo
 p78
-sVgithub_flavoured_markdown
+sVfind_what
 p79
-VGithub Flavoured Markdown
+VFind &what:
 p80
-sVprogram_name
+sVgithub_flavoured_markdown
 p81
-VMarkdownEditor
+VGithub Flavoured Markdown
 p82
-sVpaste
+sVprogram_name
 p83
-VPaste
+VMarkdownEditor
 p84
-sVfind_title
+sVpaste
 p85
-VFind
+VPaste
 p86
-sVsave_file
+sVfind_title
 p87
-VSave
+VFind
 p88
-sVedit_menu
+sVsave_file
 p89
-V&Edit
+VSave
 p90
-sVprogram_description
+sVedit_menu
 p91
-VThis is a fully featured graphical editor for markdown.\u000a\u000aFor more information visit https://bitbucket.org/davidcorne/markdown-editor\u000a
+V&Edit
 p92
-sVprint_markdown
+sVprogram_description
 p93
-VPrint Markdown
+VThis is a fully featured graphical editor for markdown.\u000a\u000aFor more information visit https://bitbucket.org/davidcorne/markdown-editor\u000a
 p94
-sVdebug_options
+sVprint_markdown
 p95
-VDebug Options
+VPrint Markdown
 p96
-sVdisplay_options
+sVdebug_options
 p97
-VDisplay
+VDebug Options
 p98
-sVmarkdown
+sVdisplay_options
 p99
-VMarkdown
+VDisplay
 p100
-sVmisc
+sVmarkdown
 p101
-VMiscellaneous
+VMarkdown
 p102
-sVreplace
+sVmisc
 p103
-V&Replace
+VMiscellaneous
 p104
-sVmatch_case
+sVreplace
 p105
-VMatch &case
+V&Replace
 p106
-sVredo
+sVmatch_case
 p107
-VRedo
+VMatch &case
 p108
-sVsave_as
+sVredo
 p109
-VSave As
+VRedo
 p110
-sVlink_image
+sVsave_as
 p111
-VInsert a link to an external image
+VSave As
 p112
-sVfile_menu
+sVlink_image
 p113
-V&File
+VInsert a link to an external image
 p114
-sVundo_redo_toolbar
+sVfile_menu
 p115
-VUndo Redo Toolbar
+V&File
 p116
-sVmarkdown_type
+sVundo_redo_toolbar
 p117
-VMarkdown Type
+VUndo Redo Toolbar
 p118
-sVinsert_link
+sVmarkdown_type
 p119
-VInsert Link
+VMarkdown Type
 p120
-sVpreview
+sVinsert_link
 p121
-VPreview
+VInsert Link
 p122
-sVcode_css_class
+sVpreview
 p123
-VCSS class used for code.
+VPreview
 p124
-sVmarkdown_extra
+sVcode_css_class
 p125
-VMarkdown Extra
+VCSS class used for code.
 p126
-sVimage_files_error
+sVmarkdown_extra
 p127
-VImage files not found.
+VMarkdown Extra
 p128
-sVcodehilite
+sVimage_files_error
 p129
-VCodeHilite
+VImage files not found.
 p130
-sVcopy
+sVcodehilite
 p131
-VCopy
+VCodeHilite
 p132
-sVuser_interface_import_fail
+sVcopy
 p133
-VThere has been an error in the user interface library loading.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
+VCopy
 p134
-sVexception
+sVuser_interface_import_fail
 p135
-VAn internal error has occured.
+VThere has been an error in the user interface library loading.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
 p136
-sVhelp_link
+sVexception
 p137
-VMarkdown Editor On The Web
+VAn internal error has occured.
 p138
-sVclose_file
+sVhelp_link
 p139
-VClose File
+VMarkdown Editor On The Web
 p140
-sVenter_image_title
+sVclose_file
 p141
-VEnter the image title (optional)
+VClose File
 p142
-sVexport_html
+sVenter_image_title
 p143
-VExport HTML
+VEnter the image title (optional)
 p144
-sVshow_html
+sVexport_html
 p145
-VShow HTML
+VExport HTML
 p146
-sVfile_not_found
+sVshow_html
 p147
-VFile %s does not exist.
+VShow HTML
 p148
-sVbrowse_for_image
+sVfile_not_found
 p149
-VBrowse for image
+VFile %s does not exist.
 p150
-sVsave_all
+sVbrowse_for_image
 p151
-VSave All Files
+VBrowse for image
 p152
-sVedit_toolbar
+sVsave_all
 p153
-VEdit Toolbar
+VSave All Files
 p154
-sVsave_changes?
+sVedit_toolbar
 p155
-VDo you want to save your changes?
+VEdit Toolbar
 p156
-sVexport_pdf
+sVsave_changes?
 p157
-VExport PDF
+VDo you want to save your changes?
 p158
-sVupdate_message
+sVexport_pdf
 p159
-VThere is an update available to download from the \u000a<a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>\u000a
+VExport PDF
 p160
-sVselect_all
+sVupdate_message
 p161
-VSelect All
+VThere is an update available to download from the \u000a<a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>\u000a
 p162
-sVmatch_whole_words
+sVselect_all
 p163
-VMatch &whole words
+VSelect All
 p164
-sVhelp_menu
+sVmatch_whole_words
 p165
-V&Help
+VMatch &whole words
 p166
-sVenter_image_location
+sVhelp_menu
 p167
-VEnter the image location
+V&Help
 p168
-sVimage_location
+sVenter_image_location
 p169
-VThe image location
+VEnter the image location
 p170
-sVprint_preview_raw_html
+sVimage_location
 p171
-VPrint Preview Raw HTML Code
+VThe image location
 p172
-sVoptions
+sVprint_preview_raw_html
 p173
-VOptions
+VPrint Preview Raw HTML Code
 p174
+sVoptions
+p175
+VOptions
+p176
 s.

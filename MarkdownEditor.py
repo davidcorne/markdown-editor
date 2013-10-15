@@ -1618,7 +1618,7 @@ class MarkdownView(QtGui.QTextEdit):
         """
         Gives a menu with spelling suggestions
         """
-        menu = QtGui.QMenu("Spelling Suggestions")
+        menu = QtGui.QMenu(USER_TEXT["spelling_suggestions"])
         for correction in self.spelling_highlighter.dictionary.suggest(word):
             action = QtGui.QAction(correction, self)
             action.triggered.connect(
