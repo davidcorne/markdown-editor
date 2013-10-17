@@ -13,6 +13,7 @@ from PyQt4 import QtGui, QtCore
 
 import Configuration
 import Examples
+import Log
 import MarkdownEditor
 import Resources
 
@@ -226,8 +227,19 @@ class MiscConfig(QtGui.QDialog):
             Configuration.OPTIONS["show_html"]
             )
 
+        log_file_location_label = QtGui.QLabel(USER_TEXT["log_file_location"])
+        log_file_location = QtGui.QLabel(Log.LOG_FILE)
+        log_file_location.setTextInteractionFlags(
+            QtCore.Qt.TextSelectableByMouse | QtCore.Qt.TextSelectableByKeyboard
+            )
+        log_file_layout =  QtGui.QHBoxLayout()
+        log_file_layout.addWidget(log_file_location_label)
+        log_file_layout.addWidget(log_file_location)
+        log_file_layout.addStretch(1)
+
         debug_layout = QtGui.QVBoxLayout()
         debug_layout.addWidget(show_html)
+        debug_layout.addLayout(log_file_layout)
 
         debug_group.setLayout(debug_layout)
 
