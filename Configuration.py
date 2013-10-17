@@ -42,7 +42,7 @@ def read_options():
     with open(filename, "rb") as options_file:
         global OPTIONS
         OPTIONS = pickle.load(options_file)
-    logging.info("Read options from %s" %filename)
+    logging.info("Read options from %s", filename)
     # for forward compatibility, if there are any new options add them to the
     # user specific ones
     with open(default_filename, "rb") as options_file:
@@ -51,7 +51,10 @@ def read_options():
         if (not key in OPTIONS):
             OPTIONS[key] = default_options[key]
             logging.warning(
-                "Default option \"%s\" not in %s, read from %s instead" %(key, filename, default_filename)
+                "Default option \"%s\" not in %s, read from %s instead",
+                key, 
+                filename, 
+                default_filename
                 )
 
 #==============================================================================
@@ -59,7 +62,7 @@ def save_options():
     options_path = user_options_file_path()
     with open(options_path, "wb") as options_file:
         pickle.dump(OPTIONS, options_file)
-    logging.info("Options saved to %s" %options_path)
+    logging.info("Options saved to %s", options_path)
 
 #==============================================================================
 def find_images():

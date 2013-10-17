@@ -15,8 +15,8 @@ class Dict(object):
         broker = enchant.Broker()
         broker.set_param("enchant.myspell.dictionary.path", dictionary_dir)
         logging.info(
-            "Enchant broker param \"enchant.myspell.dictionary.path\" = %s" 
-            %(broker.get_param("enchant.myspell.dictionary.path"))
+            "Enchant broker param \"enchant.myspell.dictionary.path\" = %s", 
+            broker.get_param("enchant.myspell.dictionary.path")
             )
         self.dict = enchant.Dict(language, broker)
 

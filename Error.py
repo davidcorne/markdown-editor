@@ -61,7 +61,7 @@ def exception_hook(exception_type, exception_value, trace):
 
 #==============================================================================
 def show_error(message, detail=None, fatal=False):
-    logging.error(message + " " + unicode(detail))
+    logging.error("%s  %s", message, unicode(detail))
     try:
         from PyQt4 import QtGui
     except ImportError:
