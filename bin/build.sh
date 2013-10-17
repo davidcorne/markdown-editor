@@ -21,15 +21,16 @@ then
   . ~/my_profile.ksh
 fi
 
-pyinstaller -F -w --icon=Resources/Images/icon.ico Main.py
+pyinstaller -w --icon=Resources/Images/icon.ico Main.py
 rm -f Main.spec
 
 echo ""
 
-if [ -f dist/Main.exe ]
+if [ -f dist/Main/Main.exe ]
 then
   mkdir -p markdown-editor-downloads/EXE/
-  mv -vf dist/Main.exe markdown-editor-downloads/EXE/mde.exe
+  mv -vf dist/Main/* markdown-editor-downloads/EXE/
+  mv -vf markdown-editor-downloads/EXE/Main.exe markdown-editor-downloads/EXE/mde.exe
   cp tpl/* markdown-editor-downloads/EXE/
   cp -r Resources markdown-editor-downloads/EXE/
 else
