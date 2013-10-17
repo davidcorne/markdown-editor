@@ -18,6 +18,7 @@ import Configuration
 import ConfigurationDialog
 import Error
 import Examples
+import Log
 import ImageConverter
 import SpellChecker
 import Updater
@@ -464,6 +465,13 @@ class MarkdownEditor(QtGui.QMainWindow):
         link_action.setStatusTip(TOOL_TIP["help_link"])
         link_action.triggered.connect(self.help.open_link)
 
+        log_file_action = QtGui.QAction(
+            USER_TEXT["log_file_location"], 
+            self
+            )
+        log_file_action.setStatusTip(TOOL_TIP["show_log_file_location"])
+        log_file_action.triggered.connect(self.help.show_log_file_location)
+
         menu_bar = self.menuBar()
         help_menu = menu_bar.addMenu(USER_TEXT["help_menu"])
         help_menu.addAction(markdown_action)
@@ -473,6 +481,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         help_menu.addAction(github_flavour_action)
         help_menu.addSeparator()
         help_menu.addAction(link_action)
+        help_menu.addSeparator()
+        help_menu.addAction(log_file_action)
 
     def create_edit_menu(self):
         undo_action = QtGui.QAction(USER_TEXT["undo"], self)
@@ -1757,6 +1767,13 @@ class Help(object):
         self.open_description(
             "github_flavoured_markdown",
             Examples.GITHUB_FLAVOUR_PREVIEW
+            )
+        
+    def show_log_file_location(self):
+        QtGui.QMessageBox.information(
+            None,
+            USER_TEXT["log_file_location"],
+            USER_TEXT["logging_file_location"] %Log.LOG_FILE,
             )
         
 #==============================================================================

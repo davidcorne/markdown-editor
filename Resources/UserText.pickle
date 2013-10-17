@@ -335,24 +335,28 @@ sVhelp_menu
 p167
 V&Help
 p168
-sVenter_image_location
+sVlog_file_location
 p169
-VEnter the image location
+VLog file location
 p170
-sVimage_location
+sVenter_image_location
 p171
-VThe image location
+VEnter the image location
 p172
-sVprint_preview_raw_html
+sVimage_location
 p173
-VPrint Preview Raw HTML Code
+VThe image location
 p174
-sVlogging_file_location
+sVprint_preview_raw_html
 p175
-VLogging file is located %s
+VPrint Preview Raw HTML Code
 p176
-sVoptions
+sVlogging_file_location
 p177
-VOptions
+VLogging file is located at path:\u000a\u000a%s
 p178
+sVoptions
+p179
+VOptions
+p180
 s.

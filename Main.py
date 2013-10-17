@@ -3,12 +3,12 @@
 
 # done before any other imports in case of errors in them
 
-import Log
 import Error
 Error.set_exception_handler()
 
 # python imports
 import argparse
+import logging
 import sys
 
 # local imports
@@ -67,6 +67,7 @@ def main():
     """
     app = MarkdownEditor.MarkdownEditorApp(sys.argv)
     args = parse_args()
+    logging.info("Program started with arguments: " + unicode(args))
     if (args.reset_user_conf):
         Configuration.reset_options()
     if (args.create_files):

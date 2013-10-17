@@ -125,7 +125,8 @@ There is an update available to download from the
 <a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>
 """,
     "spelling_suggestions": "Spelling Suggestions",
-    "logging_file_location": "Logging file is located %s",
+    "logging_file_location": "Logging file is located at path:\n\n%s",
+    "log_file_location": "Log file location",
     }
 
 TOOL_TIPS = {
@@ -162,6 +163,7 @@ TOOL_TIPS = {
     "print_preview_rendered_html": "Shows a preview of the HTML output as it will be rendered by a browser before printing",
     "print_preview_raw_html": "Shows a preview of the raw HTML code output before printing",
     "help_link": "Opens the website for this product in your defualt browser",
+    "show_log_file_location": "Show the loction of the log file.",
     }
 
 #==============================================================================
