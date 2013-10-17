@@ -51,7 +51,7 @@ def read_options():
         if (not key in OPTIONS):
             OPTIONS[key] = default_options[key]
             logging.warning(
-                "Default option %s not in %s, read from %s instead" %(key, filename, default_filename)
+                "Default option \"%s\" not in %s, read from %s instead" %(key, filename, default_filename)
                 )
 
 #==============================================================================
