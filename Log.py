@@ -21,7 +21,7 @@ def on_import():
     logging.basicConfig(
         filename=LOG_FILE,
         level=logging.DEBUG,
-        format="%(levelname)s | %(asctime)s | %(message)s",
+        format="%(levelname)-7s | %(asctime)s | %(message)s",
         datefmt="%d/%m/%y %M:%H:%S"
         )
     logging.info("Started logging.")
