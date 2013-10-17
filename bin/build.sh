@@ -29,8 +29,8 @@ echo ""
 if [ -f dist/Main/Main.exe ]
 then
   mkdir -p markdown-editor-downloads/EXE/
-  mv -vf dist/Main/* markdown-editor-downloads/EXE/
-  mv -vf markdown-editor-downloads/EXE/Main.exe markdown-editor-downloads/EXE/mde.exe
+  cp -rv dist/Main/* markdown-editor-downloads/EXE/
+  mv -fv markdown-editor-downloads/EXE/Main.exe markdown-editor-downloads/EXE/mde.exe
   cp tpl/* markdown-editor-downloads/EXE/
   cp -r Resources markdown-editor-downloads/EXE/
 else
