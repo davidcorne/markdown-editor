@@ -58,6 +58,7 @@ Section "Markdown_Editor (required)"
   
   ; Put file there
   File "markdown-editor-downloads\EXE\mde.exe"
+  File "markdown-editor-downloads\EXE\*.dll"
   File "Markdown Editor on the web.url"
   File /r /x *_Options.pickle /x "User" /x "markdown-editor-downloads" "Resources"
   

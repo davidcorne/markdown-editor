@@ -30,6 +30,7 @@ if [ -f dist/Main.exe ]
 then
   mkdir -p markdown-editor-downloads/EXE/
   mv -vf dist/Main.exe markdown-editor-downloads/EXE/mde.exe
+  cp tpl/* markdown-editor-downloads/EXE/
   cp -r Resources markdown-editor-downloads/EXE/
 else
   echo "No executable made"
