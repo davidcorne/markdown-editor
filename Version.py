@@ -9,7 +9,7 @@ product. This should increase everytime an update is needed.
 
 # local imports
 
-WINDOWS_VERSION = 1
+WINDOWS_VERSION = 2
 #LINUX_VERSION = 0
 #MAC_VERSION = 0
 
