@@ -3,6 +3,7 @@
 
 # done before any other imports in case of errors in them
 
+import Log
 import Error
 Error.set_exception_handler()
 

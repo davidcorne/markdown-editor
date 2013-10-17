@@ -347,8 +347,12 @@ sVprint_preview_raw_html
 p173
 VPrint Preview Raw HTML Code
 p174
-sVoptions
+sVlogging_file_location
 p175
-VOptions
+VLogging file is located %s
 p176
+sVoptions
+p177
+VOptions
+p178
 s.
