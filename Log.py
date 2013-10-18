@@ -7,26 +7,30 @@ import tempfile
 import time
 # local imports
 
-LOG_FILE = ""
-
 #==============================================================================
-def on_import():
+def __init_logfile():
     temp_file = tempfile.NamedTemporaryFile(
         prefix="Markdown_Editor_" + time.strftime("%d_%m_%y_%H_%M_"), 
         suffix=".log"
         )
     temp_file.close()
-    global LOG_FILE
-    LOG_FILE = temp_file.name
+    return temp_file.name
+    
+#==============================================================================
+def log_file(__name=__init_logfile()):
+    return __name
+
+#==============================================================================
+def on_import():
     logging.basicConfig(
-        filename=LOG_FILE,
+        filename=log_file(),
         level=logging.DEBUG,
         format="%(levelname)-7s | %(asctime)s | %(message)s",
         datefmt="%d/%m/%y %M:%H:%S"
         )
     logging.info("Started logging.")
     # only usful while debugging
-    print(LOG_FILE)
+    print(log_file())
 
 on_import()
 

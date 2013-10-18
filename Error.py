@@ -74,7 +74,7 @@ def show_error(message, detail=None, fatal=False):
     message_box.setIcon(QtGui.QMessageBox.Critical)
     message_box.addButton(QtGui.QMessageBox.Ok)
     message_box.setText(message)
-    logging_location_message = USER_TEXT["logging_file_location"] %(Log.LOG_FILE)
+    logging_location_message = USER_TEXT["logging_file_location"] %(Log.log_file())
     if (detail):
         message_box.setDetailedText(detail + "\n" + logging_location_message)
     message_box.exec_()

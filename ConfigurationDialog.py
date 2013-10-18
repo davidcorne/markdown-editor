@@ -228,7 +228,7 @@ class MiscConfig(QtGui.QDialog):
             )
 
         log_file_location_label = QtGui.QLabel(USER_TEXT["log_file_location"])
-        log_file_location = QtGui.QLabel(Log.LOG_FILE)
+        log_file_location = QtGui.QLabel(Log.log_file())
         log_file_location.setTextInteractionFlags(
             QtCore.Qt.TextSelectableByMouse | QtCore.Qt.TextSelectableByKeyboard
             )
