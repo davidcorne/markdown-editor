@@ -27,7 +27,9 @@ class utest_Integration(unittest.TestCase):
     def test_new_file(self):
         app = MarkdownEditor.MarkdownEditorApp([])
         editor = MarkdownEditor.MarkdownEditor([])
+        self.assertEqual(editor.editor.count(), 0)
         editor.new_file()
+        self.assertEqual(editor.editor.count(), 1)
         document_frame = editor.editor.currentWidget()
         document = document_frame.text
         document.setText("""
