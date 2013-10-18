@@ -15,6 +15,7 @@ gotten using log_file().
 import logging
 import tempfile
 import time
+import sys
 
 # local imports
 
@@ -45,15 +46,25 @@ def __on_import():
     """
     Private function sets up logging. Should only be run once, on import.
     """
-    logging.basicConfig(
-        filename=log_file(),
-        level=logging.DEBUG,
-        format="%(levelname)-7s | %(asctime)s | %(message)s",
-        datefmt="%d/%m/%y %M:%H:%S"
-        )
-    logging.info("Started logging.")
+    log_file_path = log_file()
     # only usful while debugging
-    print(log_file())
+    print(log_file_path)
+    print("")
+    level = logging.DEBUG
+    log_format = "%(levelname)-7s | %(asctime)s | %(message)s"
+    time_format = "%d/%m/%y %M:%H:%S"
+    logging.basicConfig(
+        filename=log_file_path,
+        level=level,
+        format=log_format,
+        datefmt=time_format
+        )
+    # define a Handler which writes messages to std::out
+    console = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter(log_format, time_format)
+    console.setFormatter(formatter)
+    logging.getLogger('').addHandler(console)
+    logging.info("Started logging.")
 
 __on_import()
 
