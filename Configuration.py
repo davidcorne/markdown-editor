@@ -50,7 +50,7 @@ def read_options():
     with open(filename, "rb") as options_file:
         global OPTIONS
         OPTIONS = pickle.load(options_file)
-    logging.info("Read options from %s", filename)
+    logging.info("Read options from %s", os.path.abspath(filename))
     # for forward compatibility, if there are any new options add them to the
     # user specific ones
     with open(default_filename, "rb") as options_file:
