@@ -124,7 +124,6 @@ For more information visit https://bitbucket.org/davidcorne/markdown-editor
 There is an update available to download from the 
 <a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>
 """,
-    "spelling_suggestions": "Spelling Suggestions",
     "logging_file_location": "Logging file is located at path:\n\n%s",
     "log_file_location": "Log file location",
     }

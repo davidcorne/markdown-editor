@@ -1620,18 +1620,18 @@ class MarkdownView(QtGui.QTextEdit):
         cursor.insertText(word)
         
 
-    def spelling_suggestions_menu(self, word):
+    def spelling_suggestions_actions(self, word):
         """
         Gives a menu with spelling suggestions
         """
-        menu = QtGui.QMenu(USER_TEXT["spelling_suggestions"])
+        actions = []
         for correction in self.spelling_highlighter.dictionary.suggest(word):
             action = QtGui.QAction(correction, self)
             action.triggered.connect(
                 lambda event, cor=correction: self.correct_spelling(cor)
                 )
-            menu.addAction(action)
-        return menu
+            actions.append(action)
+        return actions
 
     def contextMenuEvent(self, event):
         """
@@ -1648,12 +1648,16 @@ class MarkdownView(QtGui.QTextEdit):
             text = unicode(self.textCursor().selectedText())
             # if the word is misspelt
             if (not self.spelling_highlighter.dictionary.check(text)):
-                spelling_menu = self.spelling_suggestions_menu(text)
+                spelling_actions = self.spelling_suggestions_actions(text)
                 # Only add the spelling suggests to the menu if there are
                 # suggestions.
-                if (len(spelling_menu.actions()) != 0):
+                if (spelling_actions):
                     menu.insertSeparator(menu.actions()[0])
-                    menu.insertMenu(menu.actions()[0], spelling_menu)
+                    # thie prepends the actions, so do it in reverse so the 
+                    # order of the suggestions is preserved
+                    spelling_actions.reverse()
+                    for action in spelling_actions:
+                        menu.insertAction(menu.actions()[0], action)
         menu.exec_(event.globalPos())
 
     def colour_highlighted(self, colour):

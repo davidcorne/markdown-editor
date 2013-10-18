@@ -91,272 +91,268 @@ sVfile_argument
 p45
 VFiles to open in MarkdownEditor
 p46
-sVspelling_suggestions
-p47
-VSpelling Suggestions
-p48
 sVmarkdown_all
-p49
+p47
 VMarkdown All
-p50
+p48
 sVclose
-p51
+p49
 VClose
-p52
+p50
 sVshow_line_numbers
-p53
+p51
 VDisplay Line Numbers
-p54
+p52
 sVreplace_title
-p55
+p53
 VReplace
-p56
+p54
 sVembed_image
-p57
+p55
 VEmbed a given image as bytes
-p58
+p56
 sVformat_toolbar
-p59
+p57
 VFormat Toolbar
-p60
+p58
 sVopen_file
-p61
+p59
 VOpen File
-p62
+p60
 sVreplace_with
-p63
+p61
 VReplace with:
-p64
+p62
 sVstyle_name
-p65
+p63
 VStyle Name
-p66
+p64
 sVprint
-p67
+p65
 VPrint
-p68
+p66
 sVfile_toolbar
-p69
+p67
 VFile Toolbar
-p70
+p68
 sVnew_file
-p71
+p69
 VNew File
-p72
+p70
 sVreset_user_conf_help
-p73
+p71
 VRemove all the user configuration file.
-p74
+p72
 sVchange_font
-p75
+p73
 VChange Editor Font
-p76
+p74
 sVundo
-p77
+p75
 VUndo
-p78
+p76
 sVfind_what
-p79
+p77
 VFind &what:
-p80
+p78
 sVgithub_flavoured_markdown
-p81
+p79
 VGithub Flavoured Markdown
-p82
+p80
 sVprogram_name
-p83
+p81
 VMarkdownEditor
-p84
+p82
 sVpaste
-p85
+p83
 VPaste
-p86
+p84
 sVfind_title
-p87
+p85
 VFind
-p88
+p86
 sVsave_file
-p89
+p87
 VSave
-p90
+p88
 sVedit_menu
-p91
+p89
 V&Edit
-p92
+p90
 sVprogram_description
-p93
+p91
 VThis is a fully featured graphical editor for markdown.\u000a\u000aFor more information visit https://bitbucket.org/davidcorne/markdown-editor\u000a
-p94
+p92
 sVprint_markdown
-p95
+p93
 VPrint Markdown
-p96
+p94
 sVdebug_options
-p97
+p95
 VDebug Options
-p98
+p96
 sVdisplay_options
-p99
+p97
 VDisplay
-p100
+p98
 sVmarkdown
-p101
+p99
 VMarkdown
-p102
+p100
 sVmisc
-p103
+p101
 VMiscellaneous
-p104
+p102
 sVreplace
-p105
+p103
 V&Replace
-p106
+p104
 sVmatch_case
-p107
+p105
 VMatch &case
-p108
+p106
 sVredo
-p109
+p107
 VRedo
-p110
+p108
 sVsave_as
-p111
+p109
 VSave As
-p112
+p110
 sVlink_image
-p113
+p111
 VInsert a link to an external image
-p114
+p112
 sVfile_menu
-p115
+p113
 V&File
-p116
+p114
 sVundo_redo_toolbar
-p117
+p115
 VUndo Redo Toolbar
-p118
+p116
 sVmarkdown_type
-p119
+p117
 VMarkdown Type
-p120
+p118
 sVinsert_link
-p121
+p119
 VInsert Link
-p122
+p120
 sVpreview
-p123
+p121
 VPreview
-p124
+p122
 sVcode_css_class
-p125
+p123
 VCSS class used for code.
-p126
+p124
 sVmarkdown_extra
-p127
+p125
 VMarkdown Extra
-p128
+p126
 sVimage_files_error
-p129
+p127
 VImage files not found.
-p130
+p128
 sVcodehilite
-p131
+p129
 VCodeHilite
-p132
+p130
 sVcopy
-p133
+p131
 VCopy
-p134
+p132
 sVuser_interface_import_fail
-p135
+p133
 VThere has been an error in the user interface library loading.\u000a\u000aPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues\u000a
-p136
+p134
 sVexception
-p137
+p135
 VAn internal error has occured.
-p138
+p136
 sVhelp_link
-p139
+p137
 VMarkdown Editor On The Web
-p140
+p138
 sVclose_file
-p141
+p139
 VClose File
-p142
+p140
 sVenter_image_title
-p143
+p141
 VEnter the image title (optional)
-p144
+p142
 sVexport_html
-p145
+p143
 VExport HTML
-p146
+p144
 sVshow_html
-p147
+p145
 VShow HTML
-p148
+p146
 sVfile_not_found
-p149
+p147
 VFile %s does not exist.
-p150
+p148
 sVbrowse_for_image
-p151
+p149
 VBrowse for image
-p152
+p150
 sVsave_all
-p153
+p151
 VSave All Files
-p154
+p152
 sVedit_toolbar
-p155
+p153
 VEdit Toolbar
-p156
+p154
 sVsave_changes?
-p157
+p155
 VDo you want to save your changes?
-p158
+p156
 sVexport_pdf
-p159
+p157
 VExport PDF
-p160
+p158
 sVupdate_message
-p161
+p159
 VThere is an update available to download from the \u000a<a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>\u000a
-p162
+p160
 sVselect_all
-p163
+p161
 VSelect All
-p164
+p162
 sVmatch_whole_words
-p165
+p163
 VMatch &whole words
-p166
+p164
 sVhelp_menu
-p167
+p165
 V&Help
-p168
+p166
 sVlog_file_location
-p169
+p167
 VLog file location
-p170
+p168
 sVenter_image_location
-p171
+p169
 VEnter the image location
-p172
+p170
 sVimage_location
-p173
+p171
 VThe image location
-p174
+p172
 sVprint_preview_raw_html
-p175
+p173
 VPrint Preview Raw HTML Code
-p176
+p174
 sVlogging_file_location
-p177
+p175
 VLogging file is located at path:\u000a\u000a%s
-p178
+p176
 sVoptions
-p179
+p177
 VOptions
-p180
+p178
 s.
