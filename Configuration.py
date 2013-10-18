@@ -27,6 +27,14 @@ def user_options_file_path():
     return os.path.join(Resources.directory(), name)
 
 #==============================================================================
+def default_options_file_path():
+    """
+    Returns the path to the default options file
+    """
+    # user environmental variable called different things on different systems
+    return os.path.join(Resources.directory(), "Options.pickle")
+
+#==============================================================================
 def user_defined_word_list_path():
     """
     Returns the path to a personal word list file.
@@ -44,7 +52,7 @@ def language_directory():
 #==============================================================================
 def read_options():
     filename = user_options_file_path()
-    default_filename = os.path.join(Resources.directory(), "Options.pickle")
+    default_filename = default_options_file_path()
     if (not os.path.isfile(filename)):
         filename = default_filename
     with open(filename, "rb") as options_file:

@@ -12,6 +12,8 @@ from utest.utest_Updater import *
 from utest.utest_html import *
 from utest.utest_SpellChecker import *
 
+from Integration.utest_Integration import *
+
 #==============================================================================
 if (__name__ == "__main__"):
     unittest.main(verbosity=2)

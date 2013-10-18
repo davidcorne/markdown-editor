@@ -25,6 +25,17 @@ OPTIONS = {
     "language": "en_GB",
     }
 
+TEST_OPTIONS = {
+    "code_css": "", 
+    "code_css_class": "highlight",
+    "show_html": False,
+    "processor": "markdown_all",
+    "markdown_css": "",
+    "display_line_numbers": False,
+    "font": "Arial,12,-1,5,50,0,0,0,0,0",
+    "language": "en_GB",
+}
+
 USER_TEXT = {
     "program_name": "MarkdownEditor",
     "undo_redo_toolbar": "Undo Redo Toolbar",
@@ -167,22 +178,23 @@ TOOL_TIPS = {
     }
 
 #==============================================================================
-def write_config_file(object, file_name):
+def write_config_file(object, file_name, directory="Resources"):
     """
     Pickles the object to file_name where file_name is a relative path under 
     Resources
     """
     options_path = os.path.join(
         os.path.dirname(sys.argv[0]),
-        "../Resources"
+        "../" + directory
         )
     file_path = os.path.join(options_path, file_name)
     with open(file_path, "wb") as options_file:
         pickle.dump(object, options_file)
 
 #==============================================================================
-def write_options_file():
+def write_options_files():
     write_config_file(OPTIONS, "Options.pickle")
+    write_config_file(TEST_OPTIONS, "Options.pickle", directory="Integration")
     
 #==============================================================================
 def write_user_text():
@@ -194,6 +206,6 @@ def write_tool_tips():
     
 #==============================================================================
 if (__name__ == "__main__"):
-    write_options_file()
+    write_options_files()
     write_user_text()
     write_tool_tips()
