@@ -12,7 +12,10 @@ from utest.utest_Updater import *
 from utest.utest_html import *
 from utest.utest_SpellChecker import *
 
-from Integration.utest_Integration import *
+try:
+    from Integration.utest_Integration import *
+except ImportError:
+    pass
 
 #==============================================================================
 if (__name__ == "__main__"):
