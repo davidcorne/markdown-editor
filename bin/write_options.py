@@ -126,6 +126,7 @@ There is an update available to download from the
 """,
     "logging_file_location": "Logging file is located at path:\n\n%s",
     "log_file_location": "Log file location",
+    "add_to_dictionary": "Add to dictionary",
     }
 
 TOOL_TIPS = {

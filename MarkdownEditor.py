@@ -1621,6 +1621,14 @@ class MarkdownView(QtGui.QTextEdit):
         cursor = self.textCursor()
         cursor.insertText(word)
         
+    def add_word_to_pwl(self, word):
+        """
+        Adds word to the personal word list.
+        """
+        self.spelling_highlighter.dictionary.add(word)
+        cursor = self.textCursor()
+        self.spelling_highlighter.rehighlightBlock(cursor.block())
+        
 
     def spelling_suggestions_actions(self, word):
         """
@@ -1654,9 +1662,18 @@ class MarkdownView(QtGui.QTextEdit):
                 # Only add the spelling suggests to the menu if there are
                 # suggestions.
                 if (spelling_actions):
+                    # This prepends the actions, so do everything in reverse so
+                    # the order of the actions is sensible.
                     menu.insertSeparator(menu.actions()[0])
-                    # thie prepends the actions, so do it in reverse so the 
-                    # order of the suggestions is preserved
+                    add_to_dictionary = QtGui.QAction(
+                        USER_TEXT["add_to_dictionary"], 
+                        self
+                        )
+                    add_to_dictionary.triggered.connect(
+                        lambda event : self.add_word_to_pwl(text)
+                        )
+                    menu.insertAction(menu.actions()[0], add_to_dictionary)
+                    menu.insertSeparator(menu.actions()[0])
                     spelling_actions.reverse()
                     for action in spelling_actions:
                         menu.insertAction(menu.actions()[0], action)
