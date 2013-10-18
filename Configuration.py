@@ -27,6 +27,14 @@ def user_options_file_path():
     return os.path.join(Resources.directory(), name)
 
 #==============================================================================
+def user_defined_word_list_path():
+    """
+    Returns the path to a personal word list file.
+    """
+    name = "%s.pwl" %(getpass.getuser())
+    return os.path.join(Resources.directory(), name)
+    
+#==============================================================================
 def language_directory():
     """
     Returns the Language directory.

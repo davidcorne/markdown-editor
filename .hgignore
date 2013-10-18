@@ -19,6 +19,7 @@ MANIFEST
 # user specific files
 Resources/*_Options.pickle
 */User/*
+*.pwl # personal word list
 
 # Experiments
 *.md
