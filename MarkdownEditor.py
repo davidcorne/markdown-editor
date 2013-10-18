@@ -1413,7 +1413,9 @@ class MarkdownPreview(QtWebKit.QWebView):
         super(MarkdownPreview, self).__init__(parent)
         self.parent = parent
         self.displayed_page = QtWebKit.QWebPage()
-        self.displayed_page.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
+        self.displayed_page.setLinkDelegationPolicy(
+            QtWebKit.QWebPage.DelegateAllLinks
+            )
         self.displayed_page.linkHovered.connect(self.link_hovered)
         self.setPage(self.displayed_page)
         self.linkClicked.connect(open_link)
