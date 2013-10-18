@@ -8,6 +8,8 @@ import unittest
 import Integration
 
 import MarkdownEditor
+import UpdaterGui
+import Version
 
 #==============================================================================
 class utest_App(unittest.TestCase):
@@ -21,6 +23,14 @@ class utest_App(unittest.TestCase):
         while (True):
             if (app.updater.finished):
                 break
+
+    def test_update_ui(self):
+        Version.WINDOWS_VERSION = -1
+        app = MarkdownEditor.MarkdownEditorApp([])
+        while (True):
+            if (app.updater.finished):
+                break
+        self.assertTrue(app.updater.update_available)
 
 #==============================================================================
 if (__name__ == "__main__"):
