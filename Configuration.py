@@ -61,8 +61,8 @@ def read_options():
             logging.warning(
                 "Default option \"%s\" not in %s, read from %s instead",
                 key, 
-                filename, 
-                default_filename
+                os.path.abspath(filename), 
+                os.path.abspath(default_filename)
                 )
 
 #==============================================================================
