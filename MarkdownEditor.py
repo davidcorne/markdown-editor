@@ -1385,7 +1385,8 @@ class SpellingErrorHighlighter(QtGui.QSyntaxHighlighter):
         super(SpellingErrorHighlighter, self).__init__(document)
         spell_checker = SpellChecker.Dict(
             Configuration.OPTIONS["language"], 
-            Configuration.language_directory()
+            Configuration.language_directory(),
+            Configuration.user_defined_word_list_path(),
             )
         self.dictionary = spell_checker.dict
         self.incorrect_word_format = QtGui.QTextCharFormat()
