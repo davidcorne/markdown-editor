@@ -12,7 +12,7 @@ LOG_FILE = ""
 #==============================================================================
 def on_import():
     temp_file = tempfile.NamedTemporaryFile(
-        prefix="Markdown_Editor_" + time.strftime("%M_%H_%d_%m_%y_"), 
+        prefix="Markdown_Editor_" + time.strftime("%d_%m_%y_%H_%M_"), 
         suffix=".log"
         )
     temp_file.close()
