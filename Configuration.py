@@ -50,11 +50,11 @@ def read_options():
     with open(filename, "rb") as options_file:
         global OPTIONS
         OPTIONS = pickle.load(options_file)
-    logging.info("Read options from %s", os.path.abspath(filename))
     # for forward compatibility, if there are any new options add them to the
     # user specific ones
     with open(default_filename, "rb") as options_file:
         default_options = pickle.load(options_file)
+    logging.info("Read options from %s", os.path.abspath(filename))
     for key in default_options:
         if (not key in OPTIONS):
             OPTIONS[key] = default_options[key]
