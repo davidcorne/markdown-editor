@@ -2,28 +2,16 @@
 # Written by: DGC
 
 # python imports
-import sys
 import unittest
 
 # local imports
 import Integration
 
-import Log
 import MarkdownEditor
 
 #==============================================================================
-class utest_Integration(unittest.TestCase):
+class utest_Files(unittest.TestCase):
     
-    def test_run(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        editor = MarkdownEditor.MarkdownEditor([])
-
-    def test_updates(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        while (True):
-            if (app.updater.finished):
-                break
-
     def test_new_file(self):
         app = MarkdownEditor.MarkdownEditorApp([])
         editor = MarkdownEditor.MarkdownEditor([])

@@ -13,7 +13,8 @@ from utest.utest_html import *
 from utest.utest_SpellChecker import *
 
 try:
-    from Integration.utest_Integration import *
+    from Integration.utest_Files import *
+    from Integration.utest_App import *
 except ImportError:
     pass
 
