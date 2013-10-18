@@ -1626,10 +1626,10 @@ class MarkdownView(QtGui.QTextEdit):
         Adds word to the personal word list.
         """
         self.spelling_highlighter.dictionary.add(word)
+        logging.info("\"%s\" added to personal words list.", word)
         cursor = self.textCursor()
         self.spelling_highlighter.rehighlightBlock(cursor.block())
         
-
     def spelling_suggestions_actions(self, word):
         """
         Gives a menu with spelling suggestions
