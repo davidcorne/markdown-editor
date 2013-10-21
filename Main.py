@@ -50,7 +50,9 @@ def main():
     if (args.reset_user_conf):
         Configuration.reset_options()
     editor = MarkdownEditor.MarkdownEditor(args.files)
+    sys.exitfunc = lambda : logging.info("Program exited.")
     sys.exit(app.exec_())
+    
 
 #==============================================================================
 if (__name__ == "__main__"):
