@@ -28,4 +28,10 @@ if (__name__ == "__main__"):
     print("")
     with open(Log.log_file(), "r") as log_file:
         print(log_file.read())
-    sys.exit(not retval.result.wasSuccessful())
+    result = retval.result.wasSuccessful()
+    if (result):
+        print("PASS")
+    else:
+        print("FAIL")
+    # program has succeded if exit returns 0, so pass not result
+    sys.exit(not result)
