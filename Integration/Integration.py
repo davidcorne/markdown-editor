@@ -19,7 +19,7 @@ Resources.directory = lambda : os.path.dirname(__file__) + "/../Resources"
 import Configuration
 Configuration.user_options_file_path = lambda : os.path.dirname(__file__) + "/Options.pickle"
 Configuration.default_options_file_path = lambda : os.path.dirname(__file__) + "/Options.pickle"
-Configuration.user_defined_word_list_path = lambda : os.path.dirname(__file__) + "test.pwl"
+Configuration.user_defined_word_list_path = lambda : os.path.dirname(__file__) + "/test.pwl"
 Configuration.on_import()
 
 #==============================================================================
