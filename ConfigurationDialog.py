@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 
 import copy
+import logging
 import os
 
 from PyQt4 import QtGui, QtCore
@@ -173,8 +174,15 @@ class CSSConfig(QtGui.QDialog):
         css_dir = os.path.join(css_dir, directory)
         css_files = [s for s in os.listdir(css_dir) if s.endswith(".css")]
         user_css_dir = os.path.join(css_dir, "User")
+        logging.info("Looking for CSS directory: \"%s\"", user_css_dir)
         if (os.path.isdir(user_css_dir)):
             user_css_files = [s for s in os.listdir(user_css_dir) if s.endswith(".css")]
+            logging.info(
+                "User %s CSS files \"%s\" found at path: %s",
+                directory,
+                str(user_css_files),
+                user_css_dir
+                )
             css_files += user_css_files
         css_files = [os.path.splitext(md_file)[0] for md_file in css_files]
         return css_files
