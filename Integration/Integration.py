@@ -23,5 +23,15 @@ Configuration.user_defined_word_list_path = lambda : os.path.dirname(__file__) +
 Configuration.on_import()
 
 #==============================================================================
+def log_entry_exit(test_func):
+    #==========================================================================
+    def wrapper(*args):
+        logging.info("Entering: \"%s\"", test_func.__name__)
+        res = test_func(*args)
+        logging.info("Exiting: \"%s\"", test_func.__name__)
+        return res
+    return wrapper
+
+#==============================================================================
 if (__name__ == "__main__"):
     pass

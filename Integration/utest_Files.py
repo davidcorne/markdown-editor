@@ -12,6 +12,7 @@ import MarkdownEditor
 #==============================================================================
 class utest_Files(unittest.TestCase):
     
+    @Integration.log_entry_exit
     def test_new_file(self):
         app = MarkdownEditor.MarkdownEditorApp([])
         editor = MarkdownEditor.MarkdownEditor([])
@@ -34,6 +35,7 @@ This is a test of markdown.
         self.assertEqual(html.count("<p>"), 1)
         self.assertEqual(html.count("</p>"), 1)
 
+    @Integration.log_entry_exit
     def test_close_tabs(self):
         app = MarkdownEditor.MarkdownEditorApp([])
         editor = MarkdownEditor.MarkdownEditor([])
