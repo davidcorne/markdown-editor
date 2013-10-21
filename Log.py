@@ -19,6 +19,9 @@ import sys
 
 # local imports
 
+LOG_FORMAT = "%(levelname)-7s | %(asctime)s | %(message)s"
+LOG_TIME_FORMAT = "%d/%m/%y %M:%H:%S"
+
 #==============================================================================
 def __init_logfile():
     """
@@ -42,6 +45,23 @@ def log_file(__name=__init_logfile()):
     return __name
 
 #==============================================================================
+def add_file_log(path, log_format=LOG_FORMAT, log_time_format=LOG_TIME_FORMAT):
+    file_logger = logging.FileHandler(path)
+    formatter = logging.Formatter(log_format, log_time_format)
+    file_logger.setFormatter(formatter)
+    logging.getLogger('').addHandler(file_logger)
+
+#==============================================================================
+def add_console_log(log_format=LOG_FORMAT, log_time_format=LOG_TIME_FORMAT):
+    """
+    Add a handler to the default logger to write messages to std::out
+    """
+    console = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter(log_format, log_time_format)
+    console.setFormatter(formatter)
+    logging.getLogger('').addHandler(console)
+
+#==============================================================================
 def __on_import():
     """
     Private function sets up logging. Should only be run once, on import.
@@ -50,20 +70,10 @@ def __on_import():
     # only usful while debugging
     print(log_file_path)
     print("")
-    level = logging.DEBUG
-    log_format = "%(levelname)-7s | %(asctime)s | %(message)s"
-    time_format = "%d/%m/%y %M:%H:%S"
-    logging.basicConfig(
-        filename=log_file_path,
-        level=level,
-        format=log_format,
-        datefmt=time_format
-        )
-    # define a Handler which writes messages to std::out
-    console = logging.StreamHandler(sys.stdout)
-    formatter = logging.Formatter(log_format, time_format)
-    console.setFormatter(formatter)
-    logging.getLogger('').addHandler(console)
+    logger = logging.getLogger("")
+    logger.setLevel(logging.DEBUG)
+    add_file_log(log_file_path)
+    add_console_log()
     logging.info("Started logging.")
 
 __on_import()

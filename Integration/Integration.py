@@ -13,6 +13,10 @@ import sys
 # local imports
 sys.path.append("..")
 
+import Log
+logger = logging.getLogger("")
+logger.handlers = []
+Log.add_file_log(Log.log_file())
 import Resources
 Resources.directory = lambda : os.path.dirname(__file__) + "/../Resources"
 
