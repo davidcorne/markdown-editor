@@ -354,7 +354,6 @@ class ConfigurationDialog(QtGui.QDialog):
              QtGui.QDialogButtonBox.RestoreDefaults | 
              QtGui.QDialogButtonBox.Cancel
             )
-        self.bottom_buttons.clicked.connect(self.button_clicked)
         self.bottom_buttons.accepted.connect(self.save_and_close)
         self.bottom_buttons.rejected.connect(self.revert_and_close)
 
@@ -383,12 +382,6 @@ class ConfigurationDialog(QtGui.QDialog):
         self.css_config.reload_preview()
         self.md_config.reload_preview()
 
-    def button_clicked(self, button):
-        role = self.bottom_buttons.buttonRole(button)
-        if (role == QtGui.QDialogButtonBox.ResetRole):
-            Configuration.reset_options()
-        self.save_and_close()
-            
     def save_and_close(self):
         Configuration.save_options()
         self.close()
