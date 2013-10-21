@@ -15,6 +15,7 @@ from utest.utest_SpellChecker import *
 try:
     from Integration.utest_Files import *
     from Integration.utest_App import *
+    from Integration.utest_Edit import *
 except ImportError:
     pass
 
