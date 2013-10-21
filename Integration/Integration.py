@@ -32,7 +32,7 @@ def log_entry_exit(test_func):
     def wrapper(*args):
         logging.info("Entering: \"%s\"", test_func.__name__)
         res = test_func(*args)
-        logging.info("Exiting: \"%s\"", test_func.__name__)
+        logging.info("Exiting: \"%s\"\n\n", test_func.__name__)
         return res
     return wrapper
 
