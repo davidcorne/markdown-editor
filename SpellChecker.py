@@ -18,6 +18,7 @@ class Dict(object):
             "Enchant broker param \"enchant.myspell.dictionary.path\" = %s", 
             broker.get_param("enchant.myspell.dictionary.path")
             )
+        logging.info("Personal word list file: \"%s\"", word_list_path)
         self.dict = enchant.DictWithPWL(
             language,
             pwl=word_list_path,
