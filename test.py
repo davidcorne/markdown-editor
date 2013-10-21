@@ -2,9 +2,12 @@
 # Written by: DGC
 
 # python imports
+import sys
 import unittest
 
 # local imports
+import Log
+
 from utest.utest_Log import *
 from utest.utest_ImageConverter import *
 from utest.utest_Processor import *
@@ -21,4 +24,8 @@ except ImportError:
 
 #==============================================================================
 if (__name__ == "__main__"):
-    unittest.main(verbosity=2)
+    retval = unittest.main(verbosity=2, exit=False)
+    print("")
+    with open(Log.log_file(), "r") as log_file:
+        print(log_file.read())
+    sys.exit(not retval.result.wasSuccessful())
