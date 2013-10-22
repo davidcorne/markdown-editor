@@ -35,6 +35,16 @@ class utest_App(unittest.TestCase):
                 break
         self.assertTrue(app.updater.update_available)
 
+    @Integration.log_entry_exit
+    def test_help(self):
+        app = MarkdownEditor.MarkdownEditorApp([])
+        editor = MarkdownEditor.MarkdownEditor([])
+        editor.help.markdown_description()
+        editor.help.markdown_extra_description()
+        editor.help.markdown_all_description()
+        editor.help.codehilite_description()
+        editor.help.github_description()
+
 #==============================================================================
 if (__name__ == "__main__"):
     unittest.main(verbosity=2)
