@@ -15,8 +15,10 @@ from utest.utest_Processor import *
 from utest.utest_Updater import *
 from utest.utest_html import *
 from utest.utest_SpellChecker import *
+from utest.utest_Examples import *
 
 try:
+    from Integration.utest_ConfigurationDialog import *
     from Integration.utest_Files import *
     from Integration.utest_App import *
     from Integration.utest_Edit import *

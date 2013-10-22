@@ -450,7 +450,9 @@ class Preview(QtGui.QGroupBox):
 
     def reload(self):
         Configuration.load_processor()
-        html = MarkdownEditor.process_markdown(Examples.get_preview_markdown())
+        html = MarkdownEditor.process_markdown(
+            Examples.get_preview_markdown(Configuration.OPTIONS["processor"])
+            )
         self.preview.show_preview(html)
         
 #==============================================================================

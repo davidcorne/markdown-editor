@@ -5,8 +5,6 @@
 
 # local imports
 
-import Configuration
-
 GITHUB_FLAVOUR_PREVIEW = """
 # Github Flavoured Markdown #
 
@@ -316,8 +314,7 @@ PREVIEW_MARKDOWN = {
     }
 
 #==============================================================================
-def get_preview_markdown():
-    processor = Configuration.OPTIONS["processor"]
+def get_preview_markdown(processor):
     if (processor not in PREVIEW_MARKDOWN):
         processor = "markdown"
     return PREVIEW_MARKDOWN[processor]
