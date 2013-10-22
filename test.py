@@ -4,6 +4,7 @@
 # python imports
 import sys
 import unittest
+import time
 
 # local imports
 import Log
@@ -24,14 +25,21 @@ except ImportError:
 
 #==============================================================================
 if (__name__ == "__main__"):
+    start = time.time()
     retval = unittest.main(verbosity=2, exit=False)
     print("")
     with open(Log.log_file(), "r") as log_file:
         print(log_file.read())
     result = retval.result.wasSuccessful()
+    message = "FAIL "
     if (result):
-        print("PASS")
-    else:
-        print("FAIL")
+        message = "PASS"
+        logging.getLogger("").handlers = []
+        print("Removing log file"),
+        print(Log.log_file())
+        os.remove(Log.log_file())
+    message += ": " + str(time.time() - start)
+    print("")
+    print(message)
     # program has succeded if exit returns 0, so pass not result
     sys.exit(not result)
