@@ -17,14 +17,16 @@ import Version
 class Updater(object):
 
     def __init__(self):
-        self.finished = False
+        self.update_available = False
         self.thread = threading.Thread(target=self.check_update)
         self.thread.start()
 
+    @property
+    def finished(self):
+        return not self.thread.is_alive()
+
     def check_update(self):
-        self.finished = False
         self.update_available = new_version_available()
-        self.finished = True
 
 #==============================================================================
 def new_version_available():

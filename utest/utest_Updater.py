@@ -32,6 +32,13 @@ class utest_Updater(unittest.TestCase):
         xml = Updater.get_version_xml()
         self.assertIsNotNone(xml)
 
+    def test_async(self):
+        updater = Updater.Updater()
+        while (not updater.finished):
+            pass
+        self.assertFalse(updater.thread.is_alive())
+        self.assertTrue(updater.finished)
+        
 #==============================================================================
 if (__name__ == "__main__"):
     unittest.main(verbosity=2)
