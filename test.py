@@ -31,14 +31,13 @@ if (__name__ == "__main__"):
     with open(Log.log_file(), "r") as log_file:
         print(log_file.read())
     result = retval.result.wasSuccessful()
-    message = "FAIL "
+    message = "FAIL %s"
     if (result):
-        message = "PASS"
+        message = "PASS %s"
         logging.getLogger("").handlers = []
-        print("Removing log file"),
-        print(Log.log_file())
+        message += "\n\nRemoving log file: \"%s\"" %(Log.log_file())
         os.remove(Log.log_file())
-    message += ": " + str(time.time() - start)
+    message = message %(": " + str(time.time() - start))
     print("")
     print(message)
     # program has succeded if exit returns 0, so pass not result
