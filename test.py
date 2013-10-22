@@ -23,7 +23,7 @@ try:
     from Integration.itest_App import *
     from Integration.itest_Edit import *
 except ImportError:
-    pass
+    print("Integration tests not run due to ImportError.")
 
 #==============================================================================
 if (__name__ == "__main__"):
