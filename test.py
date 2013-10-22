@@ -18,10 +18,10 @@ from utest.utest_SpellChecker import *
 from utest.utest_Examples import *
 
 try:
-    from Integration.utest_ConfigurationDialog import *
-    from Integration.utest_Files import *
-    from Integration.utest_App import *
-    from Integration.utest_Edit import *
+    from Integration.itest_ConfigurationDialog import *
+    from Integration.itest_Files import *
+    from Integration.itest_App import *
+    from Integration.itest_Edit import *
 except ImportError:
     pass
 
