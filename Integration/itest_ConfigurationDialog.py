@@ -7,7 +7,7 @@ import unittest
 # local imports
 import Integration
 
-import MarkdownEditor
+import Main
 import ConfigurationDialog
 
 #==============================================================================
@@ -15,9 +15,8 @@ class utest_ConfigurationDialog(unittest.TestCase):
     
     @Integration.log_entry_exit
     def test_raise(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        editor = MarkdownEditor.MarkdownEditor([])
-        config_dialog = ConfigurationDialog.ConfigurationDialog(editor)
+        app = Main.run([])
+        config_dialog = ConfigurationDialog.ConfigurationDialog(app.editor)
 
 #==============================================================================
 if (__name__ == "__main__"):
