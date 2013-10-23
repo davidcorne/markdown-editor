@@ -9,19 +9,10 @@ import time
 # local imports
 import Log
 
-from utest.utest_Log import *
-from utest.utest_ImageConverter import *
-from utest.utest_Processor import *
-from utest.utest_Updater import *
-from utest.utest_html import *
-from utest.utest_SpellChecker import *
-from utest.utest_Examples import *
+from utest.test import *
 
 try:
-    from Integration.itest_ConfigurationDialog import *
-    from Integration.itest_Files import *
-    from Integration.itest_App import *
-    from Integration.itest_Edit import *
+    from Integration.test import *
 except ImportError:
     print("Integration tests not run due to ImportError.")
 
