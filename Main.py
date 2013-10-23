@@ -17,6 +17,7 @@ from UserText import USER_TEXT
 import Configuration
 import MarkdownEditor
 import HiddenImports
+import Log
 
 #==============================================================================
 def parse_args():
@@ -41,8 +42,15 @@ def parse_args():
 
 #==============================================================================
 def main():
+    Log.start_logging()
+    app = run()
+    sys.exitfunc = lambda : logging.info("Program exited.")
+    sys.exit(app.exec_())
+
+#==============================================================================
+def run():
     """
-    Parses the arguments, makes the app and editor
+    Parses the arguments, makes the app and editor. Returns the app.
     """
     app = MarkdownEditor.MarkdownEditorApp(sys.argv)
     args = parse_args()
@@ -50,9 +58,7 @@ def main():
     if (args.reset_user_conf):
         Configuration.reset_options()
     editor = MarkdownEditor.MarkdownEditor(args.files)
-    sys.exitfunc = lambda : logging.info("Program exited.")
-    sys.exit(app.exec_())
-    
+    return app
 
 #==============================================================================
 if (__name__ == "__main__"):

@@ -27,6 +27,11 @@ class utest_App(unittest.TestCase):
                 break
 
     @Integration.log_entry_exit
+    def test_main(self):
+        import Main
+        Main.run()
+
+    @Integration.log_entry_exit
     def test_update_ui(self):
         Version.WINDOWS_VERSION = -1
         app = MarkdownEditor.MarkdownEditorApp([])

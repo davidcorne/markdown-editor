@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # Written by: DGC
 
@@ -14,6 +15,7 @@ import sys
 sys.path.append("..")
 
 import Log
+Log.start_logging()
 logger = logging.getLogger("")
 logger.handlers = []
 Log.add_file_log(Log.log_file())

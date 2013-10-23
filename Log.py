@@ -4,8 +4,7 @@
 """
 A module to set up logging for this program.
 
-__init_logfile() should never be used outside this module, same with 
-__on_import().
+__init_logfile() should never be used outside this module.
 
 You should not need this unless you need the path to the log file. That is 
 gotten using log_file().
@@ -59,24 +58,23 @@ def add_console_log(log_format=LOG_FORMAT, log_time_format=LOG_TIME_FORMAT):
     console = logging.StreamHandler(sys.stdout)
     formatter = logging.Formatter(log_format, log_time_format)
     console.setFormatter(formatter)
-    logging.getLogger('').addHandler(console)
+    logging.getLogger("").addHandler(console)
 
 #==============================================================================
-def __on_import():
+def start_logging():
     """
-    Private function sets up logging. Should only be run once, on import.
+    Private function sets up logging. Should only be run once.
     """
     log_file_path = log_file()
     # only usful while debugging
     print(log_file_path)
     print("")
     logger = logging.getLogger("")
+    logger.handlers = []
     logger.setLevel(logging.DEBUG)
     add_file_log(log_file_path)
     add_console_log()
     logging.info("Started logging.")
-
-__on_import()
 
 #==============================================================================
 if (__name__ == "__main__"):
