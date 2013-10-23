@@ -139,9 +139,11 @@ def reset_options():
     """
     Also deletes the user specific file.
     """
+    logging.info("Reseting user options.")
     filename = user_options_file_path()
     if (os.path.isfile(filename)):
         os.remove(filename)
+        logging.info("Removed user option file \"%s\"", filename)
     read_options()
     load_processor()
 
