@@ -7,15 +7,15 @@ import unittest
 # local imports
 import Integration
 
-import MarkdownEditor
+import Main
 
 #==============================================================================
 class utest_Files(unittest.TestCase):
     
     @Integration.log_entry_exit
     def test_new_file(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        editor = MarkdownEditor.MarkdownEditor([])
+        app = Main.run([])
+        editor = app.editor
         self.assertEqual(editor.editor.count(), 0)
         editor.new_file()
         self.assertEqual(editor.editor.count(), 1)
@@ -37,8 +37,8 @@ This is a test of markdown.
 
     @Integration.log_entry_exit
     def test_close_tabs(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        editor = MarkdownEditor.MarkdownEditor([])
+        app = Main.run([])
+        editor = app.editor
         editor.new_file()
         editor.tab_close_requested(0)
         self.assertEqual(editor.editor.count(), 0)

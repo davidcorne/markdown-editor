@@ -9,15 +9,15 @@ from PyQt4 import QtGui
 # local imports
 import Integration
 
-import MarkdownEditor
+import Main
 
 #==============================================================================
 class utest_Edit(unittest.TestCase):
     
     @Integration.log_entry_exit
     def test_italise(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        editor = MarkdownEditor.MarkdownEditor([])
+        app = Main.run([])
+        editor = app.editor
         editor.new_file()
         document_frame = editor.editor.currentWidget()
         document = document_frame.text
@@ -34,8 +34,8 @@ class utest_Edit(unittest.TestCase):
 
     @Integration.log_entry_exit
     def test_bold(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        editor = MarkdownEditor.MarkdownEditor([])
+        app = Main.run([])
+        editor = app.editor
         editor.new_file()
         document_frame = editor.editor.currentWidget()
         document = document_frame.text
@@ -52,8 +52,8 @@ class utest_Edit(unittest.TestCase):
 
     @Integration.log_entry_exit
     def test_colour(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        editor = MarkdownEditor.MarkdownEditor([])
+        app = Main.run([])
+        editor = app.editor
         editor.new_file()
         document_frame = editor.editor.currentWidget()
         document = document_frame.text

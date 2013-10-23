@@ -14,50 +14,23 @@ import sys
 # local imports
 from UserText import USER_TEXT
 
-import Configuration
-import MarkdownEditor
+import App
 import HiddenImports
 import Log
 
 #==============================================================================
-def parse_args():
-    """
-    Gets the command line arguments and makes sense of them.
-    """
-    des = USER_TEXT["program_description"]
-    parser = argparse.ArgumentParser(description=des)
-    parser.add_argument(
-        "files",
-        metavar="file",
-        help=USER_TEXT["file_argument"],
-        nargs="*"
-        )
-    parser.add_argument(
-        "-r",
-        "--reset_user_conf",
-        help=USER_TEXT["reset_user_conf_help"],
-        action="store_true"
-        )
-    return parser.parse_args()
-
-#==============================================================================
 def main():
     Log.start_logging()
-    app = run()
+    app = run(sys.argv)
     sys.exitfunc = lambda : logging.info("Program exited.")
     sys.exit(app.exec_())
 
 #==============================================================================
-def run():
+def run(arguments):
     """
     Parses the arguments, makes the app and editor. Returns the app.
     """
-    app = MarkdownEditor.MarkdownEditorApp(sys.argv)
-    args = parse_args()
-    logging.info("Program started with arguments: " + unicode(args))
-    if (args.reset_user_conf):
-        Configuration.reset_options()
-    editor = MarkdownEditor.MarkdownEditor(args.files)
+    app = App.MarkdownEditorApp(arguments)
     return app
 
 #==============================================================================

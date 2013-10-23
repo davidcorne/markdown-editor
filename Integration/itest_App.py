@@ -7,8 +7,7 @@ import unittest
 # local imports
 import Integration
 
-import MarkdownEditor
-import UpdaterGui
+import Main
 import Version
 
 #==============================================================================
@@ -16,25 +15,19 @@ class utest_App(unittest.TestCase):
     
     @Integration.log_entry_exit
     def test_run(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        editor = MarkdownEditor.MarkdownEditor([])
+        app = Main.run([])
 
     @Integration.log_entry_exit
     def test_updates(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
+        app = Main.run([])
         while (True):
             if (app.updater.finished):
                 break
 
     @Integration.log_entry_exit
-    def test_main(self):
-        import Main
-        Main.run()
-
-    @Integration.log_entry_exit
     def test_update_ui(self):
         Version.WINDOWS_VERSION = -1
-        app = MarkdownEditor.MarkdownEditorApp([])
+        app = Main.run([])
         while (True):
             if (app.updater.finished):
                 break
@@ -42,8 +35,8 @@ class utest_App(unittest.TestCase):
 
     @Integration.log_entry_exit
     def test_help(self):
-        app = MarkdownEditor.MarkdownEditorApp([])
-        editor = MarkdownEditor.MarkdownEditor([])
+        app = Main.run([])
+        editor = app.editor
         editor.help.markdown_description()
         editor.help.markdown_extra_description()
         editor.help.markdown_all_description()

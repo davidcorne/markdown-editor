@@ -28,26 +28,6 @@ from UserText import USER_TEXT
 from ToolTips import TOOL_TIP
 
 #==============================================================================
-class MarkdownEditorApp(QtGui.QApplication):
-
-    def __init__(self, command_args):
-        super(MarkdownEditorApp, self).__init__(command_args)
-        self.setWindowIcon(QtGui.QIcon(Configuration.IMAGES["icon"]))
-        logging.info("Updater checking for updates.")
-        self.updater = Updater.Updater()
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.check_update_finished)
-        self.timer.start(50)
-
-    def check_update_finished(self):
-        if (self.updater.finished):
-            logging.info("Updater finished checking for updates.")
-            if (self.updater.update_available):
-                logging.info("Update available.")
-                UpdaterGui.raise_new_version_dialog()
-            self.timer.stop()
-
-#==============================================================================
 class DocumentTabBar(QtGui.QTabBar):
     
     def __init__(self):
