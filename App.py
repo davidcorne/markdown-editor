@@ -23,10 +23,10 @@ class MarkdownEditorApp(QtGui.QApplication):
         logging.info(
             "Application started with arguments: " + unicode(command_args)
             )
-        args = self.parse_command_args(command_args)
+        args = self.parse_command_args(command_args[1:])
         if (args.reset_user_conf):
             Configuration.reset_options()
-    
+
         self.setWindowIcon(QtGui.QIcon(Configuration.IMAGES["icon"]))
         self.editor = MarkdownEditor.MarkdownEditor(args.files)
 
@@ -54,7 +54,7 @@ class MarkdownEditorApp(QtGui.QApplication):
             help=USER_TEXT["reset_user_conf_help"],
             action="store_true"
             )
-        return parser.parse_args()
+        return parser.parse_args(args)
         
     def check_update_finished(self):
         if (self.updater.finished):

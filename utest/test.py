@@ -12,6 +12,7 @@ from utest_Updater import *
 from utest_html import *
 from utest_SpellChecker import *
 from utest_Examples import *
+from utest_Error import *
 
 #==============================================================================
 if (__name__ == "__main__"):

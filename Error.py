@@ -8,15 +8,16 @@ import traceback
 
 # local imports
 import Log
+import TestException
 
 #==============================================================================
 def get_user_text():
     """
     This is done here in case the user text file is not found.
     """
+    import Resources
     try:
         from UserText import USER_TEXT
-        import Resources
     except IOError:
         # The user text file has not been found, this is doing quite a lot in
         # an except block, but this SHOULD be safe.
@@ -101,6 +102,17 @@ def set_exception_handler():
 #==============================================================================
 def reset_exception_handler():
     sys.excepthook = sys.__excepthook__
+
+#==============================================================================
+def set_test_mode():
+    """
+    This puts the errors into test mode.
+    """
+    reset_exception_handler()
+    def new_show_error(message, detail=None, fatal=False):
+        raise TestException.TestException(message)
+    global show_error
+    show_error = new_show_error
 
 #==============================================================================
 if (__name__ == "__main__"):

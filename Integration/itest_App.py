@@ -8,6 +8,7 @@ import unittest
 import Integration
 
 import Main
+import TestException
 import Version
 
 #==============================================================================
@@ -43,6 +44,19 @@ class utest_App(unittest.TestCase):
         editor.help.codehilite_description()
         editor.help.github_description()
 
+    @Integration.log_entry_exit
+    def test_arguments(self):
+        args = [Integration.data_file("plain.md")]
+        app = Main.run(args)
+
+    @Integration.log_entry_exit
+    def test_incorrect_arguments(self):
+        self.assertRaises(
+            TestException.TestException,
+            Main.run, 
+            ["", "made-up"]
+            )
+        
 #==============================================================================
 if (__name__ == "__main__"):
     unittest.main(verbosity=2)

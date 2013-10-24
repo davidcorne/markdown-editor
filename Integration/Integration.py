@@ -14,13 +14,20 @@ import sys
 # local imports
 sys.path.append("..")
 
+import Error
+Error.set_test_mode()
+
 import Log
 Log.start_logging()
 logger = logging.getLogger("")
 logger.handlers = []
 Log.add_file_log(Log.log_file())
 import Resources
-Resources.directory = lambda : os.path.dirname(__file__) + "/../Resources"
+Resources.directory = lambda : os.path.join(
+    os.path.dirname(__file__),
+    "..",
+    "Resources"
+    )
 
 import Configuration
 Configuration.user_options_file_path = lambda : os.path.dirname(__file__) + "/Options.pickle"
@@ -37,6 +44,13 @@ def log_entry_exit(test_func):
         logging.info("Exiting: \"%s\"\n\n", test_func.__name__)
         return res
     return wrapper
+
+#==============================================================================
+def data_file(path):
+    """
+    Finds the file under /data/
+    """
+    return os.path.join(os.path.dirname(__file__), "data", path)
 
 #==============================================================================
 if (__name__ == "__main__"):
