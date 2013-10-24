@@ -50,7 +50,7 @@ URL=https://bitbucket.org/davidcorne/markdown-editor
 " > "Markdown Editor on the web.url"
 
 echo "Making windows installer" 
-makensis installer.nsi
+makensis bin/installer.nsi
 rm -f "Markdown Editor on the web.url"
 
 echo ""

@@ -13,7 +13,7 @@
 Name "Markdown Editor"
 
 ; The file to write
-OutFile "markdown-editor-downloads\setup.exe"
+OutFile "..\markdown-editor-downloads\setup.exe"
 
 ; The default installation directory
 InstallDir "$PROGRAMFILES\Markdown Editor"
@@ -57,10 +57,10 @@ Section "Markdown_Editor (required)"
   SetOutPath $INSTDIR
   
   ; Put file there
-  File "markdown-editor-downloads\EXE\mde.exe"
-  File /r /x "Resources" markdown-editor-downloads\EXE\*
-  File "Markdown Editor on the web.url"
-  File /r /x *_Options.pickle /x "User" /x "markdown-editor-downloads" "Resources"
+  File "..\markdown-editor-downloads\EXE\mde.exe"
+  File /r /x "..\Resources" ..\markdown-editor-downloads\EXE\*
+  File "..\Markdown Editor on the web.url"
+  File /r /x *_Options.pickle /x "User" /x "..\markdown-editor-downloads" "..\Resources"
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\NSIS_Markdown_Editor "Install_Dir" "$INSTDIR"
