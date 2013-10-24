@@ -3,6 +3,7 @@
 
 # python imports
 import sys
+import logging
 import unittest
 
 # local imports
@@ -36,6 +37,22 @@ class utest_Log(unittest.TestCase):
         path = Log.log_file()
         self.assertNotEqual(new_path, path)
         self.assertEqual(path, LOG)
+
+    def test_log(self):
+        Log.start_logging()
+        logging.debug("test_log: Test 1")
+        logging.info("test_log: Test 2")
+        logging.warning("test_log: Test 3")
+        with open(LOG, "r") as log_file:
+            content = log_file.read()
+        self.assertIn("DEBUG", content)
+        self.assertIn("test_log: Test 1", content)
+
+        self.assertIn("INFO", content)
+        self.assertIn("test_log: Test 2", content)
+
+        self.assertIn("WARNING", content)
+        self.assertIn("test_log: Test 3", content)
 
 #==============================================================================
 if (__name__ == "__main__"):
