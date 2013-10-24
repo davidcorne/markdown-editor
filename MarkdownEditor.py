@@ -67,6 +67,18 @@ class DocumentTabs(QtGui.QTabWidget):
         new_index = (self.currentIndex() - 1) % self.count()
         self.setCurrentIndex(new_index)        
         
+    def current_directory(self):
+        """
+        Returns the directory of the current tab. If there is not current tab,
+        returns ".".
+        """
+        directory = "."
+        if (self.count()):
+            current_file_path = self.currentWidget().file_path
+            if (current_file_path):
+                directory = os.path.dirname(current_file_path)
+        return directory
+
 #==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
 
@@ -881,7 +893,7 @@ class MarkdownEditor(QtGui.QMainWindow):
             file_path = QtGui.QFileDialog.getSaveFileName(
                 self,
                 "Save As",
-                ".",
+                self.editor.current_directory(),
                 Configuration.MARKDOWN_FILE_STRING
                 )
             if (file_path):
@@ -916,7 +928,7 @@ class MarkdownEditor(QtGui.QMainWindow):
         file_path = QtGui.QFileDialog.getOpenFileName(
             self,
             USER_TEXT["open_file"],
-            ".",
+            self.editor.current_directory(),
             Configuration.MARKDOWN_FILE_STRING
             )
         if (file_path):
@@ -1076,7 +1088,7 @@ class ImageDialog(QtGui.QDialog):
         file_path = QtGui.QFileDialog.getOpenFileName(
             self,
             USER_TEXT["browse_for_image"],
-            ".",
+            self.parentWidget().editor.current_directory(),
             Configuration.IMAGE_FILE_STRING
             )
         if (file_path):
@@ -1160,7 +1172,7 @@ class EmbedImageDialog(QtGui.QDialog):
         file_path = QtGui.QFileDialog.getOpenFileName(
             self,
             USER_TEXT["browse_for_image"],
-            ".",
+            self.parentWidget().editor.current_directory(),
             Configuration.IMAGE_FILE_STRING
             )
         if (file_path):
