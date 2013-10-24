@@ -73,6 +73,18 @@ This is a test of markdown.
         # we have deleted them all
         self.assertEqual(editor.editor.count(), 0)
 
+    @Integration.log_entry_exit
+    def test_command_line_files(self):
+        files = [
+            "",
+            Integration.data_file("plain.md"),
+            Integration.data_file("plain.md"),
+            Integration.data_file("plain.md"),
+            ]
+        app = Main.run(files)
+        self.assertEqual(app.editor.editor.count(), 3)
+            
+
 #==============================================================================
 if (__name__ == "__main__"):
     unittest.main(verbosity=2)
