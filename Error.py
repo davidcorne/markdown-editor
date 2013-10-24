@@ -8,7 +8,7 @@ import traceback
 
 # local imports
 import Log
-import TestException
+import Exceptions
 
 #==============================================================================
 def get_user_text():
@@ -110,7 +110,7 @@ def set_test_mode():
     """
     reset_exception_handler()
     def new_show_error(message, detail=None, fatal=False):
-        raise TestException.TestException(message)
+        raise Exceptions.TestException(message)
     global show_error
     show_error = new_show_error
 

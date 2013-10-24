@@ -8,7 +8,7 @@ import unittest
 import Integration
 
 import Main
-import TestException
+import Exceptions
 import Version
 
 #==============================================================================
@@ -52,7 +52,7 @@ class utest_App(unittest.TestCase):
     @Integration.log_entry_exit
     def test_incorrect_arguments(self):
         self.assertRaises(
-            TestException.TestException,
+            Exceptions.TestException,
             Main.run, 
             ["", "made-up"]
             )

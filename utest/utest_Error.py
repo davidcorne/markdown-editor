@@ -9,7 +9,7 @@ import unittest
 sys.path.append("..")
 
 import Error
-import TestException
+import Exceptions
 
 Error.set_test_mode()
 
@@ -22,7 +22,7 @@ class utest_Error(unittest.TestCase):
         """
         modules_imported = len(sys.modules)
         self.assertRaises(
-            TestException.TestException, 
+            Exceptions.TestException, 
             Error.show_error,
             "Test error."
             )
