@@ -6,6 +6,10 @@
 import Error
 Error.set_exception_handler()
 
+# next start logging.
+import Log
+Log.start_logging()
+
 # python imports
 import argparse
 import logging
@@ -20,7 +24,6 @@ import Log
 
 #==============================================================================
 def main():
-    Log.start_logging()
     app = run(sys.argv)
     sys.exitfunc = lambda : logging.info("Program exited.")
     sys.exit(app.exec_())
