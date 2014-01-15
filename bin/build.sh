@@ -14,13 +14,7 @@ hg clone https://davidcorne@bitbucket.org/davidcorne/markdown-editor-downloads
   exit
 fi
 
-# expand aliases
-shopt -s expand_aliases
-if [ -f ~/my_profile.ksh ]
-then
-  . ~/my_profile.ksh
-fi
-
+rm -rf dist
 pyinstaller -w --icon=Resources/Images/icon.ico Main.py
 rm -f Main.spec
 
