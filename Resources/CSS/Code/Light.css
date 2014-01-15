@@ -9,11 +9,11 @@
 ===============================================================================
   Comments 
 */
-.highlight .c  { color: ForestGreen; }                    /* Comment */
-.highlight .cm { color: ForestGreen; }                    /* Comment.Multiline */
-.highlight .cp { color: LightSteelBlue; }                 /* Comment.Preproc */
-.highlight .c1 { color: ForestGreen; }                    /* Comment.Single */
-.highlight .cs { color: ForestGreen; }                    /* Comment.Special */
+.highlight .c  { color: ForestGreen; }                  /* Comment */
+.highlight .cm { color: ForestGreen; }                  /* Comment.Multiline */
+.highlight .cp { color: LightSteelBlue; }               /* Comment.Preproc */
+.highlight .c1 { color: ForestGreen; }                  /* Comment.Single */
+.highlight .cs { color: ForestGreen; }                  /* Comment.Special */
 
 /* 
 ===============================================================================
