@@ -31,9 +31,9 @@ sS'embed_image'
 p15
 S' Embed a given image as bytes'
 p16
-sS'cut'
+sS'export_pdf'
 p17
-S' Cut the highlighted area to the clipboard'
+S' Export the current document as a pdf file'
 p18
 sS'print_rendered_html'
 p19
@@ -59,80 +59,72 @@ sS'italic'
 p29
 S' Surround the highlighted area with emphasis (_)'
 p30
-sS'show_log_file_location'
-p31
-S' Show the loction of the log file.'
-p32
 sS'print_menu'
-p33
+p31
 S' Opens the printing menu'
-p34
-sS'choose_colour'
-p35
-S' Raise a colour chooser dialog'
-p36
+p32
 sS'configure'
-p37
+p33
 S' Configure the program'
-p38
+p34
 sS'print_preview_raw_html'
-p39
+p35
 S' Shows a preview of the raw HTML code output before printing'
-p40
+p36
 sS'image_menu'
-p41
+p37
 S' Opens a list of image options'
-p42
+p38
 sS'undo'
-p43
+p39
 S' Undo the previous change'
-p44
-sS'export_pdf'
-p45
-S' Export the current document as a pdf file'
-p46
+p40
+sS'cut'
+p41
+S' Cut the highlighted area to the clipboard'
+p42
 sS'link'
-p47
+p43
 S' Insert a link with the link text of the surrounded area'
-p48
+p44
 sS'copy'
-p49
+p45
 S' Copy the highlighted area to the clipboard'
-p50
+p46
 sS'paste'
-p51
+p47
 S' Paste from the clipboard to the current cursor location'
-p52
+p48
 sS'set_colour'
-p53
+p49
 S' Set the colour of the highlighted area to this colour'
-p54
+p50
 sS'help_link'
-p55
+p51
 S' Opens the website for this product in your defualt browser'
-p56
+p52
 sS'close_file'
-p57
+p53
 S' Close the currently open document'
-p58
+p54
 sS'save_file'
-p59
+p55
 S' Save the current document'
-p60
+p56
 sS'print_preview_rendered_html'
-p61
+p57
 S' Shows a preview of the HTML output as it will be rendered by a browser before printing'
-p62
+p58
 sS'print_raw_html'
-p63
+p59
 S' Prints the raw HTML code output'
-p64
+p60
 sS'export_html'
-p65
+p61
 S' Export the current document as html'
-p66
+p62
 sS'print_markdown'
-p67
+p63
 S' Prints the markdown document'
-p68
+p64
 s.

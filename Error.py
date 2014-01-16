@@ -51,7 +51,8 @@ Along with the details below.
 
 #==============================================================================
 def exception_hook(exception_type, exception_value, trace):
-    message = get_user_text()["exception"]
+    USER_TEXT = get_user_text()
+    message = USER_TEXT["exception"]
     detail = traceback.format_exception(
         exception_type,
         exception_value,

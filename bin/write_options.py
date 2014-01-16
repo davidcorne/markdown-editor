@@ -12,6 +12,7 @@ import os
 import csv
 import pickle
 import sys
+import re
 
 # local imports
 
@@ -41,136 +42,6 @@ TEST_OPTIONS = {
 #    "language": "en_GB",
 }
 
-USER_TEXT_KEYS = [
-    "program_name",
-    "undo_redo_toolbar",
-    "format_toolbar",
-    "file_toolbar",
-    "edit_toolbar",
-    "edit_menu",
-    "tools_menu",
-    "file_menu",
-    "find_what",
-    "match_case",
-    "match_whole_words",
-    "search_backwards",
-    "find_title",
-    "replace_title",
-    "replace_with",
-    "replace",
-    "replace_all",
-    "find",
-    "close",
-    "close_file",
-    "options",
-    "copy" ,
-    "cut" ,
-    "paste" ,
-    "export_html" ,
-    "export_pdf" ,
-    "new_file" ,
-    "open_file" ,
-    "undo" ,
-    "redo" ,
-    "save_file" ,
-    "save_all" ,
-    "save_as" ,
-    "find_and_replace" ,
-    "select_all" ,
-    "saved",
-    "exception" ,
-    "insert_link",
-    "enter_link",
-    "link_image",
-    "embed_image",
-    "enter_image_location",
-    "image_location",
-    "enter_image_title",
-    "browse_for_image",
-    "current_document",
-    "save_changes?",
-    "made_changes",
-    "markdown",
-    "markdown_extra",
-    "markdown_all",
-    "codehilite",
-    "github_flavoured_markdown",
-    "show_html",
-    "misc",
-    "markdown_type",
-    "debug_options",
-    "css",
-    "style_name",
-    "code",
-    "preview",
-    "print",
-    "print_markdown",
-    "print_rendered_html",
-    "print_raw_html",
-    "print_preview_markdown",
-    "print_preview_rendered_html",
-    "print_preview_raw_html",
-    "show_line_numbers",
-    "other_options",
-    "help_menu",
-    "help_link",
-    "display_options",
-    "set_font",
-    "change_font",
-    "user_interface_import_fail",
-    "image_files_error",
-    "image_files_error_detail",
-    "code_css_class",
-    "program_description",
-    "reset_user_conf_help",
-    "file_argument",
-    "create_file_option",
-    "file_not_found",
-    "file_not_created",
-    "update_available",
-    "update_message",
-    "logging_file_location",
-    "log_file_location",
-    "add_to_dictionary",
-]
-
-TOOL_TIPS_KEYS = [
-    "bold",
-    "italic",
-    "code",
-    "choose_colour",
-    "close_file",
-    "configure",
-    "copy",
-    "cut",
-    "export_html",
-    "export_pdf",
-    "find_and_replace",
-    "new_file",
-    "open_file",
-    "paste",
-    "redo",
-    "save_all",
-    "save_as",
-    "save_file",
-    "select_all",
-    "set_colour",
-    "undo",
-    "link",
-    "link_image",
-    "embed_image",
-    "image_menu",
-    "print_menu",
-    "print_markdown",
-    "print_rendered_html",
-    "print_raw_html",
-    "print_preview_markdown",
-    "print_preview_rendered_html",
-    "print_preview_raw_html",
-    "help_link",
-    "show_log_file_location",
-]
-
 #==============================================================================
 def write_config_file(object, file_name, directory="Resources"):
     """
@@ -194,6 +65,16 @@ def write_options_files():
         directory="Resources/Languages"
     )
     write_config_file(TEST_OPTIONS, "Options.pickle", directory="Integration")
+
+#==============================================================================
+def verify_keys(file_name, keys, verifier):
+    keys = set(keys)
+    verifier = set(verifier)
+    difference = [k for k in keys if k not in verifier]
+    if (difference):
+        raise Exception(
+            "Bad key found in %s: %s" %(file_name, str(difference))
+        )
     
 #==============================================================================
 def write_user_strings(file_name, verifier):
@@ -202,11 +83,7 @@ def write_user_strings(file_name, verifier):
         for i, row in enumerate(table):
             if (i == 0):
                 keys = row[1:]
-                for verifier_key in verifier:
-                    if not verifier_key in keys:
-                        raise Exception(
-                            "%s not in %s keys" %(verifier_key, file_name)
-                        )
+                verify_keys(file_name, keys, verifier)
                 continue
             language = row[0]
             user_text = dict(zip(keys, row[1:]))
@@ -214,14 +91,36 @@ def write_user_strings(file_name, verifier):
                 user_text,
                 file_name + ".pickle", 
                 directory="Resources/Languages/" + language)
-    
+
+#==============================================================================
+def generate_keys(pattern):
+    keys = list()
+    for path in os.listdir("."):
+        if (path[-3:] == ".py"):
+            with open(path, "r") as py_file:
+                lines = py_file.readlines()
+            for line in lines:
+                if (pattern.lower() in line.lower()):
+                    match = re.search(".*" + pattern + "\[\"(.*)\"\]", line)
+                    if match:
+                        keys.append(match.group(1))
+    return keys
+
+#==============================================================================
+def generate_user_text_keys():    
+    return generate_keys("USER_TEXT")
+                    
+#==============================================================================
+def generate_tool_tips_keys():    
+    return generate_keys("TOOL_TIP")
+                    
 #==============================================================================
 def write_user_text():
-    write_user_strings("UserText", USER_TEXT_KEYS)
+    write_user_strings("UserText", generate_user_text_keys())
 
 #==============================================================================
 def write_tool_tips():
-    write_user_strings("ToolTips", TOOL_TIPS_KEYS)
+    write_user_strings("ToolTips", generate_tool_tips_keys())
     
 #==============================================================================
 if (__name__ == "__main__"):
