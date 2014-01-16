@@ -8,26 +8,29 @@ import logging
 
 # local imports
 import Resources
+import Localisation
 
 #==============================================================================
-def read_user_text(locale):
-    filename = os.path.join(
-        Resources.directory(), 
-        "Languages",
-        locale,
-        "UserText.pickle"
-    )
-    logging.info("Read user text from %s", filename)
-    with open(filename, "rb") as user_text_file:
-        user_text = pickle.load(user_text_file)
-    return user_text
+class UserText(dict):
 
-#==============================================================================
-# Run on import
-USER_TEXT = read_user_text("en_GB")
-keys = sorted(USER_TEXT.keys())
-for i in keys:
-    print i + ",", USER_TEXT[i]
+    def __init__(self, locale):
+        self.read(locale)
+
+    def read(self, locale):
+        filename = os.path.join(
+            Resources.directory(), 
+            "Languages",
+            locale,
+            "UserText.pickle"
+        )
+        logging.info("Read user text from %s", filename)
+        with open(filename, "rb") as user_text_file:
+            user_text = pickle.load(user_text_file)
+        for key in user_text:
+            self[key] = user_text[key]       
+
+    def language_changed(self, locale):
+        self.read(locale)
 
 #==============================================================================
 if (__name__ == "__main__"):

@@ -30,7 +30,7 @@ class utest_Localisation(unittest.TestCase):
         def __init__(self):
             self.notified = False
             
-        def language_changed(self):
+        def language_changed(self, language):
             self.notified = True
     
     def test_language(self):

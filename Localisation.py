@@ -52,7 +52,7 @@ class Localiser(object):
 
     def notify(self):
         for listener in self.listeners:
-            listener.language_changed()            
+            listener.language_changed(self.language())            
 
 #==============================================================================
 if (__name__ == "__main__"):

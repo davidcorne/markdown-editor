@@ -1,26 +1,15 @@
 #!/usr/bin/env python
 # Written by: DGC
 
-# done before any other imports in case of errors in them
-
-import Error
-Error.set_exception_handler()
-
-# next start logging.
-import Log
-Log.start_logging()
+# before everything else, setup
+import SetupEnv
 
 # python imports
-import argparse
 import logging
 import sys
 
 # local imports
-from UserText import USER_TEXT
-
 import App
-import HiddenImports
-import Log
 
 #==============================================================================
 def main():
