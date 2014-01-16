@@ -718,7 +718,10 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.editor.currentWidget().reload()
 
     def raise_configure_dialog(self):
-        config_dialog = ConfigurationDialog.ConfigurationDialog(self)
+        config_dialog = ConfigurationDialog.ConfigurationDialog(
+            self, 
+            self.localisation
+        )
         config_dialog.exec_()
         for i in range(self.editor.count()):
             self.editor.widget(i).set_font()
