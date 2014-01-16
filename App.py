@@ -14,6 +14,7 @@ import Configuration
 import Updater
 
 from UserText import USER_TEXT
+from ToolTips import TOOL_TIP
 
 #==============================================================================
 class MarkdownEditorApp(QtGui.QApplication):
@@ -27,9 +28,12 @@ class MarkdownEditorApp(QtGui.QApplication):
         args = self.parse_command_args(command_args[1:])
         if (args.reset_user_conf):
             Configuration.reset_options()
-
-        self.setWindowIcon(QtGui.QIcon(Configuration.IMAGES["icon"]))
         self.localisation = Localisation.Localiser()
+        self.localisation.listeners.append(USER_TEXT)
+        self.localisation.listeners.append(TOOL_TIP)
+        if (args.locale):
+            self.localisation.set_language(args.locale)
+        self.setWindowIcon(QtGui.QIcon(Configuration.IMAGES["icon"]))
         self.editor = MarkdownEditor.MarkdownEditor(
             args.files, 
             self.localisation
@@ -59,6 +63,11 @@ class MarkdownEditorApp(QtGui.QApplication):
             help=USER_TEXT["reset_user_conf_help"],
             action="store_true"
             )
+        parser.add_argument(
+            "-l",
+            "--locale",
+            help=USER_TEXT["set_locale"]
+        )
         return parser.parse_args(args)
         
     def check_update_finished(self):

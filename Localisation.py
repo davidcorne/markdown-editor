@@ -4,6 +4,7 @@
 # python imports
 import os
 import pickle
+import logging
 
 # local imports
 import Resources
@@ -45,6 +46,7 @@ class Localiser(object):
         self.options["language"] = language
         self.write_options()
         self.notify()
+        logging.info("Set locale to %s", language)
 
     def write_options(self):
         with open(self.language_file, "wb") as options_file:

@@ -302,54 +302,58 @@ sS'edit_toolbar'
 p150
 S' Edit Toolbar'
 p151
-sS'save_changes?'
+sS'set_locale'
 p152
-S' Do you want to save your changes?'
+S' Set locale'
 p153
-sS'export_pdf'
+sS'save_changes?'
 p154
-S' Export PDF'
+S' Do you want to save your changes?'
 p155
-sS'update_message'
+sS'export_pdf'
 p156
+S' Export PDF'
+p157
+sS'update_message'
+p158
 g90
 sS'select_all'
-p157
-S' Select All'
-p158
-sS'match_whole_words'
 p159
-S' Match &whole words'
+S' Select All'
 p160
-sS'help_menu'
+sS'match_whole_words'
 p161
-S' &Help'
+S' Match &whole words'
 p162
-sS'find'
+sS'help_menu'
 p163
-S' &Find'
+S' &Help'
 p164
-sS'log_file_location'
+sS'find'
 p165
-S' Log file location'
+S' &Find'
 p166
-sS'enter_image_location'
+sS'log_file_location'
 p167
-S' Enter the image location'
+S' Log file location'
 p168
-sS'image_location'
+sS'enter_image_location'
 p169
-S' The image location'
+S' Enter the image location'
 p170
-sS'print_preview_raw_html'
+sS'image_location'
 p171
-S' Print Preview Raw HTML Code'
+S' The image location'
 p172
-sS'logging_file_location'
+sS'print_preview_raw_html'
 p173
+S' Print Preview Raw HTML Code'
+p174
+sS'logging_file_location'
+p175
 g90
 sS'options'
-p174
+p176
 S' Options'
-p175
+p177
 s.
