@@ -279,7 +279,13 @@ class MiscConfig(QtGui.QDialog):
         
         language_group = QtGui.QGroupBox(USER_TEXT["change_language"])
         language_layout = QtGui.QHBoxLayout()
-        languages = [("united_kingdom", "en_GB"), ]
+        languages = [
+            ("united_kingdom", "en_GB"), 
+            ("united_states", "en_US"),
+            ("australia", "en_AU"),
+            ("france", "fr_FR"),
+            ("germany", "de_DE"),
+        ]
         for icon, locale in languages:
             language_button = QtGui.QPushButton()
             language_button.setIcon(QtGui.QIcon(Configuration.IMAGES[icon]))
@@ -308,7 +314,7 @@ class MiscConfig(QtGui.QDialog):
         self.setLayout(main_layout)
 
     def change_locale(self, locale):
-        print(locale)
+        logging.info(locale)
 
     def css_class_changed(self, value):
         Configuration.OPTIONS["code_css_class"] = unicode(value)
