@@ -15,345 +15,352 @@ sS'print_preview_markdown'
 p7
 S' Print Preview Markdown'
 p8
-sS'saved'
+sS'update_available'
 p9
-S' File saved'
+S'There is an update available to download.'
 p10
-sS'file_not_created'
+sS'saved'
 p11
-S' File %s could not be created.'
+S' File saved'
 p12
-sS'cut'
+sS'file_not_created'
 p13
-S' Cut'
+S' File %s could not be created.'
 p14
-sS'print_rendered_html'
+sS'cut'
 p15
-S' Print Rendered HTML'
+S' Cut'
 p16
-sS'search_backwards'
+sS'print_rendered_html'
 p17
-S' Search &backwards'
+S' Print Rendered HTML'
 p18
-sS'current_document'
+sS'search_backwards'
 p19
-S' the current document'
+S' Search &backwards'
 p20
-sS'create_file_option'
+sS'current_document'
 p21
-S' Creates any new files passed to the executable.'
+S' the current document'
 p22
-sS'enter_link'
+sS'create_file_option'
 p23
-S' Enter the destination URL'
+S' Creates any new files passed to the executable.'
 p24
-sS'made_changes'
+sS'enter_link'
 p25
-S' You have made changes to'
+S' Enter the destination URL'
 p26
-sS'image_files_error_detail'
+sS'made_changes'
 p27
-S' Images should be found at %s'
+S' You have made changes to'
 p28
-sS'add_to_dictionary'
+sS'image_files_error_detail'
 p29
-S' Add to dictionary'
+S' Images should be found at %s'
 p30
-sS'set_font'
+sS'add_to_dictionary'
 p31
-S' Set Font'
+S' Add to dictionary'
 p32
-sS'print_preview_rendered_html'
+sS'set_font'
 p33
-S' Print Preview Rendered HTML'
+S' Set Font'
 p34
-sS'print_raw_html'
+sS'print_preview_rendered_html'
 p35
-S' Print Raw HTML Code'
+S' Print Preview Rendered HTML'
 p36
-sS'css'
+sS'print_raw_html'
 p37
-S' CSS'
+S' Print Raw HTML Code'
 p38
-sS'replace_all'
+sS'css'
 p39
-S' Replace &all'
+S' CSS'
 p40
-sS'tools_menu'
+sS'replace_all'
 p41
-S' &Tools'
+S' Replace &all'
 p42
-sS'file_argument'
+sS'tools_menu'
 p43
-S' Files to open in MarkdownEditor'
+S' &Tools'
 p44
-sS'markdown_all'
+sS'file_argument'
 p45
-S' Markdown All'
+S' Files to open in MarkdownEditor'
 p46
-sS'close'
+sS'markdown_all'
 p47
-S' Close'
+S' Markdown All'
 p48
-sS'show_line_numbers'
+sS'close'
 p49
-S' Display Line Numbers'
+S' Close'
 p50
-sS'replace_title'
+sS'show_line_numbers'
 p51
-S' Replace'
+S' Display Line Numbers'
 p52
-sS'embed_image'
+sS'replace_title'
 p53
-S' Embed a given image as bytes'
+S' Replace'
 p54
-sS'format_toolbar'
+sS'embed_image'
 p55
-S' Format Toolbar'
+S' Embed a given image as bytes'
 p56
-sS'open_file'
+sS'format_toolbar'
 p57
-S' Open File'
+S' Format Toolbar'
 p58
-sS'replace_with'
+sS'open_file'
 p59
-S' Replace with:'
+S' Open File'
 p60
-sS'style_name'
+sS'replace_with'
 p61
-S' Style Name'
+S' Replace with:'
 p62
-sS'print'
+sS'style_name'
 p63
-S' Print'
+S' Style Name'
 p64
-sS'file_toolbar'
+sS'print'
 p65
-S' File Toolbar'
+S' Print'
 p66
-sS'new_file'
+sS'file_toolbar'
 p67
-S' New File'
+S' File Toolbar'
 p68
-sS'reset_user_conf_help'
+sS'new_file'
 p69
-S' Remove all the user configuration file.'
+S' New File'
 p70
-sS'change_font'
+sS'reset_user_conf_help'
 p71
-S' Change Editor Font'
+S' Remove all the user configuration file.'
 p72
-sS'undo'
+sS'change_font'
 p73
-S' Undo'
+S' Change Editor Font'
 p74
-sS'find_what'
+sS'undo'
 p75
-S' Find &what:'
+S' Undo'
 p76
-sS'github_flavoured_markdown'
+sS'find_what'
 p77
-S' Github Flavoured Markdown'
+S' Find &what:'
 p78
-sS'program_name'
+sS'github_flavoured_markdown'
 p79
-S' MarkdownEditor'
+S' Github Flavoured Markdown'
 p80
-sS'paste'
+sS'program_name'
 p81
-S' Paste'
+S' MarkdownEditor'
 p82
-sS'find_title'
+sS'paste'
 p83
-S' Find'
+S' Paste'
 p84
-sS'save_file'
+sS'find_title'
 p85
-S' Save'
+S' Find'
 p86
-sS'edit_menu'
+sS'save_file'
 p87
-S' &Edit'
+S' Save'
 p88
-sS'program_description'
+sS'edit_menu'
 p89
-S''
+S' &Edit'
 p90
-sS'print_markdown'
+sS'program_description'
 p91
-S'Print Markdown'
+S'This is a fully featured graphical editor for markdown.\\n\\nFor more information visit https://bitbucket.org/davidcorne/markdown-editor'
 p92
-sS'debug_options'
+sS'print_markdown'
 p93
-S' Debug Options'
+S'Print Markdown'
 p94
-sS'display_options'
+sS'debug_options'
 p95
-S' Display'
+S' Debug Options'
 p96
-sS'markdown'
+sS'display_options'
 p97
-S' Markdown'
+S' Display'
 p98
-sS'misc'
+sS'markdown'
 p99
-S' Miscellaneous'
+S' Markdown'
 p100
-sS'replace'
+sS'misc'
 p101
-S' &Replace'
+S' Miscellaneous'
 p102
-sS'match_case'
+sS'replace'
 p103
-S' Match &case'
+S' &Replace'
 p104
-sS'redo'
+sS'match_case'
 p105
-S' Redo'
+S' Match &case'
 p106
-sS'save_as'
+sS'redo'
 p107
-S' Save As'
+S' Redo'
 p108
-sS'link_image'
+sS'save_as'
 p109
-S' Insert a link to an external image'
+S' Save As'
 p110
-sS'file_menu'
+sS'link_image'
 p111
-S' &File'
+S' Insert a link to an external image'
 p112
-sS'undo_redo_toolbar'
+sS'file_menu'
 p113
-S' Undo Redo Toolbar'
+S' &File'
 p114
-sS'markdown_type'
+sS'undo_redo_toolbar'
 p115
-S' Markdown Type'
+S' Undo Redo Toolbar'
 p116
-sS'insert_link'
+sS'markdown_type'
 p117
-S' Insert Link'
+S' Markdown Type'
 p118
-sS'preview'
+sS'insert_link'
 p119
-S' Preview'
+S' Insert Link'
 p120
-sS'code_css_class'
+sS'preview'
 p121
-S' CSS class used for code.'
+S' Preview'
 p122
-sS'markdown_extra'
+sS'code_css_class'
 p123
-S' Markdown Extra'
+S' CSS class used for code.'
 p124
-sS'image_files_error'
+sS'markdown_extra'
 p125
-S' Image files not found.'
+S' Markdown Extra'
 p126
-sS'codehilite'
+sS'image_files_error'
 p127
-S' CodeHilite'
+S' Image files not found.'
 p128
-sS'copy'
+sS'codehilite'
 p129
-S' Copy'
+S' CodeHilite'
 p130
-sS'user_interface_import_fail'
+sS'copy'
 p131
-g90
-sS'exception'
+S' Copy'
 p132
-S' An internal error has occured.'
+sS'user_interface_import_fail'
 p133
-sS'help_link'
+S'There has been ar error in the user interface library loading.\\n\\nPlease report this at https://bitbucket.org/davidcorne/markdown-editor/issues'
 p134
-S' Markdown Editor On The Web'
+sS'exception'
 p135
-sS'close_file'
+S' An internal error has occured.'
 p136
-S' Close File'
+sS'help_link'
 p137
-sS'enter_image_title'
+S' Markdown Editor On The Web'
 p138
-S' Enter the image title (optional)'
+sS'close_file'
 p139
-sS'export_html'
+S' Close File'
 p140
-S' Export HTML'
+sS'enter_image_title'
 p141
-sS'show_html'
+S' Enter the image title (optional)'
 p142
-S' Show HTML'
+sS'export_html'
 p143
-sS'file_not_found'
+S' Export HTML'
 p144
-S' File %s does not exist.'
+sS'show_html'
 p145
-sS'browse_for_image'
+S' Show HTML'
 p146
-S' Browse for image'
+sS'file_not_found'
 p147
-sS'save_all'
+S' File %s does not exist.'
 p148
-S' Save All Files'
+sS'browse_for_image'
 p149
-sS'edit_toolbar'
+S' Browse for image'
 p150
-S' Edit Toolbar'
+sS'save_all'
 p151
-sS'set_locale'
+S' Save All Files'
 p152
-S' Set locale'
+sS'edit_toolbar'
 p153
-sS'save_changes?'
+S' Edit Toolbar'
 p154
-S' Do you want to save your changes?'
+sS'set_locale'
 p155
-sS'export_pdf'
+S' Set locale'
 p156
-S' Export PDF'
+sS'save_changes?'
 p157
-sS'update_message'
+S' Do you want to save your changes?'
 p158
-g90
-sS'select_all'
+sS'export_pdf'
 p159
-S' Select All'
+S' Export PDF'
 p160
-sS'match_whole_words'
+sS'update_message'
 p161
-S' Match &whole words'
+S'There is an update available to download from the <a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>'
 p162
-sS'help_menu'
+sS'select_all'
 p163
-S' &Help'
+S' Select All'
 p164
-sS'find'
+sS'match_whole_words'
 p165
-S' &Find'
+S' Match &whole words'
 p166
-sS'log_file_location'
+sS'help_menu'
 p167
-S' Log file location'
+S' &Help'
 p168
-sS'enter_image_location'
+sS'find'
 p169
-S' Enter the image location'
+S' &Find'
 p170
-sS'image_location'
+sS'log_file_location'
 p171
-S' The image location'
+S' Log file location'
 p172
-sS'print_preview_raw_html'
+sS'enter_image_location'
 p173
-S' Print Preview Raw HTML Code'
+S' Enter the image location'
 p174
-sS'logging_file_location'
+sS'image_location'
 p175
-g90
-sS'options'
+S' The image location'
 p176
-S' Options'
+sS'print_preview_raw_html'
 p177
+S' Print Preview Raw HTML Code'
+p178
+sS'logging_file_location'
+p179
+S'Logging file is located at path:\\n\\n%s'
+p180
+sS'options'
+p181
+S' Options'
+p182
 s.
