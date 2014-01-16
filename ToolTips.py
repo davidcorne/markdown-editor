@@ -8,30 +8,28 @@ import logging
 
 # local imports
 import Resources
-import Localisation
 
 #==============================================================================
-def read_tool_tip(locale):
-    filename = os.path.join(
-        Resources.directory(), 
-        "Languages",
-        locale,
-        "ToolTips.pickle"
-    )
-    logging.info("Read tool tips from %s", filename)
-    with open(filename, "rb") as tool_tip_file:
-        tool_tip = pickle.load(tool_tip_file)
-    return tool_tip
+class ToolTip(dict):
 
-#==============================================================================
-def set_tool_tip():
-    global TOOL_TIP
-    localiser = Localisation.Localiser()
-    TOOL_TIP = read_tool_tip(localiser.language())
+    def __init__(self, locale):
+        self.read(locale)
 
-#==============================================================================
-# Run on import
-set_tool_tip()
+    def read(self, locale):
+        filename = os.path.join(
+            Resources.directory(), 
+            "Languages",
+            locale,
+            "ToolTips.pickle"
+        )
+        logging.info("Read tool tips from %s", filename)
+        with open(filename, "rb") as tool_tips_file:
+            tool_tips = pickle.load(tool_tips_file)
+        for key in tool_tips:
+            self[key] = tool_tips[key]       
+
+    def language_changed(self, locale):
+        self.read(locale)
 
 #==============================================================================
 if (__name__ == "__main__"):

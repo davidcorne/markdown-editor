@@ -8,6 +8,7 @@ import logging
 from PyQt4 import QtGui, QtCore
 
 # local imports
+import Localisation
 import MarkdownEditor
 import Configuration
 import Updater
@@ -28,7 +29,11 @@ class MarkdownEditorApp(QtGui.QApplication):
             Configuration.reset_options()
 
         self.setWindowIcon(QtGui.QIcon(Configuration.IMAGES["icon"]))
-        self.editor = MarkdownEditor.MarkdownEditor(args.files)
+        self.localisation = Localisation.Localiser()
+        self.editor = MarkdownEditor.MarkdownEditor(
+            args.files, 
+            self.localisation
+        )
 
         logging.info("Updater checking for updates.")
         self.updater = Updater.Updater()

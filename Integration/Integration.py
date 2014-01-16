@@ -14,6 +14,8 @@ import sys
 # local imports
 sys.path.append("..")
 
+# now set up localisation
+
 import Error
 Error.set_test_mode()
 
@@ -28,6 +30,9 @@ Resources.directory = lambda : os.path.join(
     "..",
     "Resources"
     )
+
+# now we've setup the resource path we can setup the environment.
+import SetupEnv
 
 import Configuration
 Configuration.user_options_file_path = lambda : os.path.dirname(__file__) + "/Options.pickle"

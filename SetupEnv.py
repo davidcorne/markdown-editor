@@ -21,10 +21,10 @@ localisation = Localisation.Localiser()
 import UserText
 UserText.USER_TEXT = UserText.UserText(localisation.language())
 
-#import ToolTips
-#UserText.USER_TEXT = UserText.UserText(localisation.language())
+import ToolTips
+ToolTips.TOOL_TIP = ToolTips.ToolTip(localisation.language())
 
-
+del localisation
 
 import HiddenImports
 

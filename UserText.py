@@ -8,7 +8,6 @@ import logging
 
 # local imports
 import Resources
-import Localisation
 
 #==============================================================================
 class UserText(dict):
