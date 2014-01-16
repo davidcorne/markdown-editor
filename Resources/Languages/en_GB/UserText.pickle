@@ -1,0 +1,355 @@
+(dp0
+S'code'
+p1
+S' Code'
+p2
+sS'find_and_replace'
+p3
+S' Find and Replace'
+p4
+sS'other_options'
+p5
+S' Other Options'
+p6
+sS'print_preview_markdown'
+p7
+S' Print Preview Markdown'
+p8
+sS'saved'
+p9
+S' File saved'
+p10
+sS'file_not_created'
+p11
+S' File %s could not be created.'
+p12
+sS'cut'
+p13
+S' Cut'
+p14
+sS'print_rendered_html'
+p15
+S' Print Rendered HTML'
+p16
+sS'search_backwards'
+p17
+S' Search &backwards'
+p18
+sS'current_document'
+p19
+S' the current document'
+p20
+sS'create_file_option'
+p21
+S' Creates any new files passed to the executable.'
+p22
+sS'enter_link'
+p23
+S' Enter the destination URL'
+p24
+sS'made_changes'
+p25
+S' You have made changes to'
+p26
+sS'image_files_error_detail'
+p27
+S' Images should be found at %s'
+p28
+sS'add_to_dictionary'
+p29
+S' Add to dictionary'
+p30
+sS'set_font'
+p31
+S' Set Font'
+p32
+sS'print_preview_rendered_html'
+p33
+S' Print Preview Rendered HTML'
+p34
+sS'print_raw_html'
+p35
+S' Print Raw HTML Code'
+p36
+sS'css'
+p37
+S' CSS'
+p38
+sS'replace_all'
+p39
+S' Replace &all'
+p40
+sS'tools_menu'
+p41
+S' &Tools'
+p42
+sS'file_argument'
+p43
+S' Files to open in MarkdownEditor'
+p44
+sS'markdown_all'
+p45
+S' Markdown All'
+p46
+sS'close'
+p47
+S' Close'
+p48
+sS'show_line_numbers'
+p49
+S' Display Line Numbers'
+p50
+sS'replace_title'
+p51
+S' Replace'
+p52
+sS'embed_image'
+p53
+S' Embed a given image as bytes'
+p54
+sS'format_toolbar'
+p55
+S' Format Toolbar'
+p56
+sS'open_file'
+p57
+S' Open File'
+p58
+sS'replace_with'
+p59
+S' Replace with:'
+p60
+sS'style_name'
+p61
+S' Style Name'
+p62
+sS'print'
+p63
+S' Print'
+p64
+sS'file_toolbar'
+p65
+S' File Toolbar'
+p66
+sS'new_file'
+p67
+S' New File'
+p68
+sS'reset_user_conf_help'
+p69
+S' Remove all the user configuration file.'
+p70
+sS'change_font'
+p71
+S' Change Editor Font'
+p72
+sS'undo'
+p73
+S' Undo'
+p74
+sS'find_what'
+p75
+S' Find &what:'
+p76
+sS'github_flavoured_markdown'
+p77
+S' Github Flavoured Markdown'
+p78
+sS'program_name'
+p79
+S' MarkdownEditor'
+p80
+sS'paste'
+p81
+S' Paste'
+p82
+sS'find_title'
+p83
+S' Find'
+p84
+sS'save_file'
+p85
+S' Save'
+p86
+sS'edit_menu'
+p87
+S' &Edit'
+p88
+sS'program_description'
+p89
+S''
+p90
+sS'print_markdown'
+p91
+S'Print Markdown'
+p92
+sS'debug_options'
+p93
+S' Debug Options'
+p94
+sS'display_options'
+p95
+S' Display'
+p96
+sS'markdown'
+p97
+S' Markdown'
+p98
+sS'misc'
+p99
+S' Miscellaneous'
+p100
+sS'replace'
+p101
+S' &Replace'
+p102
+sS'match_case'
+p103
+S' Match &case'
+p104
+sS'redo'
+p105
+S' Redo'
+p106
+sS'save_as'
+p107
+S' Save As'
+p108
+sS'link_image'
+p109
+S' Insert a link to an external image'
+p110
+sS'file_menu'
+p111
+S' &File'
+p112
+sS'undo_redo_toolbar'
+p113
+S' Undo Redo Toolbar'
+p114
+sS'markdown_type'
+p115
+S' Markdown Type'
+p116
+sS'insert_link'
+p117
+S' Insert Link'
+p118
+sS'preview'
+p119
+S' Preview'
+p120
+sS'code_css_class'
+p121
+S' CSS class used for code.'
+p122
+sS'markdown_extra'
+p123
+S' Markdown Extra'
+p124
+sS'image_files_error'
+p125
+S' Image files not found.'
+p126
+sS'codehilite'
+p127
+S' CodeHilite'
+p128
+sS'copy'
+p129
+S' Copy'
+p130
+sS'user_interface_import_fail'
+p131
+g90
+sS'exception'
+p132
+S' An internal error has occured.'
+p133
+sS'help_link'
+p134
+S' Markdown Editor On The Web'
+p135
+sS'close_file'
+p136
+S' Close File'
+p137
+sS'enter_image_title'
+p138
+S' Enter the image title (optional)'
+p139
+sS'export_html'
+p140
+S' Export HTML'
+p141
+sS'show_html'
+p142
+S' Show HTML'
+p143
+sS'file_not_found'
+p144
+S' File %s does not exist.'
+p145
+sS'browse_for_image'
+p146
+S' Browse for image'
+p147
+sS'save_all'
+p148
+S' Save All Files'
+p149
+sS'edit_toolbar'
+p150
+S' Edit Toolbar'
+p151
+sS'save_changes?'
+p152
+S' Do you want to save your changes?'
+p153
+sS'export_pdf'
+p154
+S' Export PDF'
+p155
+sS'update_message'
+p156
+g90
+sS'select_all'
+p157
+S' Select All'
+p158
+sS'match_whole_words'
+p159
+S' Match &whole words'
+p160
+sS'help_menu'
+p161
+S' &Help'
+p162
+sS'find'
+p163
+S' &Find'
+p164
+sS'log_file_location'
+p165
+S' Log file location'
+p166
+sS'enter_image_location'
+p167
+S' Enter the image location'
+p168
+sS'image_location'
+p169
+S' The image location'
+p170
+sS'print_preview_raw_html'
+p171
+S' Print Preview Raw HTML Code'
+p172
+sS'logging_file_location'
+p173
+g90
+sS'options'
+p174
+S' Options'
+p175
+s.

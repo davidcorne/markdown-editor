@@ -9,6 +9,7 @@
 from __future__ import unicode_literals
 
 import os
+import csv
 import pickle
 import sys
 
@@ -22,8 +23,12 @@ OPTIONS = {
     "markdown_css": "Markdown",
     "display_line_numbers": False,
     "font": "Arial,12,-1,5,50,0,0,0,0,0",
-    "language": "en_GB",
     }
+
+LOCALISATION_OPTIONS = {
+    "language": "en_GB",
+    "available_languages": ["en_GB", "de_DE", "en_AU", "en_US", "fr_FR"],
+}
 
 TEST_OPTIONS = {
     "code_css": "", 
@@ -33,7 +38,7 @@ TEST_OPTIONS = {
     "markdown_css": "",
     "display_line_numbers": False,
     "font": "Arial,12,-1,5,50,0,0,0,0,0",
-    "language": "en_GB",
+#    "language": "en_GB",
 }
 
 USER_TEXT = {
@@ -132,7 +137,7 @@ For more information visit https://bitbucket.org/davidcorne/markdown-editor
     "file_not_created": "File %s could not be created.",
     "update_available": "Update Available",
     "update_message": """\
-There is an update available to download from the 
+There is an update available to download from the
 <a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>
 """,
     "logging_file_location": "Logging file is located at path:\n\n%s",
@@ -175,7 +180,7 @@ TOOL_TIPS = {
     "print_preview_raw_html": "Shows a preview of the raw HTML code output before printing",
     "help_link": "Opens the website for this product in your defualt browser",
     "show_log_file_location": "Show the loction of the log file.",
-    }
+}
 
 #==============================================================================
 def write_config_file(object, file_name, directory="Resources"):
@@ -194,15 +199,35 @@ def write_config_file(object, file_name, directory="Resources"):
 #==============================================================================
 def write_options_files():
     write_config_file(OPTIONS, "Options.pickle")
+    write_config_file(
+        LOCALISATION_OPTIONS, 
+        "Languages.pickle", 
+        directory="Resources/Languages"
+    )
     write_config_file(TEST_OPTIONS, "Options.pickle", directory="Integration")
     
 #==============================================================================
-def write_user_text():
-    write_config_file(USER_TEXT, "UserText.pickle")
+def write_user_strings(file_name):
+    with open("data/" + file_name + ".csv", "rb") as csvfile:
+        table = csv.reader(csvfile)
+        for i, row in enumerate(table):
+            if (i == 0):
+                keys = row[1:]
+                continue
+            language = row[0]
+            user_text = dict(zip(keys, row[1:]))
+            write_config_file(
+                user_text,
+                file_name + ".pickle", 
+                directory="Resources/Languages/" + language)
     
 #==============================================================================
+def write_user_text():
+    write_user_strings("UserText")
+
+#==============================================================================
 def write_tool_tips():
-    write_config_file(TOOL_TIPS, "ToolTips.pickle")
+    write_user_strings("ToolTips")
     
 #==============================================================================
 if (__name__ == "__main__"):

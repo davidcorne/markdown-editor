@@ -12,12 +12,12 @@ import Resources
 def read_tool_tips():
     filename = os.path.join(Resources.directory(), "ToolTips.pickle")
     with open(filename, "rb") as tool_tips_file:
-        global TOOL_TIP
-        TOOL_TIP = pickle.load(tool_tips_file)
+        tool_tips = pickle.load(tool_tips_file)
+    return tool_tips
 
 #==============================================================================
 # Run on import
-read_tool_tips()
+TOOL_TIP = read_tool_tips()
 
 #==============================================================================
 if (__name__ == "__main__"):
