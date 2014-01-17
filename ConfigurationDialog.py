@@ -204,7 +204,8 @@ class CSSConfig(QtGui.QDialog):
 #==============================================================================
 class MiscConfig(QtGui.QDialog):
 
-    def __init__(self, parent, reload_callback):
+    def __init__(self, parent, localisation, reload_callback):
+        self.localisation = localisation
         super(MiscConfig, self).__init__(parent)
         self.reload_callback = reload_callback
         
@@ -276,6 +277,28 @@ class MiscConfig(QtGui.QDialog):
         css_class_layout.addWidget(css_class_label)
         css_class_layout.addStretch(1)
 
+        
+        language_group = QtGui.QGroupBox(USER_TEXT["change_language"])
+        language_layout = QtGui.QHBoxLayout()
+        languages = [
+            ("united_kingdom", "en_GB"), 
+            ("united_states", "en_US"),
+            ("australia", "en_AU"),
+            ("france", "fr_FR"),
+            ("germany", "de_DE"),
+        ]
+        for icon, locale in languages:
+            language_button = QtGui.QPushButton()
+            language_button.setIcon(QtGui.QIcon(Configuration.IMAGES[icon]))
+            language_button.clicked.connect(
+                lambda val, locale=locale: self.change_locale(locale)
+            )
+            language_layout.addWidget(language_button)
+        language_layout.addStretch(1)
+        language_group.setLayout(language_layout)
+
+        self.original_locale = self.localisation.language()
+        
         other_layout = QtGui.QVBoxLayout()
         other_layout.addWidget(show_line_numbers)
         other_layout.addLayout(css_class_layout)
@@ -284,11 +307,20 @@ class MiscConfig(QtGui.QDialog):
 
         main_layout = QtGui.QVBoxLayout()
         main_layout.addWidget(display_group)
+        main_layout.addWidget(language_group)
         main_layout.addWidget(other_group)
         main_layout.addWidget(debug_group)
         main_layout.addStretch(1)
 
         self.setLayout(main_layout)
+
+    def change_locale(self, locale):
+        self.localisation.set_language(locale)
+        QtGui.QMessageBox.information(
+            self,
+            USER_TEXT["restart"],
+            USER_TEXT["restart_effect"]
+        )
 
     def css_class_changed(self, value):
         Configuration.OPTIONS["code_css_class"] = unicode(value)
@@ -329,13 +361,14 @@ class MiscConfig(QtGui.QDialog):
 
     def revert(self):
         Configuration.OPTIONS["code_css_class"] = self.original_css_class
+        self.change_locale(self.original_locale)
     
 #==============================================================================
 class ConfigurationDialog(QtGui.QDialog):
 
     OPEN_PAGE = 0
 
-    def __init__(self, parent=None):
+    def __init__(self, parent, localisation):
         super(ConfigurationDialog, self).__init__(parent)
 
         self.original_config = copy.copy(Configuration.OPTIONS)
@@ -350,7 +383,7 @@ class ConfigurationDialog(QtGui.QDialog):
         self.pages = QtGui.QStackedWidget()
         self.css_config = CSSConfig(self, self.reload_previews)
         self.md_config = MarkdownConfig(self, self.reload_previews)
-        self.misc_config = MiscConfig(self, self.reload_previews)
+        self.misc_config = MiscConfig(self, localisation, self.reload_previews)
 
         self.pages.addWidget(self.md_config)
         self.pages.addWidget(self.css_config)

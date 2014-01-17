@@ -19,6 +19,7 @@ import ConfigurationDialog
 import Error
 import Examples
 import Find
+import Localisation
 import Log
 import ImageConverter
 import ImageDialog
@@ -84,7 +85,7 @@ class DocumentTabs(QtGui.QTabWidget):
 #==============================================================================
 class MarkdownEditor(QtGui.QMainWindow):
 
-    def __init__(self, files):
+    def __init__(self, files, localisation):
         """
         files is an iterable of files to open.
         """
@@ -94,6 +95,8 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.initialise_UI()
         self.setCentralWidget(self.editor)
         
+        self.localisation = localisation
+
         for markdown in files:
             try:
                 self.open_file(markdown)
@@ -715,7 +718,10 @@ class MarkdownEditor(QtGui.QMainWindow):
         self.editor.currentWidget().reload()
 
     def raise_configure_dialog(self):
-        config_dialog = ConfigurationDialog.ConfigurationDialog(self)
+        config_dialog = ConfigurationDialog.ConfigurationDialog(
+            self, 
+            self.localisation
+        )
         config_dialog.exec_()
         for i in range(self.editor.count()):
             self.editor.widget(i).set_font()
@@ -1029,11 +1035,16 @@ class ColourButton(QtGui.QToolButton):
 #==============================================================================
 class SpellingErrorHighlighter(QtGui.QSyntaxHighlighter):
 
-    def __init__(self, document):
+    def __init__(self, document, localisation):
         super(SpellingErrorHighlighter, self).__init__(document)
+        self.localisation = localisation
+        self.localisation.listeners.append(self)
+        self.initialise()
+
+    def initialise(self):
         spell_checker = SpellChecker.Dict(
-            Configuration.OPTIONS["language"], 
-            Configuration.language_directory(),
+            self.localisation.language(), 
+            Localisation.language_directory(),
             Configuration.user_defined_word_list_path(),
             )
         self.dictionary = spell_checker.dict
@@ -1042,6 +1053,9 @@ class SpellingErrorHighlighter(QtGui.QSyntaxHighlighter):
         self.incorrect_word_format.setUnderlineStyle(
             QtGui.QTextCharFormat.SpellCheckUnderline
             )
+
+    def language_changed(self, locale):
+        self.initialise()
 
     def highlightBlock(self, text):
         """
@@ -1130,7 +1144,7 @@ class DocumentFrameView(QtGui.QWidget):
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.text_changed)
 
-        self.text = MarkdownView(self, self.sync_scrollbars, self.reload)
+        self.text = MarkdownView(self, parent.localisation, self.sync_scrollbars, self.reload)
 
         self.output = MarkdownPreview(self)
         QtCore.QObject.connect(
@@ -1240,12 +1254,15 @@ class DocumentFrameView(QtGui.QWidget):
 #==============================================================================
 class MarkdownView(QtGui.QTextEdit):
 
-    def __init__(self, parent, scroll_callback, text_changed):
+    def __init__(self, parent, localisation, scroll_callback, text_changed):
         super(MarkdownView, self).__init__(parent)
         self.verticalScrollBar().valueChanged.connect(scroll_callback)
         self.setAcceptRichText(False)
         self.textChanged.connect(text_changed)
-        self.spelling_highlighter = SpellingErrorHighlighter(self.document())
+        self.spelling_highlighter = SpellingErrorHighlighter(
+            self.document(),
+            localisation
+        )
 
     def mousePressEvent(self, event):
         """

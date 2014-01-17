@@ -14,6 +14,16 @@ import sys
 # local imports
 sys.path.append("..")
 
+import Resources
+Resources.directory = lambda : os.path.join(
+    os.path.dirname(__file__),
+    "..",
+    "Resources"
+    )
+
+# now we've setup the resource path we can setup the environment.
+import SetupEnv
+
 import Error
 Error.set_test_mode()
 
@@ -22,14 +32,9 @@ Log.start_logging()
 logger = logging.getLogger("")
 logger.handlers = []
 Log.add_file_log(Log.log_file())
-import Resources
-Resources.directory = lambda : os.path.join(
-    os.path.dirname(__file__),
-    "..",
-    "Resources"
-    )
 
 import Configuration
+
 Configuration.user_options_file_path = lambda : os.path.dirname(__file__) + "/Options.pickle"
 Configuration.default_options_file_path = lambda : os.path.dirname(__file__) + "/Options.pickle"
 Configuration.user_defined_word_list_path = lambda : os.path.dirname(__file__) + "/test.pwl"

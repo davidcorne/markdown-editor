@@ -4,20 +4,32 @@
 # python imports
 import os
 import pickle
+import logging
 
 # local imports
 import Resources
 
 #==============================================================================
-def read_user_text():
-    filename = os.path.join(Resources.directory(), "UserText.pickle")
-    with open(filename, "rb") as user_text_file:
-        global USER_TEXT
-        USER_TEXT = pickle.load(user_text_file)
+class UserText(dict):
 
-#==============================================================================
-# Run on import
-read_user_text()
+    def __init__(self, locale):
+        self.read(locale)
+
+    def read(self, locale):
+        filename = os.path.join(
+            Resources.directory(), 
+            "Languages",
+            locale,
+            "UserText.pickle"
+        )
+        logging.info("Read user text from %s", filename)
+        with open(filename, "rb") as user_text_file:
+            user_text = pickle.load(user_text_file)
+        for key in user_text:
+            self[key] = user_text[key]       
+
+    def language_changed(self, locale):
+        self.read(locale)
 
 #==============================================================================
 if (__name__ == "__main__"):

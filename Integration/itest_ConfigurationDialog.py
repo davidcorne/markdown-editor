@@ -16,7 +16,10 @@ class utest_ConfigurationDialog(unittest.TestCase):
     @Integration.log_entry_exit
     def test_raise(self):
         app = Main.run([])
-        config_dialog = ConfigurationDialog.ConfigurationDialog(app.editor)
+        config_dialog = ConfigurationDialog.ConfigurationDialog(
+            app.editor,
+            app.localisation
+        )
 
 #==============================================================================
 if (__name__ == "__main__"):

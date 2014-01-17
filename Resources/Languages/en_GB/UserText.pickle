@@ -1,0 +1,358 @@
+(dp0
+S'code'
+p1
+S' Code'
+p2
+sS'find_and_replace'
+p3
+S' Find and Replace'
+p4
+sS'other_options'
+p5
+S' Other Options'
+p6
+sS'print_preview_markdown'
+p7
+S' Print Preview Markdown'
+p8
+sS'update_available'
+p9
+S'Update Available'
+p10
+sS'saved'
+p11
+S' File saved'
+p12
+sS'find'
+p13
+S' &Find'
+p14
+sS'cut'
+p15
+S' Cut'
+p16
+sS'print_rendered_html'
+p17
+S' Print Rendered HTML'
+p18
+sS'search_backwards'
+p19
+S' Search &backwards'
+p20
+sS'current_document'
+p21
+S' the current document'
+p22
+sS'enter_link'
+p23
+S' Enter the destination URL'
+p24
+sS'made_changes'
+p25
+S' You have made changes to'
+p26
+sS'image_files_error_detail'
+p27
+S' Images should be found at %s'
+p28
+sS'restart'
+p29
+S'Restart'
+p30
+sS'add_to_dictionary'
+p31
+S' Add to dictionary'
+p32
+sS'print_preview_rendered_html'
+p33
+S' Print Preview Rendered HTML'
+p34
+sS'print_raw_html'
+p35
+S' Print Raw HTML Code'
+p36
+sS'css'
+p37
+S' CSS'
+p38
+sS'replace_all'
+p39
+S' Replace &all'
+p40
+sS'tools_menu'
+p41
+S' &Tools'
+p42
+sS'file_argument'
+p43
+S' Files to open in MarkdownEditor'
+p44
+sS'markdown_all'
+p45
+S' Markdown All'
+p46
+sS'close'
+p47
+S' Close'
+p48
+sS'show_line_numbers'
+p49
+S' Display Line Numbers'
+p50
+sS'replace_title'
+p51
+S' Replace'
+p52
+sS'embed_image'
+p53
+S' Embed a given image as bytes'
+p54
+sS'format_toolbar'
+p55
+S' Format Toolbar'
+p56
+sS'open_file'
+p57
+S' Open File'
+p58
+sS'restart_effect'
+p59
+S'You must restart this appliction for the change to take full effect.'
+p60
+sS'replace_with'
+p61
+S' Replace with:'
+p62
+sS'style_name'
+p63
+S' Style Name'
+p64
+sS'print'
+p65
+S' Print'
+p66
+sS'file_toolbar'
+p67
+S' File Toolbar'
+p68
+sS'new_file'
+p69
+S' New File'
+p70
+sS'reset_user_conf_help'
+p71
+S' Remove all the user configuration file.'
+p72
+sS'change_font'
+p73
+S' Change Editor Font'
+p74
+sS'undo'
+p75
+S' Undo'
+p76
+sS'find_what'
+p77
+S' Find &what:'
+p78
+sS'github_flavoured_markdown'
+p79
+S' Github Flavoured Markdown'
+p80
+sS'program_name'
+p81
+S' MarkdownEditor'
+p82
+sS'paste'
+p83
+S' Paste'
+p84
+sS'find_title'
+p85
+S' Find'
+p86
+sS'save_file'
+p87
+S' Save'
+p88
+sS'edit_menu'
+p89
+S' &Edit'
+p90
+sS'program_description'
+p91
+S'This is a fully featured graphical editor for markdown.\\n\\nFor more information visit https://bitbucket.org/davidcorne/markdown-editor'
+p92
+sS'options'
+p93
+S' Options'
+p94
+sS'debug_options'
+p95
+S' Debug Options'
+p96
+sS'display_options'
+p97
+S' Display'
+p98
+sS'markdown'
+p99
+S' Markdown'
+p100
+sS'misc'
+p101
+S' Miscellaneous'
+p102
+sS'replace'
+p103
+S' &Replace'
+p104
+sS'match_case'
+p105
+S' Match &case'
+p106
+sS'redo'
+p107
+S' Redo'
+p108
+sS'save_as'
+p109
+S' Save As'
+p110
+sS'link_image'
+p111
+S' Insert a link to an external image'
+p112
+sS'file_menu'
+p113
+S' &File'
+p114
+sS'undo_redo_toolbar'
+p115
+S' Undo Redo Toolbar'
+p116
+sS'markdown_type'
+p117
+S' Markdown Type'
+p118
+sS'insert_link'
+p119
+S' Insert Link'
+p120
+sS'preview'
+p121
+S' Preview'
+p122
+sS'code_css_class'
+p123
+S' CSS class used for code.'
+p124
+sS'markdown_extra'
+p125
+S' Markdown Extra'
+p126
+sS'image_files_error'
+p127
+S' Image files not found.'
+p128
+sS'codehilite'
+p129
+S' CodeHilite'
+p130
+sS'copy'
+p131
+S' Copy'
+p132
+sS'exception'
+p133
+S' An internal error has occured.'
+p134
+sS'help_link'
+p135
+S' Markdown Editor On The Web'
+p136
+sS'close_file'
+p137
+S' Close File'
+p138
+sS'enter_image_title'
+p139
+S' Enter the image title (optional)'
+p140
+sS'export_html'
+p141
+S' Export HTML'
+p142
+sS'show_html'
+p143
+S' Show HTML'
+p144
+sS'file_not_found'
+p145
+S' File %s does not exist.'
+p146
+sS'browse_for_image'
+p147
+S' Browse for image'
+p148
+sS'save_all'
+p149
+S' Save All Files'
+p150
+sS'edit_toolbar'
+p151
+S' Edit Toolbar'
+p152
+sS'save_changes?'
+p153
+S' Do you want to save your changes?'
+p154
+sS'export_pdf'
+p155
+S' Export PDF'
+p156
+sS'update_message'
+p157
+S'There is an update available to download from the <a href="https://bitbucket.org/davidcorne/markdown-editor-downloads/src/tip/setup.exe?at=default">download site</a>'
+p158
+sS'select_all'
+p159
+S' Select All'
+p160
+sS'match_whole_words'
+p161
+S' Match &whole words'
+p162
+sS'help_menu'
+p163
+S' &Help'
+p164
+sS'log_file_location'
+p165
+S' Log file location'
+p166
+sS'enter_image_location'
+p167
+S' Enter the image location'
+p168
+sS'change_language'
+p169
+S'Change Language'
+p170
+sS'print_preview_raw_html'
+p171
+S' Print Preview Raw HTML Code'
+p172
+sS'logging_file_location'
+p173
+S'Logging file is located at path:\\n\\n%s'
+p174
+sS'print_markdown'
+p175
+S'Print Markdown'
+p176
+sS'set_locale'
+p177
+S' Set locale'
+p178
+s.
