@@ -4,6 +4,7 @@
 # python imports
 import argparse
 import logging
+import sys
 
 from PyQt4 import QtGui, QtCore
 
@@ -46,6 +47,13 @@ class MarkdownEditorApp(QtGui.QApplication):
             self.localisation
         )
 
+        if (args.command):
+            input_file = args.command[0]
+            output_file = args.command[1]
+            CommandLineMarkdownApp(input_file, output_file).run()
+            self.editor.hide()
+            sys.exit()
+
         logging.info("Updater checking for updates.")
         self.updater = Updater.Updater()
         self.timer = QtCore.QTimer(self)
@@ -78,6 +86,16 @@ class MarkdownEditorApp(QtGui.QApplication):
             "--locale",
             help=USER_TEXT["set_locale"]
         )
+        parser.add_argument(
+            "-cmd",
+            "--command",
+            nargs=2,
+            metavar=(
+                USER_TEXT["command_line_mode_input"],
+                USER_TEXT["command_line_mode_output"]
+            ),
+            help=USER_TEXT["command_line_mode"]
+        )
         return parser.parse_args(args)
         
     def check_update_finished(self):
@@ -91,6 +109,30 @@ class MarkdownEditorApp(QtGui.QApplication):
     def __del__(self):
         self.localisation.listeners.remove(self)
         super(MarkdownEditorApp, self).__del__()
+
+#==============================================================================
+class CommandLineMarkdownApp(object):
+    """
+    This deals with the command line application concerns.
+    """
+    
+    def __init__(self, input_file, output_file):
+        logging.info("Command line application started.")
+        import Error
+        Error.reset_exception_handler()
+        self.input_file = input_file
+        self.output_file = output_file
+
+    def run(self):
+        with open(self.input_file, "r") as markdown_file:
+            text = markdown_file.read()
+        html = MarkdownEditor.process_markdown(text)
+        with open(self.output_file, "w") as html_file:
+            html_file.write(html)
+        logging.info("Markdown in {0} converted and written to {1}".format(
+            self.input_file,
+            self.output_file
+        ))
 
 #==============================================================================
 if (__name__ == "__main__"):
