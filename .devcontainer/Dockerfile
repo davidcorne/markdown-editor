@@ -1,10 +1,8 @@
 FROM debian:latest
 
-# Set the working directory to /mde
-WORKDIR /mde
+# Copy the requirements into the container at /
+COPY requirements.txt /
 
-# Copy the current directory contents into the container at /app
-COPY . /mde
 # Update apt sources
 RUN echo 'deb http://ftp.utexas.edu/debian/ jessie main contrib' |tee -a /etc/apt/sources.list
 RUN echo 'deb-src http://ftp.utexas.edu/debian/ jessie main contrib' |tee -a /etc/apt/sources.list
@@ -30,4 +28,7 @@ RUN apt-get update && \
 
 # Clean packages
 RUN apt-get clean
+
+# Now set the working directory to /mde ready to have the project mounted there
+WORKDIR /mde
 
